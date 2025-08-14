@@ -1,4 +1,4 @@
-package tecnologo.culturarte;
+package Logica;
 
 public class Categoria {
     String nombre;

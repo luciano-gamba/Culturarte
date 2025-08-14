@@ -1,4 +1,4 @@
-package tecnologo.culturarte;
+package Logica;
 
 public enum EnumEstado {
     INGRESADA,

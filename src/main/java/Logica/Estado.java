@@ -1,4 +1,4 @@
-package tecnologo.culturarte;
+package Logica;
 
 import java.time.LocalDate;
 
