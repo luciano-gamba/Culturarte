@@ -1,4 +1,4 @@
-package tecnologo.culturarte;
+package Logica;
 
 public class Colaborador extends Usuario {
     
