@@ -1,0 +1,9 @@
+package tecnologo.culturarte;
+
+public class Proponente extends Usuario {
+    String direccion;
+    String biografia = "";
+    String sitioWeb = "";
+    
+    
+}
