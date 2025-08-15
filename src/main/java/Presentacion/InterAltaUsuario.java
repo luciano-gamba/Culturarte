@@ -4,16 +4,25 @@
  */
 package Presentacion;
 
+import Logica.IControlador;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author nahud
  */
 public class InterAltaUsuario extends javax.swing.JInternalFrame {
 
+    private final IControlador ic;
     /**
      * Creates new form InterAltaUsuario
+     * @param ic
      */
-    public InterAltaUsuario() {
+    public InterAltaUsuario(IControlador ic) {
+        this.ic = ic;
         initComponents();
     }
 
@@ -26,21 +35,127 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        textoNickame = new javax.swing.JTextField();
+        bgTipoUsuario = new javax.swing.ButtonGroup();
+        labelNickname = new javax.swing.JLabel();
+        textoNickname = new javax.swing.JTextField();
+        labelTitulo = new javax.swing.JLabel();
+        labelNombre = new javax.swing.JLabel();
+        textoNombre = new javax.swing.JTextField();
+        textoEmail = new javax.swing.JTextField();
+        labelApellido = new javax.swing.JLabel();
+        labelEmail = new javax.swing.JLabel();
+        textoApellido = new javax.swing.JTextField();
+        botonCancelar = new javax.swing.JButton();
+        botonAceptar = new javax.swing.JButton();
+        labelFecNac = new javax.swing.JLabel();
+        rbProponente = new javax.swing.JRadioButton();
+        rbColaborador = new javax.swing.JRadioButton();
+        spinnerFecNac = new javax.swing.JSpinner();
+        labelDireccion = new javax.swing.JLabel();
+        textoDireccion = new javax.swing.JTextField();
+        jScrollPaneBio = new javax.swing.JScrollPane();
+        textoBiografia = new javax.swing.JTextArea();
+        textoSitioWeb = new javax.swing.JTextField();
+        labelBiografia = new javax.swing.JLabel();
+        labelSitioWeb = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
 
-        jLabel1.setText("nickname:");
+        labelNickname.setText("Nickname");
 
-        textoNickame.addActionListener(new java.awt.event.ActionListener() {
+        textoNickname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textoNickameActionPerformed(evt);
+                textoNicknameActionPerformed(evt);
             }
         });
+
+        labelTitulo.setText("Ingrese los siguientes datos");
+
+        labelNombre.setText("Nombre");
+
+        textoNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textoNombreActionPerformed(evt);
+            }
+        });
+
+        textoEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textoEmailActionPerformed(evt);
+            }
+        });
+
+        labelApellido.setText("Apellido");
+
+        labelEmail.setText("E-mail");
+
+        textoApellido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textoApellidoActionPerformed(evt);
+            }
+        });
+
+        botonCancelar.setText("Cancelar");
+        botonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCancelarActionPerformed(evt);
+            }
+        });
+
+        botonAceptar.setText("Aceptar");
+        botonAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAceptarActionPerformed(evt);
+            }
+        });
+
+        labelFecNac.setText("Fecha Nacimiento");
+
+        bgTipoUsuario.add(rbProponente);
+        rbProponente.setText("Proponente");
+        rbProponente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbProponenteActionPerformed(evt);
+            }
+        });
+
+        bgTipoUsuario.add(rbColaborador);
+        rbColaborador.setText("Colaborador");
+        rbColaborador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbColaboradorActionPerformed(evt);
+            }
+        });
+
+        spinnerFecNac.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(1104544800000L), new java.util.Date(-2208975309000L), new java.util.Date(), java.util.Calendar.DAY_OF_MONTH));
+
+        labelDireccion.setText("Direccion");
+
+        textoDireccion.setEnabled(false);
+        textoDireccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textoDireccionActionPerformed(evt);
+            }
+        });
+
+        textoBiografia.setColumns(20);
+        textoBiografia.setRows(5);
+        textoBiografia.setEnabled(false);
+        jScrollPaneBio.setViewportView(textoBiografia);
+
+        textoSitioWeb.setEnabled(false);
+        textoSitioWeb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textoSitioWebActionPerformed(evt);
+            }
+        });
+
+        labelBiografia.setText("Biografia (opcional)");
+
+        labelSitioWeb.setText("Sitio Web (opcional)");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -48,33 +163,230 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(49, 49, 49)
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelTitulo)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(labelNombre)
+                                    .addComponent(labelNickname)
+                                    .addComponent(labelApellido)
+                                    .addComponent(labelEmail)
+                                    .addComponent(labelFecNac))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(textoNickname, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                        .addComponent(textoNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                        .addComponent(textoApellido)
+                                        .addComponent(textoEmail))
+                                    .addComponent(spinnerFecNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(labelDireccion)
+                                .addComponent(rbProponente)
+                                .addComponent(labelBiografia))
+                            .addComponent(labelSitioWeb))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(textoSitioWeb, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(rbColaborador)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(textoDireccion)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPaneBio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(95, Short.MAX_VALUE))))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botonAceptar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textoNickame, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addComponent(botonCancelar)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(18, 18, 18)
+                .addComponent(labelTitulo)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(textoNickame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(211, Short.MAX_VALUE))
+                    .addComponent(labelNickname)
+                    .addComponent(textoNickname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelNombre))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelApellido)
+                    .addComponent(textoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textoEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelEmail))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelFecNac)
+                    .addComponent(spinnerFecNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbProponente)
+                    .addComponent(rbColaborador))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelDireccion)
+                    .addComponent(textoDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPaneBio, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelBiografia))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textoSitioWeb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelSitioWeb))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonCancelar)
+                    .addComponent(botonAceptar))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void textoNickameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoNickameActionPerformed
+    private void textoApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoApellidoActionPerformed
         // TODO add your handling code here:
-        String nickname = textoNickame.getText();
-        System.out.println(nickname);
-    }//GEN-LAST:event_textoNickameActionPerformed
+
+    }//GEN-LAST:event_textoApellidoActionPerformed
+
+    private void textoEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoEmailActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_textoEmailActionPerformed
+
+    private void textoNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoNombreActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_textoNombreActionPerformed
+
+    private void textoNicknameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoNicknameActionPerformed
+        // TODO add your handling code here:
+
+        //System.out.println(nickname);
+    }//GEN-LAST:event_textoNicknameActionPerformed
+
+    private void rbColaboradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbColaboradorActionPerformed
+        // TODO add your handling code here:
+        if(rbColaborador.isSelected()){
+            textoDireccion.setEnabled(false);
+            textoBiografia.setEnabled(false);
+            jScrollPaneBio.setEnabled(false);
+            textoSitioWeb.setEnabled(false);
+        }
+    }//GEN-LAST:event_rbColaboradorActionPerformed
+
+    private void rbProponenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbProponenteActionPerformed
+        // TODO add your handling code here:
+        if(rbProponente.isSelected()){
+            textoDireccion.setEnabled(true);
+            textoBiografia.setEnabled(true);
+            jScrollPaneBio.setEnabled(true);
+            textoSitioWeb.setEnabled(true);
+        }
+    }//GEN-LAST:event_rbProponenteActionPerformed
+
+    private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
+        // TODO add your handling code here:
+        String nickname = textoNickname.getText();
+        String nombre = textoNombre.getText();
+        String apellido = textoApellido.getText();
+        String email = textoEmail.getText();
+        Date fecha = (Date) spinnerFecNac.getValue();
+        LocalDate fecNac = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        
+        
+        if(nickname.equals("") || nombre.equals("") || apellido.equals("") || email.equals("")){
+            JOptionPane.showMessageDialog(this, "Opciones vacias o invalidas!", "Error", HEIGHT);
+            
+        }else{
+            if(rbProponente.isSelected()){
+                String direccion = textoDireccion.getText();
+                String biografia = textoBiografia.getText();
+                String sitioWeb = textoSitioWeb.getText();
+                
+                if(direccion.equals("")){
+                    JOptionPane.showMessageDialog(this, "Opciones vacias o invalidas!", "Error", HEIGHT);
+                }else{
+                    int resultado = this.ic.añadirUsuario(nickname, nombre, apellido, email, fecNac, direccion, biografia, sitioWeb);
+                    
+                    if(resultado == 1){
+                        this.dispose();
+                    }else{
+                        JOptionPane.showMessageDialog(this, "Nickname o Email ya existen!", "Error", HEIGHT);
+                    }
+                }
+            }else if(rbColaborador.isSelected()){
+                int resultado = this.ic.añadirUsuario(nickname, nombre, apellido, email, fecNac);
+                    
+                    if(resultado == 1){
+                        this.dispose();
+                    }else{
+                        JOptionPane.showMessageDialog(this, "Nickname o Email ya existen!", "Error", HEIGHT);
+                    }
+            }else{
+                JOptionPane.showMessageDialog(this, "Debe elegir tipo de usuario!", "Error", HEIGHT);
+            }
+        }
+        
+        
+    }//GEN-LAST:event_botonAceptarActionPerformed
+
+    private void textoSitioWebActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoSitioWebActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textoSitioWebActionPerformed
+
+    private void textoDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoDireccionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textoDireccionActionPerformed
+
+    private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_botonCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField textoNickame;
+    private javax.swing.ButtonGroup bgTipoUsuario;
+    private javax.swing.JButton botonAceptar;
+    private javax.swing.JButton botonCancelar;
+    private javax.swing.JScrollPane jScrollPaneBio;
+    private javax.swing.JLabel labelApellido;
+    private javax.swing.JLabel labelBiografia;
+    private javax.swing.JLabel labelDireccion;
+    private javax.swing.JLabel labelEmail;
+    private javax.swing.JLabel labelFecNac;
+    private javax.swing.JLabel labelNickname;
+    private javax.swing.JLabel labelNombre;
+    private javax.swing.JLabel labelSitioWeb;
+    private javax.swing.JLabel labelTitulo;
+    private javax.swing.JRadioButton rbColaborador;
+    private javax.swing.JRadioButton rbProponente;
+    private javax.swing.JSpinner spinnerFecNac;
+    private javax.swing.JTextField textoApellido;
+    private javax.swing.JTextArea textoBiografia;
+    private javax.swing.JTextField textoDireccion;
+    private javax.swing.JTextField textoEmail;
+    private javax.swing.JTextField textoNickname;
+    private javax.swing.JTextField textoNombre;
+    private javax.swing.JTextField textoSitioWeb;
     // End of variables declaration//GEN-END:variables
 }

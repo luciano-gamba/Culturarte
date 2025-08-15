@@ -1,8 +1,12 @@
 package Logica;
 
-public abstract class IControlador {
+import java.time.LocalDate;
+
+public interface IControlador {
     
-    protected String texto;
+    int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String direccion, String bio, String sitioWeb);
     
-    public abstract String saludo(); 
+    int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac);
+    
+    
 }

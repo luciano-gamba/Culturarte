@@ -1,10 +1,19 @@
 
 package Presentacion;
 
+import Logica.IControlador;
+
 public class VentanaPrincipal extends javax.swing.JFrame {
 
-    public VentanaPrincipal() {
+    protected final IControlador ic;
+    
+    public VentanaPrincipal(IControlador ic) {
+        this.ic = ic;
         initComponents();
+    }
+
+    private VentanaPrincipal() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @SuppressWarnings("unchecked")
@@ -128,7 +137,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void menuAltaUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAltaUsuarioActionPerformed
         // TODO add your handling code here:
         
-        InterAltaUsuario IAU = new InterAltaUsuario();
+        InterAltaUsuario IAU = new InterAltaUsuario(ic);
         this.add(IAU);
         IAU.show();
         
