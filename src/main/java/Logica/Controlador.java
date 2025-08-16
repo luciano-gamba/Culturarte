@@ -9,6 +9,7 @@ public class Controlador implements IControlador{
     public List<Usuario> misUsuarios = new ArrayList<>();
     public List<Proponente> misProponentes = new ArrayList<>();
     public List<Colaborador> misColaboradores = new ArrayList<>();
+    private Categoria RaizCategorias = new Categoria("Categoria");
     
     public Controlador() {
         
@@ -76,6 +77,15 @@ public class Controlador implements IControlador{
             misProponentes.add(propNuevo);
             return 1;
         }
+    }
+    public int altaCategoria(String nombreCat){
+        
+        return 0;
+    }
+    
+    public int altaCategoria(String nombreCat,String nombrePadreCat){
+        
+        return 0;
     }
     
 }

@@ -92,6 +92,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menuPropuestas.add(menuConsultaPropuEst);
 
         menuAltaCategoria.setText("Alta Categoria");
+        menuAltaCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAltaCategoriaActionPerformed(evt);
+            }
+        });
         menuPropuestas.add(menuAltaCategoria);
 
         jMenuBar1.add(menuPropuestas);
@@ -153,6 +158,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         IRC.setLocation(50, 50);
         IRC.show();
     }//GEN-LAST:event_menuRegistrarColaActionPerformed
+
+    private void menuAltaCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAltaCategoriaActionPerformed
+        // TODO add your handling code here:
+        
+        InterAltaCategoria IAC = new InterAltaCategoria(ic);
+        this.add(IAC);
+        IAC.show();
+        
+    }//GEN-LAST:event_menuAltaCategoriaActionPerformed
 
     /**
      * @param args the command line arguments

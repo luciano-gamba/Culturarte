@@ -36,6 +36,7 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         bgTipoUsuario = new javax.swing.ButtonGroup();
+        jPanel1 = new javax.swing.JPanel();
         labelNickname = new javax.swing.JLabel();
         textoNickname = new javax.swing.JTextField();
         labelTitulo = new javax.swing.JLabel();
@@ -58,6 +59,17 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
         textoSitioWeb = new javax.swing.JTextField();
         labelBiografia = new javax.swing.JLabel();
         labelSitioWeb = new javax.swing.JLabel();
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setClosable(true);
         setIconifiable(true);
@@ -368,6 +380,7 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
     private javax.swing.ButtonGroup bgTipoUsuario;
     private javax.swing.JButton botonAceptar;
     private javax.swing.JButton botonCancelar;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPaneBio;
     private javax.swing.JLabel labelApellido;
     private javax.swing.JLabel labelBiografia;
