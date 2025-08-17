@@ -3,16 +3,20 @@ package Logica;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 public class Controlador implements IControlador{
 
     public List<Usuario> misUsuarios = new ArrayList<>();
     public List<Proponente> misProponentes = new ArrayList<>();
     public List<Colaborador> misColaboradores = new ArrayList<>();
-    private Categoria RaizCategorias = new Categoria("Categoria");
+    private ArbolCategorias arbolCategorias;
     
     public Controlador() {
-        
+        this.arbolCategorias = new ArbolCategorias(new Categoria("Categoria"));
+    //La letra dice que la raiz siempre es "Categoria" 
+    //probablemente tenga que cambiarlo para evitar repetidos o errores al coenctar con la BD
+    
     }
     
     @Override
@@ -79,12 +83,21 @@ public class Controlador implements IControlador{
         }
     }
     public int altaCategoria(String nombreCat){
+        Categoria nueva = new Categoria(nombreCat);
+        arbolCategorias.insertar("Categoria",nueva);
         
         return 0;
     }
     
     public int altaCategoria(String nombreCat,String nombrePadreCat){
+        Categoria nueva = new Categoria(nombreCat);
+        DefaultMutableTreeNode padre = arbolCategorias.buscar(nombrePadreCat);
+        if(padre==null){
+            return -1;
+        }
         
+        arbolCategorias.insertar(nombrePadreCat,nueva);
+            
         return 0;
     }
     
