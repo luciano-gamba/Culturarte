@@ -107,6 +107,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenu1.add(menuRegistrarCola);
 
         menuConsultarCola.setText("Consulta de Colaboracion");
+        menuConsultarCola.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuConsultarColaActionPerformed(evt);
+            }
+        });
         jMenu1.add(menuConsultarCola);
 
         menuCancelarCola.setText("Cancelar Colaboracion");
@@ -153,6 +158,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         IRC.setLocation(50, 50);
         IRC.show();
     }//GEN-LAST:event_menuRegistrarColaActionPerformed
+
+    private void menuConsultarColaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsultarColaActionPerformed
+        InterConsultaCola ICC = new InterConsultaCola();
+        add(ICC);
+        ICC.setLocation(50, 50);
+        ICC.show();
+    }//GEN-LAST:event_menuConsultarColaActionPerformed
 
     /**
      * @param args the command line arguments
