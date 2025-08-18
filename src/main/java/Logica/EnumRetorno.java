@@ -1,6 +1,7 @@
 package Logica;
 
 public enum EnumRetorno {
-    NUM_ENTRADAS,
-    PORC_VENTAS
+    ENTRADAS_GRATIS,
+    PORCENTAJE_VENTAS,
+    AMBOS
 }

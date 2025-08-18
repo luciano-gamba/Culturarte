@@ -4,19 +4,28 @@
  */
 package Presentacion;
 
+import Logica.EnumRetorno;
+import Logica.IControlador;
+import java.awt.Color;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  *
  * @author nahud
  */
 public class InterAltaPropuesta extends javax.swing.JInternalFrame {
-
+    
+    private final IControlador ic;
     /**
      * Creates new form menuAltaPropuesta
      */
-    public InterAltaPropuesta() {
+    public InterAltaPropuesta(IControlador ic) {
         initComponents();
+        this.ic = ic;
         
         txtSalida.setVisible(false);
+        this.setTitle("Alta Propuesta");
     }
     
     public boolean abierto(){
@@ -48,8 +57,14 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDescripcion = new javax.swing.JTextArea();
         btnAceptar = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
         txtSalida = new javax.swing.JTextField();
+        Cancelar = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        txtTitulo1 = new javax.swing.JTextField();
+        labelNick = new javax.swing.JLabel();
+        txtNick = new javax.swing.JTextField();
+        listaRetorno = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -81,9 +96,9 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Monto necesario:");
 
-        jLabel7.setText("Imagen:");
+        jLabel7.setText("Imagen (opcional):");
 
-        txtImagen.setText("de momento no se usa");
+        txtImagen.setEditable(false);
         txtImagen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtImagenActionPerformed(evt);
@@ -101,58 +116,89 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel8.setText("ALTA DE PROPUESTA");
+        Cancelar.setText("Cancelar");
+        Cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CancelarActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setText("Tipo:");
+
+        txtTitulo1.setEditable(false);
+        txtTitulo1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTitulo1ActionPerformed(evt);
+            }
+        });
+
+        labelNick.setText("Nickname Proponente:");
+
+        listaRetorno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ENTRADAS GRATIS", "%VENTAS", "AMBOS" }));
+
+        jLabel8.setText("Tipo de retorno:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(127, 127, 127)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6))
-                .addGap(18, 18, 18)
+                .addGap(86, 86, 86)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnAceptar)
-                        .addGap(52, 52, 52))
-                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel10)
+                            .addComponent(labelNick)
+                            .addComponent(jLabel8))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtMonto, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtEntrada)
-                            .addComponent(txtImagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtLugar)
-                            .addComponent(txtTitulo)
-                            .addComponent(txtFecha))
-                        .addGap(107, 107, 107))))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(217, 217, 217)
-                        .addComponent(jLabel8))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(127, 127, 127)
-                        .addComponent(txtSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(listaRetorno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(btnAceptar))
+                                    .addComponent(txtTitulo1)
+                                    .addComponent(txtTitulo)
+                                    .addComponent(txtMonto)
+                                    .addComponent(txtEntrada, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtFecha, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtImagen, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtLugar, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNick))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Cancelar)
+                                .addGap(25, 25, 25))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(txtSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(214, 214, 214))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel8)
-                .addGap(45, 45, 45)
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNick, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelNick))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTitulo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
@@ -178,11 +224,16 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(txtImagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(listaRetorno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAceptar)
-                    .addComponent(txtSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                    .addComponent(Cancelar))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
@@ -208,7 +259,9 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         // TODO add your handling code here:
-        String titulo, descripcion, entrada, fechaStr, lugar, monto;
+        String nick,titulo, descripcion, entrada, fechaStr, lugar, monto, tipo = "VACIO", tipoRet;
+        LocalDate fechaActual = LocalDate.now();
+        nick = txtNick.getText();
         titulo = txtTitulo.getText();
         descripcion = txtDescripcion.getText();
         entrada = txtEntrada.getText();
@@ -216,18 +269,40 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
         lugar = txtLugar.getText();
         monto = txtMonto.getText();
         
-        if (txtTitulo.getText().isEmpty() || txtDescripcion.getText().isEmpty() || txtEntrada.getText().isEmpty() || txtFecha.getText().isEmpty() || txtLugar.getText().isEmpty() || txtMonto.getText().isEmpty()) {
+        EnumRetorno retorno = null;
+        int seleccionado = listaRetorno.getSelectedIndex();
+        tipoRet = listaRetorno.getItemAt(seleccionado);
+        if (tipoRet.equals("ENTRADAS GRATIS")) {
+            retorno = EnumRetorno.valueOf("ENTRADAS_GRATIS");
+        }
+        if (tipoRet.equals("%VENTAS")) {
+            retorno = EnumRetorno.valueOf("PORCENTAJE_VENTAS");
+        }
+        if (tipoRet.equals("AMBOS")) {
+            retorno = EnumRetorno.valueOf("AMBOS");
+        }
+        
+        if (txtNick.getText().isEmpty() || txtTitulo.getText().isEmpty() || txtDescripcion.getText().isEmpty() || txtEntrada.getText().isEmpty() || txtFecha.getText().isEmpty() || txtLugar.getText().isEmpty() || txtMonto.getText().isEmpty()) {
             txtSalida.setVisible(true);
             txtSalida.setText("FALTAN CAMPOS POR LLENAR!");
             this.updateUI();
-            //mejor seria hacer que te marque en la propia pantalla o que salga otra ventana arriba informandote del error
+            //mejor seria hacer que te marque en la propia pantalla o que salga otra ventana arriba informandote del error (o quiza no)
         }else{
             if (!txtImagen.getText().isEmpty()) {
                 //quiere decir que quiere insertar imagen
-                //cerrar la ventana (seguramente se haga desde la ventana principal)
+                //cerrar la ventana
             }else{
+                DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                LocalDate fechaPrev = LocalDate.parse(fechaStr, formato);
+                if(ic.altaPropuesta(nick, tipo, titulo, descripcion, lugar, fechaPrev, entrada, monto, retorno, fechaActual) == 1){
+                    this.hide();
+                }else{
+                    txtSalida.setText("NO EXISTE PROPONENTE CON NICK = " + nick);
+                    txtSalida.setVisible(true);
+                    labelNick.setForeground(Color.RED);
+                    this.updateUI();
+                }
                 //no quiere insertar imagen
-                //cerrar la ventana (seguramente se haga desde la ventana principal)
             }
         }
         
@@ -235,11 +310,22 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
         //o sino que lo mande todo desde aca a la capa logica
     }//GEN-LAST:event_btnAceptarActionPerformed
 
+    private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
+        // TODO add your handling code here:
+        this.hide();
+    }//GEN-LAST:event_CancelarActionPerformed
+
+    private void txtTitulo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTitulo1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTitulo1ActionPerformed
+
     private boolean open;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Cancelar;
     private javax.swing.JButton btnAceptar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -248,13 +334,17 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelNick;
+    private javax.swing.JComboBox<String> listaRetorno;
     private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtEntrada;
     private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtImagen;
     private javax.swing.JTextField txtLugar;
     private javax.swing.JTextField txtMonto;
+    private javax.swing.JTextField txtNick;
     private javax.swing.JTextField txtSalida;
     private javax.swing.JTextField txtTitulo;
+    private javax.swing.JTextField txtTitulo1;
     // End of variables declaration//GEN-END:variables
 }
