@@ -10,6 +10,7 @@ public class Controlador implements IControlador{
     public List<Usuario> misUsuarios = new ArrayList<>();
     public List<Proponente> misProponentes = new ArrayList<>();
     public List<Colaborador> misColaboradores = new ArrayList<>();
+    public List<Propuesta> misPropuestas = new ArrayList<>();
     private ArbolCategorias arbolCategorias;
     
     public Controlador() {
@@ -141,6 +142,36 @@ public class Controlador implements IControlador{
         }else{
             return 1;
         }
+    }
+    
+    public int altaPropuesta(String nick, String tipo, String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual){
+        
+        Proponente prop = null;
+        
+        boolean encontrado = false;
+        for (Proponente p : misProponentes) {
+            if (p.getNickname().equalsIgnoreCase(nick)) {
+                encontrado = true;
+                prop = p;
+                break;
+            }
+        }
+        
+        //DEPENDE DE COMO SE HAGA HAY QUE ENCONTRAR SI ESTA TAMBIEN LA CATEGORIA INGRESADA!!!!!!
+        if (encontrado) {
+            
+            Propuesta nuevaProp = new Propuesta(prop, titulo, descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada), Double.parseDouble(montoNecesario), posibleRetorno, fechaActual);
+            misPropuestas.add(nuevaProp);
+            
+            return 1;
+        } else {
+            return 0;
+        }
+        
+    }
+    
+    public int altaPropuesta(String nick, String tipo, String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual, String imagen){
+        return 0;
     }
     
 }

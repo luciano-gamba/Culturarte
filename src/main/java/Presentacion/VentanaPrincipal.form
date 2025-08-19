@@ -54,6 +54,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Alta de Propuestas"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuAltaPropActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuModificarProp">
               <Properties>
@@ -100,6 +103,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Consulta de Colaboracion"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuConsultarColaActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuCancelarCola">
               <Properties>

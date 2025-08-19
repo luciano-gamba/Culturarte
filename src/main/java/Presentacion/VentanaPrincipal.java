@@ -80,6 +80,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menuPropuestas.setText("Propuestas");
 
         menuAltaProp.setText("Alta de Propuestas");
+        menuAltaProp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAltaPropActionPerformed(evt);
+            }
+        });
         menuPropuestas.add(menuAltaProp);
 
         menuModificarProp.setText("Modificar Datos Propuesta");
@@ -117,6 +122,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenu1.add(menuRegistrarCola);
 
         menuConsultarCola.setText("Consulta de Colaboracion");
+        menuConsultarCola.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuConsultarColaActionPerformed(evt);
+            }
+        });
         jMenu1.add(menuConsultarCola);
 
         menuCancelarCola.setText("Cancelar Colaboracion");
@@ -164,6 +174,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         IRC.show();
     }//GEN-LAST:event_menuRegistrarColaActionPerformed
 
+    private void menuConsultarColaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsultarColaActionPerformed
+        InterConsultaCola ICC = new InterConsultaCola();
+        add(ICC);
+        ICC.setLocation(50, 50);
+        ICC.show();
+    }//GEN-LAST:event_menuConsultarColaActionPerformed
     private void menuAltaCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAltaCategoriaActionPerformed
         // TODO add your handling code here:
         
@@ -172,6 +188,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         IAC.show();
         
     }//GEN-LAST:event_menuAltaCategoriaActionPerformed
+    private void menuAltaPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAltaPropActionPerformed
+        // TODO add your handling code here:
+        if(this.IAP == null){
+            IAP = new InterAltaPropuesta(ic);
+            this.add(IAP);
+            IAP.show();
+        }else if(!this.IAP.abierto()){
+            IAP = new InterAltaPropuesta(ic);
+            this.add(IAP);
+            IAP.show();
+        }
+    }//GEN-LAST:event_menuAltaPropActionPerformed
 
     private void menuSeguirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSeguirActionPerformed
         // TODO add your handling code here:
@@ -215,7 +243,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
     }
-
+    
+    private InterAltaPropuesta IAP;
+  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;

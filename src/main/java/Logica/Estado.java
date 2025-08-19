@@ -6,5 +6,9 @@ public class Estado {
     EnumEstado estado;
     LocalDate fecha;
     
+    public Estado(EnumEstado est, LocalDate fec){
+        this.estado = est;
+        this.fecha = fec;
+    }
     
 }
