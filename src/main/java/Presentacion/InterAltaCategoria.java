@@ -5,8 +5,14 @@
 package Presentacion;
 
 import Logica.IControlador;
+import Logica.Categoria;
 import static java.awt.image.ImageObserver.HEIGHT;
+import java.util.Enumeration;
 import javax.swing.JOptionPane;
+
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 
 public class InterAltaCategoria extends javax.swing.JInternalFrame {
     private final IControlador ic;
@@ -15,7 +21,13 @@ public class InterAltaCategoria extends javax.swing.JInternalFrame {
      */
     public InterAltaCategoria(IControlador ic) {
         this.ic = ic;
+        this.setTitle("Alta de Categoria");
         initComponents();
+        DefaultMutableTreeNode nodoRaiz = ic.getRaizArbolCat();
+        DefaultTreeModel modeloArbol = new DefaultTreeModel(nodoRaiz);
+        
+        this.ArbolDeCategorias.setModel(modeloArbol);
+        this.ArbolDeCategorias.expandRow(0);
     }
 
     /**
@@ -27,25 +39,18 @@ public class InterAltaCategoria extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        botonAceptar = new javax.swing.JButton();
         labelTituloAltCat = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        ArbolCategorias = new javax.swing.JTree();
+        ArbolDeCategorias = new javax.swing.JTree();
         LabelNombreCat = new javax.swing.JLabel();
         LabelPadreCat = new javax.swing.JLabel();
-        botonAceptar1 = new javax.swing.JButton();
+        botonAceptar = new javax.swing.JButton();
         botonCancelar = new javax.swing.JButton();
         textoNombreCat = new javax.swing.JTextField();
         textoPadreCat = new javax.swing.JTextField();
 
-        botonAceptar.setText("Aceptar");
-        botonAceptar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonAceptarActionPerformed(evt);
-            }
-        });
-
         setClosable(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
@@ -53,16 +58,16 @@ public class InterAltaCategoria extends javax.swing.JInternalFrame {
 
         labelTituloAltCat.setText("Ingrese una Nueva Categoria de Espectaculo:");
 
-        jScrollPane1.setViewportView(ArbolCategorias);
+        jScrollPane1.setViewportView(ArbolDeCategorias);
 
         LabelNombreCat.setText("Nombre Categoria");
 
         LabelPadreCat.setText("Padre de la Categoria (opcional)");
 
-        botonAceptar1.setText("Aceptar");
-        botonAceptar1.addActionListener(new java.awt.event.ActionListener() {
+        botonAceptar.setText("Aceptar");
+        botonAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonAceptar1ActionPerformed(evt);
+                botonAceptarActionPerformed(evt);
             }
         });
 
@@ -106,7 +111,7 @@ public class InterAltaCategoria extends javax.swing.JInternalFrame {
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addComponent(botonAceptar1)
+                .addComponent(botonAceptar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(botonCancelar)
                 .addContainerGap())
@@ -128,7 +133,7 @@ public class InterAltaCategoria extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(botonAceptar1)
+                            .addComponent(botonAceptar)
                             .addComponent(botonCancelar))
                         .addGap(33, 33, 33))
                     .addGroup(layout.createSequentialGroup()
@@ -140,45 +145,66 @@ public class InterAltaCategoria extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
-        // TODO add your handling code here:
-       String nuevaCat = textoNombreCat.getText();
-       String padre = textoPadreCat.getText();
-       
-       if(nuevaCat.equals("")){
-        JOptionPane.showMessageDialog(this, "Opcion nombre Categoria no puede ser vacias!", "Error", HEIGHT);
-       }
-       
-       
-
-    }//GEN-LAST:event_botonAceptarActionPerformed
-
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
         // TODO add your handling code here:
+        limpiarFormulario();
+        setVisible(false);
     }//GEN-LAST:event_botonCancelarActionPerformed
 
-    private void botonAceptar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptar1ActionPerformed
+    private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         // TODO add your handling code here:
-        
-    }//GEN-LAST:event_botonAceptar1ActionPerformed
+       String nuevaCat = textoNombreCat.getText().trim();
+       String padre = textoPadreCat.getText().trim(); //.trim() elimina espacios en blanco antes y al final del String
+       
+       if(nuevaCat.isEmpty()){
+        JOptionPane.showMessageDialog(this, "Opcion nombre Categoria no puede ser nula!", "Error", HEIGHT);
+        return;
+       }
+       int error;
+       
+       if(padre.isEmpty()){ //este if hace que no tenga que repetir para mensajes de errores
+           error = ic.altaCategoria(nuevaCat); //Alta con la raiz "Categoria"
+       }else{
+           error = ic.altaCategoria(nuevaCat, padre); //Alta con la categoria padre ingresada
+       }
+       
+       if(error==0){
+        JOptionPane.showMessageDialog(this, "Categoria ingresada con exito!", "Alta Categoria",JOptionPane.INFORMATION_MESSAGE);
+        DefaultMutableTreeNode raiz = ic.getRaizArbolCat();
+        ArbolDeCategorias.setModel(new DefaultTreeModel(raiz)); //Recargo el JTree siempre que se 
+        //ingresa una Categoria
+        return;
+       }
+       if(error == -1){
+           JOptionPane.showMessageDialog(this, "Padre de Categoria no existe", "Error", HEIGHT);
+           return;
+       }
+       if(error == -2){
+        JOptionPane.showMessageDialog(this, "Categoria " +nuevaCat+ " ya existe en el Sistema", "Error", HEIGHT);
+        return;
+       }
+           
+    }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void textoNombreCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoNombreCatActionPerformed
         // TODO add your handling code here:
 
         //System.out.println(nickname);
     }//GEN-LAST:event_textoNombreCatActionPerformed
-
+    
     private void textoPadreCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoPadreCatActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textoPadreCatActionPerformed
-
+    private void limpiarFormulario() {
+        textoNombreCat.setText("");
+        textoPadreCat.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTree ArbolCategorias;
+    private javax.swing.JTree ArbolDeCategorias;
     private javax.swing.JLabel LabelNombreCat;
     private javax.swing.JLabel LabelPadreCat;
     private javax.swing.JButton botonAceptar;
-    private javax.swing.JButton botonAceptar1;
     private javax.swing.JButton botonCancelar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelTituloAltCat;

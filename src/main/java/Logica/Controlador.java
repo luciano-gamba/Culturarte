@@ -86,6 +86,11 @@ public class Controlador implements IControlador{
     @Override
     public int altaCategoria(String nombreCat){
         Categoria nueva = new Categoria(nombreCat);
+        
+        DefaultMutableTreeNode nuevaCat = arbolCategorias.buscar(nombreCat);
+        if(nuevaCat != null){
+            return -2;
+        }
         arbolCategorias.insertar("Categoria",nueva);
         
         return 0;
@@ -98,7 +103,10 @@ public class Controlador implements IControlador{
         if(padre==null){
             return -1;
         }
-        
+        DefaultMutableTreeNode nuevaCat = arbolCategorias.buscar(nombreCat);
+        if(nuevaCat != null){
+            return -2;
+        }
         arbolCategorias.insertar(nombrePadreCat,nueva);
             
         return 0;
@@ -173,5 +181,8 @@ public class Controlador implements IControlador{
     public int altaPropuesta(String nick, String tipo, String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual, String imagen){
         return 0;
     }
-    
+    public DefaultMutableTreeNode getRaizArbolCat(){ //Con esto accedo a la raiz del arbol de categorias
+        //para poder crear el JTree
+        return this.arbolCategorias.getRaiz();
+    }
 }

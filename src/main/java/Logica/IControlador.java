@@ -2,6 +2,7 @@ package Logica;
 
 import java.time.LocalDate;
 import java.util.List;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 public interface IControlador {
     
@@ -20,4 +21,6 @@ public interface IControlador {
     int altaPropuesta(String nick, String tipo, String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual);
     
     int altaPropuesta(String nick, String tipo, String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual, String imagen);
+    
+    DefaultMutableTreeNode getRaizArbolCat();
 }
