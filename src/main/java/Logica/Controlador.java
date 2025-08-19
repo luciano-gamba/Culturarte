@@ -129,7 +129,31 @@ public class Controlador implements IControlador{
     }
     
     public int altaPropuesta(String nick, String tipo, String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual, String imagen){
-        return 0;
+        
+        Proponente prop = null;
+        
+        boolean encontrado = false;
+        for (Proponente p : misProponentes) {
+            if (p.getNickname().equalsIgnoreCase(nick)) {
+                encontrado = true;
+                prop = p;
+                break;
+            }
+        }
+        
+        //DEPENDE DE COMO SE HAGA HAY QUE ENCONTRAR SI ESTA TAMBIEN LA CATEGORIA INGRESADA!!!!!!
+        if (encontrado) {
+            
+            Propuesta nuevaProp = new Propuesta(prop, titulo, descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada), Double.parseDouble(montoNecesario), posibleRetorno, fechaActual, imagen);
+            misPropuestas.add(nuevaProp);
+            
+            return 1;
+        } else {
+            return 0;
+        }
     }
     
+    public int consultaDePropuesta(){
+        return 0;
+    }
 }

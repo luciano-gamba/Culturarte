@@ -7,8 +7,16 @@ package Presentacion;
 import Logica.EnumRetorno;
 import Logica.IControlador;
 import java.awt.Color;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -53,7 +61,6 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         txtMonto = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txtImagen = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDescripcion = new javax.swing.JTextArea();
         btnAceptar = new javax.swing.JButton();
@@ -65,6 +72,7 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
         txtNick = new javax.swing.JTextField();
         listaRetorno = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
+        btnFoto = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -98,13 +106,6 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
 
         jLabel7.setText("Imagen (opcional):");
 
-        txtImagen.setEditable(false);
-        txtImagen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtImagenActionPerformed(evt);
-            }
-        });
-
         txtDescripcion.setColumns(20);
         txtDescripcion.setRows(5);
         jScrollPane1.setViewportView(txtDescripcion);
@@ -137,6 +138,13 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
         listaRetorno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ENTRADAS GRATIS", "%VENTAS", "AMBOS" }));
 
         jLabel8.setText("Tipo de retorno:");
+
+        btnFoto.setText("Elegir Foto");
+        btnFoto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFotoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -172,13 +180,15 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
                                     .addComponent(txtMonto)
                                     .addComponent(txtEntrada, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtFecha, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtImagen, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtLugar, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtNick))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(Cancelar)
-                                .addGap(25, 25, 25))))
+                                .addGap(25, 25, 25))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnFoto)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(txtSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(214, 214, 214))))
@@ -223,7 +233,7 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(txtImagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnFoto))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(listaRetorno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -233,7 +243,7 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
                     .addComponent(txtSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAceptar)
                     .addComponent(Cancelar))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
 
         pack();
@@ -248,10 +258,6 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         this.open = true;
     }//GEN-LAST:event_formComponentShown
-
-    private void txtImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtImagenActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtImagenActionPerformed
 
     private void txtTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTituloActionPerformed
         // TODO add your handling code here:
@@ -288,12 +294,21 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
             this.updateUI();
             //mejor seria hacer que te marque en la propia pantalla o que salga otra ventana arriba informandote del error (o quiza no)
         }else{
-            if (!txtImagen.getText().isEmpty()) {
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate fechaPrev = LocalDate.parse(fechaStr, formato);
+            
+            if (!this.txtImagen.isEmpty()) {
+                if(ic.altaPropuesta(nick, tipo, titulo, descripcion, lugar, fechaPrev, entrada, monto, retorno, fechaActual, this.txtImagen) == 1){
+                    this.hide();
+                }else{
+                    txtSalida.setText("NO EXISTE PROPONENTE CON NICK = " + nick);
+                    txtSalida.setVisible(true);
+                    labelNick.setForeground(Color.RED);
+                    this.updateUI();
+                }
                 //quiere decir que quiere insertar imagen
                 //cerrar la ventana
             }else{
-                DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                LocalDate fechaPrev = LocalDate.parse(fechaStr, formato);
                 if(ic.altaPropuesta(nick, tipo, titulo, descripcion, lugar, fechaPrev, entrada, monto, retorno, fechaActual) == 1){
                     this.hide();
                 }else{
@@ -319,11 +334,39 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTitulo1ActionPerformed
 
+    private void btnFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFotoActionPerformed
+        // TODO add your handling code here:
+        JFileChooser fc = new JFileChooser();
+        fc.setDialogTitle("Buscar imagen");
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Imágenes JPG & PNG", "jpg", "png");
+        fc.setFileFilter(filtro);
+        
+        File carpetaDestino = new File("fotos");
+        if (!carpetaDestino.exists()) {
+            carpetaDestino.mkdirs();
+        }
+        
+        if(fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
+            File foto = new File(fc.getSelectedFile().toString());
+            System.out.println(fc.getSelectedFile().toString());
+            File destino = new File(carpetaDestino, foto.getName());
+            try {
+                Files.copy(foto.toPath(), destino.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException ex) {
+                Logger.getLogger(InterAltaPropuesta.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println("Imagen copiada en: " + destino.getAbsolutePath());
+            this.txtImagen = destino.getAbsolutePath();
+        }
+    }//GEN-LAST:event_btnFotoActionPerformed
+
     private boolean open;
+    private String txtImagen;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Cancelar;
     private javax.swing.JButton btnAceptar;
+    private javax.swing.JButton btnFoto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -339,7 +382,6 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
     private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtEntrada;
     private javax.swing.JTextField txtFecha;
-    private javax.swing.JTextField txtImagen;
     private javax.swing.JTextField txtLugar;
     private javax.swing.JTextField txtMonto;
     private javax.swing.JTextField txtNick;

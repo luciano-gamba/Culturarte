@@ -61,7 +61,6 @@
                                   <Component id="txtMonto" alignment="1" max="32767" attributes="0"/>
                                   <Component id="txtEntrada" alignment="0" max="32767" attributes="0"/>
                                   <Component id="txtFecha" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtImagen" alignment="0" max="32767" attributes="0"/>
                                   <Component id="txtLugar" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
                                   <Component id="txtNick" max="32767" attributes="0"/>
@@ -69,6 +68,10 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="Cancelar" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="btnFoto" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -129,7 +132,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtImagen" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnFoto" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -142,7 +145,7 @@
                   <Component id="btnAceptar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="Cancelar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="28" max="32767" attributes="0"/>
+              <EmptySpace pref="83" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -195,14 +198,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Imagen (opcional):"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtImagen">
-      <Properties>
-        <Property name="editable" type="boolean" value="false"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtImagenActionPerformed"/>
-      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>
@@ -275,6 +270,14 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Tipo de retorno:"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnFoto">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Elegir Foto"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFotoActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

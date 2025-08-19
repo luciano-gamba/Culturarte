@@ -7,7 +7,7 @@ import java.util.List;
 public class Propuesta {
     String titulo;
     String desc;
-    //imagen ???
+    String imagen;
     String lugar;
     LocalDate fecha;
     double $entrada;
@@ -35,6 +35,26 @@ public class Propuesta {
         this.misEstados.add(estado);
 
         //HACER OTRA CON LA IMAGEN!
+    }
+    
+    public Propuesta(Proponente prop, String titulo, String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual, String imagen) {
+        this.p = prop;
+        this.titulo = titulo;
+        this.desc = descripcion;
+        this.lugar = lugar;
+        this.fechaPubli = fechaPrev;
+        this.$entrada = montoXentrada;
+        this.$necesaria = montoNecesario;
+        this.posibleRetorno = posibleRetorno;
+        this.fecha = fechaActual;
+        
+        Estado estado = new Estado(EnumEstado.valueOf("INGRESADA"), fechaActual);
+        
+        this.estadoActual = estado;
+        this.misEstados.add(estado);
+        
+        this.imagen = imagen;
+
     }
        
 }

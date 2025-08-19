@@ -86,6 +86,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menuPropuestas.add(menuModificarProp);
 
         menuConsultaPropu.setText("Consulta de Propuesta");
+        menuConsultaPropu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuConsultaPropuActionPerformed(evt);
+            }
+        });
         menuPropuestas.add(menuConsultaPropu);
 
         menuConsultaPropuEst.setText("Consulta de Propuesta x Estado");
@@ -196,6 +201,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_menuAltaPropActionPerformed
 
+    private void menuConsultaPropuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsultaPropuActionPerformed
+        // TODO add your handling code here:
+        if(this.ICP == null){
+            ICP = new InterConsultaPropuesta(ic);
+            this.add(ICP);
+            ICP.show();
+        }else if(!this.ICP.abierto()){
+            ICP = new InterConsultaPropuesta(ic);
+            this.add(ICP);
+            ICP.show();
+        }
+    }//GEN-LAST:event_menuConsultaPropuActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -231,6 +249,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
     }
     
+    private InterConsultaPropuesta ICP;
     private InterAltaPropuesta IAP;
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
