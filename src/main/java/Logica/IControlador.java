@@ -1,6 +1,7 @@
 package Logica;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public interface IControlador {
     
@@ -11,4 +12,9 @@ public interface IControlador {
     int altaCategoria(String nombreCat);
     
     int altaCategoria(String nombreCat,String nombrePadreCat);
+    
+    List<String> getUsuarios(); 
+    
+    int seguirUsuario(String nick1, String nick2);
+    
 }

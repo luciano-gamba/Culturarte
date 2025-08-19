@@ -1,6 +1,8 @@
 package Logica;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Usuario {
     String nickname;
@@ -9,6 +11,7 @@ public class Usuario {
     String apellido;
     LocalDate fecNac;
     //imagen ???
+     List<Usuario> misSeguidos;
 
     public Usuario(String nickname, String email, String nombre, String apellido, LocalDate fecNac) {
         this.nickname = nickname;
@@ -16,6 +19,7 @@ public class Usuario {
         this.nombre = nombre;
         this.apellido = apellido;
         this.fecNac = fecNac;
+        this.misSeguidos = new ArrayList<>();
     }
 
     public String getNickname() {
@@ -58,5 +62,14 @@ public class Usuario {
         this.fecNac = fecNac;
     }
     
+    public int seguirUsuario(Usuario nick){
+        for(Usuario u : this.misSeguidos){
+            if(u == nick){
+                return 0; //error: ya sigue al usuario nick
+            }
+        }
+        this.misSeguidos.add(nick);
+        return 1;
+    }
     
 }

@@ -65,6 +65,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menuPerfil.add(menuConsultaCola);
 
         menuSeguir.setText("Seguir Usuario");
+        menuSeguir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuSeguirActionPerformed(evt);
+            }
+        });
         menuPerfil.add(menuSeguir);
 
         menuDejarSeguir.setText("Dejar de seguir Usuario");
@@ -142,7 +147,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void menuAltaUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAltaUsuarioActionPerformed
         // TODO add your handling code here:
         
-        InterAltaUsuario IAU = new InterAltaUsuario(ic);
+        InterAltaUsuario IAU = new InterAltaUsuario(this.ic);
         this.add(IAU);
         IAU.show();
         
@@ -162,11 +167,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void menuAltaCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAltaCategoriaActionPerformed
         // TODO add your handling code here:
         
-        InterAltaCategoria IAC = new InterAltaCategoria(ic);
+        InterAltaCategoria IAC = new InterAltaCategoria(this.ic);
         this.add(IAC);
         IAC.show();
         
     }//GEN-LAST:event_menuAltaCategoriaActionPerformed
+
+    private void menuSeguirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSeguirActionPerformed
+        // TODO add your handling code here:
+        
+        InterSeguirUsuario ISU = new InterSeguirUsuario(this.ic);
+        this.add(ISU);
+        ISU.show();
+    }//GEN-LAST:event_menuSeguirActionPerformed
 
     /**
      * @param args the command line arguments
