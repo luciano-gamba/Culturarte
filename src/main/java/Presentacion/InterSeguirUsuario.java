@@ -29,6 +29,7 @@ public class InterSeguirUsuario extends javax.swing.JInternalFrame {
             comboSeguidor.addItem(s);
             comboSeguir.addItem(s);
         }
+        this.setTitle("Seguir Usuario");
     }
 
     /**

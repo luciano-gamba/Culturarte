@@ -24,6 +24,7 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
     public InterAltaUsuario(IControlador ic) {
         this.ic = ic;
         initComponents();
+        this.setTitle("Alta Usuario");
     }
 
     /**
