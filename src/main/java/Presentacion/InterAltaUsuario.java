@@ -342,6 +342,7 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
                     int resultado = this.ic.añadirUsuario(nickname, nombre, apellido, email, fecNac, direccion, biografia, sitioWeb);
                     
                     if(resultado == 1){
+                        JOptionPane.showMessageDialog(this, "Usuario ha sido ingresado!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
                         this.dispose();
                     }else{
                         JOptionPane.showMessageDialog(this, "Nickname o Email ya existen!", "Error", HEIGHT);
@@ -351,6 +352,7 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
                 int resultado = this.ic.añadirUsuario(nickname, nombre, apellido, email, fecNac);
                     
                     if(resultado == 1){
+                        JOptionPane.showMessageDialog(this, "Usuario ha sido ingresado!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
                         this.dispose();
                     }else{
                         JOptionPane.showMessageDialog(this, "Nickname o Email ya existen!", "Error", HEIGHT);

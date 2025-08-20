@@ -174,6 +174,7 @@ public class InterSeguirUsuario extends javax.swing.JInternalFrame {
                 if(resultado == 0){
                     JOptionPane.showMessageDialog(this, "Usuario ya lo está siguiendo!", "Error", HEIGHT);
                 }else{
+                    JOptionPane.showMessageDialog(this, "Usuario ha empezado a seguir a " + nick2 + "!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
                     this.dispose();
                 }
             }

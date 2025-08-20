@@ -183,6 +183,7 @@ public class InterDejarSeguir extends javax.swing.JInternalFrame {
             }else{
                 String nick1 = comboSeguidor.getItemAt(seleccion);
                 ic.dejarSeguirUsuario(nick1, nick2);
+                JOptionPane.showMessageDialog(this, "Usuario ha dejado de seguir a " + nick2 + "!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
             }
         }
