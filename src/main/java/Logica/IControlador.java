@@ -13,9 +13,13 @@ public interface IControlador {
     
     int altaCategoria(String nombreCat,String nombrePadreCat);
     
-    List<String> getUsuarios(); 
+    List<String> getUsuarios();
+    
+    List<String> getSeguidos(String seguidor);
     
     int seguirUsuario(String nick1, String nick2);
+    
+    int dejarSeguirUsuario(String nick1, String nick2);
     
     int altaPropuesta(String nick, String tipo, String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual);
     
