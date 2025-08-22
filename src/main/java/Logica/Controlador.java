@@ -83,6 +83,7 @@ public class Controlador implements IControlador{
             return 1;
         }
     }
+    @Override
     public int altaCategoria(String nombreCat){
         Categoria nueva = new Categoria(nombreCat);
         arbolCategorias.insertar("Categoria",nueva);
@@ -90,6 +91,7 @@ public class Controlador implements IControlador{
         return 0;
     }
     
+    @Override
     public int altaCategoria(String nombreCat,String nombrePadreCat){
         Categoria nueva = new Categoria(nombreCat);
         DefaultMutableTreeNode padre = arbolCategorias.buscar(nombrePadreCat);
@@ -100,6 +102,46 @@ public class Controlador implements IControlador{
         arbolCategorias.insertar(nombrePadreCat,nueva);
             
         return 0;
+    }
+
+    @Override
+    public List<String> getUsuarios() {
+        List<String> listaNombres = new ArrayList<>();
+        String aux;
+        for(Usuario u : misUsuarios){
+            aux = u.getNickname();
+            listaNombres.add(aux);
+        }
+        return listaNombres;
+    }
+
+    @Override
+    public int seguirUsuario(String nick1, String nick2) {
+        Usuario seguidor = null;
+        Usuario seguir = null;
+        for(Usuario u : this.misUsuarios){
+            if(u.getNickname().equals(nick1)){
+                seguidor = u;
+                break;
+            }
+        }
+        
+        for(Usuario u : this.misUsuarios){
+            if(u.getNickname().equals(nick2)){
+                seguir = u;
+                break;
+            }
+        }
+        
+//        if(seguidor == null){
+//            return 0; 
+//        }else{
+        int resultado = seguidor.seguirUsuario(seguir);
+        if (resultado == 0) {
+            return 0; //error 0: ya sigue al usuario nick2
+        }else{
+            return 1;
+        }
     }
     
     public int altaPropuesta(String nick, String tipo, String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual){
@@ -153,7 +195,51 @@ public class Controlador implements IControlador{
         }
     }
     
-    public int consultaDePropuesta(){
-        return 0;
+    public List<String> getPropuestas() {
+        List<String> listaPropuestas = new ArrayList<>();
+        String aux;
+        for(Propuesta p : misPropuestas){
+            aux = p.getTitulo();
+            listaPropuestas.add(aux);
+        }
+        return listaPropuestas;
+    }
+    
+    public DataPropuesta consultaDePropuesta(String titulo){
+        
+        DataPropuesta DP = null;
+        
+        boolean encontrado = false;
+        for (Propuesta p : misPropuestas) {
+            if (p.getTitulo().equalsIgnoreCase(titulo)) {
+                encontrado = true;
+                DP = new DataPropuesta(titulo, p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(), p.getFechaARealizar(), p.getRetorno());
+                return DP;
+            }
+        }
+        
+        return DP;
+    }
+    
+    public List<String> getEstados(){
+    List<String> listaEstados = new ArrayList<>();
+    for (EnumEstado e : EnumEstado.values()) {
+        listaEstados.add(e.name());
+    }
+    return listaEstados;
+    }
+    
+    public List<String> getPropXEstado(String estado){
+        List<String> listaPropuestas = new ArrayList<>();
+        String aux;
+        for(Propuesta p : misPropuestas){
+            aux = p.getTitulo();
+            System.out.println(p.getEstadoActual().getEstado().toString());
+            System.out.println(estado);
+            if(p.getEstadoActual().getEstado().toString().equalsIgnoreCase(estado)){
+                listaPropuestas.add(aux);
+            }
+        }
+        return listaPropuestas;
     }
 }

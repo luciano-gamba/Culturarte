@@ -65,6 +65,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menuPerfil.add(menuConsultaCola);
 
         menuSeguir.setText("Seguir Usuario");
+        menuSeguir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuSeguirActionPerformed(evt);
+            }
+        });
         menuPerfil.add(menuSeguir);
 
         menuDejarSeguir.setText("Dejar de seguir Usuario");
@@ -157,7 +162,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void menuAltaUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAltaUsuarioActionPerformed
         // TODO add your handling code here:
         
-        InterAltaUsuario IAU = new InterAltaUsuario(ic);
+        InterAltaUsuario IAU = new InterAltaUsuario(this.ic);
         this.add(IAU);
         IAU.show();
         
@@ -165,6 +170,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void menuConsultaPropuEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsultaPropuEstActionPerformed
         // TODO add your handling code here:
+        if(this.ICE == null){
+            ICE = new InterConsultaXEstado(ic);
+            this.add(ICE);
+            ICE.show();
+        }else if(!this.ICE.abierto()){
+            ICE = new InterConsultaXEstado(ic);
+            this.add(ICE);
+            ICE.show();
+        }
     }//GEN-LAST:event_menuConsultaPropuEstActionPerformed
 
     private void menuRegistrarColaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRegistrarColaActionPerformed
@@ -183,7 +197,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void menuAltaCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAltaCategoriaActionPerformed
         // TODO add your handling code here:
         
-        InterAltaCategoria IAC = new InterAltaCategoria(ic);
+        InterAltaCategoria IAC = new InterAltaCategoria(this.ic);
         this.add(IAC);
         IAC.show();
         
@@ -201,6 +215,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_menuAltaPropActionPerformed
 
+    private void menuSeguirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSeguirActionPerformed
+        // TODO add your handling code here:
+        
+        InterSeguirUsuario ISU = new InterSeguirUsuario(this.ic);
+        this.add(ISU);
+        ISU.show();
+    }//GEN-LAST:event_menuSeguirActionPerformed
     private void menuConsultaPropuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsultaPropuActionPerformed
         // TODO add your handling code here:
         if(this.ICP == null){
@@ -251,6 +272,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     
     private InterConsultaPropuesta ICP;
     private InterAltaPropuesta IAP;
+    private InterConsultaXEstado ICE;
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;

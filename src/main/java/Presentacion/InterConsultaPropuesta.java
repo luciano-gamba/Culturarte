@@ -4,8 +4,11 @@
  */
 package Presentacion;
 
+import Logica.DataPropuesta;
+import Logica.EnumRetorno;
 import Logica.IControlador;
 import java.awt.Image;
+import java.util.List;
 import javax.swing.ImageIcon;
 
 /**
@@ -15,12 +18,18 @@ import javax.swing.ImageIcon;
 public class InterConsultaPropuesta extends javax.swing.JInternalFrame {
     
     private final IControlador ic;
+    List<String> listaPropuestas;
     /**
      * Creates new form InterConsultaPropuesta
      */
     public InterConsultaPropuesta(IControlador ic) {
         initComponents();
         this.ic = ic;
+        listaPropuestas = ic.getPropuestas();
+        
+        for(String s : listaPropuestas){
+            comboPropuestas.addItem(s);
+        }
         
         this.setTitle("Consulta de propuesta");
         
@@ -45,8 +54,29 @@ public class InterConsultaPropuesta extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         lblFoto = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        comboPropuestas = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        txtNickname = new javax.swing.JTextField();
+        txtTitulo = new javax.swing.JTextField();
+        txtEstado = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtDescrip = new javax.swing.JTextArea();
+        Lugar = new javax.swing.JLabel();
+        txtLugar = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtEntrada = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        txt$Necesario = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        txtRetorno = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        txtFechaR = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setClosable(true);
         setIconifiable(true);
@@ -60,34 +90,159 @@ public class InterConsultaPropuesta extends javax.swing.JInternalFrame {
             }
         });
 
+        lblFoto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblFoto.setPreferredSize(new java.awt.Dimension(200, 200));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboPropuestas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccionar--" }));
+        comboPropuestas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboPropuestasActionPerformed(evt);
+            }
+        });
 
-        jLabel1.setText("jLabel1");
+        jLabel1.setText("Seleccione propuesta :");
+
+        jLabel2.setText("Nickname :");
+
+        jLabel3.setText("Titulo :");
+
+        jLabel4.setText("Estado :");
+
+        txtNickname.setEditable(false);
+
+        txtTitulo.setEditable(false);
+
+        txtEstado.setEditable(false);
+
+        jLabel5.setText("Descripcion :");
+
+        txtDescrip.setEditable(false);
+        txtDescrip.setColumns(20);
+        txtDescrip.setRows(5);
+        jScrollPane1.setViewportView(txtDescrip);
+
+        Lugar.setText("Lugar:");
+
+        txtLugar.setEditable(false);
+
+        jLabel7.setText("Precio x entrada :");
+
+        txtEntrada.setEditable(false);
+
+        jLabel8.setText("$Necesario:");
+
+        txt$Necesario.setEditable(false);
+
+        jLabel9.setText("Retorno x colab:");
+
+        txtRetorno.setEditable(false);
+
+        jLabel10.setText("Fecha a realizar:");
+
+        txtFechaR.setEditable(false);
+
+        jTextArea1.setEditable(false);
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jTextArea1.setText("FALTA ->\nmuestran los nickname de todos los\ncolaboradores que colaboraron con\nla propuesta y el monto total de\nfinanciación recaudado hasta\nel momento.");
+        jScrollPane2.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jComboBox1, 0, 160, Short.MAX_VALUE)
-                .addGap(204, 204, 204))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel10))
+                                .addGap(23, 23, 23)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtRetorno)
+                                    .addComponent(txtFechaR)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)
+                                    .addComponent(Lugar)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel8))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtNickname)
+                                    .addComponent(txtTitulo)
+                                    .addComponent(txtEstado)
+                                    .addComponent(jScrollPane1)
+                                    .addComponent(txtLugar)
+                                    .addComponent(txtEntrada)
+                                    .addComponent(txt$Necesario, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(144, 144, 144)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(comboPropuestas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboPropuestas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
-                .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtNickname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtLugar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Lugar))
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7)))
+                    .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txt$Necesario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtRetorno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtFechaR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10))
+                        .addGap(0, 34, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2))
                 .addContainerGap())
         );
 
@@ -104,11 +259,80 @@ public class InterConsultaPropuesta extends javax.swing.JInternalFrame {
         this.open = false;
     }//GEN-LAST:event_formComponentHidden
 
+    private void comboPropuestasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboPropuestasActionPerformed
+        // TODO add your handling code here:
+        int op = comboPropuestas.getSelectedIndex();
+        String titulo = comboPropuestas.getItemAt(op);
+        
+        DataPropuesta DP = null;
+        
+        if(!titulo.equals("--Seleccionar--")){
+           DP = ic.consultaDePropuesta(titulo);
+        
+           ImageIcon icon = new ImageIcon(DP.getImagen());
+
+           Image imagenEscalada = icon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+           lblFoto.setIcon(new ImageIcon(imagenEscalada));
+           
+           String retorno = "AMBOS";
+           
+            if (DP.getRetorno().toString().equals("ENTRADAS_GRATIS")) {
+                retorno = "ENTRADAS GRATIS";
+            }
+            if (DP.getRetorno().toString().equals("PORCENTAJE_VENTAS")) {
+                retorno = "%VENTAS";
+            }
+
+           this.txtNickname.setText(DP.getProponente().getNickname());
+           this.txtTitulo.setText(DP.getTitulo());
+           this.txtEstado.setText(DP.getEstadoActual().getEstado().toString());
+           this.txtDescrip.setText(DP.getDescripcion());
+           this.txtLugar.setText(DP.getLugar());
+           this.txtEntrada.setText(DP.getEntrada().toString());
+           this.txt$Necesario.setText(DP.getNecesaria().toString());
+           this.txtRetorno.setText(retorno);
+           this.txtFechaR.setText(DP.getFechaARealizar().toString());
+        }else{
+           this.lblFoto.setIcon(null);
+           this.txtNickname.setText("");
+           this.txtTitulo.setText("");
+           this.txtEstado.setText("");
+           this.txtDescrip.setText("");
+           this.txtLugar.setText("");
+           this.txtEntrada.setText("");
+           this.txt$Necesario.setText("");
+           this.txtRetorno.setText("");
+           this.txtFechaR.setText("");
+        }
+        
+    }//GEN-LAST:event_comboPropuestasActionPerformed
+
     private boolean open;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel Lugar;
+    private javax.swing.JComboBox<String> comboPropuestas;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lblFoto;
+    private javax.swing.JTextField txt$Necesario;
+    private javax.swing.JTextArea txtDescrip;
+    private javax.swing.JTextField txtEntrada;
+    private javax.swing.JTextField txtEstado;
+    private javax.swing.JTextField txtFechaR;
+    private javax.swing.JTextField txtLugar;
+    private javax.swing.JTextField txtNickname;
+    private javax.swing.JTextField txtRetorno;
+    private javax.swing.JTextField txtTitulo;
     // End of variables declaration//GEN-END:variables
 }

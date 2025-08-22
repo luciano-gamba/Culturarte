@@ -73,6 +73,7 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
         listaRetorno = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         btnFoto = new javax.swing.JButton();
+        jTextField2 = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -117,6 +118,8 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
             }
         });
 
+        txtSalida.setEditable(false);
+
         Cancelar.setText("Cancelar");
         Cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -145,6 +148,8 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
                 btnFotoActionPerformed(evt);
             }
         });
+
+        jTextField2.setText("FALTA -> EL TIPO DE ESPECTACULO");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -192,6 +197,10 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(txtSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(214, 214, 214))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,7 +252,9 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
                     .addComponent(txtSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAceptar)
                     .addComponent(Cancelar))
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30))
         );
 
         pack();
@@ -297,7 +308,7 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
             DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             LocalDate fechaPrev = LocalDate.parse(fechaStr, formato);
             
-            if (!this.txtImagen.isEmpty()) {
+            if (txtImagen == null || !this.txtImagen.isEmpty()) {
                 if(ic.altaPropuesta(nick, tipo, titulo, descripcion, lugar, fechaPrev, entrada, monto, retorno, fechaActual, this.txtImagen) == 1){
                     this.hide();
                 }else{
@@ -377,6 +388,7 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel labelNick;
     private javax.swing.JComboBox<String> listaRetorno;
     private javax.swing.JTextArea txtDescripcion;

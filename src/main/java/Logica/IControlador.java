@@ -1,6 +1,7 @@
 package Logica;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public interface IControlador {
     
@@ -12,9 +13,19 @@ public interface IControlador {
     
     int altaCategoria(String nombreCat,String nombrePadreCat);
     
+    List<String> getUsuarios(); 
+    
+    int seguirUsuario(String nick1, String nick2);
+    
     int altaPropuesta(String nick, String tipo, String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual);
     
     int altaPropuesta(String nick, String tipo, String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual, String imagen);
     
-    int consultaDePropuesta();
+    List<String> getPropuestas();
+    
+    DataPropuesta consultaDePropuesta(String titulo);
+    
+    List<String> getEstados();
+    
+    List<String> getPropXEstado(String estado);
 }

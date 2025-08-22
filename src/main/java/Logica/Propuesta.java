@@ -56,7 +56,46 @@ public class Propuesta {
         this.imagen = imagen;
 
     }
-       
+    
+    public String getTitulo(){
+        return this.titulo;
+    }
+    
+    public String getImagen(){
+        return this.imagen;
+    }
+    
+    public Estado getEstadoActual(){
+        return this.estadoActual;
+    }
+    
+    public Proponente getProponente(){
+        return this.p;
+    }
+    
+    public String getDescripcion(){
+        return this.desc;
+    }
+    
+    public String getLugar(){
+        return this.lugar;
+    }
+    
+    public Double getEntrada(){
+        return this.$entrada;
+    }
+    
+    public Double getNecesaria(){
+        return this.$necesaria;
+    }
+    
+    public EnumRetorno getRetorno(){
+        return this.posibleRetorno;
+    }
+    
+    public LocalDate getFechaARealizar(){
+        return this.fechaPubli;
+    }
 }
 
 

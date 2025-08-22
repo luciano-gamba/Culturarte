@@ -326,7 +326,7 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
         LocalDate fecNac = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         
         
-        if(nickname.equals("") || nombre.equals("") || apellido.equals("") || email.equals("")){
+        if(nickname.equals("") || nombre.equals("") || apellido.equals("") || email.equals("") || !email.contains("@")){
             JOptionPane.showMessageDialog(this, "Opciones vacias o invalidas!", "Error", HEIGHT);
             
         }else{
@@ -335,7 +335,7 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
                 String biografia = textoBiografia.getText();
                 String sitioWeb = textoSitioWeb.getText();
                 
-                if(direccion.equals("")){
+                if(direccion.equals("") || (!sitioWeb.equals("") && !sitioWeb.contains("."))){
                     JOptionPane.showMessageDialog(this, "Opciones vacias o invalidas!", "Error", HEIGHT);
                 }else{
                     int resultado = this.ic.añadirUsuario(nickname, nombre, apellido, email, fecNac, direccion, biografia, sitioWeb);
@@ -372,7 +372,7 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
 
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
         // TODO add your handling code here:
-        
+        this.dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
 
 
