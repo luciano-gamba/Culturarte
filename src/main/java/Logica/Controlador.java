@@ -86,6 +86,11 @@ public class Controlador implements IControlador{
     @Override
     public int altaCategoria(String nombreCat){
         Categoria nueva = new Categoria(nombreCat);
+        
+        DefaultMutableTreeNode nuevaCat = arbolCategorias.buscar(nombreCat);
+        if(nuevaCat != null){
+            return -2;
+        }
         arbolCategorias.insertar("Categoria",nueva);
         
         return 0;
@@ -98,7 +103,10 @@ public class Controlador implements IControlador{
         if(padre==null){
             return -1;
         }
-        
+        DefaultMutableTreeNode nuevaCat = arbolCategorias.buscar(nombreCat);
+        if(nuevaCat != null){
+            return -2;
+        }
         arbolCategorias.insertar(nombrePadreCat,nueva);
             
         return 0;
@@ -111,6 +119,18 @@ public class Controlador implements IControlador{
         for(Usuario u : misUsuarios){
             aux = u.getNickname();
             listaNombres.add(aux);
+        }
+        return listaNombres;
+    }
+    
+    @Override
+    public List<String> getSeguidos(String seguidor) {
+        List<String> listaNombres = new ArrayList<>();
+        for(Usuario u : this.misUsuarios){
+            if(u.getNickname().equals(seguidor)){
+                listaNombres = u.getSeguidos();
+                break;
+            }
         }
         return listaNombres;
     }
@@ -141,6 +161,32 @@ public class Controlador implements IControlador{
             return 0; //error 0: ya sigue al usuario nick2
         }else{
             return 1;
+        }
+    }
+    
+    @Override
+    public int dejarSeguirUsuario(String nick1, String nick2){
+        Usuario seguidor = null;
+        Usuario seguir = null;
+        for(Usuario u : this.misUsuarios){
+            if(u.getNickname().equals(nick1)){
+                seguidor = u;
+                break;
+            }
+        }
+        
+        for(Usuario u : this.misUsuarios){
+            if(u.getNickname().equals(nick2)){
+                seguir = u;
+                break;
+            }
+        }
+        
+        int res = seguidor.dejarDeSeguir(seguir);
+        if(res == 1){
+            return 1;
+        }else{
+            return 0;
         }
     }
     
@@ -193,6 +239,10 @@ public class Controlador implements IControlador{
         } else {
             return 0;
         }
+    }
+    public DefaultMutableTreeNode getRaizArbolCat(){ //Con esto accedo a la raiz del arbol de categorias
+        //para poder crear el JTree
+        return this.arbolCategorias.getRaiz();
     }
     
     public List<String> getPropuestas() {

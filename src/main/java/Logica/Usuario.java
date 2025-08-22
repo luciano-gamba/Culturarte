@@ -11,7 +11,7 @@ public class Usuario {
     String apellido;
     LocalDate fecNac;
     //imagen ???
-     List<Usuario> misSeguidos;
+    List<Usuario> misSeguidos;
 
     public Usuario(String nickname, String email, String nombre, String apellido, LocalDate fecNac) {
         this.nickname = nickname;
@@ -72,4 +72,21 @@ public class Usuario {
         return 1;
     }
     
+    public int dejarDeSeguir(Usuario nick){
+        for(Usuario u : this.misSeguidos){
+            if(u == nick){
+                this.misSeguidos.remove(u);
+                return 1;
+            }
+        }
+        return 0; //error 0: no se encuentra
+    }
+    
+    public List<String> getSeguidos(){
+        List<String> listaSeguidos = new ArrayList<>();
+        for(Usuario u : this.misSeguidos){
+            listaSeguidos.add(u.getNickname());
+        }
+        return listaSeguidos;
+    }
 }

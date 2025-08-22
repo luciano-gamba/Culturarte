@@ -73,6 +73,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menuPerfil.add(menuSeguir);
 
         menuDejarSeguir.setText("Dejar de seguir Usuario");
+        menuDejarSeguir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuDejarSeguirActionPerformed(evt);
+            }
+        });
         menuPerfil.add(menuDejarSeguir);
 
         jMenuBar1.add(menuPerfil);
@@ -234,6 +239,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             ICP.show();
         }
     }//GEN-LAST:event_menuConsultaPropuActionPerformed
+
+    private void menuDejarSeguirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDejarSeguirActionPerformed
+        // TODO add your handling code here:
+        
+        InterDejarSeguir IDS = new InterDejarSeguir(this.ic);
+        this.add(IDS);
+        IDS.show();
+    }//GEN-LAST:event_menuDejarSeguirActionPerformed
 
     /**
      * @param args the command line arguments
