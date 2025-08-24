@@ -21,7 +21,7 @@ public class Controlador implements IControlador{
     }
     
     @Override
-    public int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac){
+    public int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen){
         String nickNuevo = nick;
         String correoNuevo = correo;
         Boolean nickExiste = false;
@@ -45,7 +45,7 @@ public class Controlador implements IControlador{
             System.out.println("ERROR: Nickname o Correo existen en el sistema!");
             return 0;
         }else{
-            Colaborador colaNuevo = new Colaborador(nick, correo, nombre, apellido, fecNac);
+            Colaborador colaNuevo = new Colaborador(nick, correo, nombre, apellido, fecNac, imagen);
             misUsuarios.add(colaNuevo);
             misColaboradores.add(colaNuevo);
             return 1;
@@ -53,7 +53,7 @@ public class Controlador implements IControlador{
     }
     
     @Override
-    public int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String direccion, String bio, String sitioWeb){
+    public int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen, String direccion, String bio, String sitioWeb){
         String nickNuevo = nick;
         String correoNuevo = correo;
         Boolean nickExiste = false;
@@ -77,7 +77,7 @@ public class Controlador implements IControlador{
             System.out.println("ERROR: Nickname o Correo existen en el sistema!");
             return 0;
         }else{
-            Proponente propNuevo = new Proponente(direccion, bio, sitioWeb, nick, correo, nombre, apellido, fecNac);
+            Proponente propNuevo = new Proponente(direccion, bio, sitioWeb, nick, correo, nombre, apellido, fecNac, imagen);
             misUsuarios.add(propNuevo);
             misProponentes.add(propNuevo);
             return 1;

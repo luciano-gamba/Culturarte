@@ -10,15 +10,16 @@ public class Usuario {
     String nombre;
     String apellido;
     LocalDate fecNac;
-    //imagen ???
+    String imagen = "";
     List<Usuario> misSeguidos;
 
-    public Usuario(String nickname, String email, String nombre, String apellido, LocalDate fecNac) {
+    public Usuario(String nickname, String email, String nombre, String apellido, LocalDate fecNac, String imagen) {
         this.nickname = nickname;
         this.email = email;
         this.nombre = nombre;
         this.apellido = apellido;
         this.fecNac = fecNac;
+        this.imagen = imagen;
         this.misSeguidos = new ArrayList<>();
     }
 
