@@ -62,7 +62,9 @@ public class Usuario {
     public void setFecNac(LocalDate fecNac) {
         this.fecNac = fecNac;
     }
-    
+    public String getImagen(){
+        return imagen;
+    }
     public int seguirUsuario(Usuario nick){
         for(Usuario u : this.misSeguidos){
             if(u == nick){
