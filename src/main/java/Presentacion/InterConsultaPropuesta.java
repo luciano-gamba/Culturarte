@@ -265,7 +265,7 @@ public class InterConsultaPropuesta extends javax.swing.JInternalFrame {
         int op = comboPropuestas.getSelectedIndex();
         String titulo = comboPropuestas.getItemAt(op);
         
-        DataPropuesta DP = null;
+        DataPropuesta DP;
         
         if(!titulo.equals("--Seleccionar--")){
            DP = ic.consultaDePropuesta(titulo);

@@ -7,8 +7,21 @@ package Presentacion;
 import Logica.DataPropuesta;
 import Logica.IControlador;
 import java.awt.Image;
+import static java.awt.image.ImageObserver.HEIGHT;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -18,6 +31,7 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
 
     private final IControlador ic;
     List<String> listaPropuestas;
+    String txtImagen = "";
     /**
      * Creates new form InterModificarPropuesta
      * @param ic
@@ -43,6 +57,9 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
         this.comboRetorno.setVisible(false);
         this.botonAceptar.setVisible(false);
         this.botonEditar.setEnabled(false);
+        this.spinnerFecha.setVisible(false);
+        
+        this.setTitle("Modificar Propuesta");
     }
 
     /**
@@ -85,6 +102,7 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
         jLabel12 = new javax.swing.JLabel();
         comboEstado = new javax.swing.JComboBox<>();
         comboRetorno = new javax.swing.JComboBox<>();
+        spinnerFecha = new javax.swing.JSpinner();
 
         setClosable(true);
         setIconifiable(true);
@@ -167,14 +185,23 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
 
         jLabel12.setText("Estado");
 
-        comboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---", "Ingresada", "Publicada", "En financiación", "Financiada", "No financiada", "Cancelada" }));
+        comboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ingresada", "Publicada", "En financiación", "Financiada", "No financiada", "Cancelada" }));
+        comboEstado.setSelectedIndex(-1);
         comboEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboEstadoActionPerformed(evt);
             }
         });
 
-        comboRetorno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---", "Entradas Gratis", "% Ventas", "Ambos" }));
+        comboRetorno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Entradas Gratis", "% Ventas", "Ambos" }));
+        comboRetorno.setSelectedIndex(-1);
+        comboRetorno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboRetornoActionPerformed(evt);
+            }
+        });
+
+        spinnerFecha.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(1735700400000L), null, null, java.util.Calendar.DAY_OF_MONTH));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -197,9 +224,6 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
                             .addComponent(labelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(botonEditar))
-                    .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -208,15 +232,18 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
                             .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(textoMontoTotal)
                             .addComponent(textoMontoEntrada)
-                            .addComponent(textoFecha)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(textoFecha)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(spinnerFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(textoLugar)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
                             .addComponent(textoCategoria)
@@ -230,8 +257,11 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
                                 .addComponent(textoRetorno)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(comboRetorno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(22, 22, 22))
+                        .addGap(0, 22, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(botonEditar)
+                        .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(botonAceptar)
@@ -278,7 +308,8 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(textoFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))
+                            .addComponent(jLabel7)
+                            .addComponent(spinnerFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(textoMontoEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -318,8 +349,10 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
 
             ImageIcon icon = new ImageIcon(DP.getImagen());
 
-            Image imagenEscalada = icon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-            labelFoto.setIcon(new ImageIcon(imagenEscalada));
+            if(!"".equals(DP.getImagen())){
+                Image imagenEscalada = icon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+                labelFoto.setIcon(new ImageIcon(imagenEscalada));
+            }
 
             String retorno = "AMBOS";
 
@@ -339,6 +372,28 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
             this.textoMontoTotal.setText(DP.getNecesaria().toString());
             this.textoRetorno.setText(retorno);
             this.textoFecha.setText(DP.getFechaARealizar().toString());
+            this.txtImagen = DP.getImagen();
+            Date fechaDate = Date.from(DP.getFechaARealizar().atStartOfDay(ZoneId.systemDefault()).toInstant());
+            this.spinnerFecha.setValue(fechaDate);
+            
+            String estado = this.textoEstado.getText();
+            switch (estado) {
+                case "INGRESADA" -> this.comboEstado.setSelectedItem("Ingresada");
+                case "PUBLICADA" -> this.comboEstado.setSelectedItem("Publicada");
+                case "EN_FINANCIACION" -> this.comboEstado.setSelectedItem("En financiación");
+                case "FINANCIADA" -> this.comboEstado.setSelectedItem("Financiada");
+                case "NO_FINANCIADA" -> this.comboEstado.setSelectedItem("No financiada");
+                case "CANCELADA" -> this.comboEstado.setSelectedItem("Cancelada");
+                default -> this.comboEstado.setSelectedItem("???");
+            }
+            
+            String ret = this.textoRetorno.getText();
+            switch (ret) {
+                case "ENTRADAS GRATIS" -> this.comboRetorno.setSelectedItem("Entradas Gratis");
+                case "%VENTAS" -> this.comboRetorno.setSelectedItem("% Ventas");
+                case "AMBOS" -> this.comboRetorno.setSelectedItem("Ambos");
+                default -> this.comboRetorno.setSelectedItem("???");
+            }
         }else{
             this.botonEditar.setEnabled(false);
             this.labelFoto.setIcon(null);
@@ -351,11 +406,57 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
             this.textoMontoTotal.setText("");
             this.textoRetorno.setText("");
             this.textoFecha.setText("");
+            this.txtImagen = "";
         }
     }//GEN-LAST:event_comboPropuestasActionPerformed
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         // TODO add your handling code here:
+        String desc = this.textoDescripcion.getText();
+        String lugar = this.textoLugar.getText();
+        String montoEntrada = this.textoMontoEntrada.getText();
+        String montoObjetivo = this.textoMontoTotal.getText();
+        
+        if(desc.isBlank() || lugar.isBlank() || montoEntrada.isBlank() || montoObjetivo.isBlank()){
+            JOptionPane.showMessageDialog(this, "Opciones vacias!", "Error", HEIGHT);
+        }else{
+            String titulo = this.textoTitulo.getText();
+            //String categoria = "VACIO";
+            
+            int op1 = this.comboEstado.getSelectedIndex();
+            String estado = this.comboEstado.getItemAt(op1);
+            estado = switch (estado) {
+            case "Ingresada" -> "INGRESADA";
+            case "Publicada" -> "PUBLICADA";
+            case "En financiación" -> "EN_FINANCIACION";
+            case "Financiada" -> "FINANCIADA";
+            case "No financiada" -> "NO_FINANCIADA";
+            case "Cancelada" -> "CANCELADA";
+            default -> "???";
+            };
+            
+            int op2 = this.comboRetorno.getSelectedIndex();
+            String retorno = this.comboRetorno.getItemAt(op2);
+            retorno = switch (retorno) {
+            case "Entradas Gratis" -> "ENTRADAS_GRATIS";
+            case "% Ventas" -> "PORCENTAJE_VENTAS";
+            case "Ambos" -> "AMBOS";
+            default -> "???";
+            };
+            
+            
+            Date fec = (Date) this.spinnerFecha.getValue();
+            LocalDate fecha = fec.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            
+            if(ic.modificarPropuesta(titulo, desc, lugar, fecha, montoEntrada, montoObjetivo, retorno, estado, this.txtImagen) == 0){
+                JOptionPane.showMessageDialog(this, "Propuesta modificada con exito!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+            }else{
+                JOptionPane.showMessageDialog(this, "ITS ME ITS ME ITS ME ITS ME ITS ME ITS ME ITS ME ITS ME ITS ME ITS ME ITS ME ITS ME ITS ME ITS ME ITS ME ITS ME ITS ME ITS ME ITS ME ITS ME ITS ME ITS ME ITS ME ITS ME ITS ME ITS ME ITS ME ITS ME ", "ITS ME", HEIGHT);
+            }
+        }
+        
+        
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void botonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEditarActionPerformed
@@ -364,17 +465,45 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
         this.textoLugar.setEditable(true);
         this.textoMontoEntrada.setEditable(true);
         this.textoMontoTotal.setEditable(true);
-        this.textoFecha.setEditable(true);
         this.botonCambioImagen.setVisible(true);
         this.botonCambioImagen.setEnabled(true);
         this.botonEditar.setEnabled(false);
         this.botonAceptar.setVisible(true);
         this.comboEstado.setVisible(true);
         this.comboRetorno.setVisible(true);
+        this.spinnerFecha.setVisible(true);
+        this.comboPropuestas.setEnabled(false);
     }//GEN-LAST:event_botonEditarActionPerformed
 
     private void botonCambioImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCambioImagenActionPerformed
         // TODO add your handling code here:
+        JFileChooser fc = new JFileChooser();
+        fc.setDialogTitle("Buscar imagen");
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Imágenes JPG & PNG", "jpg", "png");
+        fc.setFileFilter(filtro);
+        
+        File carpetaDestino = new File("fotos");
+        if (!carpetaDestino.exists()) {
+            carpetaDestino.mkdirs();
+        }
+        
+        if(fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
+            File foto = new File(fc.getSelectedFile().toString());
+            System.out.println(fc.getSelectedFile().toString());
+            File destino = new File(carpetaDestino, foto.getName());
+            try {
+                Files.copy(foto.toPath(), destino.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException ex) {
+                Logger.getLogger(InterAltaPropuesta.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println("Imagen copiada en: " + destino.getAbsolutePath());
+            this.txtImagen = destino.getAbsolutePath();
+            
+            ImageIcon icon = new ImageIcon(this.txtImagen);
+
+            Image imagenEscalada = icon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+            labelFoto.setIcon(new ImageIcon(imagenEscalada));
+        }
     }//GEN-LAST:event_botonCambioImagenActionPerformed
 
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
@@ -387,8 +516,12 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_textoEstadoActionPerformed
 
     private void comboEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEstadoActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:        
     }//GEN-LAST:event_comboEstadoActionPerformed
+
+    private void comboRetornoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboRetornoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboRetornoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -413,6 +546,7 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelFoto;
+    private javax.swing.JSpinner spinnerFecha;
     private javax.swing.JTextField textoCategoria;
     private javax.swing.JTextArea textoDescripcion;
     private javax.swing.JTextField textoEstado;
