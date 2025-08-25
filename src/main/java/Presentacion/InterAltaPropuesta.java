@@ -120,6 +120,11 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
         });
 
         txtSalida.setEditable(false);
+        txtSalida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSalidaActionPerformed(evt);
+            }
+        });
 
         Cancelar.setText("Cancelar");
         Cancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -368,6 +373,10 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
             this.txtImagen = destino.getAbsolutePath();
         }
     }//GEN-LAST:event_btnFotoActionPerformed
+
+    private void txtSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSalidaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSalidaActionPerformed
 
     private boolean open;
     private String txtImagen;

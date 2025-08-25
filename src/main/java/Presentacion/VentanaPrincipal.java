@@ -23,10 +23,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         menuPerfil = new javax.swing.JMenu();
         menuAltaUsuario = new javax.swing.JMenuItem();
-        menuConsultaProp = new javax.swing.JMenuItem();
-        menuConsultaCola = new javax.swing.JMenuItem();
         menuSeguir = new javax.swing.JMenuItem();
         menuDejarSeguir = new javax.swing.JMenuItem();
+        subMenuConsultaPerfil = new javax.swing.JMenu();
+        menuConsultaProp = new javax.swing.JMenuItem();
+        menuConsultaCola = new javax.swing.JMenuItem();
         menuPropuestas = new javax.swing.JMenu();
         menuAltaProp = new javax.swing.JMenuItem();
         menuModificarProp = new javax.swing.JMenuItem();
@@ -53,17 +54,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         menuPerfil.add(menuAltaUsuario);
 
-        menuConsultaProp.setText("Consulta perfil proponente");
-        menuConsultaProp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuConsultaPropActionPerformed(evt);
-            }
-        });
-        menuPerfil.add(menuConsultaProp);
-
-        menuConsultaCola.setText("Consulta perfil colaborador");
-        menuPerfil.add(menuConsultaCola);
-
         menuSeguir.setText("Seguir Usuario");
         menuSeguir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -80,6 +70,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         menuPerfil.add(menuDejarSeguir);
 
+        subMenuConsultaPerfil.setText("Consulta Perfil");
+
+        menuConsultaProp.setText("Consulta perfil proponente");
+        menuConsultaProp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuConsultaPropActionPerformed(evt);
+            }
+        });
+        subMenuConsultaPerfil.add(menuConsultaProp);
+
+        menuConsultaCola.setText("Consulta perfil colaborador");
+        subMenuConsultaPerfil.add(menuConsultaCola);
+
+        menuPerfil.add(subMenuConsultaPerfil);
+
         jMenuBar1.add(menuPerfil);
 
         menuPropuestas.setText("Propuestas");
@@ -93,6 +98,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menuPropuestas.add(menuAltaProp);
 
         menuModificarProp.setText("Modificar Datos Propuesta");
+        menuModificarProp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuModificarPropActionPerformed(evt);
+            }
+        });
         menuPropuestas.add(menuModificarProp);
 
         menuConsultaPropu.setText("Consulta de Propuesta");
@@ -161,7 +171,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuConsultaPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsultaPropActionPerformed
-        // TODO add your handling code here:
+        InterConsultaPerfilProponente ICPP = new InterConsultaPerfilProponente(this.ic);
+        this.add(ICPP);
+        ICPP.show();
     }//GEN-LAST:event_menuConsultaPropActionPerformed
 
     private void menuAltaUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAltaUsuarioActionPerformed
@@ -248,6 +260,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         IDS.show();
     }//GEN-LAST:event_menuDejarSeguirActionPerformed
 
+    private void menuModificarPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuModificarPropActionPerformed
+        // TODO add your handling code here:
+        InterModificarPropuesta IMP = new InterModificarPropuesta(this.ic);
+        this.add(IMP);
+        IMP.show();
+    }//GEN-LAST:event_menuModificarPropActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -305,5 +324,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu menuPropuestas;
     private javax.swing.JMenuItem menuRegistrarCola;
     private javax.swing.JMenuItem menuSeguir;
+    private javax.swing.JMenu subMenuConsultaPerfil;
     // End of variables declaration//GEN-END:variables
 }

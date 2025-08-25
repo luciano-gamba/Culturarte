@@ -21,6 +21,7 @@ public class InterConsultaPropuesta extends javax.swing.JInternalFrame {
     List<String> listaPropuestas;
     /**
      * Creates new form InterConsultaPropuesta
+     * @param ic
      */
     public InterConsultaPropuesta(IControlador ic) {
         initComponents();
@@ -191,7 +192,7 @@ public class InterConsultaPropuesta extends javax.swing.JInternalFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(comboPropuestas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,7 +265,7 @@ public class InterConsultaPropuesta extends javax.swing.JInternalFrame {
         int op = comboPropuestas.getSelectedIndex();
         String titulo = comboPropuestas.getItemAt(op);
         
-        DataPropuesta DP = null;
+        DataPropuesta DP;
         
         if(!titulo.equals("--Seleccionar--")){
            DP = ic.consultaDePropuesta(titulo);

@@ -6,9 +6,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 public interface IControlador {
     
-    int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String direccion, String bio, String sitioWeb);
+    int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen, String direccion, String bio, String sitioWeb);
     
-    int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac);
+    int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen);
     
     int altaCategoria(String nombreCat);
     
@@ -25,6 +25,8 @@ public interface IControlador {
     int altaPropuesta(String nick, String tipo, String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual);
     
     int altaPropuesta(String nick, String tipo, String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual, String imagen);
+    
+    int modificarPropuesta(String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, String posibleRetorno, String estado, String imagen);
     
     DefaultMutableTreeNode getRaizArbolCat();
     

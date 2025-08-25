@@ -5,10 +5,18 @@
 package Presentacion;
 
 import Logica.IControlador;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -16,6 +24,7 @@ import javax.swing.JOptionPane;
  */
 public class InterAltaUsuario extends javax.swing.JInternalFrame {
 
+    String txtImagen = "";
     private final IControlador ic;
     /**
      * Creates new form InterAltaUsuario
@@ -24,6 +33,7 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
     public InterAltaUsuario(IControlador ic) {
         this.ic = ic;
         initComponents();
+        this.textImagenLista.setVisible(false);
         this.setTitle("Alta Usuario");
     }
 
@@ -60,6 +70,9 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
         textoSitioWeb = new javax.swing.JTextField();
         labelBiografia = new javax.swing.JLabel();
         labelSitioWeb = new javax.swing.JLabel();
+        botonImagen = new javax.swing.JButton();
+        labelImagen = new javax.swing.JLabel();
+        textImagenLista = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -170,6 +183,17 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
 
         labelSitioWeb.setText("Sitio Web (opcional)");
 
+        botonImagen.setText("Seleccionar");
+        botonImagen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonImagenActionPerformed(evt);
+            }
+        });
+
+        labelImagen.setText("Foto de perfil (opcional)");
+
+        textImagenLista.setText("Imagen seleccionada!");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -202,7 +226,8 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
                                 .addComponent(labelDireccion)
                                 .addComponent(rbProponente)
                                 .addComponent(labelBiografia))
-                            .addComponent(labelSitioWeb))
+                            .addComponent(labelSitioWeb)
+                            .addComponent(labelImagen, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -216,8 +241,13 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
                                 .addComponent(textoDireccion)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPaneBio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(95, Short.MAX_VALUE))))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(botonImagen)
+                                        .addGap(30, 30, 30)
+                                        .addComponent(textImagenLista))
+                                    .addComponent(jScrollPaneBio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(75, Short.MAX_VALUE))))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(botonAceptar)
@@ -266,7 +296,12 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoSitioWeb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelSitioWeb))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonImagen)
+                    .addComponent(labelImagen)
+                    .addComponent(textImagenLista))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonCancelar)
                     .addComponent(botonAceptar))
@@ -339,7 +374,7 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
                 if(direccion.equals("") || (!sitioWeb.equals("") && !sitioWeb.contains("."))){
                     JOptionPane.showMessageDialog(this, "Opciones vacias o invalidas!", "Error", HEIGHT);
                 }else{
-                    int resultado = this.ic.añadirUsuario(nickname, nombre, apellido, email, fecNac, direccion, biografia, sitioWeb);
+                    int resultado = this.ic.añadirUsuario(nickname, nombre, apellido, email, fecNac, direccion, biografia, sitioWeb, this.txtImagen);
                     
                     if(resultado == 1){
                         JOptionPane.showMessageDialog(this, "Usuario ha sido ingresado!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
@@ -349,7 +384,7 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
                     }
                 }
             }else if(rbColaborador.isSelected()){
-                int resultado = this.ic.añadirUsuario(nickname, nombre, apellido, email, fecNac);
+                int resultado = this.ic.añadirUsuario(nickname, nombre, apellido, email, fecNac, this.txtImagen);
                     
                     if(resultado == 1){
                         JOptionPane.showMessageDialog(this, "Usuario ha sido ingresado!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
@@ -378,11 +413,39 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
 
+    private void botonImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonImagenActionPerformed
+        // TODO add your handling code here:
+        JFileChooser fc = new JFileChooser();
+        fc.setDialogTitle("Buscar imagen");
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Imágenes JPG & PNG", "jpg", "png");
+        fc.setFileFilter(filtro);
+        
+        File carpetaDestino = new File("fotos");
+        if (!carpetaDestino.exists()) {
+            carpetaDestino.mkdirs();
+        }
+        
+        if(fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
+            File foto = new File(fc.getSelectedFile().toString());
+            System.out.println(fc.getSelectedFile().toString());
+            File destino = new File(carpetaDestino, foto.getName());
+            try {
+                Files.copy(foto.toPath(), destino.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException ex) {
+                Logger.getLogger(InterAltaPropuesta.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println("Imagen copiada en: " + destino.getAbsolutePath());
+            this.txtImagen = destino.getAbsolutePath();
+            this.textImagenLista.setVisible(true);
+        }
+    }//GEN-LAST:event_botonImagenActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgTipoUsuario;
     private javax.swing.JButton botonAceptar;
     private javax.swing.JButton botonCancelar;
+    private javax.swing.JButton botonImagen;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPaneBio;
     private javax.swing.JLabel labelApellido;
@@ -390,6 +453,7 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel labelDireccion;
     private javax.swing.JLabel labelEmail;
     private javax.swing.JLabel labelFecNac;
+    private javax.swing.JLabel labelImagen;
     private javax.swing.JLabel labelNickname;
     private javax.swing.JLabel labelNombre;
     private javax.swing.JLabel labelSitioWeb;
@@ -397,6 +461,7 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton rbColaborador;
     private javax.swing.JRadioButton rbProponente;
     private javax.swing.JSpinner spinnerFecNac;
+    private javax.swing.JLabel textImagenLista;
     private javax.swing.JTextField textoApellido;
     private javax.swing.JTextArea textoBiografia;
     private javax.swing.JTextField textoDireccion;

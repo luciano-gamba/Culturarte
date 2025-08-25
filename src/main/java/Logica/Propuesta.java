@@ -57,6 +57,29 @@ public class Propuesta {
 
     }
     
+    public void modificarPropuesta(String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, String posibleRetorno, String estado, String imagen){
+        this.desc = descripcion;
+        this.lugar = lugar;
+        this.fechaPubli = fechaPrev;
+        this.$entrada = montoXentrada;
+        this.$necesaria = montoNecesario;
+        
+        EnumRetorno retorno;
+        switch(posibleRetorno){
+            case "ENTRADAS_GRATIS" -> retorno = EnumRetorno.valueOf("ENTRADAS_GRATIS");
+            case "PORCENTAJE_VENTAS" -> retorno = EnumRetorno.valueOf("PORCENTAJE_VENTAS");
+            case "AMBOS" -> retorno = EnumRetorno.valueOf("AMBOS");
+            default -> retorno = EnumRetorno.valueOf("ERROR");
+        }
+        this.posibleRetorno = retorno;
+        
+        Estado est = new Estado(EnumEstado.valueOf(estado), LocalDate.now());
+        this.estadoActual = est;
+        this.misEstados.add(est);
+        
+        this.imagen = imagen;
+    }
+    
     public String getTitulo(){
         return this.titulo;
     }
@@ -96,6 +119,16 @@ public class Propuesta {
     public LocalDate getFechaARealizar(){
         return this.fechaPubli;
     }
+
+    public LocalDate getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
+    }
+    
+    
 }
 
 

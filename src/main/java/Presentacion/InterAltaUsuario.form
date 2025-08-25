@@ -80,6 +80,7 @@
                               <Component id="labelBiografia" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="labelSitioWeb" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelImagen" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -96,9 +97,16 @@
                               <Component id="textoDireccion" max="32767" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="jScrollPaneBio" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="95" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="botonImagen" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="textImagenLista" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="jScrollPaneBio" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace pref="75" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -163,7 +171,13 @@
                   <Component id="textoSitioWeb" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="labelSitioWeb" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="28" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="botonImagen" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelImagen" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="textImagenLista" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="14" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="botonCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="botonAceptar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -314,6 +328,24 @@
     <Component class="javax.swing.JLabel" name="labelSitioWeb">
       <Properties>
         <Property name="text" type="java.lang.String" value="Sitio Web (opcional)"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="botonImagen">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Seleccionar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonImagenActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelImagen">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Foto de perfil (opcional)"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="textImagenLista">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Imagen seleccionada!"/>
       </Properties>
     </Component>
   </SubComponents>

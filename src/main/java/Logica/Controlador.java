@@ -21,7 +21,7 @@ public class Controlador implements IControlador{
     }
     
     @Override
-    public int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac){
+    public int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen){
         String nickNuevo = nick;
         String correoNuevo = correo;
         Boolean nickExiste = false;
@@ -45,7 +45,7 @@ public class Controlador implements IControlador{
             System.out.println("ERROR: Nickname o Correo existen en el sistema!");
             return 0;
         }else{
-            Colaborador colaNuevo = new Colaborador(nick, correo, nombre, apellido, fecNac);
+            Colaborador colaNuevo = new Colaborador(nick, correo, nombre, apellido, fecNac, imagen);
             misUsuarios.add(colaNuevo);
             misColaboradores.add(colaNuevo);
             return 1;
@@ -53,7 +53,7 @@ public class Controlador implements IControlador{
     }
     
     @Override
-    public int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String direccion, String bio, String sitioWeb){
+    public int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen, String direccion, String bio, String sitioWeb){
         String nickNuevo = nick;
         String correoNuevo = correo;
         Boolean nickExiste = false;
@@ -77,7 +77,7 @@ public class Controlador implements IControlador{
             System.out.println("ERROR: Nickname o Correo existen en el sistema!");
             return 0;
         }else{
-            Proponente propNuevo = new Proponente(direccion, bio, sitioWeb, nick, correo, nombre, apellido, fecNac);
+            Proponente propNuevo = new Proponente(direccion, bio, sitioWeb, nick, correo, nombre, apellido, fecNac, imagen);
             misUsuarios.add(propNuevo);
             misProponentes.add(propNuevo);
             return 1;
@@ -216,6 +216,7 @@ public class Controlador implements IControlador{
         
     }
     
+    @Override
     public int altaPropuesta(String nick, String tipo, String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual, String imagen){
         
         Proponente prop = null;
@@ -240,11 +241,27 @@ public class Controlador implements IControlador{
             return 0;
         }
     }
+    
+    @Override
+    public int modificarPropuesta(String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, String posibleRetorno, String estado, String imagen){
+        
+        for(Propuesta p : this.misPropuestas){
+            if(p.getTitulo().equals(titulo)){
+                p.modificarPropuesta(descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada),Double.parseDouble(montoNecesario), posibleRetorno, estado, imagen);
+                return 0;
+            }
+        }
+        return 1; //error 1: no deberia llegar acá
+    }
+
+    
+    @Override
     public DefaultMutableTreeNode getRaizArbolCat(){ //Con esto accedo a la raiz del arbol de categorias
         //para poder crear el JTree
         return this.arbolCategorias.getRaiz();
     }
     
+    @Override
     public List<String> getPropuestas() {
         List<String> listaPropuestas = new ArrayList<>();
         String aux;
@@ -255,6 +272,7 @@ public class Controlador implements IControlador{
         return listaPropuestas;
     }
     
+    @Override
     public DataPropuesta consultaDePropuesta(String titulo){
         
         DataPropuesta DP = null;
@@ -271,6 +289,7 @@ public class Controlador implements IControlador{
         return DP;
     }
     
+    @Override
     public List<String> getEstados(){
     List<String> listaEstados = new ArrayList<>();
     for (EnumEstado e : EnumEstado.values()) {
@@ -279,6 +298,7 @@ public class Controlador implements IControlador{
     return listaEstados;
     }
     
+    @Override
     public List<String> getPropXEstado(String estado){
         List<String> listaPropuestas = new ArrayList<>();
         String aux;
