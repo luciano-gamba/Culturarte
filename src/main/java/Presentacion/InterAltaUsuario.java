@@ -374,7 +374,7 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
                 if(direccion.equals("") || (!sitioWeb.equals("") && !sitioWeb.contains("."))){
                     JOptionPane.showMessageDialog(this, "Opciones vacias o invalidas!", "Error", HEIGHT);
                 }else{
-                    int resultado = this.ic.añadirUsuario(nickname, nombre, apellido, email, fecNac, direccion, biografia, sitioWeb, this.txtImagen);
+                    int resultado = this.ic.añadirUsuario(nickname, nombre, apellido, email, fecNac, this.txtImagen, direccion,biografia , sitioWeb);
                     
                     if(resultado == 1){
                         JOptionPane.showMessageDialog(this, "Usuario ha sido ingresado!", "Listo!", JOptionPane.INFORMATION_MESSAGE);

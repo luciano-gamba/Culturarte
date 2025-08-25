@@ -98,6 +98,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menuPropuestas.add(menuAltaProp);
 
         menuModificarProp.setText("Modificar Datos Propuesta");
+        menuModificarProp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuModificarPropActionPerformed(evt);
+            }
+        });
         menuPropuestas.add(menuModificarProp);
 
         menuConsultaPropu.setText("Consulta de Propuesta");
@@ -254,6 +259,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         this.add(IDS);
         IDS.show();
     }//GEN-LAST:event_menuDejarSeguirActionPerformed
+
+    private void menuModificarPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuModificarPropActionPerformed
+        // TODO add your handling code here:
+        InterModificarPropuesta IMP = new InterModificarPropuesta(this.ic);
+        this.add(IMP);
+        IMP.show();
+    }//GEN-LAST:event_menuModificarPropActionPerformed
 
     /**
      * @param args the command line arguments
