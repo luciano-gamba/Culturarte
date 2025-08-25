@@ -17,19 +17,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuAltaUsuarioActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuConsultaProp">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Consulta perfil proponente"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuConsultaPropActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuConsultaCola">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Consulta perfil colaborador"/>
-              </Properties>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuSeguir">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Seguir Usuario"/>
@@ -46,6 +33,26 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuDejarSeguirActionPerformed"/>
               </Events>
             </MenuItem>
+            <Menu class="javax.swing.JMenu" name="subMenuConsultaPerfil">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Consulta Perfil"/>
+              </Properties>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="menuConsultaProp">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Consulta perfil proponente"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuConsultaPropActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="menuConsultaCola">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Consulta perfil colaborador"/>
+                  </Properties>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuPropuestas">
