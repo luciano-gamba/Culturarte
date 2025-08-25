@@ -16,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -300,18 +301,17 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
         }
         
         if (txtNick.getText().isEmpty() || txtTitulo.getText().isEmpty() || txtDescripcion.getText().isEmpty() || txtEntrada.getText().isEmpty() || txtFecha.getText().isEmpty() || txtLugar.getText().isEmpty() || txtMonto.getText().isEmpty()) {
-            txtSalida.setVisible(true);
-            txtSalida.setText("FALTAN CAMPOS POR LLENAR!");
-            this.updateUI();
-            //mejor seria hacer que te marque en la propia pantalla o que salga otra ventana arriba informandote del error (o quiza no)
+            JOptionPane.showMessageDialog(this, "Faltan campos por llenar!", "Error", HEIGHT);
         }else{
             DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             LocalDate fechaPrev = LocalDate.parse(fechaStr, formato);
             
             if (txtImagen == null || !this.txtImagen.isEmpty()) {
                 if(ic.altaPropuesta(nick, tipo, titulo, descripcion, lugar, fechaPrev, entrada, monto, retorno, fechaActual, this.txtImagen) == 1){
+                    JOptionPane.showMessageDialog(this, "La propuesta ha sido ingresada!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
                     this.hide();
                 }else{
+                    //poner ventana de error
                     txtSalida.setText("NO EXISTE PROPONENTE CON NICK = " + nick);
                     txtSalida.setVisible(true);
                     labelNick.setForeground(Color.RED);
@@ -321,8 +321,10 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
                 //cerrar la ventana
             }else{
                 if(ic.altaPropuesta(nick, tipo, titulo, descripcion, lugar, fechaPrev, entrada, monto, retorno, fechaActual) == 1){
+                    JOptionPane.showMessageDialog(this, "La propuesta ha sido ingresada!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
                     this.hide();
                 }else{
+                    //poner ventana de error
                     txtSalida.setText("NO EXISTE PROPONENTE CON NICK = " + nick);
                     txtSalida.setVisible(true);
                     labelNick.setForeground(Color.RED);
@@ -331,9 +333,6 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
                 //no quiere insertar imagen
             }
         }
-        
-        //mandar todos estos datos a una funcion de ventanaPrincipal para que la capa logica se encargue de todo
-        //o sino que lo mande todo desde aca a la capa logica
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
@@ -359,14 +358,13 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
         
         if(fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
             File foto = new File(fc.getSelectedFile().toString());
-            System.out.println(fc.getSelectedFile().toString());
             File destino = new File(carpetaDestino, foto.getName());
             try {
                 Files.copy(foto.toPath(), destino.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                JOptionPane.showMessageDialog(this, "Imagen ingresada con exito!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException ex) {
                 Logger.getLogger(InterAltaPropuesta.class.getName()).log(Level.SEVERE, null, ex);
             }
-            System.out.println("Imagen copiada en: " + destino.getAbsolutePath());
             this.txtImagen = destino.getAbsolutePath();
         }
     }//GEN-LAST:event_btnFotoActionPerformed

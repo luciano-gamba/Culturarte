@@ -7,9 +7,7 @@ package Presentacion;
 import Logica.DataPropuesta;
 import Logica.IControlador;
 import java.awt.Image;
-import java.util.ArrayList;
 import java.util.List;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 
@@ -249,7 +247,7 @@ public class InterConsultaXEstado extends javax.swing.JInternalFrame {
     private void comboEstadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEstadosActionPerformed
         // TODO add your handling code here:
        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
-       modelo.addElement("--Seleccionar--"); // primer opción
+       modelo.addElement("--Seleccionar--");
        comboPropuestas.setModel(modelo);
        
        int op = comboEstados.getSelectedIndex();

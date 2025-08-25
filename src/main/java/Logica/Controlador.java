@@ -284,8 +284,6 @@ public class Controlador implements IControlador{
         String aux;
         for(Propuesta p : misPropuestas){
             aux = p.getTitulo();
-            System.out.println(p.getEstadoActual().getEstado().toString());
-            System.out.println(estado);
             if(p.getEstadoActual().getEstado().toString().equalsIgnoreCase(estado)){
                 listaPropuestas.add(aux);
             }
