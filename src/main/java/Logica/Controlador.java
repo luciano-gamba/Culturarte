@@ -123,6 +123,16 @@ public class Controlador implements IControlador{
         return listaNombres;
     }
     
+    public List<String> getUsuariosProponentes() {
+        List<String> listaNombres = new ArrayList<>();
+        String aux;
+        for(Proponente p : misProponentes){
+            aux = p.getNickname();
+            listaNombres.add(aux);
+        }
+        return listaNombres;
+    }
+    
     @Override
     public List<String> getSeguidos(String seguidor) {
         List<String> listaNombres = new ArrayList<>();
@@ -269,6 +279,22 @@ public class Controlador implements IControlador{
         }
         
         return DP;
+    }
+    
+    public DataProponente consultaDeProponente(String NickName){
+        
+        DataProponente DProp = null;
+        
+        boolean encontrado = false;
+        for (Proponente p : misProponentes) {
+            if (p.getNickname().equals(NickName)) {
+                encontrado = true;
+                DProp = new DataProponente(NickName, p.getNombre(),p.getApellido(),p.getEmail(),p.getFecNac(),p.getImagen(),p.getDireccion(),p.getBiografia(),p.getSitioWeb());
+                return DProp;
+            }
+        }
+        
+        return DProp;
     }
     
     public List<String> getEstados(){
