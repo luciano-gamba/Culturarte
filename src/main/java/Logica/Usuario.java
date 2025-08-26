@@ -10,15 +10,16 @@ public class Usuario {
     String nombre;
     String apellido;
     LocalDate fecNac;
-    //imagen ???
-     List<Usuario> misSeguidos;
+    String imagen = "";
+    List<Usuario> misSeguidos;
 
-    public Usuario(String nickname, String email, String nombre, String apellido, LocalDate fecNac) {
+    public Usuario(String nickname, String email, String nombre, String apellido, LocalDate fecNac, String imagen) {
         this.nickname = nickname;
         this.email = email;
         this.nombre = nombre;
         this.apellido = apellido;
         this.fecNac = fecNac;
+        this.imagen = imagen;
         this.misSeguidos = new ArrayList<>();
     }
 
@@ -61,7 +62,9 @@ public class Usuario {
     public void setFecNac(LocalDate fecNac) {
         this.fecNac = fecNac;
     }
-    
+    public String getImagen(){
+        return imagen;
+    }
     public int seguirUsuario(Usuario nick){
         for(Usuario u : this.misSeguidos){
             if(u == nick){
@@ -72,4 +75,21 @@ public class Usuario {
         return 1;
     }
     
+    public int dejarDeSeguir(Usuario nick){
+        for(Usuario u : this.misSeguidos){
+            if(u == nick){
+                this.misSeguidos.remove(u);
+                return 1;
+            }
+        }
+        return 0; //error 0: no se encuentra
+    }
+    
+    public List<String> getSeguidos(){
+        List<String> listaSeguidos = new ArrayList<>();
+        for(Usuario u : this.misSeguidos){
+            listaSeguidos.add(u.getNickname());
+        }
+        return listaSeguidos;
+    }
 }

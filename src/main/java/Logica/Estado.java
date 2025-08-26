@@ -11,4 +11,8 @@ public class Estado {
         this.fecha = fec;
     }
     
+    public EnumEstado getEstado(){
+        return this.estado;
+    }
+    
 }

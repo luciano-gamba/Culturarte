@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+
 public class Controlador implements IControlador{
 
     public List<Usuario> misUsuarios = new ArrayList<>();
@@ -21,7 +22,7 @@ public class Controlador implements IControlador{
     }
     
     @Override
-    public int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac){
+    public int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen){
         String nickNuevo = nick;
         String correoNuevo = correo;
         Boolean nickExiste = false;
@@ -45,7 +46,7 @@ public class Controlador implements IControlador{
             System.out.println("ERROR: Nickname o Correo existen en el sistema!");
             return 0;
         }else{
-            Colaborador colaNuevo = new Colaborador(nick, correo, nombre, apellido, fecNac);
+            Colaborador colaNuevo = new Colaborador(nick, correo, nombre, apellido, fecNac, imagen);
             misUsuarios.add(colaNuevo);
             misColaboradores.add(colaNuevo);
             return 1;
@@ -53,7 +54,7 @@ public class Controlador implements IControlador{
     }
     
     @Override
-    public int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String direccion, String bio, String sitioWeb){
+    public int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen, String direccion, String bio, String sitioWeb){
         String nickNuevo = nick;
         String correoNuevo = correo;
         Boolean nickExiste = false;
@@ -77,7 +78,7 @@ public class Controlador implements IControlador{
             System.out.println("ERROR: Nickname o Correo existen en el sistema!");
             return 0;
         }else{
-            Proponente propNuevo = new Proponente(direccion, bio, sitioWeb, nick, correo, nombre, apellido, fecNac);
+            Proponente propNuevo = new Proponente(direccion, bio, sitioWeb, nick, correo, nombre, apellido, fecNac, imagen);
             misUsuarios.add(propNuevo);
             misProponentes.add(propNuevo);
             return 1;
@@ -86,6 +87,11 @@ public class Controlador implements IControlador{
     @Override
     public int altaCategoria(String nombreCat){
         Categoria nueva = new Categoria(nombreCat);
+        
+        DefaultMutableTreeNode nuevaCat = arbolCategorias.buscar(nombreCat);
+        if(nuevaCat != null){
+            return -2;
+        }
         arbolCategorias.insertar("Categoria",nueva);
         
         return 0;
@@ -98,7 +104,10 @@ public class Controlador implements IControlador{
         if(padre==null){
             return -1;
         }
-        
+        DefaultMutableTreeNode nuevaCat = arbolCategorias.buscar(nombreCat);
+        if(nuevaCat != null){
+            return -2;
+        }
         arbolCategorias.insertar(nombrePadreCat,nueva);
             
         return 0;
@@ -152,7 +161,7 @@ public class Controlador implements IControlador{
         return listaNombres;
     }
     
-    @Override
+     @Override
     public List<String> getColaboradores() {
         List<String> lista = new ArrayList<>();
         for(Colaborador c : misColaboradores){
@@ -169,7 +178,28 @@ public class Controlador implements IControlador{
         }
         return lista;
     }
+    public List<String> getUsuariosProponentes() {
+        List<String> listaNombres = new ArrayList<>();
+        String aux;
+        for(Proponente p : misProponentes){
+            aux = p.getNickname();
+            listaNombres.add(aux);
+        }
+        return listaNombres;
+    }
     
+    @Override
+    public List<String> getSeguidos(String seguidor) {
+        List<String> listaNombres = new ArrayList<>();
+        for(Usuario u : this.misUsuarios){
+            if(u.getNickname().equals(seguidor)){
+                listaNombres = u.getSeguidos();
+                break;
+            }
+        }
+        return listaNombres;
+    }
+
     @Override
     public int seguirUsuario(String nick1, String nick2) {
         Usuario seguidor = null;
@@ -196,6 +226,32 @@ public class Controlador implements IControlador{
             return 0; //error 0: ya sigue al usuario nick2
         }else{
             return 1;
+        }
+    }
+    
+    @Override
+    public int dejarSeguirUsuario(String nick1, String nick2){
+        Usuario seguidor = null;
+        Usuario seguir = null;
+        for(Usuario u : this.misUsuarios){
+            if(u.getNickname().equals(nick1)){
+                seguidor = u;
+                break;
+            }
+        }
+        
+        for(Usuario u : this.misUsuarios){
+            if(u.getNickname().equals(nick2)){
+                seguir = u;
+                break;
+            }
+        }
+        
+        int res = seguidor.dejarDeSeguir(seguir);
+        if(res == 1){
+            return 1;
+        }else{
+            return 0;
         }
     }
     
@@ -226,8 +282,116 @@ public class Controlador implements IControlador{
         
     }
     
+    @Override
     public int altaPropuesta(String nick, String tipo, String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual, String imagen){
-        return 0;
+        
+        Proponente prop = null;
+        
+        boolean encontrado = false;
+        for (Proponente p : misProponentes) {
+            if (p.getNickname().equalsIgnoreCase(nick)) {
+                encontrado = true;
+                prop = p;
+                break;
+            }
+        }
+        
+        //DEPENDE DE COMO SE HAGA HAY QUE ENCONTRAR SI ESTA TAMBIEN LA CATEGORIA INGRESADA!!!!!!
+        if (encontrado) {
+            
+            Propuesta nuevaProp = new Propuesta(prop, titulo, descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada), Double.parseDouble(montoNecesario), posibleRetorno, fechaActual, imagen);
+            misPropuestas.add(nuevaProp);
+            
+            return 1;
+        } else {
+            return 0;
+        }
     }
    
+    
+    @Override
+    public int modificarPropuesta(String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, String posibleRetorno, String estado, String imagen){
+        
+        for(Propuesta p : this.misPropuestas){
+            if(p.getTitulo().equals(titulo)){
+                p.modificarPropuesta(descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada),Double.parseDouble(montoNecesario), posibleRetorno, estado, imagen);
+                return 0;
+            }
+        }
+        return 1; //error 1: no deberia llegar acá
+    }
+
+    
+    @Override
+    public DefaultMutableTreeNode getRaizArbolCat(){ //Con esto accedo a la raiz del arbol de categorias
+        //para poder crear el JTree
+        return this.arbolCategorias.getRaiz();
+    }
+    
+    @Override
+    public List<String> getPropuestas() {
+        List<String> listaPropuestas = new ArrayList<>();
+        String aux;
+        for(Propuesta p : misPropuestas){
+            aux = p.getTitulo();
+            listaPropuestas.add(aux);
+        }
+        return listaPropuestas;
+    }
+    
+    @Override
+    public DataPropuesta consultaDePropuesta(String titulo){
+        
+        DataPropuesta DP = null;
+        
+        boolean encontrado = false;
+        for (Propuesta p : misPropuestas) {
+            if (p.getTitulo().equalsIgnoreCase(titulo)) {
+                encontrado = true;
+                DP = new DataPropuesta(titulo, p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(), p.getFechaARealizar(), p.getRetorno());
+                return DP;
+            }
+        }
+        
+        return DP;
+    }
+    
+    public DataProponente consultaDeProponente(String NickName){
+        
+        DataProponente DProp = null;
+        
+        boolean encontrado = false;
+        for (Proponente p : misProponentes) {
+            if (p.getNickname().equals(NickName)) {
+                encontrado = true;
+                DProp = new DataProponente(NickName, p.getNombre(),p.getApellido(),p.getEmail(),p.getFecNac(),p.getImagen(),p.getDireccion(),p.getBiografia(),p.getSitioWeb());
+                return DProp;
+            }
+        }
+        
+        return DProp;
+    }
+    
+    public List<String> getEstados(){
+    List<String> listaEstados = new ArrayList<>();
+    for (EnumEstado e : EnumEstado.values()) {
+        listaEstados.add(e.name());
+    }
+    return listaEstados;
+    }
+    
+    @Override
+    public List<String> getPropXEstado(String estado){
+        List<String> listaPropuestas = new ArrayList<>();
+        String aux;
+        for(Propuesta p : misPropuestas){
+            aux = p.getTitulo();
+            System.out.println(p.getEstadoActual().getEstado().toString());
+            System.out.println(estado);
+            if(p.getEstadoActual().getEstado().toString().equalsIgnoreCase(estado)){
+                listaPropuestas.add(aux);
+            }
+        }
+        return listaPropuestas;
+    }
 }

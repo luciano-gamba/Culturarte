@@ -23,10 +23,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         menuPerfil = new javax.swing.JMenu();
         menuAltaUsuario = new javax.swing.JMenuItem();
-        menuConsultaProp = new javax.swing.JMenuItem();
-        menuConsultaCola = new javax.swing.JMenuItem();
         menuSeguir = new javax.swing.JMenuItem();
         menuDejarSeguir = new javax.swing.JMenuItem();
+        subMenuConsultaPerfil = new javax.swing.JMenu();
+        menuConsultaProp = new javax.swing.JMenuItem();
+        menuConsultaCola = new javax.swing.JMenuItem();
         menuPropuestas = new javax.swing.JMenu();
         menuAltaProp = new javax.swing.JMenuItem();
         menuModificarProp = new javax.swing.JMenuItem();
@@ -53,17 +54,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         menuPerfil.add(menuAltaUsuario);
 
-        menuConsultaProp.setText("Consulta perfil proponente");
-        menuConsultaProp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuConsultaPropActionPerformed(evt);
-            }
-        });
-        menuPerfil.add(menuConsultaProp);
-
-        menuConsultaCola.setText("Consulta perfil colaborador");
-        menuPerfil.add(menuConsultaCola);
-
         menuSeguir.setText("Seguir Usuario");
         menuSeguir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -73,7 +63,27 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menuPerfil.add(menuSeguir);
 
         menuDejarSeguir.setText("Dejar de seguir Usuario");
+        menuDejarSeguir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuDejarSeguirActionPerformed(evt);
+            }
+        });
         menuPerfil.add(menuDejarSeguir);
+
+        subMenuConsultaPerfil.setText("Consulta Perfil");
+
+        menuConsultaProp.setText("Consulta perfil proponente");
+        menuConsultaProp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuConsultaPropActionPerformed(evt);
+            }
+        });
+        subMenuConsultaPerfil.add(menuConsultaProp);
+
+        menuConsultaCola.setText("Consulta perfil colaborador");
+        subMenuConsultaPerfil.add(menuConsultaCola);
+
+        menuPerfil.add(subMenuConsultaPerfil);
 
         jMenuBar1.add(menuPerfil);
 
@@ -88,9 +98,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menuPropuestas.add(menuAltaProp);
 
         menuModificarProp.setText("Modificar Datos Propuesta");
+        menuModificarProp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuModificarPropActionPerformed(evt);
+            }
+        });
         menuPropuestas.add(menuModificarProp);
 
         menuConsultaPropu.setText("Consulta de Propuesta");
+        menuConsultaPropu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuConsultaPropuActionPerformed(evt);
+            }
+        });
         menuPropuestas.add(menuConsultaPropu);
 
         menuConsultaPropuEst.setText("Consulta de Propuesta x Estado");
@@ -151,7 +171,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuConsultaPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsultaPropActionPerformed
-        // TODO add your handling code here:
+        InterConsultaPerfilProponente ICPP = new InterConsultaPerfilProponente(this.ic);
+        this.add(ICPP);
+        ICPP.show();
     }//GEN-LAST:event_menuConsultaPropActionPerformed
 
     private void menuAltaUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAltaUsuarioActionPerformed
@@ -165,6 +187,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void menuConsultaPropuEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsultaPropuEstActionPerformed
         // TODO add your handling code here:
+        if(this.ICE == null){
+            ICE = new InterConsultaXEstado(ic);
+            this.add(ICE);
+            ICE.show();
+        }else if(!this.ICE.abierto()){
+            ICE = new InterConsultaXEstado(ic);
+            this.add(ICE);
+            ICE.show();
+        }
     }//GEN-LAST:event_menuConsultaPropuEstActionPerformed
 
     private void menuRegistrarColaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRegistrarColaActionPerformed
@@ -174,7 +205,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 add(IRC);
                 IRC.setLocation(50, 50);
                 IRC.setVisible(true);
-            } 
+            }else{
+                javax.swing.JOptionPane.showMessageDialog(this, "Se requieren Colaboradores y Propuestas ingresadas para acceder", "Error", HEIGHT);
+            }
         
     }//GEN-LAST:event_menuRegistrarColaActionPerformed
 
@@ -184,6 +217,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             add(ICC);
             ICC.setLocation(50, 50);
             ICC.show();
+        }else{
+            javax.swing.JOptionPane.showMessageDialog(this, "Se requieren Colaboradores y Propuestas ingresadas para acceder", "Error", HEIGHT);
         }
     }//GEN-LAST:event_menuConsultarColaActionPerformed
     private void menuAltaCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAltaCategoriaActionPerformed
@@ -214,6 +249,33 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         this.add(ISU);
         ISU.show();
     }//GEN-LAST:event_menuSeguirActionPerformed
+    private void menuConsultaPropuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsultaPropuActionPerformed
+        // TODO add your handling code here:
+        if(this.ICP == null){
+            ICP = new InterConsultaPropuesta(ic);
+            this.add(ICP);
+            ICP.show();
+        }else if(!this.ICP.abierto()){
+            ICP = new InterConsultaPropuesta(ic);
+            this.add(ICP);
+            ICP.show();
+        }
+    }//GEN-LAST:event_menuConsultaPropuActionPerformed
+
+    private void menuDejarSeguirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDejarSeguirActionPerformed
+        // TODO add your handling code here:
+        
+        InterDejarSeguir IDS = new InterDejarSeguir(this.ic);
+        this.add(IDS);
+        IDS.show();
+    }//GEN-LAST:event_menuDejarSeguirActionPerformed
+
+    private void menuModificarPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuModificarPropActionPerformed
+        // TODO add your handling code here:
+        InterModificarPropuesta IMP = new InterModificarPropuesta(this.ic);
+        this.add(IMP);
+        IMP.show();
+    }//GEN-LAST:event_menuModificarPropActionPerformed
 
     /**
      * @param args the command line arguments
@@ -250,9 +312,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
     }
     
+    private InterConsultaPropuesta ICP;
     private InterAltaPropuesta IAP;
     private InterRegistrarCola IRC;
     private InterConsultaCola ICC;
+    private InterConsultaXEstado ICE;
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
@@ -272,5 +336,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu menuPropuestas;
     private javax.swing.JMenuItem menuRegistrarCola;
     private javax.swing.JMenuItem menuSeguir;
+    private javax.swing.JMenu subMenuConsultaPerfil;
     // End of variables declaration//GEN-END:variables
 }
