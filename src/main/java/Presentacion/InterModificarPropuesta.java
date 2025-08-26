@@ -14,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -21,6 +22,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.SpinnerDateModel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -58,6 +60,10 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
         this.botonAceptar.setVisible(false);
         this.botonEditar.setEnabled(false);
         this.spinnerFecha.setVisible(false);
+        
+//        JSpinner.DateEditor editor = new JSpinner.DateEditor(spinnerFecha, "d/M/yyyy");
+//        spinnerFecha.setEditor(editor);
+
         
         this.setTitle("Modificar Propuesta");
     }
@@ -202,6 +208,7 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
         });
 
         spinnerFecha.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(1735700400000L), null, null, java.util.Calendar.DAY_OF_MONTH));
+        spinnerFecha.setEditor(new javax.swing.JSpinner.DateEditor(spinnerFecha, "d/M/yyyy"));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -373,8 +380,22 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
             this.textoRetorno.setText(retorno);
             this.textoFecha.setText(DP.getFechaARealizar().toString());
             this.txtImagen = DP.getImagen();
-            Date fechaDate = Date.from(DP.getFechaARealizar().atStartOfDay(ZoneId.systemDefault()).toInstant());
-            this.spinnerFecha.setValue(fechaDate);
+            
+            //fecha ya establecida de la propuesta
+            Date initialDate = Date.from(DP.getFechaARealizar().atStartOfDay(ZoneId.systemDefault()).toInstant());
+            this.spinnerFecha.setValue(initialDate);
+            
+            //fecha minima de propuesta (hoy)
+            LocalDate fechaMin = LocalDate.now();
+            Date minDate = Date.from(fechaMin.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+            //fecha maxima (jeje)
+            LocalDate fechaMax = LocalDate.of(2099, 1, 1);
+            Date maxDate = Date.from(fechaMax.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+            //setea las fechas al spinner
+            SpinnerDateModel model = new SpinnerDateModel(initialDate, minDate, maxDate, Calendar.DAY_OF_MONTH);
+            spinnerFecha.setModel(model);
             
             String estado = this.textoEstado.getText();
             switch (estado) {
