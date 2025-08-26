@@ -3,17 +3,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package Presentacion;
-
+import Logica.IControlador;
+import java.util.Vector;
 /**
  *
  * @author Luiano
  */
 public class InterConsultaCola extends javax.swing.JInternalFrame {
-
-    /**
-     * Creates new form interConsultarCola
-     */
-    public InterConsultaCola() {
+    
+    private final IControlador ic;
+   
+    public InterConsultaCola(IControlador ic) {
+        this.ic=ic;
         initComponents();
     }
 
@@ -29,7 +30,7 @@ public class InterConsultaCola extends javax.swing.JInternalFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        Colaboradores = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jComboBox2 = new javax.swing.JComboBox<>();
         jButton5 = new javax.swing.JButton();
@@ -53,9 +54,14 @@ public class InterConsultaCola extends javax.swing.JInternalFrame {
         setTitle("Consulta de Colaboración a Propuesta");
         setPreferredSize(new java.awt.Dimension(500, 400));
 
-        jLabel2.setText("Seleccione una Propuesta : ");
+        jLabel2.setText("Seleccione un Aporte : ");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        Colaboradores.setModel(new javax.swing.DefaultComboBoxModel<>(new Vector<>(ic.getColaboradores())));
+        Colaboradores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ColaboradoresActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Seleccione un Colaborador : ");
 
@@ -82,7 +88,7 @@ public class InterConsultaCola extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Colaboradores, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
@@ -99,7 +105,7 @@ public class InterConsultaCola extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Colaboradores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -130,13 +136,19 @@ public class InterConsultaCola extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    private void ColaboradoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ColaboradoresActionPerformed
+        String c = (String) this.Colaboradores.getSelectedItem();
+        
+        
+    }//GEN-LAST:event_ColaboradoresActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> Colaboradores;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

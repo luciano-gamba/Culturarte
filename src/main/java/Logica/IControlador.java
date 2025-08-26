@@ -13,7 +13,13 @@ public interface IControlador {
     
     int altaCategoria(String nombreCat,String nombrePadreCat);
     
+    int altaAporte(String miColaborador, String miPropuesta, double $aporte, int cantidad, EnumRetorno retorno);
+    
     List<String> getUsuarios(); 
+    
+    List<String> getColaboradores();
+    
+    List<String> getPropuestas_Proponentes();
     
     int seguirUsuario(String nick1, String nick2);
     

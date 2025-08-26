@@ -103,7 +103,44 @@ public class Controlador implements IControlador{
             
         return 0;
     }
-
+    
+    @Override
+    public int altaAporte(String strmiColaborador, String strmiPropuesta,  double $aporte, int cantidad, EnumRetorno retorno){
+        
+        Propuesta miPropuesta = null;
+        Colaborador miColaborador = null;
+                
+        for (Colaborador c : misColaboradores){
+            if(c.getNickname().equals(strmiColaborador)){
+                miColaborador = c;
+                break;
+            }
+        }
+        
+        for (Propuesta p : misPropuestas) {
+            if (p.getTitulo_Nickname().equals(strmiPropuesta)) {
+                miPropuesta = p;
+                break;        
+            }
+        }
+                
+        if($aporte > miPropuesta.get$necesaria() || $aporte > miPropuesta.get$necesaria()-miPropuesta.get$alcanzada()){
+            return -2;//ERROR: Aporte superior a lo permitido
+        }
+        
+        if (miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno) == null) {
+            return -3;  //Error: El usuario ya colabora con la Propuesta
+        } 
+        
+        if (miPropuesta.getPosibleRetorno()!=EnumRetorno.AMBOS && miPropuesta.getPosibleRetorno()!=retorno){
+            return -4; //Error: Retorno no valido en esta Propuesta
+        }
+        
+        Aporte a = miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno);
+        miPropuesta.addAporte(a);
+        return 0; //PROPUESTA AGREGADA CORRECTAMENTE        
+    }
+    
     @Override
     public List<String> getUsuarios() {
         List<String> listaNombres = new ArrayList<>();
@@ -114,7 +151,25 @@ public class Controlador implements IControlador{
         }
         return listaNombres;
     }
-
+    
+    @Override
+    public List<String> getColaboradores() {
+        List<String> lista = new ArrayList<>();
+        for(Colaborador c : misColaboradores){
+            lista.add(c.getNickname());
+        }
+        return lista;
+    }
+    
+    @Override
+    public List<String> getPropuestas_Proponentes() {
+        List<String> lista = new ArrayList<>();
+        for(Propuesta p : misPropuestas){
+            lista.add(p.getTitulo_Nickname());
+        }
+        return lista;
+    }
+    
     @Override
     public int seguirUsuario(String nick1, String nick2) {
         Usuario seguidor = null;
@@ -153,6 +208,7 @@ public class Controlador implements IControlador{
             if (p.getNickname().equalsIgnoreCase(nick)) {
                 encontrado = true;
                 prop = p;
+                //falta poner la propuesta en la lista de propuestas del proponente
                 break;
             }
         }
@@ -173,5 +229,5 @@ public class Controlador implements IControlador{
     public int altaPropuesta(String nick, String tipo, String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual, String imagen){
         return 0;
     }
-    
+   
 }

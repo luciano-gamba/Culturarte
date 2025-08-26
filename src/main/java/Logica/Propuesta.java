@@ -12,14 +12,16 @@ public class Propuesta {
     LocalDate fecha;
     double $entrada;
     double $necesaria;
+    private double $alcanzada;
     LocalDate fechaPubli;
     EnumRetorno posibleRetorno;
     Estado estadoActual;
+    private List<Aporte> misAportes = new ArrayList<>();
     public List<Estado> misEstados = new ArrayList<>();
-    Proponente p;
+    Proponente miProponente;
     
     public Propuesta(Proponente prop, String titulo, String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual) {
-        this.p = prop;
+        this.miProponente = prop;
         this.titulo = titulo;
         this.desc = descripcion;
         this.lugar = lugar;
@@ -36,7 +38,34 @@ public class Propuesta {
 
         //HACER OTRA CON LA IMAGEN!
     }
-       
-}
+    
+    public String getTitulo_Nickname(){
+        return this.titulo+" by "+this.miProponente.getNickname();
+    }
+
+    public double get$necesaria() {
+        return $necesaria;
+    }
+
+    public double get$alcanzada() {
+        return $alcanzada;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public EnumRetorno getPosibleRetorno() {
+        return posibleRetorno;
+    }
+        
+    public void addAporte(Aporte a){
+        misAportes.add(a);
+        a.setMiPropuesta(this);
+        $alcanzada+=a.get$aporte();
+    }
+    
+    
+}   
 
 

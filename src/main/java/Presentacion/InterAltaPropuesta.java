@@ -116,6 +116,12 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
             }
         });
 
+        txtSalida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSalidaActionPerformed(evt);
+            }
+        });
+
         Cancelar.setText("Cancelar");
         Cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -318,6 +324,10 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
     private void txtTitulo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTitulo1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTitulo1ActionPerformed
+
+    private void txtSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSalidaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSalidaActionPerformed
 
     private boolean open;
     
