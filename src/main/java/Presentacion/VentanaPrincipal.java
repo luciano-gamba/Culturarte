@@ -207,17 +207,27 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuConsultaPropuEstActionPerformed
 
     private void menuRegistrarColaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRegistrarColaActionPerformed
-        InterRegistrarCola IRC = new InterRegistrarCola();
-        add(IRC);
-        IRC.setLocation(50, 50);
-        IRC.show();
+       
+            if ((this.IRC == null || this.IRC.isClosed()) && !ic.getColaboradores().isEmpty() && !ic.getPropuestas_Proponentes().isEmpty()) {
+                IRC = new InterRegistrarCola(ic);
+                add(IRC);
+                IRC.setLocation(50, 50);
+                IRC.setVisible(true);
+            }else{
+                javax.swing.JOptionPane.showMessageDialog(this, "Se requieren Colaboradores y Propuestas ingresadas para acceder", "Error", HEIGHT);
+            }
+        
     }//GEN-LAST:event_menuRegistrarColaActionPerformed
 
     private void menuConsultarColaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsultarColaActionPerformed
-        InterConsultaCola ICC = new InterConsultaCola();
-        add(ICC);
-        ICC.setLocation(50, 50);
-        ICC.show();
+        if ((this.ICC == null || this.ICC.isClosed()) && !ic.getColaboradores().isEmpty() && !ic.getPropuestas_Proponentes().isEmpty()) {
+            ICC = new InterConsultaCola(ic);
+            add(ICC);
+            ICC.setLocation(50, 50);
+            ICC.show();
+        }else{
+            javax.swing.JOptionPane.showMessageDialog(this, "Se requieren Colaboradores y Propuestas ingresadas para acceder", "Error", HEIGHT);
+        }
     }//GEN-LAST:event_menuConsultarColaActionPerformed
     private void menuAltaCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAltaCategoriaActionPerformed
         // TODO add your handling code here:
@@ -321,6 +331,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     
     private InterConsultaPropuesta ICP;
     private InterAltaPropuesta IAP;
+    private InterRegistrarCola IRC;
+    private InterConsultaCola ICC;
     private InterAltaCategoria IAC;
     private InterConsultaXEstado ICE;
     private InterConsultaPerfilProponente ICPP;

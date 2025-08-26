@@ -1,16 +1,42 @@
 package Logica;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Aporte {
-    List<Propuesta> misPropuestas = new ArrayList<>();
-    List<Colaborador> misColaboradores = new ArrayList<>();
-    double $aporte;
-    LocalDateTime fechaHora;
-    int cantidad;
-    EnumRetorno retorno;
+    private Propuesta miPropuesta;
+    private Colaborador miColaborador;
+    private double $aporte;
+    private LocalDateTime fechaHora;
+    private int cantidad;
+    private EnumRetorno retorno;
+    
+    
+  
+
+    public Aporte(Colaborador miColaborador, double $aporte, int cantidad, EnumRetorno retorno) {
+            
+        this.miColaborador = miColaborador;
+        this.$aporte = $aporte;
+        this.fechaHora = LocalDateTime.now();
+        this.cantidad = cantidad;
+        this.retorno = retorno;
+    }
+    
+    public String getTituloMiPropuesta(){
+        if(this.miPropuesta != null){
+            return this.miPropuesta.getTitulo();
+        }else{
+            return null;
+        }        
+    }
+
+    public double get$aporte() {
+        return $aporte;
+    }
+
+    public void setMiPropuesta(Propuesta miPropuesta) {
+        this.miPropuesta = miPropuesta;
+    }
     
     
 }
