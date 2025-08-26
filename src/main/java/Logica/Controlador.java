@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+
 public class Controlador implements IControlador{
 
     public List<Usuario> misUsuarios = new ArrayList<>();
@@ -16,7 +17,7 @@ public class Controlador implements IControlador{
     public Controlador() {
         this.arbolCategorias = new ArbolCategorias(new Categoria("Categoria"));
     //La letra dice que la raiz siempre es "Categoria" 
-    //probablemente tenga que cambiarlo para evitar repetidos o errores al coenctar con la BD
+    //probablemente tenga que cambiarlo para evitar repetidos o errores al conectar con la BD
     
     }
     
@@ -111,13 +112,86 @@ public class Controlador implements IControlador{
             
         return 0;
     }
-
+    
+    @Override
+    public int altaAporte(String strmiColaborador, String strmiPropuesta,  double $aporte, int cantidad, EnumRetorno retorno){
+        
+        Propuesta miPropuesta = null;
+        Colaborador miColaborador = null;
+                
+        for (Colaborador c : misColaboradores){
+            if(c.getNickname().equals(strmiColaborador)){
+                miColaborador = c;
+                break;
+            }
+        }
+        
+        for (Propuesta p : misPropuestas) {
+            if (p.getTitulo_Nickname().equals(strmiPropuesta)) {
+                miPropuesta = p;
+                break;        
+            }
+        }
+                
+        if($aporte > miPropuesta.get$necesaria() || $aporte > miPropuesta.get$necesaria()-miPropuesta.get$alcanzada()){
+            return -2;//ERROR: Aporte superior a lo permitido
+        }
+        
+        if (miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno) == null) {
+            return -3;  //Error: El usuario ya colabora con la Propuesta
+        } 
+        
+        if (miPropuesta.getPosibleRetorno()!=EnumRetorno.AMBOS && miPropuesta.getPosibleRetorno()!=retorno){
+            return -4; //Error: Retorno no valido en esta Propuesta
+        }
+        
+        Aporte a = miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno);
+        miPropuesta.addAporte(a);
+        return 0; //PROPUESTA AGREGADA CORRECTAMENTE        
+    }
+    
     @Override
     public List<String> getUsuarios() {
         List<String> listaNombres = new ArrayList<>();
         String aux;
         for(Usuario u : misUsuarios){
             aux = u.getNickname();
+            listaNombres.add(aux);
+        }
+        return listaNombres;
+    }
+    
+     @Override
+    public List<String> getColaboradores() {
+        List<String> lista = new ArrayList<>();
+        for(Colaborador c : misColaboradores){
+            lista.add(c.getNickname());
+        }
+        return lista;
+    }
+    
+    @Override
+    public List<String> getPropuestas_Proponentes() {
+        List<String> lista = new ArrayList<>();
+        for(Propuesta p : misPropuestas){
+            lista.add(p.getTitulo_Nickname());
+        }
+        return lista;
+    }
+    public List<String> getUsuariosProponentes() {
+        List<String> listaNombres = new ArrayList<>();
+        String aux;
+        for(Proponente p : misProponentes){
+            aux = p.getNickname();
+            listaNombres.add(aux);
+        }
+        return listaNombres;
+    }
+    public List<String> getUsuariosColaboradores() {
+        List<String> listaNombres = new ArrayList<>();
+        String aux;
+        for(Colaborador c : misColaboradores){
+            aux = c.getNickname();
             listaNombres.add(aux);
         }
         return listaNombres;
@@ -194,25 +268,37 @@ public class Controlador implements IControlador{
         
         Proponente prop = null;
         
-        boolean encontrado = false;
         for (Proponente p : misProponentes) {
             if (p.getNickname().equalsIgnoreCase(nick)) {
-                encontrado = true;
                 prop = p;
                 break;
             }
         }
         
-        //DEPENDE DE COMO SE HAGA HAY QUE ENCONTRAR SI ESTA TAMBIEN LA CATEGORIA INGRESADA!!!!!!
-        if (encontrado) {
-            
-            Propuesta nuevaProp = new Propuesta(prop, titulo, descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada), Double.parseDouble(montoNecesario), posibleRetorno, fechaActual);
-            misPropuestas.add(nuevaProp);
-            
-            return 1;
-        } else {
+        DefaultMutableTreeNode newCat = arbolCategorias.buscar(tipo);
+        
+        if (newCat == null) {
+            // NO SE ENCONTRO LA CATEGORIA o PUSO "CATEGORIA"
             return 0;
         }
+        
+        if(tipo.equals("Categoria")){
+            return -1;
+        }
+        
+        Categoria c = (Categoria) newCat.getUserObject();
+        
+        for (Proponente p : misProponentes) {
+            if (p.getNickname().equalsIgnoreCase(nick)) {
+                prop = p;
+                break;
+            }
+        }
+            
+        Propuesta nuevaProp = new Propuesta(c, prop, titulo, descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada), Double.parseDouble(montoNecesario), posibleRetorno, fechaActual);
+        misPropuestas.add(nuevaProp);
+            
+        return 1;
         
     }
     
@@ -230,10 +316,22 @@ public class Controlador implements IControlador{
             }
         }
         
-        //DEPENDE DE COMO SE HAGA HAY QUE ENCONTRAR SI ESTA TAMBIEN LA CATEGORIA INGRESADA!!!!!!
+        DefaultMutableTreeNode newCat = arbolCategorias.buscar(tipo);
+        
+        if (newCat == null) {
+            // NO SE ENCONTRO LA CATEGORIA o PUSO "CATEGORIA"
+            return 0;
+        }
+        
+        if(tipo.equals("Categoria")){
+            return -1;
+        }
+        
+        Categoria c = (Categoria) newCat.getUserObject();
+        
         if (encontrado) {
             
-            Propuesta nuevaProp = new Propuesta(prop, titulo, descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada), Double.parseDouble(montoNecesario), posibleRetorno, fechaActual, imagen);
+            Propuesta nuevaProp = new Propuesta(c, prop, titulo, descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada), Double.parseDouble(montoNecesario), posibleRetorno, fechaActual, imagen);
             misPropuestas.add(nuevaProp);
             
             return 1;
@@ -241,6 +339,7 @@ public class Controlador implements IControlador{
             return 0;
         }
     }
+   
     
     @Override
     public int modificarPropuesta(String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, String posibleRetorno, String estado, String imagen){
@@ -289,7 +388,38 @@ public class Controlador implements IControlador{
         return DP;
     }
     
-    @Override
+    public DataProponente consultaDeProponente(String NickName){
+        
+        DataProponente DProp = null;
+        
+        boolean encontrado = false;
+        for (Proponente p : misProponentes) {
+            if (p.getNickname().equals(NickName)) {
+                encontrado = true;
+                DProp = new DataProponente(NickName, p.getNombre(),p.getApellido(),p.getEmail(),p.getFecNac(),p.getImagen(),p.getDireccion(),p.getBiografia(),p.getSitioWeb());
+                return DProp;
+            }
+        }
+        
+        return DProp;
+    }
+    
+    public DataColaborador consultaDeColaborador(String NickName){
+        
+        DataColaborador DCola = null;
+        
+        boolean encontrado = false;
+        for (Colaborador c : misColaboradores) {
+            if (c.getNickname().equals(NickName)) {
+                encontrado = true;
+                DCola = new DataColaborador(NickName, c.getNombre(),c.getApellido(),c.getEmail(),c.getFecNac(),c.getImagen());
+                return DCola;
+            }
+        }
+        
+        return DCola;
+    }
+    
     public List<String> getEstados(){
     List<String> listaEstados = new ArrayList<>();
     for (EnumEstado e : EnumEstado.values()) {
@@ -304,12 +434,22 @@ public class Controlador implements IControlador{
         String aux;
         for(Propuesta p : misPropuestas){
             aux = p.getTitulo();
-            System.out.println(p.getEstadoActual().getEstado().toString());
-            System.out.println(estado);
             if(p.getEstadoActual().getEstado().toString().equalsIgnoreCase(estado)){
                 listaPropuestas.add(aux);
             }
         }
         return listaPropuestas;
+    }
+    
+    public boolean existeTitulo(String titulo){
+        
+        boolean encontrado = false;
+        for (Propuesta p : misPropuestas) {
+            if (p.getTitulo().equalsIgnoreCase(titulo)) {
+                encontrado = true;
+            }
+        }
+        
+        return encontrado;
     }
 }

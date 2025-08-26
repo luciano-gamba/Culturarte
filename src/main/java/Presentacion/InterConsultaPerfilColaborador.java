@@ -3,27 +3,29 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package Presentacion;
-
+import Logica.DataColaborador;
 import Logica.IControlador;
-import Logica.DataProponente;
 import java.awt.Image;
 import java.util.List;
 import javax.swing.ImageIcon;
-
-public class InterConsultaPerfilProponente extends javax.swing.JInternalFrame {
+/**
+ *
+ * @author luquiprogrammer
+ */
+public class InterConsultaPerfilColaborador extends javax.swing.JInternalFrame {
     private final IControlador ic;
-    private List<String> listaProponentes; //Solo tiene los NickNames de los Proponentes para llenar el comboBox
-    private DataProponente miProponente; //Guarda el proponente(DataProponente) del que se estan mostrando los datos en el momento
+    private List<String> listaColaboradores; //Solo tiene los NickNames de los Colaboradores para llenar el comboBox
+    private DataColaborador miColaborador; //Guarda el colaborador(DataColaborador) del que se estan mostrando los datos en el momento
     /**
-     * Creates new form InterConsultaPerfilProponente
+     * Creates new form InterConsultaPerfilColaborador
      */
-    public InterConsultaPerfilProponente(IControlador ic) {
-        this.setTitle("Consulta Perfil Proponente");
+    public InterConsultaPerfilColaborador(IControlador ic) {
+        this.setTitle("Consulta Perfil Colaborador");
         this.ic = ic;
-        listaProponentes = ic.getUsuariosProponentes();
+        listaColaboradores = ic.getUsuariosColaboradores();
         initComponents();
-        for(String s : listaProponentes){
-            PropoCombo.addItem(s);
+        for(String s : listaColaboradores){
+            ColaboradorCombo.addItem(s);
         }
     }
 
@@ -39,20 +41,13 @@ public class InterConsultaPerfilProponente extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        PropoCombo = new javax.swing.JComboBox<>();
+        ColaboradorCombo = new javax.swing.JComboBox<>();
         imagenPerfil = new javax.swing.JLabel();
         labelNickname = new javax.swing.JLabel();
         labelNombre = new javax.swing.JLabel();
         labelApellido = new javax.swing.JLabel();
         labelEmail = new javax.swing.JLabel();
         labelFecNac = new javax.swing.JLabel();
-        labelDireccion = new javax.swing.JLabel();
-        labelSitioWeb = new javax.swing.JLabel();
-        labelBiografia = new javax.swing.JLabel();
-        jScrollPaneBio = new javax.swing.JScrollPane();
-        textoBiografia = new javax.swing.JTextArea();
-        textoSitioWeb = new javax.swing.JTextField();
-        textoDirecc = new javax.swing.JTextField();
         textoFechaNac = new javax.swing.JTextField();
         textoEmail = new javax.swing.JTextField();
         textoApellido = new javax.swing.JTextField();
@@ -66,10 +61,10 @@ public class InterConsultaPerfilProponente extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Seleccione el Usuario Proponente a consultar:");
 
-        PropoCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccionar--" }));
-        PropoCombo.addActionListener(new java.awt.event.ActionListener() {
+        ColaboradorCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccionar--" }));
+        ColaboradorCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PropoComboActionPerformed(evt);
+                ColaboradorComboActionPerformed(evt);
             }
         });
 
@@ -84,32 +79,6 @@ public class InterConsultaPerfilProponente extends javax.swing.JInternalFrame {
         labelEmail.setText("E-mail");
 
         labelFecNac.setText("Fecha Nacimiento");
-
-        labelDireccion.setText("Direccion");
-
-        labelSitioWeb.setText("Sitio Web");
-
-        labelBiografia.setText("Biografia");
-
-        textoBiografia.setEditable(false);
-        textoBiografia.setColumns(20);
-        textoBiografia.setRows(5);
-        textoBiografia.setEnabled(false);
-        jScrollPaneBio.setViewportView(textoBiografia);
-
-        textoSitioWeb.setEditable(false);
-        textoSitioWeb.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textoSitioWebActionPerformed(evt);
-            }
-        });
-
-        textoDirecc.setEditable(false);
-        textoDirecc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textoDireccActionPerformed(evt);
-            }
-        });
 
         textoFechaNac.setEditable(false);
         textoFechaNac.addActionListener(new java.awt.event.ActionListener() {
@@ -146,7 +115,7 @@ public class InterConsultaPerfilProponente extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel2.setText("Lista de Propuestas:");
+        jLabel2.setText("Lista de Colaboraciones:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -165,10 +134,7 @@ public class InterConsultaPerfilProponente extends javax.swing.JInternalFrame {
                                     .addComponent(labelNombre)
                                     .addComponent(labelApellido)
                                     .addComponent(labelEmail)
-                                    .addComponent(labelFecNac)
-                                    .addComponent(labelDireccion)
-                                    .addComponent(labelSitioWeb)
-                                    .addComponent(labelBiografia))
+                                    .addComponent(labelFecNac))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -178,17 +144,14 @@ public class InterConsultaPerfilProponente extends javax.swing.JInternalFrame {
                                                 .addComponent(textoNickname)
                                                 .addComponent(textoNombre)
                                                 .addComponent(textoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(jScrollPaneBio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(textoDirecc, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(textoSitioWeb, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(textoFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addComponent(textoEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(PropoCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ColaboradorCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
+                        .addGap(22, 22, 22)
                         .addComponent(jLabel2)))
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(187, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,7 +159,7 @@ public class InterConsultaPerfilProponente extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(12, 12, 12)
-                .addComponent(PropoCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ColaboradorCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(imagenPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -220,21 +183,9 @@ public class InterConsultaPerfilProponente extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelFecNac))
-                .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoDirecc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelDireccion))
-                .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoSitioWeb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelSitioWeb))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPaneBio, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelBiografia))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addGap(61, 61, 61))
+                .addGap(218, 218, 218))
         );
 
         jScrollPane1.setViewportView(jPanel1);
@@ -257,70 +208,31 @@ public class InterConsultaPerfilProponente extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void textoNicknameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoNicknameActionPerformed
-        // TODO add your handling code here:
-
-        //System.out.println(nickname);
-    }//GEN-LAST:event_textoNicknameActionPerformed
-
-    private void textoNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textoNombreActionPerformed
-
-    private void textoApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoApellidoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textoApellidoActionPerformed
-
-    private void textoEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoEmailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textoEmailActionPerformed
-
-    private void textoFechaNacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoFechaNacActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textoFechaNacActionPerformed
-
-    private void textoDireccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoDireccActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textoDireccActionPerformed
-
-    private void textoSitioWebActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoSitioWebActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textoSitioWebActionPerformed
-
-    private void PropoComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PropoComboActionPerformed
-        int selectedItem = PropoCombo.getSelectedIndex();
+    private void ColaboradorComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ColaboradorComboActionPerformed
+        int selectedItem = ColaboradorCombo.getSelectedIndex();
         if(selectedItem != 0){ //Si entra a este if se selecciono un Usuario Proponente por lo que tengo que mostrar los datos supongo que hare una funcion por fuera
             //asi evito llenar de tanta cosa el actionPerformed
-            this.miProponente = ic.consultaDeProponente((String)PropoCombo.getSelectedItem()); //Le pido al controlador que me devuelva el DataProponente del seleccionado
+            this.miColaborador = ic.consultaDeColaborador((String)ColaboradorCombo.getSelectedItem()); //Le pido al controlador que me devuelva el DataColaborador del seleccionado
             //System.out.println("1Direc: " + miProponente.getDireccion() + "2SitioWeb: " + miProponente.getSitioWeb() + "3Bio: " + miProponente.getBiografia());
 
             llenarFormulario();
         }else{ //en el caso del else debo limpiar los datos mostrados
             limpiarFormulario();
         }
-
-    }//GEN-LAST:event_PropoComboActionPerformed
+    }//GEN-LAST:event_ColaboradorComboActionPerformed
     private void llenarFormulario(){ //Esta sera la funcion principal de este internalFrame donde lleno el formulario con las cosas ingresadas
-        textoNickname.setText(miProponente.getNickname());
-        textoNombre.setText(miProponente.getNombre());
-        textoApellido.setText(miProponente.getApellido());
-        textoEmail.setText(miProponente.getEmail());
-        textoFechaNac.setText(miProponente.getFecNac().toString()); 
+        textoNickname.setText(miColaborador.getNickname());
+        textoNombre.setText(miColaborador.getNombre());
+        textoApellido.setText(miColaborador.getApellido());
+        textoEmail.setText(miColaborador.getEmail());
+        textoFechaNac.setText(miColaborador.getFecNac().toString()); 
         
         
-        ImageIcon icon = new ImageIcon(miProponente.getImagen());
+        ImageIcon icon = new ImageIcon(miColaborador.getImagen());
         Image imagenEscalada = icon.getImage().getScaledInstance(130, 130, Image.SCALE_SMOOTH);
         imagenPerfil.setIcon(new ImageIcon(imagenEscalada));
-       
         
-        //Aprovecho a dejarme algunas cosas separadas asi reciclo codigo para el Consulta Perfil Colaborador
-        textoDirecc.setText(miProponente.getDireccion());
-        textoSitioWeb.setText(miProponente.getSitioWeb());
-        textoBiografia.setText(miProponente.getBiografia());
-        
-        //IMPORTANTE Falta lista de Propuestas de este Proponente
-        //Lo mas complicado de pensar de eso es en que cada propuesta a su vez tiene una lista
-        //de colaboradores -(parece q se puede hacer con comboBox)
+        //IMPORTANTE Falta lista de Propuestas con las que colaboro
     }
     private void limpiarFormulario(){ //Vacio el formualario cuando se selecciona el indice 0
         textoNickname.setText("");
@@ -329,35 +241,46 @@ public class InterConsultaPerfilProponente extends javax.swing.JInternalFrame {
         textoEmail.setText("");
         textoFechaNac.setText("");
         imagenPerfil.setIcon(null);
-        //Aprovecho a dejarme algunas cosas separadas asi reciclo codigo para el Consulta Perfil Colaborador
-        textoDirecc.setText("");
-        textoSitioWeb.setText("");
-        textoBiografia.setText("");
     }
+    private void textoFechaNacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoFechaNacActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textoFechaNacActionPerformed
+
+    private void textoEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textoEmailActionPerformed
+
+    private void textoApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoApellidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textoApellidoActionPerformed
+
+    private void textoNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textoNombreActionPerformed
+
+    private void textoNicknameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoNicknameActionPerformed
+        // TODO add your handling code here:
+
+        //System.out.println(nickname);
+    }//GEN-LAST:event_textoNicknameActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> PropoCombo;
+    private javax.swing.JComboBox<String> ColaboradorCombo;
     private javax.swing.JLabel imagenPerfil;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPaneBio;
     private javax.swing.JLabel labelApellido;
-    private javax.swing.JLabel labelBiografia;
-    private javax.swing.JLabel labelDireccion;
     private javax.swing.JLabel labelEmail;
     private javax.swing.JLabel labelFecNac;
     private javax.swing.JLabel labelNickname;
     private javax.swing.JLabel labelNombre;
-    private javax.swing.JLabel labelSitioWeb;
     private javax.swing.JTextField textoApellido;
-    private javax.swing.JTextArea textoBiografia;
-    private javax.swing.JTextField textoDirecc;
     private javax.swing.JTextField textoEmail;
     private javax.swing.JTextField textoFechaNac;
     private javax.swing.JTextField textoNickname;
     private javax.swing.JTextField textoNombre;
-    private javax.swing.JTextField textoSitioWeb;
     // End of variables declaration//GEN-END:variables
 }

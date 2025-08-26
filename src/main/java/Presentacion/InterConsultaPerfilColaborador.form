@@ -58,14 +58,11 @@
                                       <Component id="imagenPerfil" min="-2" pref="130" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="labelNickname" min="-2" max="-2" attributes="0"/>
-                                          <Component id="labelNombre" min="-2" max="-2" attributes="0"/>
-                                          <Component id="labelApellido" min="-2" max="-2" attributes="0"/>
-                                          <Component id="labelEmail" min="-2" max="-2" attributes="0"/>
-                                          <Component id="labelFecNac" min="-2" max="-2" attributes="0"/>
-                                          <Component id="labelDireccion" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="labelSitioWeb" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="labelBiografia" min="-2" max="-2" attributes="0"/>
+                                          <Component id="labelNickname" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="labelNombre" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="labelApellido" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="labelEmail" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="labelFecNac" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -77,25 +74,22 @@
                                                       <Component id="textoNombre" alignment="0" max="32767" attributes="0"/>
                                                       <Component id="textoApellido" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
                                                   </Group>
-                                                  <Component id="jScrollPaneBio" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="textoDirecc" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                                                  <Component id="textoSitioWeb" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
                                                   <Component id="textoFechaNac" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
-                                          <Component id="textoEmail" min="-2" pref="200" max="-2" attributes="0"/>
+                                          <Component id="textoEmail" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Component id="PropoCombo" alignment="0" min="-2" pref="250" max="-2" attributes="0"/>
+                                  <Component id="ColaboradorCombo" alignment="0" min="-2" pref="250" max="-2" attributes="0"/>
                                   <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="79" max="32767" attributes="0"/>
+                      <EmptySpace pref="187" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -105,7 +99,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                      <Component id="PropoCombo" min="-2" max="-2" attributes="0"/>
+                      <Component id="ColaboradorCombo" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="imagenPerfil" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
@@ -136,24 +130,9 @@
                           <Component id="textoFechaNac" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="labelFecNac" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="textoDirecc" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="labelDireccion" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="textoSitioWeb" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="labelSitioWeb" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPaneBio" min="-2" pref="65" max="-2" attributes="0"/>
-                          <Component id="labelBiografia" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="218" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -164,7 +143,7 @@
                 <Property name="text" type="java.lang.String" value="Seleccione el Usuario Proponente a consultar:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="PropoCombo">
+            <Component class="javax.swing.JComboBox" name="ColaboradorCombo">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="1">
@@ -173,7 +152,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PropoComboActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ColaboradorComboActionPerformed"/>
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -212,54 +191,6 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Fecha Nacimiento"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="labelDireccion">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Direccion"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="labelSitioWeb">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Sitio Web"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="labelBiografia">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Biografia"/>
-              </Properties>
-            </Component>
-            <Container class="javax.swing.JScrollPane" name="jScrollPaneBio">
-              <AuxValues>
-                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-              </AuxValues>
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-              <SubComponents>
-                <Component class="javax.swing.JTextArea" name="textoBiografia">
-                  <Properties>
-                    <Property name="editable" type="boolean" value="false"/>
-                    <Property name="columns" type="int" value="20"/>
-                    <Property name="rows" type="int" value="5"/>
-                    <Property name="enabled" type="boolean" value="false"/>
-                  </Properties>
-                </Component>
-              </SubComponents>
-            </Container>
-            <Component class="javax.swing.JTextField" name="textoSitioWeb">
-              <Properties>
-                <Property name="editable" type="boolean" value="false"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textoSitioWebActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JTextField" name="textoDirecc">
-              <Properties>
-                <Property name="editable" type="boolean" value="false"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textoDireccActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="textoFechaNac">
               <Properties>
@@ -303,7 +234,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Lista de Propuestas:"/>
+                <Property name="text" type="java.lang.String" value="Lista de Colaboraciones:"/>
               </Properties>
             </Component>
           </SubComponents>
