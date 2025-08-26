@@ -17,8 +17,9 @@ public class Propuesta {
     Estado estadoActual;
     public List<Estado> misEstados = new ArrayList<>();
     Proponente p;
+    Categoria c;
     
-    public Propuesta(Proponente prop, String titulo, String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual) {
+    public Propuesta(Categoria c, Proponente prop, String titulo, String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual) {
         this.p = prop;
         this.titulo = titulo;
         this.desc = descripcion;
@@ -33,11 +34,12 @@ public class Propuesta {
         
         this.estadoActual = estado;
         this.misEstados.add(estado);
+        this.c = c;
 
         //HACER OTRA CON LA IMAGEN!
     }
     
-    public Propuesta(Proponente prop, String titulo, String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual, String imagen) {
+    public Propuesta(Categoria c,Proponente prop, String titulo, String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual, String imagen) {
         this.p = prop;
         this.titulo = titulo;
         this.desc = descripcion;
@@ -52,9 +54,10 @@ public class Propuesta {
         
         this.estadoActual = estado;
         this.misEstados.add(estado);
+        this.c = c;
         
         this.imagen = imagen;
-
+      
     }
     
     public void modificarPropuesta(String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, String posibleRetorno, String estado, String imagen){

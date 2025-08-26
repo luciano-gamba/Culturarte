@@ -203,10 +203,18 @@ public class Controlador implements IControlador{
             }
         }
         
-        //DEPENDE DE COMO SE HAGA HAY QUE ENCONTRAR SI ESTA TAMBIEN LA CATEGORIA INGRESADA!!!!!!
+        DefaultMutableTreeNode newCat = arbolCategorias.buscar(tipo);
+        
+        if (newCat == null) {
+            // NO SE ENCONTRO LA CATEGORIA
+            return -1;
+        }
+        
+        Categoria c = (Categoria) newCat.getUserObject();
+        
         if (encontrado) {
             
-            Propuesta nuevaProp = new Propuesta(prop, titulo, descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada), Double.parseDouble(montoNecesario), posibleRetorno, fechaActual);
+            Propuesta nuevaProp = new Propuesta(c, prop, titulo, descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada), Double.parseDouble(montoNecesario), posibleRetorno, fechaActual);
             misPropuestas.add(nuevaProp);
             
             return 1;
@@ -230,10 +238,18 @@ public class Controlador implements IControlador{
             }
         }
         
-        //DEPENDE DE COMO SE HAGA HAY QUE ENCONTRAR SI ESTA TAMBIEN LA CATEGORIA INGRESADA!!!!!!
+        DefaultMutableTreeNode newCat = arbolCategorias.buscar(tipo);
+        
+        if (newCat == null || tipo == "Categoria") {
+            // NO SE ENCONTRO LA CATEGORIA o PUSO "CATEGORIA"
+            return 0;
+        }
+        
+        Categoria c = (Categoria) newCat.getUserObject();
+        
         if (encontrado) {
             
-            Propuesta nuevaProp = new Propuesta(prop, titulo, descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada), Double.parseDouble(montoNecesario), posibleRetorno, fechaActual, imagen);
+            Propuesta nuevaProp = new Propuesta(c, prop, titulo, descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada), Double.parseDouble(montoNecesario), posibleRetorno, fechaActual, imagen);
             misPropuestas.add(nuevaProp);
             
             return 1;
