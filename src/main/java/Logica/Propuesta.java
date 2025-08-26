@@ -5,22 +5,43 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Propuesta {
-    String titulo;
-    String desc;
-    String imagen;
-    String lugar;
-    LocalDate fecha;
-    double $entrada;
-    double $necesaria;
-    LocalDate fechaPubli;
-    EnumRetorno posibleRetorno;
-    Estado estadoActual;
-    public List<Estado> misEstados = new ArrayList<>();
-    Proponente p;
-    Categoria c;
+    private String titulo;
+    private String desc;
+    private String imagen;
+    private String lugar;
+    private LocalDate fecha;
+    private double $entrada;
+    private double $necesaria;
+    private double $alcanzada;
+    private LocalDate fechaPubli;
+    private EnumRetorno posibleRetorno;
+    private Estado estadoActual;
+    private List<Aporte> misAportes = new ArrayList<>();
+    public List<Estado> misEstados = new ArrayList<>();//A CAMBIAR
+    private Proponente miProponente;
+    private Categoria c;
     
-    public Propuesta(Categoria c, Proponente prop, String titulo, String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual) {
-        this.p = prop;
+    public Propuesta(Proponente prop, String titulo, String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual) {
+        this.miProponente = prop;
+        this.titulo = titulo;
+        this.desc = descripcion;
+        this.lugar = lugar;
+        this.fechaPubli = fechaPrev;
+        this.$entrada = montoXentrada;
+        this.$necesaria = montoNecesario;
+        this.posibleRetorno = posibleRetorno;
+        this.fecha = fechaActual;
+        
+        Estado estado = new Estado(EnumEstado.valueOf("INGRESADA"), fechaActual);
+        
+        this.estadoActual = estado;
+        this.misEstados.add(estado);
+
+        //DIALOGAR PARA VER QUE HACEMOS CON ESTA EN ESPECIFICO!!!!!!!!!!!!!
+    }
+    
+    public Propuesta(Categoria c,Proponente prop, String titulo, String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual) {
+        this.miProponente = prop;
         this.titulo = titulo;
         this.desc = descripcion;
         this.lugar = lugar;
@@ -36,11 +57,10 @@ public class Propuesta {
         this.misEstados.add(estado);
         this.c = c;
 
-        //HACER OTRA CON LA IMAGEN!
     }
     
-    public Propuesta(Categoria c,Proponente prop, String titulo, String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual, String imagen) {
-        this.p = prop;
+    public Propuesta(Categoria c, Proponente prop, String titulo, String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual, String imagen) {
+        this.miProponente = prop;
         this.titulo = titulo;
         this.desc = descripcion;
         this.lugar = lugar;
@@ -57,7 +77,7 @@ public class Propuesta {
         this.c = c;
         
         this.imagen = imagen;
-      
+
     }
     
     public void modificarPropuesta(String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, String posibleRetorno, String estado, String imagen){
@@ -83,8 +103,30 @@ public class Propuesta {
         this.imagen = imagen;
     }
     
-    public String getTitulo(){
-        return this.titulo;
+     public String getTitulo_Nickname(){
+        return this.titulo+" by "+this.miProponente.getNickname();
+    }
+
+    public double get$necesaria() {
+        return $necesaria;
+    }
+
+    public double get$alcanzada() {
+        return $alcanzada;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public EnumRetorno getPosibleRetorno() {
+        return posibleRetorno;
+    }
+        
+    public void addAporte(Aporte a){
+        misAportes.add(a);
+        a.setMiPropuesta(this);
+        $alcanzada+=a.get$aporte();
     }
     
     public String getImagen(){
@@ -96,7 +138,7 @@ public class Propuesta {
     }
     
     public Proponente getProponente(){
-        return this.p;
+        return this.miProponente;
     }
     
     public String getDescripcion(){

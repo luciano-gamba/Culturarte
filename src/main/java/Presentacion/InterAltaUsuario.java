@@ -156,7 +156,7 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
             }
         });
 
-        spinnerFecNac.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(1104544800000L), new java.util.Date(-2208975309000L), new java.util.Date(), java.util.Calendar.DAY_OF_MONTH));
+        spinnerFecNac.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(946695600000L), new java.util.Date(-2208975309000L), new java.util.Date(), java.util.Calendar.DAY_OF_MONTH));
 
         labelDireccion.setText("Direccion");
 
@@ -354,27 +354,27 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         // TODO add your handling code here:
-        String nickname = textoNickname.getText();
-        String nombre = textoNombre.getText();
-        String apellido = textoApellido.getText();
-        String email = textoEmail.getText();
+        String nickname = textoNickname.getText().trim();
+        String nombre = textoNombre.getText().trim();
+        String apellido = textoApellido.getText().trim();
+        String email = textoEmail.getText().trim();
         Date fecha = (Date) spinnerFecNac.getValue();
         LocalDate fecNac = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         
         
-        if(nickname.equals("") || nombre.equals("") || apellido.equals("") || email.equals("") || !email.contains("@")){
+        if(nickname.isBlank() || nombre.isBlank() || apellido.isBlank() || email.isBlank() || !email.contains("@")){
             JOptionPane.showMessageDialog(this, "Opciones vacias o invalidas!", "Error", HEIGHT);
             
         }else{
             if(rbProponente.isSelected()){
-                String direccion = textoDireccion.getText();
+                String direccion = textoDireccion.getText().trim();
                 String biografia = textoBiografia.getText();
-                String sitioWeb = textoSitioWeb.getText();
+                String sitioWeb = textoSitioWeb.getText().trim();
                 
-                if(direccion.equals("") || (!sitioWeb.equals("") && !sitioWeb.contains("."))){
+                if(direccion.isBlank() || (!sitioWeb.isBlank() && !sitioWeb.contains("."))){
                     JOptionPane.showMessageDialog(this, "Opciones vacias o invalidas!", "Error", HEIGHT);
                 }else{
-                    int resultado = this.ic.añadirUsuario(nickname, nombre, apellido, email, fecNac, direccion, biografia, sitioWeb, this.txtImagen);
+                    int resultado = this.ic.añadirUsuario(nickname, nombre, apellido, email, fecNac, this.txtImagen, direccion,biografia , sitioWeb);
                     
                     if(resultado == 1){
                         JOptionPane.showMessageDialog(this, "Usuario ha sido ingresado!", "Listo!", JOptionPane.INFORMATION_MESSAGE);

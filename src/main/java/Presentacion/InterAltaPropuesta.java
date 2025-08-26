@@ -6,17 +6,21 @@ package Presentacion;
 
 import Logica.EnumRetorno;
 import Logica.IControlador;
-import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.SpinnerDateModel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -28,6 +32,7 @@ import javax.swing.tree.DefaultTreeModel;
 public class InterAltaPropuesta extends javax.swing.JInternalFrame {
     
     private final IControlador ic;
+    List<String> listaProponentes;
     /**
      * Creates new form menuAltaPropuesta
      */
@@ -35,7 +40,24 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
         initComponents();
         this.ic = ic;
         
-        txtSalida.setVisible(false);
+        LocalDate fechaMin = LocalDate.now();
+        Date minDate = Date.from(fechaMin.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        LocalDate fechaMax = LocalDate.of(2099, 1, 1);
+        Date maxDate = Date.from(fechaMax.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        LocalDate fechaInicial = LocalDate.now().plusDays(1); //EL PLUS DAY ANDA PERO NO SE MUESTRA
+        Date initialDate = Date.from(fechaInicial.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        SpinnerDateModel model = new SpinnerDateModel(initialDate, minDate, maxDate, Calendar.DAY_OF_MONTH);
+        spinnerFec.setModel(model);
+        
+        listaProponentes = ic.getUsuariosProponentes();
+        
+        for(String s : listaProponentes){
+            comboNick.addItem(s);
+        }
+        
         this.setTitle("Alta Propuesta");
         
         DefaultMutableTreeNode nodoRaiz = ic.getRaizArbolCat();
@@ -60,7 +82,6 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
 
         txtTitulo = new javax.swing.JTextField();
         txtLugar = new javax.swing.JTextField();
-        txtFecha = new javax.swing.JTextField();
         txtEntrada = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -73,17 +94,17 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDescripcion = new javax.swing.JTextArea();
         btnAceptar = new javax.swing.JButton();
-        txtSalida = new javax.swing.JTextField();
         Cancelar = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         txtTipo = new javax.swing.JTextField();
         labelNick = new javax.swing.JLabel();
-        txtNick = new javax.swing.JTextField();
         listaRetorno = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         btnFoto = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         ArbolDeCategorias = new javax.swing.JTree();
+        comboNick = new javax.swing.JComboBox<>();
+        spinnerFec = new javax.swing.JSpinner();
 
         setClosable(true);
         setIconifiable(true);
@@ -128,13 +149,6 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
             }
         });
 
-        txtSalida.setEditable(false);
-        txtSalida.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSalidaActionPerformed(evt);
-            }
-        });
-
         Cancelar.setText("Cancelar");
         Cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -165,6 +179,11 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
 
         jScrollPane2.setViewportView(ArbolDeCategorias);
 
+        comboNick.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccionar--" }));
+
+        spinnerFec.setModel(new javax.swing.SpinnerDateModel());
+        spinnerFec.setEditor(new javax.swing.JSpinner.DateEditor(spinnerFec, "d/M/yyyy"));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -175,9 +194,6 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
                         .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGap(14, 14, 14)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel7)
@@ -187,14 +203,13 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel8))
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(listaRetorno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnFoto)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(txtMonto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                                        .addComponent(txtEntrada, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtFecha, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtLugar, javax.swing.GroupLayout.Alignment.LEADING)))
+                                    .addComponent(txtMonto, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                                    .addComponent(txtEntrada)
+                                    .addComponent(txtLugar)
+                                    .addComponent(spinnerFec))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 179, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -203,16 +218,12 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel10)
                                     .addComponent(labelNick))
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(txtTitulo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                                            .addComponent(txtTipo, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtNick, javax.swing.GroupLayout.Alignment.LEADING))
-                                        .addGap(18, 18, 18))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                                    .addComponent(txtTipo)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                                    .addComponent(comboNick, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -224,13 +235,13 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtNick, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelNick))
+                            .addComponent(labelNick)
+                            .addComponent(comboNick, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -243,14 +254,14 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(txtLugar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(spinnerFec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -267,9 +278,7 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(listaRetorno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
-                .addGap(18, 18, 18)
-                .addComponent(txtSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
+                .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAceptar)
                     .addComponent(Cancelar))
@@ -295,13 +304,15 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         // TODO add your handling code here:
-        String nick,titulo, descripcion, entrada, fechaStr, lugar, monto, tipo, tipoRet;
+        String nick,titulo, descripcion, entrada, lugar, monto, tipo, tipoRet;
         LocalDate fechaActual = LocalDate.now();
-        nick = txtNick.getText();
+        int op = comboNick.getSelectedIndex();
+        nick = comboNick.getItemAt(op);
         titulo = txtTitulo.getText();
         descripcion = txtDescripcion.getText();
         entrada = txtEntrada.getText();
-        fechaStr = txtFecha.getText();
+        Date fecha = (Date) spinnerFec.getValue();
+        LocalDate fechaPrev = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         lugar = txtLugar.getText();
         monto = txtMonto.getText();
         tipo = txtTipo.getText();
@@ -319,22 +330,24 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
             retorno = EnumRetorno.valueOf("AMBOS");
         }
         
-        if (txtNick.getText().isEmpty() || txtTitulo.getText().isEmpty() || txtDescripcion.getText().isEmpty() || txtEntrada.getText().isEmpty() || txtFecha.getText().isEmpty() || txtLugar.getText().isEmpty() || txtMonto.getText().isEmpty()) {
+        if (ic.existeTitulo(titulo)) {
+            JOptionPane.showMessageDialog(this, "Ya existe ese titulo en el sistema!", "Error", HEIGHT);
+            return;
+        }
+        
+        if (nick.equals("--Seleccionar--") || txtTitulo.getText().isEmpty() || txtDescripcion.getText().isEmpty() || txtEntrada.getText().isEmpty() || txtLugar.getText().isEmpty() || txtMonto.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Faltan campos por llenar!", "Error", HEIGHT);
         }else{
-            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            LocalDate fechaPrev = LocalDate.parse(fechaStr, formato);
             
             if (txtImagen == null || !this.txtImagen.isEmpty()) {
                 if(ic.altaPropuesta(nick, tipo, titulo, descripcion, lugar, fechaPrev, entrada, monto, retorno, fechaActual, this.txtImagen) == 1){
                     JOptionPane.showMessageDialog(this, "La propuesta ha sido ingresada!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
                     this.hide();
+                }else if(ic.altaPropuesta(nick, tipo, titulo, descripcion, lugar, fechaPrev, entrada, monto, retorno, fechaActual, this.txtImagen) == 0){
+                    //ERROR CON LA CATEGORIA!
+                    JOptionPane.showMessageDialog(this, "NO SE ENCONTRO LA CATEGORIA", "Error", HEIGHT);
                 }else{
-                    //poner ventana de error
-                    txtSalida.setText("NO EXISTE PROPONENTE CON NICK = " + nick);
-                    txtSalida.setVisible(true);
-                    labelNick.setForeground(Color.RED);
-                    this.updateUI();
+                    JOptionPane.showMessageDialog(this, "No se permite usar \"Categoria\" como tipo de espectaculo!", "Error", HEIGHT);
                 }
                 //quiere decir que quiere insertar imagen
                 //cerrar la ventana
@@ -342,12 +355,11 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
                 if(ic.altaPropuesta(nick, tipo, titulo, descripcion, lugar, fechaPrev, entrada, monto, retorno, fechaActual) == 1){
                     JOptionPane.showMessageDialog(this, "La propuesta ha sido ingresada!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
                     this.hide();
+                }else if(ic.altaPropuesta(nick, tipo, titulo, descripcion, lugar, fechaPrev, entrada, monto, retorno, fechaActual, this.txtImagen) == 0){
+                    //ERROR CON LA CATEGORIA!
+                    JOptionPane.showMessageDialog(this, "NO SE ENCONTRO LA CATEGORIA", "Error", HEIGHT);
                 }else{
-                    //poner ventana de error
-                    txtSalida.setText("NO EXISTE PROPONENTE CON NICK = " + nick);
-                    txtSalida.setVisible(true);
-                    labelNick.setForeground(Color.RED);
-                    this.updateUI();
+                    JOptionPane.showMessageDialog(this, "No se permite usar \"Categoria\" como tipo de espectaculo!", "Error", HEIGHT);
                 }
                 //no quiere insertar imagen
             }
@@ -388,10 +400,6 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnFotoActionPerformed
 
-    private void txtSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSalidaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSalidaActionPerformed
-
     private boolean open;
     private String txtImagen;
     
@@ -400,6 +408,7 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
     private javax.swing.JButton Cancelar;
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnFoto;
+    private javax.swing.JComboBox<String> comboNick;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -413,13 +422,11 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labelNick;
     private javax.swing.JComboBox<String> listaRetorno;
+    private javax.swing.JSpinner spinnerFec;
     private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtEntrada;
-    private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtLugar;
     private javax.swing.JTextField txtMonto;
-    private javax.swing.JTextField txtNick;
-    private javax.swing.JTextField txtSalida;
     private javax.swing.JTextField txtTipo;
     private javax.swing.JTextField txtTitulo;
     // End of variables declaration//GEN-END:variables

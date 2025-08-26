@@ -14,9 +14,23 @@ public interface IControlador {
     
     int altaCategoria(String nombreCat,String nombrePadreCat);
     
-    List<String> getUsuarios();
+    int altaAporte(String miColaborador, String miPropuesta, double $aporte, int cantidad, EnumRetorno retorno);
+    
+    List<String> getUsuarios(); 
+    
+    List<String> getUsuariosProponentes();
+    
+    List<String> getUsuariosColaboradores();
+    
+    DataProponente consultaDeProponente(String NickName);
+    
+    DataColaborador consultaDeColaborador(String NickName);
     
     List<String> getSeguidos(String seguidor);
+    
+    List<String> getColaboradores();
+    
+    List<String> getPropuestas_Proponentes();
     
     int seguirUsuario(String nick1, String nick2);
     
@@ -37,4 +51,6 @@ public interface IControlador {
     List<String> getEstados();
     
     List<String> getPropXEstado(String estado);
+    
+    boolean existeTitulo(String titulo);
 }
