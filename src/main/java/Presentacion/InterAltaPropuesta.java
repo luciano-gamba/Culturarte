@@ -288,8 +288,9 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
         descripcion = txtDescripcion.getText();
         entrada = txtEntrada.getText();
         fechaStr = txtFecha.getText();
-        lugar = txtLugar.getText();
-        monto = txtMonto.getText();
+        lugar = txtLugar.getText(); //Agregue .trim() nahuel pedazo de vago
+        monto = txtMonto.getText(); //Ya me habia olviado de eso XD, tengo que ponerlo en el trello
+                                    //para acordarme
         
         EnumRetorno retorno = null;
         int seleccionado = listaRetorno.getSelectedIndex();

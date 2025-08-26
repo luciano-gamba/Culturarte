@@ -16,7 +16,7 @@ public class Controlador implements IControlador{
     public Controlador() {
         this.arbolCategorias = new ArbolCategorias(new Categoria("Categoria"));
     //La letra dice que la raiz siempre es "Categoria" 
-    //probablemente tenga que cambiarlo para evitar repetidos o errores al coenctar con la BD
+    //probablemente tenga que cambiarlo para evitar repetidos o errores al conectar con la BD
     
     }
     
@@ -128,6 +128,15 @@ public class Controlador implements IControlador{
         String aux;
         for(Proponente p : misProponentes){
             aux = p.getNickname();
+            listaNombres.add(aux);
+        }
+        return listaNombres;
+    }
+    public List<String> getUsuariosColaboradores() {
+        List<String> listaNombres = new ArrayList<>();
+        String aux;
+        for(Colaborador c : misColaboradores){
+            aux = c.getNickname();
             listaNombres.add(aux);
         }
         return listaNombres;
@@ -313,6 +322,22 @@ public class Controlador implements IControlador{
         }
         
         return DProp;
+    }
+    
+    public DataColaborador consultaDeColaborador(String NickName){
+        
+        DataColaborador DCola = null;
+        
+        boolean encontrado = false;
+        for (Colaborador c : misColaboradores) {
+            if (c.getNickname().equals(NickName)) {
+                encontrado = true;
+                DCola = new DataColaborador(NickName, c.getNombre(),c.getApellido(),c.getEmail(),c.getFecNac(),c.getImagen());
+                return DCola;
+            }
+        }
+        
+        return DCola;
     }
     
     public List<String> getEstados(){

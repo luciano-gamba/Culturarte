@@ -18,7 +18,11 @@ public interface IControlador {
     
     List<String> getUsuariosProponentes();
     
+    List<String> getUsuariosColaboradores();
+    
     DataProponente consultaDeProponente(String NickName);
+    
+    DataColaborador consultaDeColaborador(String NickName);
     
     List<String> getSeguidos(String seguidor);
     
