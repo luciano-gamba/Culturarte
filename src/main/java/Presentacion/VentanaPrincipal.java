@@ -186,11 +186,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void menuAltaUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAltaUsuarioActionPerformed
         // TODO add your handling code here:
-        
-        InterAltaUsuario IAU = new InterAltaUsuario(this.ic);
-        this.add(IAU);
-        IAU.show();
-        
+        if(this.IAU == null || IAU.isClosed()){
+            IAU = new InterAltaUsuario(this.ic);
+            this.add(IAU);
+            IAU.show();
+            int x = (this.getWidth() - IAU.getWidth())/2;
+            int y = (this.getHeight() - IAU.getHeight())/2;
+            IAU.setLocation(x, y-50);
+        }
     }//GEN-LAST:event_menuAltaUsuarioActionPerformed
 
     private void menuConsultaPropuEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsultaPropuEstActionPerformed
@@ -253,10 +256,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void menuSeguirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSeguirActionPerformed
         // TODO add your handling code here:
-        
-        InterSeguirUsuario ISU = new InterSeguirUsuario(this.ic);
-        this.add(ISU);
-        ISU.show();
+        if(this.ISU == null || ISU.isClosed()){
+            ISU = new InterSeguirUsuario(this.ic);
+            this.add(ISU);
+            ISU.show();
+            int x = (this.getWidth() - ISU.getWidth())/2;
+            int y = (this.getHeight() - ISU.getHeight())/2;
+            ISU.setLocation(x, y-50);
+        }
     }//GEN-LAST:event_menuSeguirActionPerformed
     private void menuConsultaPropuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsultaPropuActionPerformed
         // TODO add your handling code here:
@@ -273,17 +280,27 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void menuDejarSeguirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDejarSeguirActionPerformed
         // TODO add your handling code here:
-        
-        InterDejarSeguir IDS = new InterDejarSeguir(this.ic);
-        this.add(IDS);
-        IDS.show();
+        if(this.IDS == null || IDS.isClosed()){
+            IDS = new InterDejarSeguir(this.ic);
+            this.add(IDS);
+            IDS.show();
+            int x = (this.getWidth() - IDS.getWidth())/2;
+            int y = (this.getHeight() - IDS.getHeight())/2;
+            IDS.setLocation(x, y-75);
+        }
     }//GEN-LAST:event_menuDejarSeguirActionPerformed
 
     private void menuModificarPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuModificarPropActionPerformed
         // TODO add your handling code here:
-        InterModificarPropuesta IMP = new InterModificarPropuesta(this.ic);
-        this.add(IMP);
-        IMP.show();
+        if(this.IMP == null || IMP.isClosed()){
+            InterModificarPropuesta IMP = new InterModificarPropuesta(this.ic);
+            this.add(IMP);
+            IMP.show();
+            //consigue largo y ancho de ventana principal
+            int x = (this.getWidth() - IMP.getWidth())/2;
+            int y = (this.getHeight() - IMP.getHeight())/2;
+            IMP.setLocation(x, y-30);
+        }
     }//GEN-LAST:event_menuModificarPropActionPerformed
 
     private void menuConsultaColaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsultaColaActionPerformed
@@ -337,6 +354,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private InterConsultaXEstado ICE;
     private InterConsultaPerfilProponente ICPP;
     private InterConsultaPerfilColaborador ICPC;
+    private InterAltaUsuario IAU;
+    private InterSeguirUsuario ISU;
+    private InterDejarSeguir IDS;
+    private InterModificarPropuesta IMP;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;

@@ -14,5 +14,9 @@ public class Estado {
     public EnumEstado getEstado(){
         return this.estado;
     }
+
+    public LocalDate getFecha() {
+        return fecha;
+    }
     
 }

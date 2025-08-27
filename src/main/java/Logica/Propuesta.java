@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Propuesta {
-    private String titulo;
+    private final String titulo;
     private String desc;
     private String imagen;
     private String lugar;
@@ -18,7 +18,7 @@ public class Propuesta {
     private Estado estadoActual;
     private List<Aporte> misAportes = new ArrayList<>();
     public List<Estado> misEstados = new ArrayList<>();//A CAMBIAR
-    private Proponente miProponente;
+    private final Proponente miProponente;
     private Categoria c;
     
     public Propuesta(Proponente prop, String titulo, String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual) {
@@ -80,7 +80,7 @@ public class Propuesta {
 
     }
     
-    public void modificarPropuesta(String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, String posibleRetorno, String estado, String imagen){
+    public void modificarPropuesta(String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, String posibleRetorno, String estado, String imagen, Categoria c){
         this.desc = descripcion;
         this.lugar = lugar;
         this.fechaPubli = fechaPrev;
@@ -101,6 +101,8 @@ public class Propuesta {
         this.misEstados.add(est);
         
         this.imagen = imagen;
+        
+        this.c = c;
     }
     
      public String getTitulo_Nickname(){
@@ -173,6 +175,9 @@ public class Propuesta {
         this.fecha = fecha;
     }
     
+    public String getCategoria(){
+        return this.c.getNombreCat();
+    }
     
 }
 

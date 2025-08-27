@@ -12,7 +12,7 @@ public class Controlador implements IControlador{
     public List<Proponente> misProponentes = new ArrayList<>();
     public List<Colaborador> misColaboradores = new ArrayList<>();
     public List<Propuesta> misPropuestas = new ArrayList<>();
-    private ArbolCategorias arbolCategorias;
+    private final ArbolCategorias arbolCategorias;
     
     public Controlador() {
         this.arbolCategorias = new ArbolCategorias(new Categoria("Categoria"));
@@ -178,6 +178,7 @@ public class Controlador implements IControlador{
         }
         return lista;
     }
+    @Override
     public List<String> getUsuariosProponentes() {
         List<String> listaNombres = new ArrayList<>();
         String aux;
@@ -187,6 +188,7 @@ public class Controlador implements IControlador{
         }
         return listaNombres;
     }
+    @Override
     public List<String> getUsuariosColaboradores() {
         List<String> listaNombres = new ArrayList<>();
         String aux;
@@ -264,6 +266,7 @@ public class Controlador implements IControlador{
         }
     }
     
+    @Override
     public int altaPropuesta(String nick, String tipo, String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual){
         
         Proponente prop = null;
@@ -342,11 +345,13 @@ public class Controlador implements IControlador{
    
     
     @Override
-    public int modificarPropuesta(String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, String posibleRetorno, String estado, String imagen){
+    public int modificarPropuesta(String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, String posibleRetorno, String estado, String imagen, String categoria){
         
         for(Propuesta p : this.misPropuestas){
             if(p.getTitulo().equals(titulo)){
-                p.modificarPropuesta(descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada),Double.parseDouble(montoNecesario), posibleRetorno, estado, imagen);
+                DefaultMutableTreeNode newCat = this.arbolCategorias.buscar(categoria);
+                Categoria c = (Categoria) newCat.getUserObject();
+                p.modificarPropuesta(descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada),Double.parseDouble(montoNecesario), posibleRetorno, estado, imagen, c);
                 return 0;
             }
         }
@@ -380,7 +385,7 @@ public class Controlador implements IControlador{
         for (Propuesta p : misPropuestas) {
             if (p.getTitulo().equalsIgnoreCase(titulo)) {
                 encontrado = true;
-                DP = new DataPropuesta(titulo, p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(), p.getFechaARealizar(), p.getRetorno());
+                DP = new DataPropuesta(titulo, p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(), p.getFechaARealizar(), p.getRetorno(), p.getCategoria());
                 return DP;
             }
         }
@@ -388,6 +393,7 @@ public class Controlador implements IControlador{
         return DP;
     }
     
+    @Override
     public DataProponente consultaDeProponente(String NickName){
         
         DataProponente DProp = null;
@@ -404,6 +410,7 @@ public class Controlador implements IControlador{
         return DProp;
     }
     
+    @Override
     public DataColaborador consultaDeColaborador(String NickName){
         
         DataColaborador DCola = null;
@@ -420,6 +427,7 @@ public class Controlador implements IControlador{
         return DCola;
     }
     
+    @Override
     public List<String> getEstados(){
     List<String> listaEstados = new ArrayList<>();
     for (EnumEstado e : EnumEstado.values()) {
@@ -441,6 +449,7 @@ public class Controlador implements IControlador{
         return listaPropuestas;
     }
     
+    @Override
     public boolean existeTitulo(String titulo){
         
         boolean encontrado = false;

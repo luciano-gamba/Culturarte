@@ -22,8 +22,9 @@ public class DataPropuesta {
     double $necesaria;
     LocalDate fechaPubli;
     EnumRetorno posibleRetorno;
+    String categoria;
     
-    public DataPropuesta(String titulo, String imagen, Estado estadoActual, Proponente p, String descrip, String lugar, double entrada, double necesaria, LocalDate fechaP, EnumRetorno retorno){
+    public DataPropuesta(String titulo, String imagen, Estado estadoActual, Proponente p, String descrip, String lugar, double entrada, double necesaria, LocalDate fechaP, EnumRetorno retorno, String categoria){
         this.titulo = titulo;
         this.imagen = imagen;
         this.estadoActual = estadoActual;
@@ -34,6 +35,7 @@ public class DataPropuesta {
         this.$necesaria = necesaria;
         this.fechaPubli = fechaP;
         this.posibleRetorno = retorno;
+        this.categoria = categoria;
     }
     
     public String getTitulo(){
@@ -75,4 +77,14 @@ public class DataPropuesta {
     public LocalDate getFechaARealizar(){
         return this.fechaPubli;
     }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+    
+    
 }
