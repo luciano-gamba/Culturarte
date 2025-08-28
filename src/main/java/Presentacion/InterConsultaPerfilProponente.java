@@ -6,14 +6,17 @@ package Presentacion;
 
 import Logica.IControlador;
 import Logica.DataProponente;
+import Logica.DataPropuesta;
 import java.awt.Image;
 import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
 
 public class InterConsultaPerfilProponente extends javax.swing.JInternalFrame {
     private final IControlador ic;
     private List<String> listaProponentes; //Solo tiene los NickNames de los Proponentes para llenar el comboBox
     private DataProponente miProponente; //Guarda el proponente(DataProponente) del que se estan mostrando los datos en el momento
+    private DefaultTableModel modeloTabla;
     /**
      * Creates new form InterConsultaPerfilProponente
      */
@@ -25,6 +28,10 @@ public class InterConsultaPerfilProponente extends javax.swing.JInternalFrame {
         for(String s : listaProponentes){
             PropoCombo.addItem(s);
         }
+        String[] encabezados = {"Nickname Proveedor","Titulo Propuesta", "Lugar" , "Dinero Recaudado", "Estado Actual","Colaboradores de Propuesta"};    
+    
+        modeloTabla = new DefaultTableModel(encabezados,0);
+        tablaPropuestasDe.setModel(modeloTabla);
     }
 
     /**
@@ -59,10 +66,13 @@ public class InterConsultaPerfilProponente extends javax.swing.JInternalFrame {
         textoNombre = new javax.swing.JTextField();
         textoNickname = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaPropuestasDe = new javax.swing.JTable();
 
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Seleccione el Usuario Proponente a consultar:");
 
@@ -148,47 +158,63 @@ public class InterConsultaPerfilProponente extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Lista de Propuestas:");
 
+        tablaPropuestasDe.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "NickName Proponente", "Titulo Propuesta", "Lugar", "Dinero Recaudado", "Estado Actual"
+            }
+        ));
+        jScrollPane2.setViewportView(tablaPropuestasDe);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addComponent(PropoCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(imagenPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelNickname)
-                                    .addComponent(labelNombre)
-                                    .addComponent(labelApellido)
-                                    .addComponent(labelEmail)
-                                    .addComponent(labelFecNac)
-                                    .addComponent(labelDireccion)
-                                    .addComponent(labelSitioWeb)
-                                    .addComponent(labelBiografia))
+                                .addComponent(imagenPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(1, 1, 1)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(textoNickname)
-                                                .addComponent(textoNombre)
-                                                .addComponent(textoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(jScrollPaneBio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(textoDirecc, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(textoSitioWeb, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(textoFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(textoEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(PropoCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel2)))
-                .addContainerGap(79, Short.MAX_VALUE))
+                                            .addComponent(labelNickname)
+                                            .addComponent(labelNombre)
+                                            .addComponent(labelApellido))
+                                        .addGap(61, 61, 61)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(textoNickname, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                                            .addComponent(textoNombre)
+                                            .addComponent(textoApellido)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(labelEmail)
+                                            .addComponent(labelFecNac)
+                                            .addComponent(labelDireccion)
+                                            .addComponent(labelSitioWeb)
+                                            .addComponent(labelBiografia))
+                                        .addGap(19, 19, 19)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jScrollPaneBio, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                                            .addComponent(textoFechaNac)
+                                            .addComponent(textoDirecc)
+                                            .addComponent(textoSitioWeb)
+                                            .addComponent(textoEmail)))))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 659, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,7 +225,6 @@ public class InterConsultaPerfilProponente extends javax.swing.JInternalFrame {
                 .addComponent(PropoCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(imagenPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(textoNickname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -212,47 +237,39 @@ public class InterConsultaPerfilProponente extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(textoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labelApellido))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(textoEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelEmail))))
-                .addGap(17, 17, 17)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelFecNac))
-                .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoDirecc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelDireccion))
-                .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoSitioWeb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelSitioWeb))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPaneBio, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelBiografia))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addGap(61, 61, 61))
+                            .addComponent(labelEmail))
+                        .addGap(17, 17, 17)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(textoFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelFecNac))
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(textoDirecc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelDireccion))
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(textoSitioWeb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelSitioWeb))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPaneBio, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelBiografia))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(imagenPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jScrollPane1.setViewportView(jPanel1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, 470));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -298,7 +315,6 @@ public class InterConsultaPerfilProponente extends javax.swing.JInternalFrame {
         }else{ //en el caso del else debo limpiar los datos mostrados
             limpiarFormulario();
         }
-
     }//GEN-LAST:event_PropoComboActionPerformed
     private void llenarFormulario(){ //Esta sera la funcion principal de este internalFrame donde lleno el formulario con las cosas ingresadas
         textoNickname.setText(miProponente.getNickname());
@@ -309,7 +325,7 @@ public class InterConsultaPerfilProponente extends javax.swing.JInternalFrame {
         
         
         ImageIcon icon = new ImageIcon(miProponente.getImagen());
-        Image imagenEscalada = icon.getImage().getScaledInstance(130, 130, Image.SCALE_SMOOTH);
+        Image imagenEscalada = icon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);  //cambiar width a 200 y height 200
         imagenPerfil.setIcon(new ImageIcon(imagenEscalada));
        
         
@@ -319,6 +335,19 @@ public class InterConsultaPerfilProponente extends javax.swing.JInternalFrame {
         textoBiografia.setText(miProponente.getBiografia());
         
         //IMPORTANTE Falta lista de Propuestas de este Proponente
+        
+        modeloTabla.setRowCount(0); //La vacio por el caso que pase de un colaborador a otro sin vaciarse al pasar por "-Seleccionar-"
+        Object[] fila;
+        for (DataPropuesta dataProp : miProponente.getPropuestas()){
+            fila = new Object[5];
+            fila[0] = "";
+            fila[1] = dataProp.getTitulo(); //Por ahora solo obtengo estos datos pq ando pensando si necesitare crear otro DataType ya que me faltan datos
+            fila[2] = dataProp.getLugar();
+            fila[3] = "0";
+            fila[4] = dataProp.getEstadoActual();
+            //Fila[5]?? Que hago con esta parte que tiene una lista de Colaboradores de esta propuesta podria usar un comboBox y que si se seleccione agregue tuplas o algo 
+            modeloTabla.addRow(fila);
+        }
         //Lo mas complicado de pensar de eso es en que cada propuesta a su vez tiene una lista
         //de colaboradores -(parece q se puede hacer con comboBox)
     }
@@ -342,6 +371,7 @@ public class InterConsultaPerfilProponente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPaneBio;
     private javax.swing.JLabel labelApellido;
     private javax.swing.JLabel labelBiografia;
@@ -351,6 +381,7 @@ public class InterConsultaPerfilProponente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel labelNickname;
     private javax.swing.JLabel labelNombre;
     private javax.swing.JLabel labelSitioWeb;
+    private javax.swing.JTable tablaPropuestasDe;
     private javax.swing.JTextField textoApellido;
     private javax.swing.JTextArea textoBiografia;
     private javax.swing.JTextField textoDirecc;

@@ -239,7 +239,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             this.add(IAC);
             IAC.show();
         }
-        
+       
     }//GEN-LAST:event_menuAltaCategoriaActionPerformed
     private void menuAltaPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAltaPropActionPerformed
         // TODO add your handling code here:

@@ -21,7 +21,7 @@ public class ArbolCategorias {
         while(enumeration.hasMoreElements()){
             DefaultMutableTreeNode nodo = (DefaultMutableTreeNode) enumeration.nextElement();
             Categoria cat = (Categoria) nodo.getUserObject();
-            if(cat.getNombreCat().equals(nombre)){
+            if(cat.getNombreCat().equalsIgnoreCase(nombre)){ //Cambio en .equals por .equalsIgnoreCase asi no pueden haber dos categorias que se diferencien por mayus
                 return nodo;
             }
     

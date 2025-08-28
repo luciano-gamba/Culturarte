@@ -23,8 +23,7 @@ public class InterAltaCategoria extends javax.swing.JInternalFrame {
         this.ic = ic;
         this.setTitle("Alta de Categoria");
         initComponents();
-        DefaultMutableTreeNode nodoRaiz = ic.getRaizArbolCat();
-        DefaultTreeModel modeloArbol = new DefaultTreeModel(nodoRaiz);
+        DefaultTreeModel modeloArbol = new DefaultTreeModel(UtilArbol.construirArbolCategorias(ic.getRaizArbolCat()));
         
         this.ArbolDeCategorias.setModel(modeloArbol);
         this.ArbolDeCategorias.expandRow(0);
@@ -52,16 +51,21 @@ public class InterAltaCategoria extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setResizable(true);
         setVisible(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         labelTituloAltCat.setText("Ingrese una Nueva Categoria de Espectaculo:");
+        getContentPane().add(labelTituloAltCat, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 15, -1, -1));
 
         jScrollPane1.setViewportView(ArbolDeCategorias);
 
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 179, 234, 149));
+
         LabelNombreCat.setText("Nombre Categoria");
+        getContentPane().add(LabelNombreCat, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 74, -1, -1));
 
         LabelPadreCat.setText("Padre de la Categoria (opcional)");
+        getContentPane().add(LabelPadreCat, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 131, -1, 30));
 
         botonAceptar.setText("Aceptar");
         botonAceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -69,6 +73,7 @@ public class InterAltaCategoria extends javax.swing.JInternalFrame {
                 botonAceptarActionPerformed(evt);
             }
         });
+        getContentPane().add(botonAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(293, 283, -1, -1));
 
         botonCancelar.setText("Cancelar");
         botonCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -76,70 +81,21 @@ public class InterAltaCategoria extends javax.swing.JInternalFrame {
                 botonCancelarActionPerformed(evt);
             }
         });
+        getContentPane().add(botonCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(375, 283, -1, -1));
 
         textoNombreCat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textoNombreCatActionPerformed(evt);
             }
         });
+        getContentPane().add(textoNombreCat, new org.netbeans.lib.awtextra.AbsoluteConstraints(196, 69, 189, -1));
 
         textoPadreCat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textoPadreCatActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(LabelPadreCat)
-                            .addComponent(LabelNombreCat))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(textoPadreCat, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
-                            .addComponent(textoNombreCat)))
-                    .addComponent(labelTituloAltCat))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addComponent(botonAceptar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botonCancelar)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(labelTituloAltCat, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(LabelNombreCat)
-                    .addComponent(textoNombreCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoPadreCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LabelPadreCat, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(botonAceptar)
-                            .addComponent(botonCancelar))
-                        .addGap(33, 33, 33))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(14, Short.MAX_VALUE))))
-        );
+        getContentPane().add(textoPadreCat, new org.netbeans.lib.awtextra.AbsoluteConstraints(196, 133, 189, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -147,7 +103,7 @@ public class InterAltaCategoria extends javax.swing.JInternalFrame {
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
         // TODO add your handling code here:
         limpiarFormulario();
-        this.dispose(); // el .trim, tiene en cuenta los \n tambien llamados "enter"?
+        this.dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
