@@ -53,4 +53,6 @@ public interface IControlador {
     List<String> getPropXEstado(String estado);
     
     boolean existeTitulo(String titulo);
+    
+    List<String> getColabsProp(String titulo);
 }

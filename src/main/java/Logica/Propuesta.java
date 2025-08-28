@@ -12,7 +12,7 @@ public class Propuesta {
     private LocalDate fecha;
     private double $entrada;
     private double $necesaria;
-    private double $alcanzada;
+    private double $alcanzada = 0;
     private LocalDate fechaPubli;
     private EnumRetorno posibleRetorno;
     private Estado estadoActual;
@@ -131,6 +131,10 @@ public class Propuesta {
         $alcanzada+=a.get$aporte();
     }
     
+    public List<Aporte> getAportes(){
+        return this.misAportes; 
+    }
+    
     public String getImagen(){
         return this.imagen;
     }
@@ -177,6 +181,10 @@ public class Propuesta {
     
     public String getCategoria(){
         return this.c.getNombreCat();
+    }
+    
+    public Double getAlcanzada(){
+        return this.$alcanzada;
     }
     
 }

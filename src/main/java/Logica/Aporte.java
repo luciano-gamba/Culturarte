@@ -38,5 +38,8 @@ public class Aporte {
         this.miPropuesta = miPropuesta;
     }
     
+    public Colaborador getColaborador(){
+        return miColaborador;
+    }
     
 }

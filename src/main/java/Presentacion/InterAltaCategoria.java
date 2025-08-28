@@ -50,7 +50,6 @@ public class InterAltaCategoria extends javax.swing.JInternalFrame {
         textoPadreCat = new javax.swing.JTextField();
 
         setClosable(true);
-        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);

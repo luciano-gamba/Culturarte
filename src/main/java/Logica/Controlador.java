@@ -385,7 +385,7 @@ public class Controlador implements IControlador{
         for (Propuesta p : misPropuestas) {
             if (p.getTitulo().equalsIgnoreCase(titulo)) {
                 encontrado = true;
-                DP = new DataPropuesta(titulo, p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(), p.getFechaARealizar(), p.getRetorno(), p.getCategoria());
+                DP = new DataPropuesta(p.getAlcanzada() , titulo, p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(), p.getFechaARealizar(), p.getRetorno(), p.getCategoria());
                 return DP;
             }
         }
@@ -460,5 +460,33 @@ public class Controlador implements IControlador{
         }
         
         return encontrado;
+    }
+    
+    public List<String> getColabsProp(String titulo){
+        List<String> listaColabProp = new ArrayList<>();
+        Propuesta prop = null;
+        double aporte$;
+        Colaborador c = null;
+        String aporteColab;
+        
+        for (Propuesta p : misPropuestas) {
+            if (p.getTitulo().equalsIgnoreCase(titulo)) {
+                prop = p;
+            }
+        } // pa encontrar la propuesta
+        
+        if (prop == null) {
+            return listaColabProp;
+        }
+        
+        for (Aporte a : prop.getAportes()) {
+            aporte$ = a.get$aporte();
+            c = a.getColaborador();
+            
+            aporteColab = c.getNickname() + "\t" + aporte$;
+            listaColabProp.add(aporteColab);
+        }
+        
+        return listaColabProp;
     }
 }
