@@ -82,6 +82,7 @@ public class InterConsultaXEstado extends javax.swing.JInternalFrame {
         txtCategoria = new javax.swing.JTextField();
 
         setClosable(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
         setIconifiable(true);
         setMaximizable(true);
         setTitle("Consulta x Estado");
@@ -416,23 +417,11 @@ public class InterConsultaXEstado extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JLabel lblFoto;
-    private javax.swing.JTable tablaColab;
-    private javax.swing.JTable tablaColab1;
-    private javax.swing.JTable tablaColab2;
     private javax.swing.JTable tablaColabx;
     private javax.swing.JTextField txt$Necesario;
     private javax.swing.JTextField txtCategoria;

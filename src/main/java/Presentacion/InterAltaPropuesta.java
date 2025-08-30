@@ -354,7 +354,7 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
             if (txtImagen == null || !this.txtImagen.isEmpty()) {
                 if(ic.altaPropuesta(nick, tipo, titulo, descripcion, lugar, fechaPrev, entrada, monto, retorno, fechaActual, this.txtImagen) == 1){
                     JOptionPane.showMessageDialog(this, "La propuesta ha sido ingresada!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
-                    this.hide();
+                    this.dispose();
                 }else if(ic.altaPropuesta(nick, tipo, titulo, descripcion, lugar, fechaPrev, entrada, monto, retorno, fechaActual, this.txtImagen) == 0){
                     //ERROR CON LA CATEGORIA!
                     JOptionPane.showMessageDialog(this, "NO SE ENCONTRO LA CATEGORIA", "Error", HEIGHT);
@@ -366,7 +366,7 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
             }else{
                 if(ic.altaPropuesta(nick, tipo, titulo, descripcion, lugar, fechaPrev, entrada, monto, retorno, fechaActual) == 1){
                     JOptionPane.showMessageDialog(this, "La propuesta ha sido ingresada!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
-                    this.hide();
+                    this.dispose();
                 }else if(ic.altaPropuesta(nick, tipo, titulo, descripcion, lugar, fechaPrev, entrada, monto, retorno, fechaActual, this.txtImagen) == 0){
                     //ERROR CON LA CATEGORIA!
                     JOptionPane.showMessageDialog(this, "NO SE ENCONTRO LA CATEGORIA", "Error", HEIGHT);
@@ -380,7 +380,7 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
 
     private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
         // TODO add your handling code here:
-        this.hide();
+        this.dispose();
     }//GEN-LAST:event_CancelarActionPerformed
 
     private void txtTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTipoActionPerformed

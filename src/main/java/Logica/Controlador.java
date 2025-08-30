@@ -32,46 +32,46 @@ public class Controlador implements IControlador{
         Boolean correoExiste = false;
         
         
-//        for(Usuario u : misUsuarios){
-//            if(u.getNickname().equals(nickNuevo)){
-//                nickExiste = true;
-//                break;
-//            }
-//        }
-//        
-//        for(Usuario u : misUsuarios){
-//            if(u.getEmail().equals(correoNuevo)){
-//                correoExiste = true;
-//                break;
-//            }
-//        }
-        
-        //con peristencia
-        ArrayList<Usuario> listaUsuarios = cp.getListaUsuarios();
-        
-        for(Usuario u : listaUsuarios){
+        for(Usuario u : misUsuarios){
             if(u.getNickname().equals(nickNuevo)){
                 nickExiste = true;
                 break;
             }
         }
         
-        for(Usuario u : listaUsuarios){
+        for(Usuario u : misUsuarios){
             if(u.getEmail().equals(correoNuevo)){
                 correoExiste = true;
                 break;
             }
         }
         
+        //con peristencia
+//        ArrayList<Usuario> listaUsuarios = cp.getListaUsuarios();
+//        
+//        for(Usuario u : listaUsuarios){
+//            if(u.getNickname().equals(nickNuevo)){
+//                nickExiste = true;
+//                break;
+//            }
+//        }
+        
+//        for(Usuario u : listaUsuarios){
+//            if(u.getEmail().equals(correoNuevo)){
+//                correoExiste = true;
+//                break;
+//            }
+//        }
+        
         if(nickExiste == true || correoExiste == true){
             System.out.println("ERROR: Nickname o Correo existen en el sistema!");
             return 0;
         }else{
             Colaborador colaNuevo = new Colaborador(nick, correo, nombre, apellido, fecNac, imagen);
-//            misUsuarios.add(colaNuevo);
-//            misColaboradores.add(colaNuevo);
+            misUsuarios.add(colaNuevo);
+            misColaboradores.add(colaNuevo);
 //            peristencia
-            cp.añadirUsuario(colaNuevo);
+//            cp.añadirUsuario(colaNuevo);
             
             return 1;
         }
@@ -84,46 +84,46 @@ public class Controlador implements IControlador{
         Boolean nickExiste = false;
         Boolean correoExiste = false;
         
-//        for(Usuario u : misUsuarios){
-//            if(u.getNickname().equals(nickNuevo)){
-//                nickExiste = true;
-//                break;
-//            }
-//        }
-//        
-//        for(Usuario u : misUsuarios){
-//            if(u.getEmail().equals(correoNuevo)){
-//                correoExiste = true;
-//                break;
-//            }
-//        }
-
-        //con persistencia
-        ArrayList<Usuario> listaUsuarios = cp.getListaUsuarios();
-        
-        for(Usuario u : listaUsuarios){
+        for(Usuario u : misUsuarios){
             if(u.getNickname().equals(nickNuevo)){
                 nickExiste = true;
                 break;
             }
         }
         
-        for(Usuario u : listaUsuarios){
+        for(Usuario u : misUsuarios){
             if(u.getEmail().equals(correoNuevo)){
                 correoExiste = true;
                 break;
             }
         }
+
+        //con persistencia
+//        ArrayList<Usuario> listaUsuarios = cp.getListaUsuarios();
+//        
+//        for(Usuario u : listaUsuarios){
+//            if(u.getNickname().equals(nickNuevo)){
+//                nickExiste = true;
+//                break;
+//            }
+//        }
+//        
+//        for(Usuario u : listaUsuarios){
+//            if(u.getEmail().equals(correoNuevo)){
+//                correoExiste = true;
+//                break;
+//            }
+//        }
         
         if(nickExiste == true || correoExiste == true){
             System.out.println("ERROR: Nickname o Correo existen en el sistema!");
             return 0;
         }else{
             Proponente propNuevo = new Proponente(direccion, bio, sitioWeb, nick, correo, nombre, apellido, fecNac, imagen);
-//            misUsuarios.add(propNuevo);
-//            misProponentes.add(propNuevo);
+            misUsuarios.add(propNuevo);
+            misProponentes.add(propNuevo);
 //            persistencia
-            cp.añadirUsuario(propNuevo);
+//            cp.añadirUsuario(propNuevo);
             return 1;
         }
     }
@@ -196,19 +196,19 @@ public class Controlador implements IControlador{
     @Override
     public List<String> getUsuarios() {
         List<String> listaNombres = new ArrayList<>();
-//        String aux;
-//        for(Usuario u : misUsuarios){
-//            aux = u.getNickname();
-//            listaNombres.add(aux);
-//        }
-        
-//        si fuera con persistencia
-        ArrayList<Usuario> listaUsuarios = cp.getListaUsuarios();
         String aux;
-        for(Usuario u : listaUsuarios){
+        for(Usuario u : misUsuarios){
             aux = u.getNickname();
             listaNombres.add(aux);
         }
+        
+//        si fuera con persistencia
+//        ArrayList<Usuario> listaUsuarios = cp.getListaUsuarios();
+//        String aux;
+//        for(Usuario u : listaUsuarios){
+//            aux = u.getNickname();
+//            listaNombres.add(aux);
+//        }
         
         return listaNombres;
     }
@@ -255,16 +255,16 @@ public class Controlador implements IControlador{
     @Override
     public List<String> getSeguidos(String seguidor) {
         List<String> listaNombres = new ArrayList<>();
-//        for(Usuario u : this.misUsuarios){
-//            if(u.getNickname().equals(seguidor)){
-//                listaNombres = u.getSeguidos();
-//                break;
-//            }
-//        }
+        for(Usuario u : this.misUsuarios){
+            if(u.getNickname().equals(seguidor)){
+                listaNombres = u.getSeguidos();
+                break;
+            }
+        }
 
 //        persistencia
-        Usuario usu = cp.buscarUsuario(seguidor);
-        listaNombres = usu.getSeguidos();
+//        Usuario usu = cp.buscarUsuario(seguidor);
+//        listaNombres = usu.getSeguidos();
         
         return listaNombres;
     }
@@ -273,29 +273,29 @@ public class Controlador implements IControlador{
     public int seguirUsuario(String nick1, String nick2) {
         Usuario seguidor = null;
         Usuario seguir = null;
-//        for(Usuario u : this.misUsuarios){
-//            if(u.getNickname().equals(nick1)){
-//                seguidor = u;
-//                break;
-//            }
-//        }
-//        
-//        for(Usuario u : this.misUsuarios){
-//            if(u.getNickname().equals(nick2)){
-//                seguir = u;
-//                break;
-//            }
-//        }
+        for(Usuario u : this.misUsuarios){
+            if(u.getNickname().equals(nick1)){
+                seguidor = u;
+                break;
+            }
+        }
+        
+        for(Usuario u : this.misUsuarios){
+            if(u.getNickname().equals(nick2)){
+                seguir = u;
+                break;
+            }
+        }
 //        persistencia
-        seguidor = cp.buscarUsuario(nick1);
-        seguir = cp.buscarUsuario(nick2);
+//        seguidor = cp.buscarUsuario(nick1);
+//        seguir = cp.buscarUsuario(nick2);
 
         int resultado = seguidor.seguirUsuario(seguir);
         if (resultado == 0) {
             return 0; //error 0: ya sigue al usuario nick2
         }else{
             //persistencia
-            cp.editarUsuario(seguidor);
+//            cp.editarUsuario(seguidor);
             return 1;
         }
     }
@@ -304,28 +304,28 @@ public class Controlador implements IControlador{
     public int dejarSeguirUsuario(String nick1, String nick2){
         Usuario seguidor = null;
         Usuario seguir = null;
-//        for(Usuario u : this.misUsuarios){
-//            if(u.getNickname().equals(nick1)){
-//                seguidor = u;
-//                break;
-//            }
-//        }
-//        
-//        for(Usuario u : this.misUsuarios){
-//            if(u.getNickname().equals(nick2)){
-//                seguir = u;
-//                break;
-//            }
-//        }
+        for(Usuario u : this.misUsuarios){
+            if(u.getNickname().equals(nick1)){
+                seguidor = u;
+                break;
+            }
+        }
+        
+        for(Usuario u : this.misUsuarios){
+            if(u.getNickname().equals(nick2)){
+                seguir = u;
+                break;
+            }
+        }
         
         //persistencia
-        seguidor = cp.buscarUsuario(nick1);
-        seguir = cp.buscarUsuario(nick2);
+//        seguidor = cp.buscarUsuario(nick1);
+//        seguir = cp.buscarUsuario(nick2);
         
         int res = seguidor.dejarDeSeguir(seguir);
         if(res == 1){
             //persistencia
-            cp.editarUsuario(seguidor);
+//            cp.editarUsuario(seguidor);
             return 1;
         }else{
             return 0; //error: no lo encontró
