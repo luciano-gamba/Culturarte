@@ -88,6 +88,7 @@ public class InterConsultaPropuesta extends javax.swing.JInternalFrame {
         txtCategoria = new javax.swing.JTextField();
 
         setClosable(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
         setIconifiable(true);
         setMaximizable(true);
         addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -211,7 +212,7 @@ public class InterConsultaPropuesta extends javax.swing.JInternalFrame {
                                     .addComponent(jScrollPane1)
                                     .addComponent(txtLugar)
                                     .addComponent(txtEntrada)
-                                    .addComponent(txt$Necesario)
+                                    .addComponent(txt$Necesario, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
                                     .addComponent(txtRecaudado)
                                     .addComponent(txtCategoria)
                                     .addComponent(txtTitulo)

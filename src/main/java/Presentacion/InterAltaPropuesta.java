@@ -66,9 +66,7 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
         this.ArbolDeCategorias.expandRow(0);
     }
     
-    public boolean abierto(){
-        return this.open;
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -304,12 +302,12 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
     
     private void formComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentHidden
         // TODO add your handling code here:
-        this.open = false;
+       
     }//GEN-LAST:event_formComponentHidden
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         // TODO add your handling code here:
-        this.open = true;
+       
     }//GEN-LAST:event_formComponentShown
 
     private void txtTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTituloActionPerformed
@@ -356,7 +354,7 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
             if (txtImagen == null || !this.txtImagen.isEmpty()) {
                 if(ic.altaPropuesta(nick, tipo, titulo, descripcion, lugar, fechaPrev, entrada, monto, retorno, fechaActual, this.txtImagen) == 1){
                     JOptionPane.showMessageDialog(this, "La propuesta ha sido ingresada!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
-                    this.hide();
+                    this.dispose();
                 }else if(ic.altaPropuesta(nick, tipo, titulo, descripcion, lugar, fechaPrev, entrada, monto, retorno, fechaActual, this.txtImagen) == 0){
                     //ERROR CON LA CATEGORIA!
                     JOptionPane.showMessageDialog(this, "NO SE ENCONTRO LA CATEGORIA", "Error", HEIGHT);
@@ -368,7 +366,7 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
             }else{
                 if(ic.altaPropuesta(nick, tipo, titulo, descripcion, lugar, fechaPrev, entrada, monto, retorno, fechaActual) == 1){
                     JOptionPane.showMessageDialog(this, "La propuesta ha sido ingresada!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
-                    this.hide();
+                    this.dispose();
                 }else if(ic.altaPropuesta(nick, tipo, titulo, descripcion, lugar, fechaPrev, entrada, monto, retorno, fechaActual, this.txtImagen) == 0){
                     //ERROR CON LA CATEGORIA!
                     JOptionPane.showMessageDialog(this, "NO SE ENCONTRO LA CATEGORIA", "Error", HEIGHT);
@@ -382,7 +380,7 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
 
     private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
         // TODO add your handling code here:
-        this.hide();
+        this.dispose();
     }//GEN-LAST:event_CancelarActionPerformed
 
     private void txtTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTipoActionPerformed
@@ -424,7 +422,7 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_ArbolDeCategoriasValueChanged
 
-    private boolean open;
+    //private boolean open;
     private String txtImagen;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

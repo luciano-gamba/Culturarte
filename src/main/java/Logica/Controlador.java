@@ -1,5 +1,6 @@
 package Logica;
 
+import Persistencia.ControladoraPersistencia;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,12 +22,15 @@ public class Controlador implements IControlador{
     
     }
     
-    @Override
+    ControladoraPersistencia cp = new ControladoraPersistencia();
+    
+    @Override //colaborador
     public int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen){
         String nickNuevo = nick;
         String correoNuevo = correo;
         Boolean nickExiste = false;
         Boolean correoExiste = false;
+        
         
         for(Usuario u : misUsuarios){
             if(u.getNickname().equals(nickNuevo)){
@@ -42,6 +46,23 @@ public class Controlador implements IControlador{
             }
         }
         
+        //con peristencia
+//        ArrayList<Usuario> listaUsuarios = cp.getListaUsuarios();
+//        
+//        for(Usuario u : listaUsuarios){
+//            if(u.getNickname().equals(nickNuevo)){
+//                nickExiste = true;
+//                break;
+//            }
+//        }
+        
+//        for(Usuario u : listaUsuarios){
+//            if(u.getEmail().equals(correoNuevo)){
+//                correoExiste = true;
+//                break;
+//            }
+//        }
+        
         if(nickExiste == true || correoExiste == true){
             System.out.println("ERROR: Nickname o Correo existen en el sistema!");
             return 0;
@@ -49,11 +70,14 @@ public class Controlador implements IControlador{
             Colaborador colaNuevo = new Colaborador(nick, correo, nombre, apellido, fecNac, imagen);
             misUsuarios.add(colaNuevo);
             misColaboradores.add(colaNuevo);
+//            peristencia
+//            cp.añadirUsuario(colaNuevo);
+            
             return 1;
         }
     }
     
-    @Override
+    @Override //proponente
     public int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen, String direccion, String bio, String sitioWeb){
         String nickNuevo = nick;
         String correoNuevo = correo;
@@ -73,6 +97,23 @@ public class Controlador implements IControlador{
                 break;
             }
         }
+
+        //con persistencia
+//        ArrayList<Usuario> listaUsuarios = cp.getListaUsuarios();
+//        
+//        for(Usuario u : listaUsuarios){
+//            if(u.getNickname().equals(nickNuevo)){
+//                nickExiste = true;
+//                break;
+//            }
+//        }
+//        
+//        for(Usuario u : listaUsuarios){
+//            if(u.getEmail().equals(correoNuevo)){
+//                correoExiste = true;
+//                break;
+//            }
+//        }
         
         if(nickExiste == true || correoExiste == true){
             System.out.println("ERROR: Nickname o Correo existen en el sistema!");
@@ -81,6 +122,8 @@ public class Controlador implements IControlador{
             Proponente propNuevo = new Proponente(direccion, bio, sitioWeb, nick, correo, nombre, apellido, fecNac, imagen);
             misUsuarios.add(propNuevo);
             misProponentes.add(propNuevo);
+//            persistencia
+//            cp.añadirUsuario(propNuevo);
             return 1;
         }
     }
@@ -146,7 +189,6 @@ public class Controlador implements IControlador{
         }
         
         Aporte a = miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno);
-        a.setMiPropuesta(miPropuesta); //No creo que te moleste que agregue esto Luciano?
         miPropuesta.addAporte(a);
         return 0; //PROPUESTA AGREGADA CORRECTAMENTE        
     }
@@ -159,6 +201,15 @@ public class Controlador implements IControlador{
             aux = u.getNickname();
             listaNombres.add(aux);
         }
+        
+//        si fuera con persistencia
+//        ArrayList<Usuario> listaUsuarios = cp.getListaUsuarios();
+//        String aux;
+//        for(Usuario u : listaUsuarios){
+//            aux = u.getNickname();
+//            listaNombres.add(aux);
+//        }
+        
         return listaNombres;
     }
     
@@ -179,6 +230,7 @@ public class Controlador implements IControlador{
         }
         return lista;
     }
+    
     @Override
     public List<String> getUsuariosProponentes() {
         List<String> listaNombres = new ArrayList<>();
@@ -209,6 +261,11 @@ public class Controlador implements IControlador{
                 break;
             }
         }
+
+//        persistencia
+//        Usuario usu = cp.buscarUsuario(seguidor);
+//        listaNombres = usu.getSeguidos();
+        
         return listaNombres;
     }
 
@@ -229,14 +286,16 @@ public class Controlador implements IControlador{
                 break;
             }
         }
-        
-//        if(seguidor == null){
-//            return 0; 
-//        }else{
+//        persistencia
+//        seguidor = cp.buscarUsuario(nick1);
+//        seguir = cp.buscarUsuario(nick2);
+
         int resultado = seguidor.seguirUsuario(seguir);
         if (resultado == 0) {
             return 0; //error 0: ya sigue al usuario nick2
         }else{
+            //persistencia
+//            cp.editarUsuario(seguidor);
             return 1;
         }
     }
@@ -259,11 +318,17 @@ public class Controlador implements IControlador{
             }
         }
         
+        //persistencia
+//        seguidor = cp.buscarUsuario(nick1);
+//        seguir = cp.buscarUsuario(nick2);
+        
         int res = seguidor.dejarDeSeguir(seguir);
         if(res == 1){
+            //persistencia
+//            cp.editarUsuario(seguidor);
             return 1;
         }else{
-            return 0;
+            return 0; //error: no lo encontró
         }
     }
     
@@ -337,7 +402,7 @@ public class Controlador implements IControlador{
             
             Propuesta nuevaProp = new Propuesta(c, prop, titulo, descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada), Double.parseDouble(montoNecesario), posibleRetorno, fechaActual, imagen);
             misPropuestas.add(nuevaProp);
-            prop.agregarPropuesta(nuevaProp);
+            prop.agregarPropuesta(nuevaProp); //Cambio añadido por Lucas para poder listar Propuestas del proponente
             return 1;
         } else {
             return 0;
@@ -386,13 +451,29 @@ public class Controlador implements IControlador{
         for (Propuesta p : misPropuestas) {
             if (p.getTitulo().equalsIgnoreCase(titulo)) {
                 encontrado = true;
-                DP = new DataPropuesta(p.getAlcanzada() , titulo, p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(), p.getFechaARealizar(), p.getRetorno(), p.getCategoria());
+                DP = new DataPropuesta(titulo, p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getAlcanzada() , p.getFechaARealizar(), p.getRetorno(), p.getCategoria());
                 return DP;
             }
         }
         
         return DP;
     }
+    
+    @Override
+    public DataPropuesta getDataPropuesta(String titulo_nick){
+        
+        DataPropuesta DP = null;
+        
+       
+        for (Propuesta p : misPropuestas) {
+            if (p.getTitulo_Nickname().equalsIgnoreCase(titulo_nick)) {
+                DP = new DataPropuesta(p.getTitulo(), p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.get$alcanzada(), p.getFechaARealizar(), p.getRetorno(), p.getCategoria());
+                return DP;
+            }
+        }
+        return DP;
+    }
+    
     
     @Override
     public DataProponente consultaDeProponente(String NickName){
@@ -455,6 +536,37 @@ public class Controlador implements IControlador{
     }
     
     @Override
+    public List<String> getPropuestasXColaborador(String colab){
+        
+        for(Colaborador c : this.misColaboradores){
+            if(colab.equals(c.getNickname())){
+                return c.getTituloPropuestas();
+            }
+        }   
+        return null;
+    }
+    
+    @Override
+    public DataAporte getDataAporte(String tituloNick, String nick){
+        for(Colaborador c : misColaboradores){
+            if(nick.equals(c.getNickname())){
+                return c.getDataAporte(tituloNick);
+            }
+        }
+        return null;
+    }
+    
+    @Override
+    public void borrarAporte(String tituloNick, String nick){
+        for(Colaborador c : misColaboradores){
+            if(nick.equals(c.getNickname())){
+                c.borrarAporte(tituloNick);
+                break;
+            }
+        }
+    }
+    
+    @Override
     public boolean existeTitulo(String titulo){
         
         boolean encontrado = false;
@@ -467,6 +579,7 @@ public class Controlador implements IControlador{
         return encontrado;
     }
     
+    @Override
     public List<String> getColabsProp(String titulo){
         List<String> listaColabProp = new ArrayList<>();
         Propuesta prop = null;

@@ -3,7 +3,10 @@ package Logica;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
+@Entity
+@PrimaryKeyJoinColumn(name = "nickname")
 public class Colaborador extends Usuario {
     
     private List<Aporte> misAportes = new ArrayList<>();
@@ -35,6 +38,31 @@ public class Colaborador extends Usuario {
         }
         return listaPropuestasColas;
     }
+    public List<String> getTituloPropuestas(){
+        List<String> listaPropuestas = new ArrayList<>();
+        for(Aporte a: this.misAportes){
+            listaPropuestas.add(a.getTituloNickMiPropuesta());
+        }   
+        return listaPropuestas;
+    }
     
+    public DataAporte getDataAporte(String tituloNick){
+        for(Aporte a: misAportes){
+            if(tituloNick.equals(a.getTituloNickMiPropuesta())){
+                return new DataAporte(a.get$aporte(),a.getFechaHora(),a.getCantidad(),a.getRetorno(),a.getNicknameMiColaborador(),a.getTituloMiPropuesta());
+            }
+        }
+        return null;
+    }
+    
+    public void borrarAporte(String tituloNick){
+        for(Aporte a: misAportes){
+            if(tituloNick.equals(a.getTituloNickMiPropuesta())){
+                a.desvincular();
+                misAportes.remove(a);
+                break;
+            }
+        }
+    }
     
 }

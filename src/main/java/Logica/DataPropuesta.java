@@ -26,7 +26,8 @@ public class DataPropuesta {
     String categoria;
     String nickProponenteDe;
     
-    public DataPropuesta(double alcanzada, String titulo, String imagen, Estado estadoActual, Proponente p, String descrip, String lugar, double entrada, double necesaria, LocalDate fechaP, EnumRetorno retorno, String categoria){
+    
+    public DataPropuesta(String titulo, String imagen, Estado estadoActual, Proponente p, String descrip, String lugar, double entrada, double necesaria,double alcanzada, LocalDate fechaP, EnumRetorno retorno, String categoria){
         this.$alcanzada = alcanzada;
         this.titulo = titulo;
         this.imagen = imagen;

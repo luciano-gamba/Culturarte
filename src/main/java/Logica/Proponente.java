@@ -3,12 +3,22 @@ package Logica;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
 
+@Entity
+@PrimaryKeyJoinColumn(name = "nickname")
 public class Proponente extends Usuario {
+
+    
     String direccion;
     String biografia = "";
     String sitioWeb = "";
     List<Propuesta> misPropuestas;
+    public Proponente() {
+        
+    }
+    
     public Proponente(String direccion, String biografia, String sitioWeb, String nickname, String email, String nombre, String apellido, LocalDate fecNac, String imagen) {
         super(nickname, email, nombre, apellido, fecNac, imagen);
         this.direccion = direccion;
@@ -45,5 +55,5 @@ public class Proponente extends Usuario {
     }
     public List<Propuesta> getPropuestas(){
         return this.misPropuestas;
-    }
+    }   
 }

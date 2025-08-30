@@ -52,20 +52,14 @@ public class InterAltaCategoria extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setVisible(false);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         labelTituloAltCat.setText("Ingrese una Nueva Categoria de Espectaculo:");
-        getContentPane().add(labelTituloAltCat, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 15, -1, -1));
 
         jScrollPane1.setViewportView(ArbolDeCategorias);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 179, 234, 149));
-
         LabelNombreCat.setText("Nombre Categoria");
-        getContentPane().add(LabelNombreCat, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 74, -1, -1));
 
         LabelPadreCat.setText("Padre de la Categoria (opcional)");
-        getContentPane().add(LabelPadreCat, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 131, -1, 30));
 
         botonAceptar.setText("Aceptar");
         botonAceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -73,7 +67,6 @@ public class InterAltaCategoria extends javax.swing.JInternalFrame {
                 botonAceptarActionPerformed(evt);
             }
         });
-        getContentPane().add(botonAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(293, 283, -1, -1));
 
         botonCancelar.setText("Cancelar");
         botonCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -81,21 +74,74 @@ public class InterAltaCategoria extends javax.swing.JInternalFrame {
                 botonCancelarActionPerformed(evt);
             }
         });
-        getContentPane().add(botonCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(375, 283, -1, -1));
 
         textoNombreCat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textoNombreCatActionPerformed(evt);
             }
         });
-        getContentPane().add(textoNombreCat, new org.netbeans.lib.awtextra.AbsoluteConstraints(196, 69, 189, -1));
 
         textoPadreCat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textoPadreCatActionPerformed(evt);
             }
         });
-        getContentPane().add(textoPadreCat, new org.netbeans.lib.awtextra.AbsoluteConstraints(196, 133, 189, -1));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(labelTituloAltCat))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(LabelNombreCat)
+                .addGap(60, 60, 60)
+                .addComponent(textoNombreCat, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(179, 179, 179)
+                        .addComponent(textoPadreCat, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(LabelPadreCat)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botonAceptar)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(82, 82, 82)
+                        .addComponent(botonCancelar))))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(labelTituloAltCat)
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(LabelNombreCat))
+                    .addComponent(textoNombreCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(textoPadreCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(LabelPadreCat, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(104, 104, 104)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(botonAceptar)
+                            .addComponent(botonCancelar)))))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -128,7 +174,7 @@ public class InterAltaCategoria extends javax.swing.JInternalFrame {
         DefaultMutableTreeNode raiz = ic.getRaizArbolCat();
         ArbolDeCategorias.setModel(new DefaultTreeModel(raiz)); //Recargo el JTree siempre que se 
         //ingresa una Categoria
-        return;
+        this.dispose();
        }
        if(error == -1){
            JOptionPane.showMessageDialog(this, "Padre de Categoria no existe", "Error", HEIGHT);
