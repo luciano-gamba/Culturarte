@@ -20,6 +20,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Desktop = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuPerfil = new javax.swing.JMenu();
         menuAltaUsuario = new javax.swing.JMenuItem();
@@ -43,6 +44,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         setTitle("Culturarte");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
+
+        javax.swing.GroupLayout DesktopLayout = new javax.swing.GroupLayout(Desktop);
+        Desktop.setLayout(DesktopLayout);
+        DesktopLayout.setHorizontalGroup(
+            DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 800, Short.MAX_VALUE)
+        );
+        DesktopLayout.setVerticalGroup(
+            DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 598, Short.MAX_VALUE)
+        );
 
         menuPerfil.setText("Perfil");
 
@@ -150,6 +162,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenu1.add(menuConsultarCola);
 
         menuCancelarCola.setText("Cancelar Colaboracion");
+        menuCancelarCola.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCancelarColaActionPerformed(evt);
+            }
+        });
         jMenu1.add(menuCancelarCola);
 
         jMenuBar1.add(jMenu1);
@@ -161,18 +178,22 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 800, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(Desktop))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 577, Short.MAX_VALUE)
+            .addGap(0, 598, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(Desktop))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuConsultaPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsultaPropActionPerformed
-        InterConsultaPerfilProponente ICPP = new InterConsultaPerfilProponente(this.ic);
-        this.add(ICPP);
+        this.ICPP = new InterConsultaPerfilProponente(this.ic);
+        this.Desktop.add(ICPP);
         ICPP.show();
     }//GEN-LAST:event_menuConsultaPropActionPerformed
 
@@ -180,7 +201,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         InterAltaUsuario IAU = new InterAltaUsuario(this.ic);
-        this.add(IAU);
+        this.Desktop.add(IAU);
         IAU.show();
         
     }//GEN-LAST:event_menuAltaUsuarioActionPerformed
@@ -189,11 +210,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(this.ICE == null){
             ICE = new InterConsultaXEstado(ic);
-            this.add(ICE);
+            this.Desktop.add(ICE);
             ICE.show();
         }else if(!this.ICE.abierto()){
             ICE = new InterConsultaXEstado(ic);
-            this.add(ICE);
+            this.Desktop.add(ICE);
             ICE.show();
         }
     }//GEN-LAST:event_menuConsultaPropuEstActionPerformed
@@ -202,11 +223,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
        
             if ((this.IRC == null || this.IRC.isClosed()) && !ic.getColaboradores().isEmpty() && !ic.getPropuestas_Proponentes().isEmpty()) {
                 IRC = new InterRegistrarCola(ic);
-                add(IRC);
-                IRC.setLocation(50, 50);
+                this.Desktop.add(IRC);
+                IRC.setLocation(30, 50);
                 IRC.setVisible(true);
             }else{
-                javax.swing.JOptionPane.showMessageDialog(this, "Se requieren Colaboradores y Propuestas ingresadas para acceder", "Error", HEIGHT);
+                javax.swing.JOptionPane.showMessageDialog(this, "Se requieren Colaboradores y Propuestas ingresadas para acceder", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
             }
         
     }//GEN-LAST:event_menuRegistrarColaActionPerformed
@@ -214,18 +235,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void menuConsultarColaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsultarColaActionPerformed
         if ((this.ICC == null || this.ICC.isClosed()) && !ic.getColaboradores().isEmpty() && !ic.getPropuestas_Proponentes().isEmpty()) {
             ICC = new InterConsultaCola(ic);
-            add(ICC);
+            this.Desktop.add(ICC);
             ICC.setLocation(50, 50);
             ICC.show();
         }else{
-            javax.swing.JOptionPane.showMessageDialog(this, "Se requieren Colaboradores y Propuestas ingresadas para acceder", "Error", HEIGHT);
+            javax.swing.JOptionPane.showMessageDialog(this, "Se requieren Colaboradores y Propuestas para acceder", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_menuConsultarColaActionPerformed
     private void menuAltaCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAltaCategoriaActionPerformed
         // TODO add your handling code here:
         
         InterAltaCategoria IAC = new InterAltaCategoria(this.ic);
-        this.add(IAC);
+        this.Desktop.add(IAC);
         IAC.show();
         
     }//GEN-LAST:event_menuAltaCategoriaActionPerformed
@@ -233,11 +254,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(this.IAP == null){
             IAP = new InterAltaPropuesta(ic);
-            this.add(IAP);
+            this.Desktop.add(IAP);
             IAP.show();
         }else if(!this.IAP.abierto()){
             IAP = new InterAltaPropuesta(ic);
-            this.add(IAP);
+            this.Desktop.add(IAP);
             IAP.show();
         }
     }//GEN-LAST:event_menuAltaPropActionPerformed
@@ -246,18 +267,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         InterSeguirUsuario ISU = new InterSeguirUsuario(this.ic);
-        this.add(ISU);
+        this.Desktop.add(ISU);
         ISU.show();
     }//GEN-LAST:event_menuSeguirActionPerformed
     private void menuConsultaPropuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsultaPropuActionPerformed
         // TODO add your handling code here:
         if(this.ICP == null){
             ICP = new InterConsultaPropuesta(ic);
-            this.add(ICP);
+            this.Desktop.add(ICP);
             ICP.show();
         }else if(!this.ICP.abierto()){
             ICP = new InterConsultaPropuesta(ic);
-            this.add(ICP);
+            this.Desktop.add(ICP);
             ICP.show();
         }
     }//GEN-LAST:event_menuConsultaPropuActionPerformed
@@ -266,16 +287,27 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         InterDejarSeguir IDS = new InterDejarSeguir(this.ic);
-        this.add(IDS);
+        this.Desktop.add(IDS);
         IDS.show();
     }//GEN-LAST:event_menuDejarSeguirActionPerformed
 
     private void menuModificarPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuModificarPropActionPerformed
         // TODO add your handling code here:
         InterModificarPropuesta IMP = new InterModificarPropuesta(this.ic);
-        this.add(IMP);
+        this.Desktop.add(IMP);
         IMP.show();
     }//GEN-LAST:event_menuModificarPropActionPerformed
+
+    private void menuCancelarColaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCancelarColaActionPerformed
+        if ((this.ICrC == null || this.ICrC.isClosed()) && !ic.getColaboradores().isEmpty() && !ic.getPropuestas_Proponentes().isEmpty()){
+                ICrC = new InterCancelarCola(ic);
+                this.Desktop.add(ICrC);
+                ICrC.setLocation(30, 50);
+                ICrC.setVisible(true);
+            }else{
+                javax.swing.JOptionPane.showMessageDialog(this, "Se requieren Colaboradores y Propuestas ingresadas para acceder", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            }
+    }//GEN-LAST:event_menuCancelarColaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -305,20 +337,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VentanaPrincipal().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new VentanaPrincipal().setVisible(true);
         });
     }
     
+    private InterConsultaPerfilProponente ICPP;
     private InterConsultaPropuesta ICP;
     private InterAltaPropuesta IAP;
     private InterRegistrarCola IRC;
     private InterConsultaCola ICC;
+    private InterCancelarCola ICrC;
     private InterConsultaXEstado ICE;
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDesktopPane Desktop;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem menuAltaCategoria;

@@ -44,7 +44,15 @@ public interface IControlador {
     
     DataPropuesta consultaDePropuesta(String titulo);
     
+    DataPropuesta getDataPropuesta(String titulo_nick);
+    
     List<String> getEstados();
     
     List<String> getPropXEstado(String estado);
+    
+    List<String> getPropuestasXColaborador(String nick);
+    
+    DataAporte getDataAporte(String tituloNick, String nick);
+    
+    void borrarAporte(String tituloNick, String nick);
 }

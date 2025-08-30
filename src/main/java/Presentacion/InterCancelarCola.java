@@ -3,11 +3,11 @@ import Logica.DataAporte;
 import Logica.IControlador;
 import java.time.format.DateTimeFormatter;
 
-public class InterConsultaCola extends javax.swing.JInternalFrame {
+public class InterCancelarCola extends javax.swing.JInternalFrame {
     
     private final IControlador ic;
    
-    public InterConsultaCola(IControlador ic) {
+    public InterCancelarCola(IControlador ic) {
         this.ic=ic;
         initComponents();
         this.Colaboradores.addItem("--Seleccionar--");
@@ -26,7 +26,7 @@ public class InterConsultaCola extends javax.swing.JInternalFrame {
         Colaboradores = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         Propuestas = new javax.swing.JComboBox<>();
-        jButton5 = new javax.swing.JButton();
+        Mantener = new javax.swing.JButton();
         txtAporte = new javax.swing.JFormattedTextField();
         txtFecha = new javax.swing.JFormattedTextField();
         txtCantidad = new javax.swing.JTextField();
@@ -35,6 +35,8 @@ public class InterConsultaCola extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        Cancelar = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("Consulta de Colaboración a Propuesta");
@@ -56,10 +58,10 @@ public class InterConsultaCola extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton5.setText("Salir");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        Mantener.setText("Mantener");
+        Mantener.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                MantenerActionPerformed(evt);
             }
         });
 
@@ -80,9 +82,16 @@ public class InterConsultaCola extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Fecha y hora:");
 
-        jLabel5.setText("Cantidad de Retorno");
+        jLabel5.setText("Cantidad de Retorno:");
 
-        jLabel6.setText("Tipo de Retorno");
+        jLabel6.setText("Tipo de Retorno:");
+
+        Cancelar.setText("Cancelar Colaboración");
+        Cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -90,34 +99,40 @@ public class InterConsultaCola extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(356, 356, 356)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(219, 219, 219)
+                                .addComponent(jLabel6)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                            .addComponent(txtAporte, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtRetorno)
+                            .addComponent(txtCantidad, javax.swing.GroupLayout.Alignment.LEADING)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Colaboradores, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(Propuestas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(219, 219, 219)
-                                .addComponent(jLabel6))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
-                            .addComponent(txtAporte, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtRetorno)
-                            .addComponent(txtCantidad, javax.swing.GroupLayout.Alignment.LEADING))))
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(Mantener)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Cancelar)))))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel7)
+                .addGap(60, 60, 60))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,25 +157,28 @@ public class InterConsultaCola extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addGap(10, 10, 10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtRetorno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
-                .addComponent(jButton5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addComponent(jLabel7)
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Cancelar)
+                    .addComponent(Mantener))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void MantenerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MantenerActionPerformed
         this.dispose();
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_MantenerActionPerformed
 
     private void ColaboradoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ColaboradoresActionPerformed
-        
-
+      
         this.Propuestas.removeAllItems();
 
         if (this.Colaboradores.getSelectedIndex()!=0) {
@@ -193,17 +211,33 @@ public class InterConsultaCola extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtRetornoActionPerformed
 
+    private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
+        
+        if (this.Colaboradores.getSelectedIndex()==0 || this.Propuestas.getSelectedIndex()==0) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Colaborador o Propuesta inválida", "Error", HEIGHT);
+            return;
+        }
+        
+        ic.borrarAporte(this.Propuestas.getSelectedItem().toString(), this.Colaboradores.getSelectedItem().toString());
+        
+        javax.swing.JOptionPane.showMessageDialog(this, "Colaboración cancelada correctamente", "  Listo!", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        this.dispose();
+        
+    }//GEN-LAST:event_CancelarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Cancelar;
     private javax.swing.JComboBox<String> Colaboradores;
+    private javax.swing.JButton Mantener;
     private javax.swing.JComboBox<String> Propuestas;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JFormattedTextField txtAporte;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JFormattedTextField txtFecha;

@@ -92,7 +92,7 @@ public class Propuesta {
 //    }
     
     public Propuesta(Proponente prop, String titulo, String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual, String imagen) {
-        this.p = prop;
+        this.miProponente = prop;
         this.titulo = titulo;
         this.desc = descripcion;
         this.lugar = lugar;
@@ -133,7 +133,12 @@ public class Propuesta {
         
         this.imagen = imagen;
     }
-        
+    
+    public void desvincularAporte(Aporte a){
+        this.$alcanzada-=a.get$aporte();
+        this.misAportes.remove(a);
+    }
+    
     public String getImagen(){
         return this.imagen;
     }
