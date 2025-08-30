@@ -18,7 +18,7 @@ public class DataColaborador {
     String email;
     LocalDate fecNac;
     String imagen = "";
-    List<DataPropuesta> propuestasColaboradas; //Lo usare para llenar la tabla aunque creo q tendre que crear un DataType nuevo ya que necesito algunos datos q no tiene
+    List<DataPropuesta> propuestasColaboradas;
     public DataColaborador(String nickname,String nombre, String apellido,String email,LocalDate fecNac, String imagen) {
         this.nickname = nickname;
         this.nombre = nombre;

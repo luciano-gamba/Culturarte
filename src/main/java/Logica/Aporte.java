@@ -41,5 +41,7 @@ public class Aporte {
     public Colaborador getColaborador(){
         return miColaborador;
     }
-    
+    public DataPropuesta getPropuesta(){
+        return new DataPropuesta(miPropuesta.getAlcanzada() ,miPropuesta.getTitulo(), miPropuesta.getEstadoActual(),miPropuesta.getLugar(),miPropuesta.getProponente().getNickname());
+    }
 }

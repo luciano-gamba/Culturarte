@@ -28,5 +28,13 @@ public class Colaborador extends Usuario {
     
     
     
+    public List<DataPropuesta> getPropuestas(){
+        List<DataPropuesta> listaPropuestasColas = new ArrayList<>();
+        for(Aporte a: misAportes){
+            listaPropuestasColas.add(a.getPropuesta());
+        }
+        return listaPropuestasColas;
+    }
+    
     
 }

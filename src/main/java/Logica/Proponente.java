@@ -1,17 +1,20 @@
 package Logica;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Proponente extends Usuario {
     String direccion;
     String biografia = "";
     String sitioWeb = "";
-
+    List<Propuesta> misPropuestas;
     public Proponente(String direccion, String biografia, String sitioWeb, String nickname, String email, String nombre, String apellido, LocalDate fecNac, String imagen) {
         super(nickname, email, nombre, apellido, fecNac, imagen);
         this.direccion = direccion;
         this.biografia = biografia;
         this.sitioWeb = sitioWeb;
+        this.misPropuestas = new ArrayList<>();
     }
 
     public String getDireccion() {
@@ -37,6 +40,10 @@ public class Proponente extends Usuario {
     public void setSitioWeb(String sitioWeb) {
         this.sitioWeb = sitioWeb;
     }
-    
-    
+    public void agregarPropuesta(Propuesta nuevaProp){
+        this.misPropuestas.add(nuevaProp);
+    }
+    public List<Propuesta> getPropuestas(){
+        return this.misPropuestas;
+    }
 }

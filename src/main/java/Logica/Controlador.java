@@ -146,6 +146,7 @@ public class Controlador implements IControlador{
         }
         
         Aporte a = miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno);
+        a.setMiPropuesta(miPropuesta); //No creo que te moleste que agregue esto Luciano?
         miPropuesta.addAporte(a);
         return 0; //PROPUESTA AGREGADA CORRECTAMENTE        
     }
@@ -336,7 +337,7 @@ public class Controlador implements IControlador{
             
             Propuesta nuevaProp = new Propuesta(c, prop, titulo, descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada), Double.parseDouble(montoNecesario), posibleRetorno, fechaActual, imagen);
             misPropuestas.add(nuevaProp);
-            
+            prop.agregarPropuesta(nuevaProp);
             return 1;
         } else {
             return 0;
@@ -398,11 +399,15 @@ public class Controlador implements IControlador{
         
         DataProponente DProp = null;
         
-        boolean encontrado = false;
         for (Proponente p : misProponentes) {
             if (p.getNickname().equals(NickName)) {
-                encontrado = true;
-                DProp = new DataProponente(NickName, p.getNombre(),p.getApellido(),p.getEmail(),p.getFecNac(),p.getImagen(),p.getDireccion(),p.getBiografia(),p.getSitioWeb());
+                List<DataPropuesta> propuestasDe = new ArrayList<>();
+                DataPropuesta dataProp;
+                for(Propuesta prop : p.getPropuestas()){
+                    dataProp = new DataPropuesta(prop.getAlcanzada() ,prop.getTitulo(), prop.getEstadoActual(),prop.getLugar());
+                    propuestasDe.add(dataProp);
+                }//Este for obtiene todas las propuestas del Proponente para la tabla
+                DProp = new DataProponente(NickName, p.getNombre(),p.getApellido(),p.getEmail(),p.getFecNac(),p.getImagen(),p.getDireccion(),p.getBiografia(),p.getSitioWeb(),propuestasDe);
                 return DProp;
             }
         }
@@ -419,7 +424,7 @@ public class Controlador implements IControlador{
         for (Colaborador c : misColaboradores) {
             if (c.getNickname().equals(NickName)) {
                 encontrado = true;
-                DCola = new DataColaborador(NickName, c.getNombre(),c.getApellido(),c.getEmail(),c.getFecNac(),c.getImagen());
+                DCola = new DataColaborador(NickName, c.getNombre(),c.getApellido(),c.getEmail(),c.getFecNac(),c.getImagen(),c.getPropuestas());
                 return DCola;
             }
         }

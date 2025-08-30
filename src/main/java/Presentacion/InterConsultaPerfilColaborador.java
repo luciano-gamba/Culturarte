@@ -7,6 +7,7 @@ import Logica.DataColaborador;
 import Logica.DataPropuesta;
 import Logica.IControlador;
 import java.awt.Image;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
@@ -30,12 +31,19 @@ public class InterConsultaPerfilColaborador extends javax.swing.JInternalFrame {
         for(String s : listaColaboradores){
             ColaboradorCombo.addItem(s);
         }
-        String[] encabezados = {"Nickname Proveedor","Titulo Propuesta", "Lugar" , "Dinero Recaudado", "Estado Actual"};    
+        incializarTabla();
+    }
+    private void incializarTabla(){
+        String[] encabezados = {"Nickname Proponente","Titulo Propuesta", "Lugar" , "Dinero Recaudado", "Estado Actual"};    
     
-        modeloTabla = new DefaultTableModel(encabezados,0); //El 0 es porque empieza sin nada en las filas
+        modeloTabla = new DefaultTableModel(encabezados,0){ //El 0 es porque empieza sin nada en las filas
+            @Override
+            public boolean isCellEditable(int row,int column){
+                return false; //Evito que las celdas se puedan editar
+            }
+        }; 
         tablaProp.setModel(modeloTabla);
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -67,7 +75,11 @@ public class InterConsultaPerfilColaborador extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
+        setPreferredSize(new java.awt.Dimension(700, 500));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setRequestFocusEnabled(false);
 
         jLabel1.setText("Seleccione el Usuario Proponente a consultar:");
 
@@ -160,24 +172,20 @@ public class InterConsultaPerfilColaborador extends javax.swing.JInternalFrame {
                                     .addComponent(labelApellido)
                                     .addComponent(labelEmail)
                                     .addComponent(labelFecNac))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(1, 1, 1)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(textoNickname)
-                                                .addComponent(textoNombre)
-                                                .addComponent(textoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(textoFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(textoEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 659, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(textoNickname)
+                                    .addComponent(textoNombre)
+                                    .addComponent(textoApellido)
+                                    .addComponent(textoEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                                    .addComponent(textoFechaNac)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addComponent(jLabel2)))
-                .addContainerGap(325, Short.MAX_VALUE))
+                        .addComponent(jLabel2))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 649, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,26 +208,27 @@ public class InterConsultaPerfilColaborador extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(textoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labelApellido))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(textoEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labelEmail))
-                        .addGap(17, 17, 17)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(textoFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelFecNac))
-                        .addGap(88, 88, 88))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelFecNac)
+                            .addComponent(textoFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(79, 79, 79))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(imagenPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
-                        .addComponent(jLabel2)))
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46))
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(259, 259, 259))
         );
 
         jScrollPane1.setViewportView(jPanel1);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 460));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, 460));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -236,40 +245,7 @@ public class InterConsultaPerfilColaborador extends javax.swing.JInternalFrame {
             limpiarFormulario();
         }
     }//GEN-LAST:event_ColaboradorComboActionPerformed
-    private void llenarFormulario(){ //Esta sera la funcion principal de este internalFrame donde lleno el formulario con las cosas ingresadas
-        textoNickname.setText(miColaborador.getNickname());
-        textoNombre.setText(miColaborador.getNombre());
-        textoApellido.setText(miColaborador.getApellido());
-        textoEmail.setText(miColaborador.getEmail());
-        textoFechaNac.setText(miColaborador.getFecNac().toString()); 
-        
-        
-        ImageIcon icon = new ImageIcon(miColaborador.getImagen());
-        Image imagenEscalada = icon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-        imagenPerfil.setIcon(new ImageIcon(imagenEscalada));
-        
-        //IMPORTANTE Falta lista de Propuestas con las que colaboro
-        modeloTabla.setRowCount(0); //La vacio por el caso que pase de un colaborador a otro sin vaciarse al pasar por "-Seleccionar-"
-        Object[] fila;
-        for (DataPropuesta dataProp : miColaborador.getPropuestas()){
-            fila = new Object[5];
-            fila[0] = "";
-            fila[1] = dataProp.getTitulo(); //Por ahora solo obtengo estos datos pq ando pensando si necesitare crear otro DataType ya que me faltan datos
-            fila[2] = dataProp.getLugar();
-            fila[3] = "0";
-            fila[4] = dataProp.getEstadoActual();
-            modeloTabla.addRow(fila);
-        }
-    }
-    private void limpiarFormulario(){ //Vacio el formualario cuando se selecciona el indice 0
-        textoNickname.setText("");
-        textoNombre.setText("");
-        textoApellido.setText("");
-        textoEmail.setText("");
-        textoFechaNac.setText("");
-        imagenPerfil.setIcon(null);
-        modeloTabla.setRowCount(0); //Vacio la tabla
-    }
+
     private void textoFechaNacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoFechaNacActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textoFechaNacActionPerformed
@@ -291,7 +267,47 @@ public class InterConsultaPerfilColaborador extends javax.swing.JInternalFrame {
 
         //System.out.println(nickname);
     }//GEN-LAST:event_textoNicknameActionPerformed
-
+    private void llenarFormulario(){ //Esta sera la funcion principal de este internalFrame donde lleno el formulario con las cosas ingresadas
+        textoNickname.setText(miColaborador.getNickname());
+        textoNombre.setText(miColaborador.getNombre());
+        textoApellido.setText(miColaborador.getApellido());
+        textoEmail.setText(miColaborador.getEmail());
+        textoFechaNac.setText(miColaborador.getFecNac().toString()); 
+        
+        
+        ImageIcon icon = new ImageIcon(miColaborador.getImagen());
+        Image imagenEscalada = icon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+        imagenPerfil.setIcon(new ImageIcon(imagenEscalada));
+        
+        llenarTabla();
+        
+    }
+    private void llenarTabla(){
+        modeloTabla.setRowCount(0); //La vacio por el caso que pase de un colaborador a otro sin vaciarse al pasar por "-Seleccionar-"
+        Object[] fila;
+        List<DataPropuesta> listaProp = new ArrayList<>(miColaborador.getPropuestas());
+        if(listaProp != null && !listaProp.isEmpty()){
+        
+        for (DataPropuesta dataProp : listaProp){
+            fila = new Object[5];
+            fila[0] = dataProp.getNickProponenteDe();
+            fila[1] = dataProp.getTitulo(); 
+            fila[2] = dataProp.getLugar();
+            fila[3] = dataProp.getAlcanzada();
+            fila[4] = dataProp.getEstadoActual().getEstado();
+            modeloTabla.addRow(fila);
+         }
+        }
+    }
+    private void limpiarFormulario(){ //Vacio el formualario cuando se selecciona el indice 0
+        textoNickname.setText("");
+        textoNombre.setText("");
+        textoApellido.setText("");
+        textoEmail.setText("");
+        textoFechaNac.setText("");
+        imagenPerfil.setIcon(null);
+        modeloTabla.setRowCount(0); //Vacio la tabla
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ColaboradorCombo;
