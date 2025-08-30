@@ -172,7 +172,7 @@ public class InterAltaCategoria extends javax.swing.JInternalFrame {
         DefaultMutableTreeNode raiz = ic.getRaizArbolCat();
         ArbolDeCategorias.setModel(new DefaultTreeModel(raiz)); //Recargo el JTree siempre que se 
         //ingresa una Categoria
-        return;
+        this.dispose();
        }
        if(error == -1){
            JOptionPane.showMessageDialog(this, "Padre de Categoria no existe", "Error", HEIGHT);

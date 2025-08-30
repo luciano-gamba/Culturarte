@@ -230,6 +230,7 @@ public class Controlador implements IControlador{
         }
         return lista;
     }
+    
     @Override
     public List<String> getUsuariosProponentes() {
         List<String> listaNombres = new ArrayList<>();
@@ -450,11 +451,26 @@ public class Controlador implements IControlador{
         for (Propuesta p : misPropuestas) {
             if (p.getTitulo().equalsIgnoreCase(titulo)) {
                 encontrado = true;
-                DP = new DataPropuesta(p.getAlcanzada() , titulo, p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(), p.getFechaARealizar(), p.getRetorno(), p.getCategoria());
+                DP = new DataPropuesta(titulo, p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getAlcanzada() , p.getFechaARealizar(), p.getRetorno(), p.getCategoria());
                 return DP;
             }
         }
         
+        return DP;
+    }
+    
+    @Override
+    public DataPropuesta getDataPropuesta(String titulo_nick){
+        
+        DataPropuesta DP = null;
+        
+       
+        for (Propuesta p : misPropuestas) {
+            if (p.getTitulo_Nickname().equalsIgnoreCase(titulo_nick)) {
+                DP = new DataPropuesta(p.getTitulo(), p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.get$alcanzada(), p.getFechaARealizar(), p.getRetorno(), p.getCategoria());
+                return DP;
+            }
+        }
         return DP;
     }
     
@@ -515,6 +531,37 @@ public class Controlador implements IControlador{
     }
     
     @Override
+    public List<String> getPropuestasXColaborador(String colab){
+        
+        for(Colaborador c : this.misColaboradores){
+            if(colab.equals(c.getNickname())){
+                return c.getTituloPropuestas();
+            }
+        }   
+        return null;
+    }
+    
+    @Override
+    public DataAporte getDataAporte(String tituloNick, String nick){
+        for(Colaborador c : misColaboradores){
+            if(nick.equals(c.getNickname())){
+                return c.getDataAporte(tituloNick);
+            }
+        }
+        return null;
+    }
+    
+    @Override
+    public void borrarAporte(String tituloNick, String nick){
+        for(Colaborador c : misColaboradores){
+            if(nick.equals(c.getNickname())){
+                c.borrarAporte(tituloNick);
+                break;
+            }
+        }
+    }
+    
+    @Override
     public boolean existeTitulo(String titulo){
         
         boolean encontrado = false;
@@ -527,6 +574,7 @@ public class Controlador implements IControlador{
         return encontrado;
     }
     
+    @Override
     public List<String> getColabsProp(String titulo){
         List<String> listaColabProp = new ArrayList<>();
         Propuesta prop = null;

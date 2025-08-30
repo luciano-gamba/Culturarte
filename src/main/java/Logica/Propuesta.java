@@ -131,6 +131,11 @@ public class Propuesta {
         $alcanzada+=a.get$aporte();
     }
     
+    public void desvincularAporte(Aporte a){
+        this.$alcanzada-=a.get$aporte();
+        this.misAportes.remove(a);
+    }
+    
     public List<Aporte> getAportes(){
         return this.misAportes; 
     }

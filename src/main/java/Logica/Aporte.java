@@ -22,6 +22,14 @@ public class Aporte {
         this.retorno = retorno;
     }
     
+    public String getTituloNickMiPropuesta(){
+        if(this.miPropuesta != null){
+            return this.miPropuesta.getTitulo_Nickname();
+        }else{
+            return null;
+        }        
+    }
+    
     public String getTituloMiPropuesta(){
         if(this.miPropuesta != null){
             return this.miPropuesta.getTitulo();
@@ -29,13 +37,39 @@ public class Aporte {
             return null;
         }        
     }
-
+    
+    public String getNicknameMiColaborador(){
+        if(this.miColaborador != null){
+            return this.miColaborador.getNickname();
+        }else{
+            return null;
+        }        
+    }
+    
+    public void desvincular(){
+        this.miPropuesta.desvincularAporte(this);
+        miColaborador=null;
+        miPropuesta=null;
+    }
+    
     public double get$aporte() {
         return $aporte;
     }
 
     public void setMiPropuesta(Propuesta miPropuesta) {
         this.miPropuesta = miPropuesta;
+    }
+
+    public LocalDateTime getFechaHora() {
+        return fechaHora;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public EnumRetorno getRetorno() {
+        return retorno;
     }
     
     public Colaborador getColaborador(){

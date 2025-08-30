@@ -66,9 +66,7 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
         this.ArbolDeCategorias.expandRow(0);
     }
     
-    public boolean abierto(){
-        return this.open;
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -304,12 +302,12 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
 
     private void formComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentHidden
         // TODO add your handling code here:
-        this.open = false;
+       
     }//GEN-LAST:event_formComponentHidden
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         // TODO add your handling code here:
-        this.open = true;
+       
     }//GEN-LAST:event_formComponentShown
 
     private void txtTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTituloActionPerformed
@@ -424,7 +422,7 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_ArbolDeCategoriasValueChanged
 
-    private boolean open;
+    //private boolean open;
     private String txtImagen;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
