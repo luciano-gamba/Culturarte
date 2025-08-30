@@ -1,18 +1,42 @@
 package Logica;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Basic;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-public class Usuario {
+@Entity
+@Table(name="Usuario")
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "tipo", discriminatorType = DiscriminatorType.STRING)
+public class Usuario implements Serializable {
+    @Id
     String nickname;
+    @Basic(optional = false)
     String email;
     String nombre;
     String apellido;
     LocalDate fecNac;
     String imagen = "";
-    List<Usuario> misSeguidos;
+    @OneToMany
+    @JoinTable(name = "UsuarioSeguidos", joinColumns = @JoinColumn(name = "nickSeguidor"), inverseJoinColumns = @JoinColumn(name = "nickSeguido"))
+    List<Usuario> misSeguidos = new ArrayList<>();
 
+    public Usuario() {
+    }
+
+    
     public Usuario(String nickname, String email, String nombre, String apellido, LocalDate fecNac, String imagen) {
         this.nickname = nickname;
         this.email = email;
@@ -20,7 +44,6 @@ public class Usuario {
         this.apellido = apellido;
         this.fecNac = fecNac;
         this.imagen = imagen;
-        this.misSeguidos = new ArrayList<>();
     }
 
     public String getNickname() {
@@ -62,12 +85,15 @@ public class Usuario {
     public void setFecNac(LocalDate fecNac) {
         this.fecNac = fecNac;
     }
+    
     public String getImagen(){
         return imagen;
     }
+    
     public int seguirUsuario(Usuario nick){
         for(Usuario u : this.misSeguidos){
-            if(u == nick){
+            System.out.println(u.getNickname());
+            if(u.getNickname().equals(nick.getNickname())){
                 return 0; //error: ya sigue al usuario nick
             }
         }
@@ -77,7 +103,7 @@ public class Usuario {
     
     public int dejarDeSeguir(Usuario nick){
         for(Usuario u : this.misSeguidos){
-            if(u == nick){
+            if(u.getNickname().equals(nick.getNickname())){
                 this.misSeguidos.remove(u);
                 return 1;
             }

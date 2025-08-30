@@ -1,5 +1,6 @@
 package Logica;
 
+import Persistencia.ControladoraPersistencia;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,12 +22,15 @@ public class Controlador implements IControlador{
     
     }
     
-    @Override
+    ControladoraPersistencia cp = new ControladoraPersistencia();
+    
+    @Override //colaborador
     public int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen){
         String nickNuevo = nick;
         String correoNuevo = correo;
         Boolean nickExiste = false;
         Boolean correoExiste = false;
+        
         
         for(Usuario u : misUsuarios){
             if(u.getNickname().equals(nickNuevo)){
@@ -42,6 +46,23 @@ public class Controlador implements IControlador{
             }
         }
         
+        //con peristencia
+//        ArrayList<Usuario> listaUsuarios = cp.getListaUsuarios();
+//        
+//        for(Usuario u : listaUsuarios){
+//            if(u.getNickname().equals(nickNuevo)){
+//                nickExiste = true;
+//                break;
+//            }
+//        }
+        
+//        for(Usuario u : listaUsuarios){
+//            if(u.getEmail().equals(correoNuevo)){
+//                correoExiste = true;
+//                break;
+//            }
+//        }
+        
         if(nickExiste == true || correoExiste == true){
             System.out.println("ERROR: Nickname o Correo existen en el sistema!");
             return 0;
@@ -49,11 +70,14 @@ public class Controlador implements IControlador{
             Colaborador colaNuevo = new Colaborador(nick, correo, nombre, apellido, fecNac, imagen);
             misUsuarios.add(colaNuevo);
             misColaboradores.add(colaNuevo);
+//            peristencia
+//            cp.añadirUsuario(colaNuevo);
+            
             return 1;
         }
     }
     
-    @Override
+    @Override //proponente
     public int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen, String direccion, String bio, String sitioWeb){
         String nickNuevo = nick;
         String correoNuevo = correo;
@@ -73,6 +97,23 @@ public class Controlador implements IControlador{
                 break;
             }
         }
+
+        //con persistencia
+//        ArrayList<Usuario> listaUsuarios = cp.getListaUsuarios();
+//        
+//        for(Usuario u : listaUsuarios){
+//            if(u.getNickname().equals(nickNuevo)){
+//                nickExiste = true;
+//                break;
+//            }
+//        }
+//        
+//        for(Usuario u : listaUsuarios){
+//            if(u.getEmail().equals(correoNuevo)){
+//                correoExiste = true;
+//                break;
+//            }
+//        }
         
         if(nickExiste == true || correoExiste == true){
             System.out.println("ERROR: Nickname o Correo existen en el sistema!");
@@ -81,6 +122,8 @@ public class Controlador implements IControlador{
             Proponente propNuevo = new Proponente(direccion, bio, sitioWeb, nick, correo, nombre, apellido, fecNac, imagen);
             misUsuarios.add(propNuevo);
             misProponentes.add(propNuevo);
+//            persistencia
+//            cp.añadirUsuario(propNuevo);
             return 1;
         }
     }
@@ -158,6 +201,15 @@ public class Controlador implements IControlador{
             aux = u.getNickname();
             listaNombres.add(aux);
         }
+        
+//        si fuera con persistencia
+//        ArrayList<Usuario> listaUsuarios = cp.getListaUsuarios();
+//        String aux;
+//        for(Usuario u : listaUsuarios){
+//            aux = u.getNickname();
+//            listaNombres.add(aux);
+//        }
+        
         return listaNombres;
     }
     
@@ -209,6 +261,11 @@ public class Controlador implements IControlador{
                 break;
             }
         }
+
+//        persistencia
+//        Usuario usu = cp.buscarUsuario(seguidor);
+//        listaNombres = usu.getSeguidos();
+        
         return listaNombres;
     }
 
@@ -229,14 +286,16 @@ public class Controlador implements IControlador{
                 break;
             }
         }
-        
-//        if(seguidor == null){
-//            return 0; 
-//        }else{
+//        persistencia
+//        seguidor = cp.buscarUsuario(nick1);
+//        seguir = cp.buscarUsuario(nick2);
+
         int resultado = seguidor.seguirUsuario(seguir);
         if (resultado == 0) {
             return 0; //error 0: ya sigue al usuario nick2
         }else{
+            //persistencia
+//            cp.editarUsuario(seguidor);
             return 1;
         }
     }
@@ -259,11 +318,17 @@ public class Controlador implements IControlador{
             }
         }
         
+        //persistencia
+//        seguidor = cp.buscarUsuario(nick1);
+//        seguir = cp.buscarUsuario(nick2);
+        
         int res = seguidor.dejarDeSeguir(seguir);
         if(res == 1){
+            //persistencia
+//            cp.editarUsuario(seguidor);
             return 1;
         }else{
-            return 0;
+            return 0; //error: no lo encontró
         }
     }
     

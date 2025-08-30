@@ -3,10 +3,18 @@ package Logica;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
 
+@Entity
+@PrimaryKeyJoinColumn(name = "nickname")
 public class Colaborador extends Usuario {
     
     private List<Aporte> misAportes = new ArrayList<>();
+    
+    public Colaborador(){
+        
+    }
     
     public Colaborador(String nickname, String email, String nombre, String apellido, LocalDate fecNac, String imagen) {
         super(nickname, email, nombre, apellido, fecNac, imagen);
