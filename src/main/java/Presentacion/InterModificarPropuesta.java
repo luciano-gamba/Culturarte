@@ -14,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -21,6 +22,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.SpinnerDateModel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -45,6 +47,7 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
         }
         this.textoNick.setEditable(false);
         this.textoTitulo.setEditable(false);
+        this.textoCategoria.setEditable(false);
         this.textoEstado.setEditable(false);
         this.textoDescripcion.setEditable(false);
         this.textoLugar.setEditable(false);
@@ -58,6 +61,12 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
         this.botonAceptar.setVisible(false);
         this.botonEditar.setEnabled(false);
         this.spinnerFecha.setVisible(false);
+        this.botonCategoria.setVisible(false);
+
+        
+//        JSpinner.DateEditor editor = new JSpinner.DateEditor(spinnerFecha, "d/M/yyyy");
+//        spinnerFecha.setEditor(editor);
+
         
         this.setTitle("Modificar Propuesta");
     }
@@ -103,11 +112,11 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
         comboEstado = new javax.swing.JComboBox<>();
         comboRetorno = new javax.swing.JComboBox<>();
         spinnerFecha = new javax.swing.JSpinner();
+        botonCategoria = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
-        setMaximizable(true);
-        setPreferredSize(new java.awt.Dimension(690, 558));
+        setPreferredSize(new java.awt.Dimension(730, 560));
 
         jLabel1.setText("Seleccionar propuesta");
 
@@ -125,8 +134,6 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
             }
         });
 
-        textoCategoria.setEnabled(false);
-
         textoDescripcion.setColumns(20);
         textoDescripcion.setRows(5);
         jScrollPane1.setViewportView(textoDescripcion);
@@ -136,7 +143,6 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
         jLabel3.setText("Nickname Prop.");
 
         jLabel4.setText("Categoria");
-        jLabel4.setEnabled(false);
 
         jLabel5.setText("Descripción");
 
@@ -202,6 +208,14 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
         });
 
         spinnerFecha.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(1735700400000L), null, null, java.util.Calendar.DAY_OF_MONTH));
+        spinnerFecha.setEditor(new javax.swing.JSpinner.DateEditor(spinnerFecha, "d/M/yyyy"));
+
+        botonCategoria.setText("Cambiar");
+        botonCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCategoriaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -224,7 +238,7 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
                             .addComponent(labelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -246,7 +260,10 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
                                 .addComponent(spinnerFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(textoLugar)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
-                            .addComponent(textoCategoria)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(textoCategoria)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(botonCategoria))
                             .addComponent(textoNick)
                             .addComponent(textoTitulo)
                             .addGroup(layout.createSequentialGroup()
@@ -257,7 +274,7 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
                                 .addComponent(textoRetorno)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(comboRetorno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 22, Short.MAX_VALUE))
+                        .addGap(0, 42, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(botonEditar)
@@ -291,7 +308,8 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(textoCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
+                            .addComponent(jLabel4)
+                            .addComponent(botonCategoria))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(textoEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -365,6 +383,7 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
 
             this.textoNick.setText(DP.getProponente().getNickname());
             this.textoTitulo.setText(DP.getTitulo());
+            this.textoCategoria.setText(DP.getCategoria());
             this.textoEstado.setText(DP.getEstadoActual().getEstado().toString());
             this.textoDescripcion.setText(DP.getDescripcion());
             this.textoLugar.setText(DP.getLugar());
@@ -373,8 +392,22 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
             this.textoRetorno.setText(retorno);
             this.textoFecha.setText(DP.getFechaARealizar().toString());
             this.txtImagen = DP.getImagen();
-            Date fechaDate = Date.from(DP.getFechaARealizar().atStartOfDay(ZoneId.systemDefault()).toInstant());
-            this.spinnerFecha.setValue(fechaDate);
+            
+            //fecha ya establecida de la propuesta
+            Date initialDate = Date.from(DP.getFechaARealizar().atStartOfDay(ZoneId.systemDefault()).toInstant());
+            this.spinnerFecha.setValue(initialDate);
+            
+            //fecha minima de propuesta (hoy)
+            LocalDate fechaMin = LocalDate.now();
+            Date minDate = Date.from(fechaMin.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+            //fecha maxima (jeje)
+            LocalDate fechaMax = LocalDate.of(2099, 1, 1);
+            Date maxDate = Date.from(fechaMax.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+            //setea las fechas al spinner
+            SpinnerDateModel model = new SpinnerDateModel(initialDate, minDate, maxDate, Calendar.DAY_OF_MONTH);
+            spinnerFecha.setModel(model);
             
             String estado = this.textoEstado.getText();
             switch (estado) {
@@ -398,6 +431,7 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
             this.botonEditar.setEnabled(false);
             this.labelFoto.setIcon(null);
             this.textoNick.setText("");
+            this.textoCategoria.setText("");
             this.textoTitulo.setText("");
             this.textoEstado.setText("");
             this.textoDescripcion.setText("");
@@ -421,7 +455,7 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Opciones vacias!", "Error", HEIGHT);
         }else{
             String titulo = this.textoTitulo.getText();
-            //String categoria = "VACIO";
+            String categoria = this.textoCategoria.getText();
             
             int op1 = this.comboEstado.getSelectedIndex();
             String estado = this.comboEstado.getItemAt(op1);
@@ -448,7 +482,7 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
             Date fec = (Date) this.spinnerFecha.getValue();
             LocalDate fecha = fec.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             
-            if(ic.modificarPropuesta(titulo, desc, lugar, fecha, montoEntrada, montoObjetivo, retorno, estado, this.txtImagen) == 0){
+            if(ic.modificarPropuesta(titulo, desc, lugar, fecha, montoEntrada, montoObjetivo, retorno, estado, this.txtImagen, categoria) == 0){
                 JOptionPane.showMessageDialog(this, "Propuesta modificada con exito!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
             }else{
@@ -469,6 +503,7 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
         this.botonCambioImagen.setEnabled(true);
         this.botonEditar.setEnabled(false);
         this.botonAceptar.setVisible(true);
+        this.botonCategoria.setVisible(true);
         this.comboEstado.setVisible(true);
         this.comboRetorno.setVisible(true);
         this.spinnerFecha.setVisible(true);
@@ -523,11 +558,25 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_comboRetornoActionPerformed
 
+    private void botonCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCategoriaActionPerformed
+        // TODO add your handling code here:
+        InterModificarPropuestaCategoria IMPC = new InterModificarPropuestaCategoria(this.ic, this);
+        getParent().add(IMPC);
+        IMPC.show();
+        
+        //"esconde" esta ventana y setea en lugar a la seleccion de categoria
+        this.setLocation(this.getX(), this.getY()+500);
+        int x = (getParent().getWidth() - IMPC.getWidth())/2; //consigue largo de ventana principal
+        IMPC.setLocation(x, 100);
+    }//GEN-LAST:event_botonCategoriaActionPerformed
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAceptar;
     private javax.swing.JButton botonCambioImagen;
     private javax.swing.JButton botonCancelar;
+    private javax.swing.JButton botonCategoria;
     private javax.swing.JButton botonEditar;
     private javax.swing.JComboBox<String> comboEstado;
     private javax.swing.JComboBox<String> comboPropuestas;
@@ -558,4 +607,9 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
     private javax.swing.JTextField textoRetorno;
     private javax.swing.JTextField textoTitulo;
     // End of variables declaration//GEN-END:variables
+    
+    public void cambiarTxtCategoria(String cat){
+        this.textoCategoria.setText(cat);
+    }
+
 }

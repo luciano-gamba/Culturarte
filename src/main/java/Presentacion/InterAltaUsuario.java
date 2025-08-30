@@ -11,11 +11,13 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.SpinnerDateModel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -35,6 +37,27 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
         initComponents();
         this.textImagenLista.setVisible(false);
         this.setTitle("Alta Usuario");
+        
+      //forma manual de cambiar modelo fecha spinner
+//        JSpinner.DateEditor editor = new JSpinner.DateEditor(spinnerFecNac, "d/M/yyyy");
+//        spinnerFecNac.setEditor(editor);
+
+        //fecha minima de nacimiento (el año de la pepa)
+        LocalDate fechaMin = LocalDate.of(1900, 1, 1);
+        Date minDate = Date.from(fechaMin.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        //fecha maxima de nacimiento (no podes nacer mañana)
+        LocalDate fechaMax = LocalDate.now();
+        Date maxDate = Date.from(fechaMax.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        //fecha inicial (fecha random no importa)
+        LocalDate fechaInicial = LocalDate.of(2005, 1, 1);
+        Date initialDate = Date.from(fechaInicial.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        SpinnerDateModel model = new SpinnerDateModel(initialDate, minDate, maxDate, Calendar.DAY_OF_MONTH);
+        spinnerFecNac.setModel(model);
+        
+        
     }
 
     /**
@@ -156,7 +179,8 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
             }
         });
 
-        spinnerFecNac.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(1104544800000L), new java.util.Date(-2208975309000L), new java.util.Date(), java.util.Calendar.DAY_OF_MONTH));
+        spinnerFecNac.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(1104544800000L), null, null, java.util.Calendar.DAY_OF_MONTH));
+        spinnerFecNac.setEditor(new javax.swing.JSpinner.DateEditor(spinnerFecNac, "d/M/yyyy"));
 
         labelDireccion.setText("Direccion");
 
@@ -354,24 +378,24 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         // TODO add your handling code here:
-        String nickname = textoNickname.getText();
-        String nombre = textoNombre.getText();
-        String apellido = textoApellido.getText();
-        String email = textoEmail.getText();
+        String nickname = textoNickname.getText().trim();
+        String nombre = textoNombre.getText().trim();
+        String apellido = textoApellido.getText().trim();
+        String email = textoEmail.getText().trim();
         Date fecha = (Date) spinnerFecNac.getValue();
         LocalDate fecNac = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         
         
-        if(nickname.equals("") || nombre.equals("") || apellido.equals("") || email.equals("") || !email.contains("@")){
+        if(nickname.isBlank() || nombre.isBlank() || apellido.isBlank() || email.isBlank() || !email.contains("@")){
             JOptionPane.showMessageDialog(this, "Opciones vacias o invalidas!", "Error", HEIGHT);
             
         }else{
             if(rbProponente.isSelected()){
-                String direccion = textoDireccion.getText();
+                String direccion = textoDireccion.getText().trim();
                 String biografia = textoBiografia.getText();
-                String sitioWeb = textoSitioWeb.getText();
+                String sitioWeb = textoSitioWeb.getText().trim();
                 
-                if(direccion.equals("") || (!sitioWeb.equals("") && !sitioWeb.contains("."))){
+                if(direccion.isBlank() || (!sitioWeb.isBlank() && !sitioWeb.contains("."))){
                     JOptionPane.showMessageDialog(this, "Opciones vacias o invalidas!", "Error", HEIGHT);
                 }else{
                     int resultado = this.ic.añadirUsuario(nickname, nombre, apellido, email, fecNac, this.txtImagen, direccion,biografia , sitioWeb);

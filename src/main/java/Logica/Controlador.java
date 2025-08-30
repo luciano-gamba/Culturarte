@@ -12,12 +12,12 @@ public class Controlador implements IControlador{
     public List<Proponente> misProponentes = new ArrayList<>();
     public List<Colaborador> misColaboradores = new ArrayList<>();
     public List<Propuesta> misPropuestas = new ArrayList<>();
-    private ArbolCategorias arbolCategorias;
+    private final ArbolCategorias arbolCategorias;
     
     public Controlador() {
         this.arbolCategorias = new ArbolCategorias(new Categoria("Categoria"));
     //La letra dice que la raiz siempre es "Categoria" 
-    //probablemente tenga que cambiarlo para evitar repetidos o errores al coenctar con la BD
+    //probablemente tenga que cambiarlo para evitar repetidos o errores al conectar con la BD
     
     }
     
@@ -189,6 +189,16 @@ public class Controlador implements IControlador{
         }
         return listaNombres;
     }
+    @Override
+    public List<String> getUsuariosColaboradores() {
+        List<String> listaNombres = new ArrayList<>();
+        String aux;
+        for(Colaborador c : misColaboradores){
+            aux = c.getNickname();
+            listaNombres.add(aux);
+        }
+        return listaNombres;
+    }
     
     @Override
     public List<String> getSeguidos(String seguidor) {
@@ -257,30 +267,42 @@ public class Controlador implements IControlador{
         }
     }
     
+    @Override
     public int altaPropuesta(String nick, String tipo, String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual){
         
         Proponente prop = null;
         
-        boolean encontrado = false;
         for (Proponente p : misProponentes) {
             if (p.getNickname().equalsIgnoreCase(nick)) {
-                encontrado = true;
                 prop = p;
-                //falta poner la propuesta en la lista de propuestas del proponente
                 break;
             }
         }
         
-        //DEPENDE DE COMO SE HAGA HAY QUE ENCONTRAR SI ESTA TAMBIEN LA CATEGORIA INGRESADA!!!!!!
-        if (encontrado) {
-            
-            Propuesta nuevaProp = new Propuesta(prop, titulo, descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada), Double.parseDouble(montoNecesario), posibleRetorno, fechaActual);
-            misPropuestas.add(nuevaProp);
-            
-            return 1;
-        } else {
+        DefaultMutableTreeNode newCat = arbolCategorias.buscar(tipo);
+        
+        if (newCat == null) {
+            // NO SE ENCONTRO LA CATEGORIA o PUSO "CATEGORIA"
             return 0;
         }
+        
+        if(tipo.equals("Categoria")){
+            return -1;
+        }
+        
+        Categoria c = (Categoria) newCat.getUserObject();
+        
+        for (Proponente p : misProponentes) {
+            if (p.getNickname().equalsIgnoreCase(nick)) {
+                prop = p;
+                break;
+            }
+        }
+            
+        Propuesta nuevaProp = new Propuesta(c, prop, titulo, descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada), Double.parseDouble(montoNecesario), posibleRetorno, fechaActual);
+        misPropuestas.add(nuevaProp);
+            
+        return 1;
         
     }
     
@@ -298,10 +320,22 @@ public class Controlador implements IControlador{
             }
         }
         
-        //DEPENDE DE COMO SE HAGA HAY QUE ENCONTRAR SI ESTA TAMBIEN LA CATEGORIA INGRESADA!!!!!!
+        DefaultMutableTreeNode newCat = arbolCategorias.buscar(tipo);
+        
+        if (newCat == null) {
+            // NO SE ENCONTRO LA CATEGORIA o PUSO "CATEGORIA"
+            return 0;
+        }
+        
+        if(tipo.equals("Categoria")){
+            return -1;
+        }
+        
+        Categoria c = (Categoria) newCat.getUserObject();
+        
         if (encontrado) {
             
-            Propuesta nuevaProp = new Propuesta(prop, titulo, descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada), Double.parseDouble(montoNecesario), posibleRetorno, fechaActual, imagen);
+            Propuesta nuevaProp = new Propuesta(c, prop, titulo, descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada), Double.parseDouble(montoNecesario), posibleRetorno, fechaActual, imagen);
             misPropuestas.add(nuevaProp);
             
             return 1;
@@ -312,11 +346,13 @@ public class Controlador implements IControlador{
    
     
     @Override
-    public int modificarPropuesta(String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, String posibleRetorno, String estado, String imagen){
+    public int modificarPropuesta(String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, String posibleRetorno, String estado, String imagen, String categoria){
         
         for(Propuesta p : this.misPropuestas){
             if(p.getTitulo().equals(titulo)){
-                p.modificarPropuesta(descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada),Double.parseDouble(montoNecesario), posibleRetorno, estado, imagen);
+                DefaultMutableTreeNode newCat = this.arbolCategorias.buscar(categoria);
+                Categoria c = (Categoria) newCat.getUserObject();
+                p.modificarPropuesta(descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada),Double.parseDouble(montoNecesario), posibleRetorno, estado, imagen, c);
                 return 0;
             }
         }
@@ -350,7 +386,7 @@ public class Controlador implements IControlador{
         for (Propuesta p : misPropuestas) {
             if (p.getTitulo().equalsIgnoreCase(titulo)) {
                 encontrado = true;
-                DP = new DataPropuesta(titulo, p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.get$alcanzada() ,p.getFechaARealizar(), p.getRetorno());
+                DP = new DataPropuesta(titulo, p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getAlcanzada() , p.getFechaARealizar(), p.getRetorno(), p.getCategoria());
                 return DP;
             }
         }
@@ -366,7 +402,7 @@ public class Controlador implements IControlador{
        
         for (Propuesta p : misPropuestas) {
             if (p.getTitulo_Nickname().equalsIgnoreCase(titulo_nick)) {
-                DP = new DataPropuesta(p.getTitulo(), p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.get$alcanzada(), p.getFechaARealizar(), p.getRetorno());
+                DP = new DataPropuesta(p.getTitulo(), p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.get$alcanzada(), p.getFechaARealizar(), p.getRetorno(), p.getCategoria());
                 return DP;
             }
         }
@@ -390,6 +426,24 @@ public class Controlador implements IControlador{
         return DProp;
     }
     
+    @Override
+    public DataColaborador consultaDeColaborador(String NickName){
+        
+        DataColaborador DCola = null;
+        
+        boolean encontrado = false;
+        for (Colaborador c : misColaboradores) {
+            if (c.getNickname().equals(NickName)) {
+                encontrado = true;
+                DCola = new DataColaborador(NickName, c.getNombre(),c.getApellido(),c.getEmail(),c.getFecNac(),c.getImagen());
+                return DCola;
+            }
+        }
+        
+        return DCola;
+    }
+    
+    @Override
     public List<String> getEstados(){
     List<String> listaEstados = new ArrayList<>();
     for (EnumEstado e : EnumEstado.values()) {
@@ -404,8 +458,6 @@ public class Controlador implements IControlador{
         String aux;
         for(Propuesta p : misPropuestas){
             aux = p.getTitulo();
-            System.out.println(p.getEstadoActual().getEstado().toString());
-            System.out.println(estado);
             if(p.getEstadoActual().getEstado().toString().equalsIgnoreCase(estado)){
                 listaPropuestas.add(aux);
             }
@@ -442,5 +494,47 @@ public class Controlador implements IControlador{
                 break;
             }
         }
+    }
+    
+    @Override
+    public boolean existeTitulo(String titulo){
+        
+        boolean encontrado = false;
+        for (Propuesta p : misPropuestas) {
+            if (p.getTitulo().equalsIgnoreCase(titulo)) {
+                encontrado = true;
+            }
+        }
+        
+        return encontrado;
+    }
+    
+    @Override
+    public List<String> getColabsProp(String titulo){
+        List<String> listaColabProp = new ArrayList<>();
+        Propuesta prop = null;
+        double aporte$;
+        Colaborador c = null;
+        String aporteColab;
+        
+        for (Propuesta p : misPropuestas) {
+            if (p.getTitulo().equalsIgnoreCase(titulo)) {
+                prop = p;
+            }
+        } // pa encontrar la propuesta
+        
+        if (prop == null) {
+            return listaColabProp;
+        }
+        
+        for (Aporte a : prop.getAportes()) {
+            aporte$ = a.get$aporte();
+            c = a.getColaborador();
+            
+            aporteColab = c.getNickname() + "\t" + aporte$;
+            listaColabProp.add(aporteColab);
+        }
+        
+        return listaColabProp;
     }
 }

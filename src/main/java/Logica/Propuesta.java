@@ -5,21 +5,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Propuesta {
-    private String titulo;
+    private final String titulo;
     private String desc;
     private String imagen;
     private String lugar;
     private LocalDate fecha;
     private double $entrada;
     private double $necesaria;
-    private double $alcanzada;
+    private double $alcanzada = 0;
     private LocalDate fechaPubli;
     private EnumRetorno posibleRetorno;
     private Estado estadoActual;
     private List<Aporte> misAportes = new ArrayList<>();
     public List<Estado> misEstados = new ArrayList<>();//A CAMBIAR
-    private Proponente miProponente;
-    Proponente p;
+    private final Proponente miProponente;
+    private Categoria c;
     
     public Propuesta(Proponente prop, String titulo, String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual) {
         this.miProponente = prop;
@@ -37,10 +37,75 @@ public class Propuesta {
         this.estadoActual = estado;
         this.misEstados.add(estado);
 
-        //HACER OTRA CON LA IMAGEN!
+        //DIALOGAR PARA VER QUE HACEMOS CON ESTA EN ESPECIFICO!!!!!!!!!!!!!
     }
     
-    public String getTitulo_Nickname(){
+    public Propuesta(Categoria c,Proponente prop, String titulo, String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual) {
+        this.miProponente = prop;
+        this.titulo = titulo;
+        this.desc = descripcion;
+        this.lugar = lugar;
+        this.fechaPubli = fechaPrev;
+        this.$entrada = montoXentrada;
+        this.$necesaria = montoNecesario;
+        this.posibleRetorno = posibleRetorno;
+        this.fecha = fechaActual;
+        
+        Estado estado = new Estado(EnumEstado.valueOf("INGRESADA"), fechaActual);
+        
+        this.estadoActual = estado;
+        this.misEstados.add(estado);
+        this.c = c;
+
+    }
+    
+    public Propuesta(Categoria c, Proponente prop, String titulo, String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual, String imagen) {
+        this.miProponente = prop;
+        this.titulo = titulo;
+        this.desc = descripcion;
+        this.lugar = lugar;
+        this.fechaPubli = fechaPrev;
+        this.$entrada = montoXentrada;
+        this.$necesaria = montoNecesario;
+        this.posibleRetorno = posibleRetorno;
+        this.fecha = fechaActual;
+        
+        Estado estado = new Estado(EnumEstado.valueOf("INGRESADA"), fechaActual);
+        
+        this.estadoActual = estado;
+        this.misEstados.add(estado);
+        this.c = c;
+        
+        this.imagen = imagen;
+
+    }
+    
+    public void modificarPropuesta(String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, String posibleRetorno, String estado, String imagen, Categoria c){
+        this.desc = descripcion;
+        this.lugar = lugar;
+        this.fechaPubli = fechaPrev;
+        this.$entrada = montoXentrada;
+        this.$necesaria = montoNecesario;
+        
+        EnumRetorno retorno;
+        switch(posibleRetorno){
+            case "ENTRADAS_GRATIS" -> retorno = EnumRetorno.valueOf("ENTRADAS_GRATIS");
+            case "PORCENTAJE_VENTAS" -> retorno = EnumRetorno.valueOf("PORCENTAJE_VENTAS");
+            case "AMBOS" -> retorno = EnumRetorno.valueOf("AMBOS");
+            default -> retorno = EnumRetorno.valueOf("ERROR");
+        }
+        this.posibleRetorno = retorno;
+        
+        Estado est = new Estado(EnumEstado.valueOf(estado), LocalDate.now());
+        this.estadoActual = est;
+        this.misEstados.add(est);
+        
+        this.imagen = imagen;
+        
+        this.c = c;
+    }
+    
+     public String getTitulo_Nickname(){
         return this.titulo+" by "+this.miProponente.getNickname();
     }
 
@@ -66,77 +131,13 @@ public class Propuesta {
         $alcanzada+=a.get$aporte();
     }
     
-    
-   
-    
-    
-    
-    
-//    public Propuesta(Proponente prop, String titulo, String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual) {
-//        this.p = prop;
-//        this.titulo = titulo;
-//        this.desc = descripcion;
-//        this.lugar = lugar;
-//        this.fechaPubli = fechaPrev;
-//        this.$entrada = montoXentrada;
-//        this.$necesaria = montoNecesario;
-//        this.posibleRetorno = posibleRetorno;
-//        this.fecha = fechaActual;
-//        
-//        Estado estado = new Estado(EnumEstado.valueOf("INGRESADA"), fechaActual);
-//        
-//        this.estadoActual = estado;
-//        this.misEstados.add(estado);
-//
-//        //HACER OTRA CON LA IMAGEN!
-//    }
-    
-    public Propuesta(Proponente prop, String titulo, String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual, String imagen) {
-        this.miProponente = prop;
-        this.titulo = titulo;
-        this.desc = descripcion;
-        this.lugar = lugar;
-        this.fechaPubli = fechaPrev;
-        this.$entrada = montoXentrada;
-        this.$necesaria = montoNecesario;
-        this.posibleRetorno = posibleRetorno;
-        this.fecha = fechaActual;
-        
-        Estado estado = new Estado(EnumEstado.valueOf("INGRESADA"), fechaActual);
-        
-        this.estadoActual = estado;
-        this.misEstados.add(estado);
-        
-        this.imagen = imagen;
-
-    }
-    
-    public void modificarPropuesta(String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, String posibleRetorno, String estado, String imagen){
-        this.desc = descripcion;
-        this.lugar = lugar;
-        this.fechaPubli = fechaPrev;
-        this.$entrada = montoXentrada;
-        this.$necesaria = montoNecesario;
-        
-        EnumRetorno retorno;
-        switch(posibleRetorno){
-            case "ENTRADAS_GRATIS" -> retorno = EnumRetorno.valueOf("ENTRADAS_GRATIS");
-            case "PORCENTAJE_VENTAS" -> retorno = EnumRetorno.valueOf("PORCENTAJE_VENTAS");
-            case "AMBOS" -> retorno = EnumRetorno.valueOf("AMBOS");
-            default -> retorno = EnumRetorno.valueOf("ERROR");
-        }
-        this.posibleRetorno = retorno;
-        
-        Estado est = new Estado(EnumEstado.valueOf(estado), LocalDate.now());
-        this.estadoActual = est;
-        this.misEstados.add(est);
-        
-        this.imagen = imagen;
-    }
-    
     public void desvincularAporte(Aporte a){
         this.$alcanzada-=a.get$aporte();
         this.misAportes.remove(a);
+    }
+    
+    public List<Aporte> getAportes(){
+        return this.misAportes; 
     }
     
     public String getImagen(){
@@ -148,7 +149,7 @@ public class Propuesta {
     }
     
     public Proponente getProponente(){
-        return this.p;
+        return this.miProponente;
     }
     
     public String getDescripcion(){
@@ -183,6 +184,13 @@ public class Propuesta {
         this.fecha = fecha;
     }
     
+    public String getCategoria(){
+        return this.c.getNombreCat();
+    }
+    
+    public Double getAlcanzada(){
+        return this.$alcanzada;
+    }
     
 }
 

@@ -148,9 +148,11 @@ public class InterDejarSeguir extends javax.swing.JInternalFrame {
         int indice = comboSeguidor.getSelectedIndex();
         String seguidor = comboSeguidor.getItemAt(indice);
         InterDejarSeguirElegir IDSE = new InterDejarSeguirElegir(this.ic, seguidor, this);
-        int x = (this.getWidth() - IDSE.getWidth())/2;
-        int y = (this.getHeight() - IDSE.getHeight())/2;
-        IDSE.setLocation(x+400, y);
+        
+        int x = (getParent().getWidth() - IDSE.getWidth())/2;
+        int y = (getParent().getHeight() - IDSE.getHeight())/2;
+        IDSE.setLocation(x, y+200);
+        
         getParent().add(IDSE);
         IDSE.show();
     }//GEN-LAST:event_botonElegirActionPerformed

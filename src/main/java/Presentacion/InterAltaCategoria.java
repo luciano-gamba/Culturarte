@@ -50,7 +50,6 @@ public class InterAltaCategoria extends javax.swing.JInternalFrame {
         textoPadreCat = new javax.swing.JTextField();
 
         setClosable(true);
-        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
@@ -148,21 +147,21 @@ public class InterAltaCategoria extends javax.swing.JInternalFrame {
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
         // TODO add your handling code here:
         limpiarFormulario();
-        setVisible(false);
+        this.dispose(); // el .trim, tiene en cuenta los \n tambien llamados "enter"?
     }//GEN-LAST:event_botonCancelarActionPerformed
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:´
        String nuevaCat = textoNombreCat.getText().trim();
        String padre = textoPadreCat.getText().trim(); //.trim() elimina espacios en blanco antes y al final del String
        
-       if(nuevaCat.isEmpty()){
+       if(nuevaCat.isBlank()){
         JOptionPane.showMessageDialog(this, "Opcion nombre Categoria no puede ser nula!", "Error", HEIGHT);
         return;
        }
        int error;
        
-       if(padre.isEmpty()){ //este if hace que no tenga que repetir para mensajes de errores
+       if(padre.isBlank()){ //este if hace que no tenga que repetir para mensajes de errores
            error = ic.altaCategoria(nuevaCat); //Alta con la raiz "Categoria"
        }else{
            error = ic.altaCategoria(nuevaCat, padre); //Alta con la categoria padre ingresada
@@ -173,7 +172,7 @@ public class InterAltaCategoria extends javax.swing.JInternalFrame {
         DefaultMutableTreeNode raiz = ic.getRaizArbolCat();
         ArbolDeCategorias.setModel(new DefaultTreeModel(raiz)); //Recargo el JTree siempre que se 
         //ingresa una Categoria
-        return;
+        this.dispose();
        }
        if(error == -1){
            JOptionPane.showMessageDialog(this, "Padre de Categoria no existe", "Error", HEIGHT);

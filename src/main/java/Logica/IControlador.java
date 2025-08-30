@@ -20,7 +20,11 @@ public interface IControlador {
     
     List<String> getUsuariosProponentes();
     
+    List<String> getUsuariosColaboradores();
+    
     DataProponente consultaDeProponente(String NickName);
+    
+    DataColaborador consultaDeColaborador(String NickName);
     
     List<String> getSeguidos(String seguidor);
     
@@ -36,7 +40,7 @@ public interface IControlador {
     
     int altaPropuesta(String nick, String tipo, String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual, String imagen);
     
-    int modificarPropuesta(String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, String posibleRetorno, String estado, String imagen);
+    int modificarPropuesta(String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, String posibleRetorno, String estado, String imagen, String categoria);
     
     DefaultMutableTreeNode getRaizArbolCat();
     
@@ -55,4 +59,8 @@ public interface IControlador {
     DataAporte getDataAporte(String tituloNick, String nick);
     
     void borrarAporte(String tituloNick, String nick);
+    
+    boolean existeTitulo(String titulo);
+    
+    List<String> getColabsProp(String titulo);
 }

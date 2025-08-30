@@ -279,7 +279,10 @@
     <Component class="javax.swing.JSpinner" name="spinnerFecNac">
       <Properties>
         <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-          <SpinnerModel initial="1104544800000" maximum="now" minimum="-2208975309000" stepSize="5" type="date"/>
+          <SpinnerModel initial="1104544800000" stepSize="5" type="date"/>
+        </Property>
+        <Property name="editor" type="javax.swing.JComponent" editor="org.netbeans.modules.form.editors.SpinnerEditorEditor">
+          <SpinnerEditor format="d/M/yyyy" type="1"/>
         </Property>
       </Properties>
     </Component>

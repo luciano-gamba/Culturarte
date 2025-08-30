@@ -72,5 +72,8 @@ public class Aporte {
         return retorno;
     }
     
+    public Colaborador getColaborador(){
+        return miColaborador;
+    }
     
 }

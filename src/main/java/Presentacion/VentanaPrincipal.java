@@ -27,7 +27,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menuSeguir = new javax.swing.JMenuItem();
         menuDejarSeguir = new javax.swing.JMenuItem();
         subMenuConsultaPerfil = new javax.swing.JMenu();
-        menuConsultaProp = new javax.swing.JMenuItem();
+        menuConsultaProponente = new javax.swing.JMenuItem();
         menuConsultaCola = new javax.swing.JMenuItem();
         menuPropuestas = new javax.swing.JMenu();
         menuAltaProp = new javax.swing.JMenuItem();
@@ -84,15 +84,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         subMenuConsultaPerfil.setText("Consulta Perfil");
 
-        menuConsultaProp.setText("Consulta perfil proponente");
-        menuConsultaProp.addActionListener(new java.awt.event.ActionListener() {
+        menuConsultaProponente.setText("Consulta perfil proponente");
+        menuConsultaProponente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuConsultaPropActionPerformed(evt);
+                menuConsultaProponenteActionPerformed(evt);
             }
         });
-        subMenuConsultaPerfil.add(menuConsultaProp);
+        subMenuConsultaPerfil.add(menuConsultaProponente);
 
         menuConsultaCola.setText("Consulta perfil colaborador");
+        menuConsultaCola.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuConsultaColaActionPerformed(evt);
+            }
+        });
         subMenuConsultaPerfil.add(menuConsultaCola);
 
         menuPerfil.add(subMenuConsultaPerfil);
@@ -191,19 +196,25 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void menuConsultaPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsultaPropActionPerformed
-        this.ICPP = new InterConsultaPerfilProponente(this.ic);
-        this.Desktop.add(ICPP);
-        ICPP.show();
-    }//GEN-LAST:event_menuConsultaPropActionPerformed
+    private void menuConsultaProponenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsultaProponenteActionPerformed
+        if(this.ICPP == null || ICPP.isClosed()){
+            ICPP = new InterConsultaPerfilProponente(this.ic);
+            this.Desktop.add(ICPP);
+            ICPP.show();
+        
+        }
+    }//GEN-LAST:event_menuConsultaProponenteActionPerformed
 
     private void menuAltaUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAltaUsuarioActionPerformed
         // TODO add your handling code here:
-        
-        InterAltaUsuario IAU = new InterAltaUsuario(this.ic);
-        this.Desktop.add(IAU);
-        IAU.show();
-        
+        if(this.IAU == null || IAU.isClosed()){
+            IAU = new InterAltaUsuario(this.ic);
+            this.Desktop.add(IAU);
+            IAU.show();
+            int x = (this.getWidth() - IAU.getWidth())/2;
+            int y = (this.getHeight() - IAU.getHeight())/2;
+            IAU.setLocation(x, y-50);
+        }
     }//GEN-LAST:event_menuAltaUsuarioActionPerformed
 
     private void menuConsultaPropuEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsultaPropuEstActionPerformed
@@ -244,31 +255,33 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuConsultarColaActionPerformed
     private void menuAltaCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAltaCategoriaActionPerformed
         // TODO add your handling code here:
-        
-        InterAltaCategoria IAC = new InterAltaCategoria(this.ic);
-        this.Desktop.add(IAC);
-        IAC.show();
+        if(this.IAC == null || IAC.isClosed()){
+            IAC = new InterAltaCategoria(this.ic);
+            this.Desktop.add(IAC);
+            IAC.show();
+        }
         
     }//GEN-LAST:event_menuAltaCategoriaActionPerformed
     private void menuAltaPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAltaPropActionPerformed
         // TODO add your handling code here:
-        if(this.IAP == null){
+        if(this.IAP == null || this.IAP.isClosed() ){
             IAP = new InterAltaPropuesta(ic);
             this.Desktop.add(IAP);
             IAP.show();
-        }else if(!this.IAP.abierto()){
-            IAP = new InterAltaPropuesta(ic);
-            this.Desktop.add(IAP);
-            IAP.show();
+        
         }
     }//GEN-LAST:event_menuAltaPropActionPerformed
 
     private void menuSeguirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSeguirActionPerformed
         // TODO add your handling code here:
-        
-        InterSeguirUsuario ISU = new InterSeguirUsuario(this.ic);
-        this.Desktop.add(ISU);
-        ISU.show();
+        if(this.ISU == null || ISU.isClosed()){
+            ISU = new InterSeguirUsuario(this.ic);
+            this.Desktop.add(ISU);
+            ISU.show();
+            int x = (this.getWidth() - ISU.getWidth())/2;
+            int y = (this.getHeight() - ISU.getHeight())/2;
+            ISU.setLocation(x, y-50);
+        }
     }//GEN-LAST:event_menuSeguirActionPerformed
     private void menuConsultaPropuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsultaPropuActionPerformed
         // TODO add your handling code here:
@@ -285,17 +298,27 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void menuDejarSeguirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDejarSeguirActionPerformed
         // TODO add your handling code here:
-        
-        InterDejarSeguir IDS = new InterDejarSeguir(this.ic);
-        this.Desktop.add(IDS);
-        IDS.show();
+        if(this.IDS == null || IDS.isClosed()){
+            IDS = new InterDejarSeguir(this.ic);
+            this.Desktop.add(IDS);
+            IDS.show();
+            int x = (this.getWidth() - IDS.getWidth())/2;
+            int y = (this.getHeight() - IDS.getHeight())/2;
+            IDS.setLocation(x, y-75);
+        }
     }//GEN-LAST:event_menuDejarSeguirActionPerformed
 
     private void menuModificarPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuModificarPropActionPerformed
         // TODO add your handling code here:
-        InterModificarPropuesta IMP = new InterModificarPropuesta(this.ic);
-        this.Desktop.add(IMP);
-        IMP.show();
+        if(this.IMP == null || IMP.isClosed()){
+            InterModificarPropuesta IMP = new InterModificarPropuesta(this.ic);
+            this.Desktop.add(IMP);
+            IMP.show();
+            //consigue largo y ancho de ventana principal
+            int x = (this.getWidth() - IMP.getWidth())/2;
+            int y = (this.getHeight() - IMP.getHeight())/2;
+            IMP.setLocation(x, y-30);
+        }
     }//GEN-LAST:event_menuModificarPropActionPerformed
 
     private void menuCancelarColaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCancelarColaActionPerformed
@@ -308,6 +331,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 javax.swing.JOptionPane.showMessageDialog(this, "Se requieren Colaboradores y Propuestas ingresadas para acceder", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
             }
     }//GEN-LAST:event_menuCancelarColaActionPerformed
+    private void menuConsultaColaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsultaColaActionPerformed
+        if(this.ICPC == null || ICPC.isClosed()){
+            ICPC = new InterConsultaPerfilColaborador(this.ic);
+            this.Desktop.add(ICPC);
+            ICPC.show();    
+        }
+    }//GEN-LAST:event_menuConsultaColaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -347,9 +377,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private InterAltaPropuesta IAP;
     private InterRegistrarCola IRC;
     private InterConsultaCola ICC;
+    private InterAltaCategoria IAC;
     private InterCancelarCola ICrC;
     private InterConsultaXEstado ICE;
-  
+    private InterConsultaPerfilColaborador ICPC;
+    private InterAltaUsuario IAU;
+    private InterSeguirUsuario ISU;
+    private InterDejarSeguir IDS;
+    private InterModificarPropuesta IMP;
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane Desktop;
     private javax.swing.JMenu jMenu1;
@@ -359,7 +395,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuAltaUsuario;
     private javax.swing.JMenuItem menuCancelarCola;
     private javax.swing.JMenuItem menuConsultaCola;
-    private javax.swing.JMenuItem menuConsultaProp;
+    private javax.swing.JMenuItem menuConsultaProponente;
     private javax.swing.JMenuItem menuConsultaPropu;
     private javax.swing.JMenuItem menuConsultaPropuEst;
     private javax.swing.JMenuItem menuConsultarCola;

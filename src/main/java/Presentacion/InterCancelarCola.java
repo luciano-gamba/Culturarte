@@ -39,7 +39,7 @@ public class InterCancelarCola extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
 
         setClosable(true);
-        setTitle("Consulta de Colaboración a Propuesta");
+        setTitle("Cancelar Colaboración a Propuesta");
         setPreferredSize(new java.awt.Dimension(500, 400));
 
         jLabel2.setText("Seleccione una Propuesta : ");
