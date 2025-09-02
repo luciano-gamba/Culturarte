@@ -76,11 +76,12 @@ public class InterConsultaPerfilColaborador extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setPreferredSize(new java.awt.Dimension(700, 500));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane1.setRequestFocusEnabled(false);
 
-        jLabel1.setText("Seleccione el Usuario Proponente a consultar:");
+        jLabel1.setText("Seleccione el Usuario Colaborador a consultar:");
 
         ColaboradorCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccionar--" }));
         ColaboradorCombo.addActionListener(new java.awt.event.ActionListener() {
@@ -227,16 +228,7 @@ public class InterConsultaPerfilColaborador extends javax.swing.JInternalFrame {
 
         jScrollPane1.setViewportView(jPanel1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, 460));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

@@ -37,7 +37,7 @@ public class UtilArbol {
         Enumeration<?> hijos = raizCategorias.children();
         while(hijos.hasMoreElements()){
             DefaultMutableTreeNode hijo = (DefaultMutableTreeNode) hijos.nextElement();
-            nodoCategoria.add(construirArbolConPropuestas(hijo));
+            nodoCategoria.add(construirArbolCategorias(hijo));
         }
         return nodoCategoria;
     }

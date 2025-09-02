@@ -366,6 +366,7 @@ public class Controlador implements IControlador{
             
         Propuesta nuevaProp = new Propuesta(c, prop, titulo, descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada), Double.parseDouble(montoNecesario), posibleRetorno, fechaActual);
         misPropuestas.add(nuevaProp);
+        c.agregarPropuesta(nuevaProp);
             
         return 1;
         
@@ -403,6 +404,7 @@ public class Controlador implements IControlador{
             Propuesta nuevaProp = new Propuesta(c, prop, titulo, descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada), Double.parseDouble(montoNecesario), posibleRetorno, fechaActual, imagen);
             misPropuestas.add(nuevaProp);
             prop.agregarPropuesta(nuevaProp); //Cambio añadido por Lucas para poder listar Propuestas del proponente
+            c.agregarPropuesta(nuevaProp);
             return 1;
         } else {
             return 0;
@@ -417,7 +419,12 @@ public class Controlador implements IControlador{
             if(p.getTitulo().equals(titulo)){
                 DefaultMutableTreeNode newCat = this.arbolCategorias.buscar(categoria);
                 Categoria c = (Categoria) newCat.getUserObject();
+                Categoria catAnterior = (Categoria)arbolCategorias.buscar(p.getCategoria()).getUserObject();
+                catAnterior.sacarPropuesta(p);
+                
                 p.modificarPropuesta(descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada),Double.parseDouble(montoNecesario), posibleRetorno, estado, imagen, c);
+                
+                c.agregarPropuesta(p);
                 return 0;
             }
         }

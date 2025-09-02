@@ -33,8 +33,11 @@ public class Colaborador extends Usuario {
     
     public List<DataPropuesta> getPropuestas(){
         List<DataPropuesta> listaPropuestasColas = new ArrayList<>();
+        DataPropuesta DP;
         for(Aporte a: misAportes){
-            listaPropuestasColas.add(a.getPropuesta());
+            DP = a.getPropuesta();
+            if(DP != null)
+                listaPropuestasColas.add(a.getPropuesta());
         }
         return listaPropuestasColas;
     }

@@ -59,8 +59,7 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
         
         this.setTitle("Alta Propuesta");
         
-        DefaultMutableTreeNode nodoRaiz = ic.getRaizArbolCat();
-        DefaultTreeModel modeloArbol = new DefaultTreeModel(nodoRaiz);
+        DefaultTreeModel modeloArbol = new DefaultTreeModel(UtilArbol.construirArbolConPropuestas(ic.getRaizArbolCat()));
         
         this.ArbolDeCategorias.setModel(modeloArbol);
         this.ArbolDeCategorias.expandRow(0);

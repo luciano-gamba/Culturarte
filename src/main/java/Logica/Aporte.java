@@ -76,6 +76,9 @@ public class Aporte {
         return miColaborador;
     }
     public DataPropuesta getPropuesta(){
-        return new DataPropuesta(miPropuesta.getAlcanzada() ,miPropuesta.getTitulo(), miPropuesta.getEstadoActual(),miPropuesta.getLugar(),miPropuesta.getProponente().getNickname());
+        if(miPropuesta!=null){
+            return new DataPropuesta(miPropuesta.getAlcanzada() ,miPropuesta.getTitulo(), miPropuesta.getEstadoActual(),miPropuesta.getLugar(),miPropuesta.getProponente().getNickname());
+        }
+        return null;
     }
 }

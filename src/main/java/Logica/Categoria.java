@@ -14,10 +14,6 @@ public class Categoria {
         return this.nombre;
     }
     
-    public String toString(){
-        return this.nombre;
-    }
-    
     public List<Propuesta> getPropuestas(){
         return misPropuestas;
     }
