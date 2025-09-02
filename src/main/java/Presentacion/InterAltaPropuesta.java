@@ -59,8 +59,7 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
         
         this.setTitle("Alta Propuesta");
         
-        DefaultMutableTreeNode nodoRaiz = ic.getRaizArbolCat();
-        DefaultTreeModel modeloArbol = new DefaultTreeModel(nodoRaiz);
+        DefaultTreeModel modeloArbol = new DefaultTreeModel(UtilArbol.construirArbolConPropuestas(ic.getRaizArbolCat()));
         
         this.ArbolDeCategorias.setModel(modeloArbol);
         this.ArbolDeCategorias.expandRow(0);
@@ -299,7 +298,7 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void formComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentHidden
         // TODO add your handling code here:
        

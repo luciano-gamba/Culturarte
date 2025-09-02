@@ -1,6 +1,8 @@
 package Logica;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 
@@ -12,7 +14,7 @@ public class Proponente extends Usuario {
     String direccion;
     String biografia = "";
     String sitioWeb = "";
-    
+    List<Propuesta> misPropuestas;
     public Proponente() {
         
     }
@@ -22,6 +24,7 @@ public class Proponente extends Usuario {
         this.direccion = direccion;
         this.biografia = biografia;
         this.sitioWeb = sitioWeb;
+        this.misPropuestas = new ArrayList<>();
     }
 
     public String getDireccion() {
@@ -47,6 +50,10 @@ public class Proponente extends Usuario {
     public void setSitioWeb(String sitioWeb) {
         this.sitioWeb = sitioWeb;
     }
-    
-    
+    public void agregarPropuesta(Propuesta nuevaProp){
+        this.misPropuestas.add(nuevaProp);
+    }
+    public List<Propuesta> getPropuestas(){
+        return this.misPropuestas;
+    }   
 }

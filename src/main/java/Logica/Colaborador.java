@@ -5,16 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
-
 @Entity
 @PrimaryKeyJoinColumn(name = "nickname")
 public class Colaborador extends Usuario {
     
     private List<Aporte> misAportes = new ArrayList<>();
-    
-    public Colaborador(){
-        
-    }
     
     public Colaborador(String nickname, String email, String nombre, String apellido, LocalDate fecNac, String imagen) {
         super(nickname, email, nombre, apellido, fecNac, imagen);
@@ -34,6 +29,18 @@ public class Colaborador extends Usuario {
         return a;
     }
     
+    
+    
+    public List<DataPropuesta> getPropuestas(){
+        List<DataPropuesta> listaPropuestasColas = new ArrayList<>();
+        DataPropuesta DP;
+        for(Aporte a: misAportes){
+            DP = a.getPropuesta();
+            if(DP != null)
+                listaPropuestasColas.add(a.getPropuesta());
+        }
+        return listaPropuestasColas;
+    }
     public List<String> getTituloPropuestas(){
         List<String> listaPropuestas = new ArrayList<>();
         for(Aporte a: this.misAportes){

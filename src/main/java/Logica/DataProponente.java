@@ -5,6 +5,7 @@
 package Logica;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  *
@@ -20,7 +21,7 @@ public class DataProponente {
     String direccion;
     String biografia = "";
     String sitioWeb = "";
-
+    List<DataPropuesta> misPropuestas;
     public DataProponente(String nickname,String nombre, String apellido,String email,LocalDate fecNac, String imagen,String direccion, String biografia, String sitioWeb) {
         this.nickname = nickname;
         this.nombre = nombre;
@@ -31,6 +32,18 @@ public class DataProponente {
         this.direccion = direccion;
         this.biografia = biografia;
         this.sitioWeb = sitioWeb;
+    }
+     public DataProponente(String nickname,String nombre, String apellido,String email,LocalDate fecNac, String imagen,String direccion, String biografia, String sitioWeb,List<DataPropuesta> propuestas) {
+        this.nickname = nickname;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.email = email;
+        this.fecNac = fecNac;
+        this.imagen = imagen;
+        this.direccion = direccion;
+        this.biografia = biografia;
+        this.sitioWeb = sitioWeb;
+        this.misPropuestas = propuestas;
     }
     public String getNickname() {
         return this.nickname;
@@ -65,5 +78,7 @@ public class DataProponente {
     public String getSitioWeb() {
         return this.sitioWeb;
     }
-    
+    public List<DataPropuesta> getPropuestas(){
+        return this.misPropuestas;
+    }
 }
