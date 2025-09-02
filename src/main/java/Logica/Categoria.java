@@ -1,6 +1,8 @@
 package Logica;
 
-public class Categoria {
+import java.io.Serializable;
+
+public class Categoria implements Serializable {
     private final String nombre;
     
     

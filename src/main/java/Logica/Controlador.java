@@ -84,46 +84,46 @@ public class Controlador implements IControlador{
         Boolean nickExiste = false;
         Boolean correoExiste = false;
         
-        for(Usuario u : misUsuarios){
-            if(u.getNickname().equals(nickNuevo)){
-                nickExiste = true;
-                break;
-            }
-        }
-        
-        for(Usuario u : misUsuarios){
-            if(u.getEmail().equals(correoNuevo)){
-                correoExiste = true;
-                break;
-            }
-        }
-
-        //con persistencia
-//        ArrayList<Usuario> listaUsuarios = cp.getListaUsuarios();
-//        
-//        for(Usuario u : listaUsuarios){
+//        for(Usuario u : misUsuarios){
 //            if(u.getNickname().equals(nickNuevo)){
 //                nickExiste = true;
 //                break;
 //            }
 //        }
 //        
-//        for(Usuario u : listaUsuarios){
+//        for(Usuario u : misUsuarios){
 //            if(u.getEmail().equals(correoNuevo)){
 //                correoExiste = true;
 //                break;
 //            }
 //        }
+
+        //con persistencia
+        ArrayList<Usuario> listaUsuarios = cp.getListaUsuarios();
+        
+        for(Usuario u : listaUsuarios){
+            if(u.getNickname().equals(nickNuevo)){
+                nickExiste = true;
+                break;
+            }
+        }
+        
+        for(Usuario u : listaUsuarios){
+            if(u.getEmail().equals(correoNuevo)){
+                correoExiste = true;
+                break;
+            }
+        }
         
         if(nickExiste == true || correoExiste == true){
             System.out.println("ERROR: Nickname o Correo existen en el sistema!");
             return 0;
         }else{
             Proponente propNuevo = new Proponente(direccion, bio, sitioWeb, nick, correo, nombre, apellido, fecNac, imagen);
-            misUsuarios.add(propNuevo);
-            misProponentes.add(propNuevo);
+//            misUsuarios.add(propNuevo);
+//            misProponentes.add(propNuevo);
 //            persistencia
-//            cp.añadirUsuario(propNuevo);
+            cp.añadirUsuario(propNuevo);
             return 1;
         }
     }
@@ -176,7 +176,7 @@ public class Controlador implements IControlador{
             }
         }
                 
-        if($aporte > miPropuesta.get$necesaria() || $aporte > miPropuesta.get$necesaria()-miPropuesta.get$alcanzada()){
+        if($aporte > miPropuesta.getmontoNecesaria() || $aporte > miPropuesta.getmontoNecesaria()-miPropuesta.getmontoAlcanzada()){
             return -2;//ERROR: Aporte superior a lo permitido
         }
         
@@ -234,11 +234,20 @@ public class Controlador implements IControlador{
     @Override
     public List<String> getUsuariosProponentes() {
         List<String> listaNombres = new ArrayList<>();
+//        String aux;
+//        for(Proponente p : misProponentes){
+//            aux = p.getNickname();
+//            listaNombres.add(aux);
+//        }
+        
+        
+        ArrayList<Proponente> listaProponentes = cp.getListaProponentes();
         String aux;
-        for(Proponente p : misProponentes){
+        for(Proponente p : listaProponentes){
             aux = p.getNickname();
             listaNombres.add(aux);
         }
+        
         return listaNombres;
     }
     @Override
@@ -335,37 +344,36 @@ public class Controlador implements IControlador{
     @Override
     public int altaPropuesta(String nick, String tipo, String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual){
         
-        Proponente prop = null;
+//        Proponente prop = null;
+//        
+//        for (Proponente p : misProponentes) {
+//            if (p.getNickname().equalsIgnoreCase(nick)) {
+//                prop = p;
+//                break;
+//            }
+//        }
+//        
+        //persistencia
         
-        for (Proponente p : misProponentes) {
-            if (p.getNickname().equalsIgnoreCase(nick)) {
-                prop = p;
-                break;
-            }
-        }
+        Proponente prop = cp.buscarProponente(nick);
         
         DefaultMutableTreeNode newCat = arbolCategorias.buscar(tipo);
+//        
+//        if (newCat == null) {
+//            // NO SE ENCONTRO LA CATEGORIA o PUSO "CATEGORIA"
+//            return 0;
+//        }
         
-        if (newCat == null) {
-            // NO SE ENCONTRO LA CATEGORIA o PUSO "CATEGORIA"
-            return 0;
-        }
-        
-        if(tipo.equals("Categoria")){
-            return -1;
-        }
+//        if(tipo.equals("Categoria")){
+//            return -1;
+//        }
         
         Categoria c = (Categoria) newCat.getUserObject();
-        
-        for (Proponente p : misProponentes) {
-            if (p.getNickname().equalsIgnoreCase(nick)) {
-                prop = p;
-                break;
-            }
-        }
             
         Propuesta nuevaProp = new Propuesta(c, prop, titulo, descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada), Double.parseDouble(montoNecesario), posibleRetorno, fechaActual);
-        misPropuestas.add(nuevaProp);
+//        misPropuestas.add(nuevaProp);
+          cp.añadirEstado(nuevaProp.getEstadoActual());
+          cp.añadirPropuesta(nuevaProp);
             
         return 1;
         
@@ -467,7 +475,7 @@ public class Controlador implements IControlador{
        
         for (Propuesta p : misPropuestas) {
             if (p.getTitulo_Nickname().equalsIgnoreCase(titulo_nick)) {
-                DP = new DataPropuesta(p.getTitulo(), p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.get$alcanzada(), p.getFechaARealizar(), p.getRetorno(), p.getCategoria());
+                DP = new DataPropuesta(p.getTitulo(), p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getmontoAlcanzada(), p.getFechaARealizar(), p.getRetorno(), p.getCategoria());
                 return DP;
             }
         }

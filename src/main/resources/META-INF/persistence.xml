@@ -5,6 +5,8 @@
     <class>Logica.Usuario</class>
     <class>Logica.Proponente</class>
     <class>Logica.Colaborador</class>
+    <class>Logica.Propuesta</class>
+    <class>Logica.Estado</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mariadb://localhost:3306/culturarte?serverTimezone=UTC"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
