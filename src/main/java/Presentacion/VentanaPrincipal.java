@@ -10,6 +10,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public VentanaPrincipal(IControlador ic) {
         this.ic = ic;
         initComponents();
+        try {
+            javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     private VentanaPrincipal() {
@@ -232,7 +237,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void menuRegistrarColaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRegistrarColaActionPerformed
        
-            if ((this.IRC == null || this.IRC.isClosed()) && !ic.getColaboradores().isEmpty() && !ic.getPropuestas_Proponentes().isEmpty()) {
+            if ((this.IRC == null || this.IRC.isClosed()) && !ic.getColaboradores().isEmpty() /*&& !ic.getPropuestas_Proponentes().isEmpty()*/) {
                 IRC = new InterRegistrarCola(ic);
                 this.Desktop.add(IRC);
                 IRC.setLocation(30, 50);

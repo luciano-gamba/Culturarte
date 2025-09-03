@@ -1,15 +1,46 @@
 package Logica;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-public class Categoria {
-    private final String nombre;
+@Entity
+@Table (name="Categoria")
+public class Categoria implements Serializable {
+    @Id
+    private String nombre;
+    
+    @OneToMany(mappedBy = "c")
     private List<Propuesta> misPropuestas = new ArrayList();
+    @OneToOne(mappedBy = "c")
+    private Propuesta propuesta;
+
+    public Categoria() {
+        
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    
+    
     
     public Categoria(String nomCat){
         this.nombre = nomCat;
-    }    
+    }  
+    
+    
+    
     public String getNombreCat(){
         return this.nombre;
     }
@@ -28,4 +59,7 @@ public class Categoria {
         //luego pienso bien en la logica asi lo termino practicamente implementando yo 
         misPropuestas.remove(prop);
     }
+    
+    
+    
 }

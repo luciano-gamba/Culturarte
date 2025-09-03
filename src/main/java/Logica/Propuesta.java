@@ -31,12 +31,14 @@ public class Propuesta implements Serializable {
     //@JoinColumn(name = "ESTADOACTUAL_NUMERACION")
     private Estado estadoActual;
     //@ManyToOne
+    @OneToMany(mappedBy = "miPropuesta")
     private List<Aporte> misAportes = new ArrayList<>();
     @OneToMany//(mappedBy = "propuesta")
     @JoinColumn(name = "idEstado")
     public List<Estado> misEstados = new ArrayList<>();//A CAMBIAR
     @ManyToOne
     private Proponente miProponente;
+    @ManyToOne
     private Categoria c;
     
     public Propuesta(){

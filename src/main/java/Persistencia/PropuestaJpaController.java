@@ -144,6 +144,13 @@ public class PropuestaJpaController implements Serializable {
         } finally {
             em.close();
         }
+    }    
+    public List<String> getPropuestaByProponente(){
+        
+        //INUTIL E IMPOSIBLE
+        
+        EntityManager em = getEntityManager();
+        Query query = em.createQuery("SELECT CONCAT(p.titulo , ' by ' ,p.miProponente) AS lista from Propuesta p");
+        return query.getResultList();               
     }
-    
 }

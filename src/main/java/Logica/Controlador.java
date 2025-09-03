@@ -31,37 +31,37 @@ public class Controlador implements IControlador{
         Boolean nickExiste = false;
         Boolean correoExiste = false;
         
+        //con memoria local
+//        for(Usuario u : misUsuarios){
+//            if(u.getNickname().equals(nickNuevo)){
+//                nickExiste = true;
+//                break;
+//            }
+//        }
+//        
+//        for(Usuario u : misUsuarios){
+//            if(u.getEmail().equals(correoNuevo)){
+//                correoExiste = true;
+//                break;
+//            }
+//        }
         
-        for(Usuario u : misUsuarios){
+        //con peristencia
+        ArrayList<Usuario> listaUsuarios = cp.getListaUsuarios();
+        
+        for(Usuario u : listaUsuarios){
             if(u.getNickname().equals(nickNuevo)){
                 nickExiste = true;
                 break;
             }
         }
         
-        for(Usuario u : misUsuarios){
+        for(Usuario u : listaUsuarios){
             if(u.getEmail().equals(correoNuevo)){
                 correoExiste = true;
                 break;
             }
         }
-        
-        //con peristencia
-//        ArrayList<Usuario> listaUsuarios = cp.getListaUsuarios();
-//        
-//        for(Usuario u : listaUsuarios){
-//            if(u.getNickname().equals(nickNuevo)){
-//                nickExiste = true;
-//                break;
-//            }
-//        }
-        
-//        for(Usuario u : listaUsuarios){
-//            if(u.getEmail().equals(correoNuevo)){
-//                correoExiste = true;
-//                break;
-//            }
-//        }
         
         if(nickExiste == true || correoExiste == true){
             System.out.println("ERROR: Nickname o Correo existen en el sistema!");
@@ -69,9 +69,9 @@ public class Controlador implements IControlador{
         }else{
             Colaborador colaNuevo = new Colaborador(nick, correo, nombre, apellido, fecNac, imagen);
             misUsuarios.add(colaNuevo);
-            misColaboradores.add(colaNuevo);
+//            misColaboradores.add(colaNuevo);
 //            peristencia
-//            cp.añadirUsuario(colaNuevo);
+            cp.añadirUsuario(colaNuevo);
             
             return 1;
         }
@@ -84,6 +84,7 @@ public class Controlador implements IControlador{
         Boolean nickExiste = false;
         Boolean correoExiste = false;
         
+        //con memoria local
 //        for(Usuario u : misUsuarios){
 //            if(u.getNickname().equals(nickNuevo)){
 //                nickExiste = true;
@@ -136,7 +137,6 @@ public class Controlador implements IControlador{
             return -2;
         }
         arbolCategorias.insertar("Categoria",nueva);
-        
         return 0;
     }
     
@@ -158,39 +158,62 @@ public class Controlador implements IControlador{
     
     @Override
     public int altaAporte(String strmiColaborador, String strmiPropuesta,  double $aporte, int cantidad, EnumRetorno retorno){
+        //CON MEMORIA LOCAL
+//        Propuesta miPropuesta = null;
+//        Colaborador miColaborador = null;                
+//        for (Colaborador c : misColaboradores){
+//            if(c.getNickname().equals(strmiColaborador)){
+//                miColaborador = c;
+//                break;
+//            }
+//        }        
+//        for (Propuesta p : misPropuestas) {
+//            if (p.getTitulo_Nickname().equals(strmiPropuesta)) {
+//                miPropuesta = p;
+//                break;        
+//            }
+//        }                
+//        if($aporte > miPropuesta.getmontoNecesaria() || $aporte > miPropuesta.getmontoNecesaria()-miPropuesta.getmontoAlcanzada()){
+//            return -2;//ERROR: Aporte superior a lo permitido
+//        }        
+//        if (miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno) == null) {
+//            return -3;  //Error: El usuario ya colabora con la Propuesta
+//        }         
+//        if (miPropuesta.getPosibleRetorno()!=EnumRetorno.AMBOS && miPropuesta.getPosibleRetorno()!=retorno){
+//            return -4; //Error: Retorno no valido en esta Propuesta
+//        }        
+//        Aporte a = miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno);
+//        miPropuesta.addAporte(a);
+//        return 0; //PROPUESTA AGREGADA CORRECTAMENTE  
         
+        //CON PERSISTENCIA
         Propuesta miPropuesta = null;
-        Colaborador miColaborador = null;
-                
-        for (Colaborador c : misColaboradores){
+        Colaborador miColaborador = null;                
+        for (Colaborador c : cp.getColaboradores()){
             if(c.getNickname().equals(strmiColaborador)){
                 miColaborador = c;
                 break;
             }
-        }
-        
-        for (Propuesta p : misPropuestas) {
+        }        
+        for (Propuesta p : cp.getListaPropuestas()) {
             if (p.getTitulo_Nickname().equals(strmiPropuesta)) {
                 miPropuesta = p;
                 break;        
             }
-        }
-                
+        }                
         if($aporte > miPropuesta.getmontoNecesaria() || $aporte > miPropuesta.getmontoNecesaria()-miPropuesta.getmontoAlcanzada()){
             return -2;//ERROR: Aporte superior a lo permitido
-        }
-        
+        }        
         if (miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno) == null) {
             return -3;  //Error: El usuario ya colabora con la Propuesta
-        } 
-        
+        }         
         if (miPropuesta.getPosibleRetorno()!=EnumRetorno.AMBOS && miPropuesta.getPosibleRetorno()!=retorno){
             return -4; //Error: Retorno no valido en esta Propuesta
-        }
-        
+        }        
         Aporte a = miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno);
         miPropuesta.addAporte(a);
-        return 0; //PROPUESTA AGREGADA CORRECTAMENTE        
+        cp.añadirAporte(a);
+        return 0; //PROPUESTA AGREGADA CORRECTAMENTE  
     }
     
     @Override
@@ -215,17 +238,30 @@ public class Controlador implements IControlador{
     
      @Override
     public List<String> getColaboradores() {
-        List<String> lista = new ArrayList<>();
-        for(Colaborador c : misColaboradores){
-            lista.add(c.getNickname());
-        }
-        return lista;
+        
+        //MEMORIA LOCAL
+//        List<String> lista = new ArrayList<>();
+//        for(Colaborador c : misColaboradores){
+//            lista.add(c.getNickname());
+//        }
+//        return lista;
+        
+        //CON PERSISTENCIA
+        return cp.getNickColaboradores();
     }
     
     @Override
     public List<String> getPropuestas_Proponentes() {
+        //MEMORIA LOCAL
+//        List<String> lista = new ArrayList<>();
+//        for(Propuesta p : misPropuestas){
+//            lista.add(p.getTitulo_Nickname());
+//        }
+//        return lista;
+        
+        //CON PERSISTENCIA 
         List<String> lista = new ArrayList<>();
-        for(Propuesta p : misPropuestas){
+        for(Propuesta p : cp.getListaPropuestas()){
             lista.add(p.getTitulo_Nickname());
         }
         return lista;
@@ -469,17 +505,26 @@ public class Controlador implements IControlador{
     
     @Override
     public DataPropuesta getDataPropuesta(String titulo_nick){
+        //CON MEMORIA LOCAL
+//        DataPropuesta DP = null;
+//        for (Propuesta p : misPropuestas) {
+//            if (p.getTitulo_Nickname().equalsIgnoreCase(titulo_nick)) {
+//                DP = new DataPropuesta(p.getTitulo(), p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getmontoAlcanzada(), p.getFechaARealizar(), p.getRetorno(), p.getCategoria());
+//                return DP;
+//            }
+//        }
+//        return DP;
         
+        //CON PERSISTENCIA
         DataPropuesta DP = null;
-        
-       
-        for (Propuesta p : misPropuestas) {
+        for (Propuesta p : cp.getListaPropuestas()) {
             if (p.getTitulo_Nickname().equalsIgnoreCase(titulo_nick)) {
                 DP = new DataPropuesta(p.getTitulo(), p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getmontoAlcanzada(), p.getFechaARealizar(), p.getRetorno(), p.getCategoria());
                 return DP;
             }
         }
         return DP;
+        
     }
     
     @Override
