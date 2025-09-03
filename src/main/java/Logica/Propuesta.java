@@ -32,14 +32,16 @@ public class Propuesta implements Serializable {
     //@JoinColumn(name = "ESTADOACTUAL_NUMERACION")
     private Estado estadoActual;
     //@ManyToOne
-    //JoinTable seguro, como en misEstados
+    @OneToMany(mappedBy = "miPropuesta")
     private List<Aporte> misAportes = new ArrayList<>();
     @OneToMany//(mappedBy = "propuesta")
     @JoinTable(name = "ListaEstados", joinColumns = @JoinColumn(name = "tituloPropuesta"), inverseJoinColumns = @JoinColumn(name = "numeracionEstado"))
     public List<Estado> misEstados = new ArrayList<>();//A CAMBIAR
     @ManyToOne
     private Proponente miProponente;
-    private Categoria c;
+    @ManyToOne
+    @JoinColumn(name = "nombre_Categoria")
+    private Categoria categoria;
     
     public Propuesta(){
     }
@@ -78,7 +80,7 @@ public class Propuesta implements Serializable {
         
         this.estadoActual = estado;
         this.misEstados.add(estado);
-        this.c = c;
+        this.categoria = c;
 
     }
     
@@ -97,7 +99,7 @@ public class Propuesta implements Serializable {
         
         this.estadoActual = estado;
         this.misEstados.add(estado);
-        this.c = c;
+        this.categoria = c;
         
         this.imagen = imagen;
 
@@ -125,7 +127,7 @@ public class Propuesta implements Serializable {
         
         this.imagen = imagen;
         
-        this.c = c;
+        this.categoria = c;
     }
     
      public String getTitulo_Nickname(){
@@ -208,9 +210,11 @@ public class Propuesta implements Serializable {
     }
     
     public String getCategoria(){
-        return this.c.getNombreCat();
+        return this.categoria.getNombre();
     }
-    
+    public Categoria getCategoriaClase(){
+        return this.categoria;
+    }
     public Double getAlcanzada(){
         return this.montoAlcanzada;
     }

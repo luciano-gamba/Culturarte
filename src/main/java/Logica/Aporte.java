@@ -1,18 +1,38 @@
 package Logica;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-public class Aporte {
+
+
+@Entity
+@Table(name="Aporte")
+public class Aporte implements Serializable {
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+    @ManyToOne
+    @JoinColumn(name = "titulo")
     private Propuesta miPropuesta;
+    @ManyToOne
+    @JoinColumn(name = "nickname")
     private Colaborador miColaborador;
     private double $aporte;
     private LocalDateTime fechaHora;
     private int cantidad;
     private EnumRetorno retorno;
+
+    public Aporte() {
+    }
     
     
   
-
     public Aporte(Colaborador miColaborador, double $aporte, int cantidad, EnumRetorno retorno) {
             
         this.miColaborador = miColaborador;
@@ -81,4 +101,15 @@ public class Aporte {
         }
         return null;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    
+    
 }

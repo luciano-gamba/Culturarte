@@ -42,7 +42,8 @@ public interface IControlador {
     
     int modificarPropuesta(String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, String posibleRetorno, String estado, String imagen, String categoria);
     
-    DefaultMutableTreeNode getRaizArbolCat();
+    DefaultMutableTreeNode cargarNodoRaizCategorias();
+    
     
     List<String> getPropuestas();
     
@@ -63,4 +64,6 @@ public interface IControlador {
     boolean existeTitulo(String titulo);
     
     List<String> getColabsProp(String titulo);
+    
+    boolean seleccionaCategoria(String categoria);
 }

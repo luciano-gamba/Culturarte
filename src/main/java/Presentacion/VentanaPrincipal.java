@@ -10,6 +10,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public VentanaPrincipal(IControlador ic) {
         this.ic = ic;
         initComponents();
+        try {
+            javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     private VentanaPrincipal() {

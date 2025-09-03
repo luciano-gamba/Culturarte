@@ -347,6 +347,7 @@ public class InterConsultaXEstado extends javax.swing.JInternalFrame {
         if(!titulo.equals("--Seleccionar--")){
             listaAportesColab = ic.getColabsProp(titulo);
             
+            this.modelo.setRowCount(0);
             this.tablaColabx.setModel(modelo);
             
             for (String s : listaAportesColab) {

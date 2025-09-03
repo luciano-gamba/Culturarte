@@ -6,36 +6,49 @@ import java.util.Enumeration;
 
 public class ArbolCategorias {
 
-    private DefaultMutableTreeNode raiz;
+    private Categoria raizCategoria;
     
-    public ArbolCategorias(Categoria categoriaRaiz){
-        this.raiz = new DefaultMutableTreeNode(categoriaRaiz);
+    public ArbolCategorias(Categoria raiz){
+        this.raizCategoria = raiz;
     }
     
-    public DefaultMutableTreeNode getRaiz(){
-        return raiz;
+    public Categoria getRaizCategoria(){
+        return raizCategoria;
     }
     
-    public DefaultMutableTreeNode buscar(String nombre){
-        Enumeration<?> enumeration = raiz.breadthFirstEnumeration();
-        while(enumeration.hasMoreElements()){
-            DefaultMutableTreeNode nodo = (DefaultMutableTreeNode) enumeration.nextElement();
-            Categoria cat = (Categoria) nodo.getUserObject();
-            if(cat.getNombreCat().equalsIgnoreCase(nombre)){ //Cambio en .equals por .equalsIgnoreCase asi no pueden haber dos categorias que se diferencien por mayus
-                return nodo;
+    public Categoria buscarCategoria(String nombre){
+        return buscarRecursivo(raizCategoria,nombre);
+    }
+    public Categoria buscarRecursivo(Categoria actual, String nombre){
+        if(actual.getNombre().equalsIgnoreCase(nombre)){
+            return actual;
+        }
+        for(Categoria hija: actual.getHijas()){
+            Categoria encontrada = buscarRecursivo(hija,nombre);
+            if(encontrada != null){
+                return encontrada;
             }
-    
         }
         return null;
     }
-    
-    public void insertar(String nombrePadre,Categoria hijo){
-        DefaultMutableTreeNode padre = buscar(nombrePadre);
+    public void insertarCategoria(String nombrePadre, Categoria hija){
+        Categoria padre = buscarCategoria(nombrePadre);
         if(padre != null){
-            padre.add(new DefaultMutableTreeNode(hijo));
-        } else{
+            padre.getHijas().add(hija);
+            hija.setPadre(padre);
+        }else{
             System.out.println("No se encontró el padre: " + nombrePadre);
         }
     }
     
+    public DefaultMutableTreeNode generarNodoJTree(){
+        return generarNodoRecursivo(raizCategoria);
+    }
+    private DefaultMutableTreeNode generarNodoRecursivo(Categoria cat){
+        DefaultMutableTreeNode nodo = new DefaultMutableTreeNode(cat);
+        for(Categoria hija: cat.getHijas()){
+            nodo.add(generarNodoRecursivo(hija));
+        }
+        return nodo;
+    }
 }

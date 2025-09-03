@@ -3,6 +3,7 @@ package Logica;
 import Persistencia.ControladoraPersistencia;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -13,13 +14,9 @@ public class Controlador implements IControlador{
     public List<Proponente> misProponentes = new ArrayList<>();
     public List<Colaborador> misColaboradores = new ArrayList<>();
     public List<Propuesta> misPropuestas = new ArrayList<>();
-    private final ArbolCategorias arbolCategorias;
     
     public Controlador() {
-        this.arbolCategorias = new ArbolCategorias(new Categoria("Categoria"));
-    //La letra dice que la raiz siempre es "Categoria" 
-    //probablemente tenga que cambiarlo para evitar repetidos o errores al conectar con la BD
-    
+        
     }
     
     ControladoraPersistencia cp = new ControladoraPersistencia();
@@ -31,37 +28,37 @@ public class Controlador implements IControlador{
         Boolean nickExiste = false;
         Boolean correoExiste = false;
         
+        //con memoria local
+//        for(Usuario u : misUsuarios){
+//            if(u.getNickname().equals(nickNuevo)){
+//                nickExiste = true;
+//                break;
+//            }
+//        }
+//        
+//        for(Usuario u : misUsuarios){
+//            if(u.getEmail().equals(correoNuevo)){
+//                correoExiste = true;
+//                break;
+//            }
+//        }
         
-        for(Usuario u : misUsuarios){
+        //con peristencia
+        ArrayList<Usuario> listaUsuarios = cp.getListaUsuarios();
+        
+        for(Usuario u : listaUsuarios){
             if(u.getNickname().equals(nickNuevo)){
                 nickExiste = true;
                 break;
             }
         }
         
-        for(Usuario u : misUsuarios){
+        for(Usuario u : listaUsuarios){
             if(u.getEmail().equals(correoNuevo)){
                 correoExiste = true;
                 break;
             }
         }
-        
-        //con peristencia
-//        ArrayList<Usuario> listaUsuarios = cp.getListaUsuarios();
-//        
-//        for(Usuario u : listaUsuarios){
-//            if(u.getNickname().equals(nickNuevo)){
-//                nickExiste = true;
-//                break;
-//            }
-//        }
-        
-//        for(Usuario u : listaUsuarios){
-//            if(u.getEmail().equals(correoNuevo)){
-//                correoExiste = true;
-//                break;
-//            }
-//        }
         
         if(nickExiste == true || correoExiste == true){
             System.out.println("ERROR: Nickname o Correo existen en el sistema!");
@@ -69,9 +66,9 @@ public class Controlador implements IControlador{
         }else{
             Colaborador colaNuevo = new Colaborador(nick, correo, nombre, apellido, fecNac, imagen);
             misUsuarios.add(colaNuevo);
-            misColaboradores.add(colaNuevo);
+//            misColaboradores.add(colaNuevo);
 //            peristencia
-//            cp.añadirUsuario(colaNuevo);
+            cp.añadirUsuario(colaNuevo);
             
             return 1;
         }
@@ -84,6 +81,7 @@ public class Controlador implements IControlador{
         Boolean nickExiste = false;
         Boolean correoExiste = false;
         
+        //con memoria local
 //        for(Usuario u : misUsuarios){
 //            if(u.getNickname().equals(nickNuevo)){
 //                nickExiste = true;
@@ -129,68 +127,155 @@ public class Controlador implements IControlador{
     }
     @Override
     public int altaCategoria(String nombreCat){
-        Categoria nueva = new Categoria(nombreCat);
-        
-        DefaultMutableTreeNode nuevaCat = arbolCategorias.buscar(nombreCat);
-        if(nuevaCat != null){
-            return -2;
+        if(cp.findCategoria(nombreCat) != null){
+            return -2; //ya existe esta categoria
         }
-        arbolCategorias.insertar("Categoria",nueva);
         
-        return 0;
+        Categoria padre = cp.findCategoria("Categoria");
+        if(padre==null){
+            padre = new Categoria("Categoria");
+            cp.createCategoria(padre);
+        }
+        Categoria nueva = new Categoria(nombreCat);
+        nueva.setPadre(padre);
+        padre.getHijas().add(nueva);
+        
+        try {
+            cp.createCategoria(nueva);
+        } catch (Exception e){
+            e.printStackTrace();
+            return -3; //Error de persistencia
+        }
+        return 0; //Funciono
     }
     
     @Override
     public int altaCategoria(String nombreCat,String nombrePadreCat){
+       if(cp.findCategoria(nombreCat) != null){
+            return -2; //ya existe esta categoria
+        }
+       Categoria padre = cp.findCategoria(nombrePadreCat);
+        if(padre == null){
+            if(nombrePadreCat.equals("Categoria")){
+                padre = new Categoria("Categoria");
+                cp.createCategoria(padre);
+            } else{
+                return -1; //Padre no existe
+            }    
+        }
         Categoria nueva = new Categoria(nombreCat);
-        DefaultMutableTreeNode padre = arbolCategorias.buscar(nombrePadreCat);
-        if(padre==null){
-            return -1;
+        nueva.setPadre(padre);
+        padre.getHijas().add(nueva);
+        
+        try {
+            cp.createCategoria(nueva);
+        } catch (Exception e){
+            e.printStackTrace();
+            return -3; //Error de persistencia
         }
-        DefaultMutableTreeNode nuevaCat = arbolCategorias.buscar(nombreCat);
-        if(nuevaCat != null){
-            return -2;
-        }
-        arbolCategorias.insertar(nombrePadreCat,nueva);
             
         return 0;
     }
-    
+ 
+    public DefaultMutableTreeNode cargarNodoRaizCategorias(){
+        List<Categoria> todas = cp.listarCategorias();
+        
+        Categoria raizCat = cp.findCategoria("Categoria");
+        if(raizCat == null){
+            raizCat = new Categoria("Categoria");
+            cp.createCategoria(raizCat);
+        }
+        
+        DefaultMutableTreeNode nodoRaiz = new DefaultMutableTreeNode(raizCat);
+        
+        for(Categoria cat : todas){
+            if(!cat.getNombre().equalsIgnoreCase("Categoria")){
+                DefaultMutableTreeNode nodo = new DefaultMutableTreeNode(cat);
+                Categoria padre = cat.getPadre();
+                if(padre == null){
+                    nodoRaiz.add(nodo);
+                }else{
+                    DefaultMutableTreeNode nodoPadre = buscarNodo(nodoRaiz, padre.getNombre());
+                    if(nodoPadre != null){
+                        nodoPadre.add(nodo);
+                    }else{
+                        nodoRaiz.add(nodo);
+                    }
+                }
+                        
+            }
+        }
+        return nodoRaiz;
+    }
+    private DefaultMutableTreeNode buscarNodo(DefaultMutableTreeNode raiz, String nombre){
+        Enumeration<?> en = raiz.breadthFirstEnumeration();
+        while(en.hasMoreElements()){
+            DefaultMutableTreeNode nodo = (DefaultMutableTreeNode) en.nextElement();
+            Categoria cat = (Categoria) nodo.getUserObject();
+            if(cat.getNombre().equalsIgnoreCase(nombre)){
+                return nodo;
+            }
+        }
+        return null;
+    }
     @Override
     public int altaAporte(String strmiColaborador, String strmiPropuesta,  double $aporte, int cantidad, EnumRetorno retorno){
+        //CON MEMORIA LOCAL
+//        Propuesta miPropuesta = null;
+//        Colaborador miColaborador = null;                
+//        for (Colaborador c : misColaboradores){
+//            if(c.getNickname().equals(strmiColaborador)){
+//                miColaborador = c;
+//                break;
+//            }
+//        }        
+//        for (Propuesta p : misPropuestas) {
+//            if (p.getTitulo_Nickname().equals(strmiPropuesta)) {
+//                miPropuesta = p;
+//                break;        
+//            }
+//        }                
+//        if($aporte > miPropuesta.getmontoNecesaria() || $aporte > miPropuesta.getmontoNecesaria()-miPropuesta.getmontoAlcanzada()){
+//            return -2;//ERROR: Aporte superior a lo permitido
+//        }        
+//        if (miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno) == null) {
+//            return -3;  //Error: El usuario ya colabora con la Propuesta
+//        }         
+//        if (miPropuesta.getPosibleRetorno()!=EnumRetorno.AMBOS && miPropuesta.getPosibleRetorno()!=retorno){
+//            return -4; //Error: Retorno no valido en esta Propuesta
+//        }        
+//        Aporte a = miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno);
+//        miPropuesta.addAporte(a);
+//        return 0; //PROPUESTA AGREGADA CORRECTAMENTE  
         
+        //CON PERSISTENCIA
         Propuesta miPropuesta = null;
-        Colaborador miColaborador = null;
-                
-        for (Colaborador c : misColaboradores){
+        Colaborador miColaborador = null;                
+        for (Colaborador c : cp.getColaboradores()){
             if(c.getNickname().equals(strmiColaborador)){
                 miColaborador = c;
                 break;
             }
-        }
-        
-        for (Propuesta p : misPropuestas) {
+        }        
+        for (Propuesta p : cp.getListaPropuestas()) {
             if (p.getTitulo_Nickname().equals(strmiPropuesta)) {
                 miPropuesta = p;
                 break;        
             }
-        }
-                
+        }                
         if($aporte > miPropuesta.getmontoNecesaria() || $aporte > miPropuesta.getmontoNecesaria()-miPropuesta.getmontoAlcanzada()){
             return -2;//ERROR: Aporte superior a lo permitido
-        }
-        
+        }        
         if (miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno) == null) {
             return -3;  //Error: El usuario ya colabora con la Propuesta
-        } 
-        
+        }         
         if (miPropuesta.getPosibleRetorno()!=EnumRetorno.AMBOS && miPropuesta.getPosibleRetorno()!=retorno){
             return -4; //Error: Retorno no valido en esta Propuesta
-        }
-        
+        }        
         Aporte a = miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno);
         miPropuesta.addAporte(a);
-        return 0; //PROPUESTA AGREGADA CORRECTAMENTE        
+        cp.añadirAporte(a);
+        return 0; //PROPUESTA AGREGADA CORRECTAMENTE  
     }
     
     @Override
@@ -215,17 +300,30 @@ public class Controlador implements IControlador{
     
      @Override
     public List<String> getColaboradores() {
-        List<String> lista = new ArrayList<>();
-        for(Colaborador c : misColaboradores){
-            lista.add(c.getNickname());
-        }
-        return lista;
+        
+        //MEMORIA LOCAL
+//        List<String> lista = new ArrayList<>();
+//        for(Colaborador c : misColaboradores){
+//            lista.add(c.getNickname());
+//        }
+//        return lista;
+        
+        //CON PERSISTENCIA
+        return cp.getNickColaboradores();
     }
     
     @Override
     public List<String> getPropuestas_Proponentes() {
+        //MEMORIA LOCAL
+//        List<String> lista = new ArrayList<>();
+//        for(Propuesta p : misPropuestas){
+//            lista.add(p.getTitulo_Nickname());
+//        }
+//        return lista;
+        
+        //CON PERSISTENCIA 
         List<String> lista = new ArrayList<>();
-        for(Propuesta p : misPropuestas){
+        for(Propuesta p : cp.getListaPropuestas()){
             lista.add(p.getTitulo_Nickname());
         }
         return lista;
@@ -357,9 +455,9 @@ public class Controlador implements IControlador{
         
         Proponente prop = cp.buscarProponente(nick);
         
-        DefaultMutableTreeNode newCat = arbolCategorias.buscar(tipo);
-//        
-//        if (newCat == null) {
+        Categoria c  = cp.findCategoria(tipo);
+//        Se buscan las categorias directamente en la BD ahora
+//        if (c  == null) {
 //            // NO SE ENCONTRO LA CATEGORIA o PUSO "CATEGORIA"
 //            return 0;
 //        }
@@ -368,13 +466,12 @@ public class Controlador implements IControlador{
 //            return -1;
 //        }
         
-        Categoria c = (Categoria) newCat.getUserObject();
             
         Propuesta nuevaProp = new Propuesta(c, prop, titulo, descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada), Double.parseDouble(montoNecesario), posibleRetorno, fechaActual);
 //        misPropuestas.add(nuevaProp);
           cp.añadirEstado(nuevaProp.getEstadoActual());
           cp.añadirPropuesta(nuevaProp);
-            
+            //Agregar propuesta a esa categoria directamente lo hare con persistencia antes seria c.agregarPropuesta(nuevaProp);
         return 1;
         
     }
@@ -382,39 +479,51 @@ public class Controlador implements IControlador{
     @Override
     public int altaPropuesta(String nick, String tipo, String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual, String imagen){
         
-        Proponente prop = null;
+//        Proponente prop = null;
+//        
+//        boolean encontrado = false;
+//        for (Proponente p : misProponentes) {
+//            if (p.getNickname().equalsIgnoreCase(nick)) {
+//                encontrado = true;
+//                prop = p;
+//                break;
+//            }
+//        }
+//        
+//        Categoria c = cp.findCategoria(tipo); ESTO NO TENDRIA PORQUE ESTAR ACA xd
+//        //Ya se busca directamente en la BD el arbol categoria no tendra los
+//        //datos
+//        if (c == null) {
+//            // NO SE ENCONTRO LA CATEGORIA o PUSO "CATEGORIA"
+//            return 0;
+//        }
+//        
+//        if(tipo.equals("Categoria")){
+//            return -1;
+//        }
+//        
+//        
+//        if (encontrado) {
+//            
+//            Propuesta nuevaProp = new Propuesta(c, prop, titulo, descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada), Double.parseDouble(montoNecesario), posibleRetorno, fechaActual, imagen);
+//            misPropuestas.add(nuevaProp);
+//            //Agregar propuesta a esa categoria directamente lo hare con persistencia antes seria c.agregarPropuesta(nuevaProp);
+//            return 1;
+//        } else {
+//            return 0;
+//        }
         
-        boolean encontrado = false;
-        for (Proponente p : misProponentes) {
-            if (p.getNickname().equalsIgnoreCase(nick)) {
-                encontrado = true;
-                prop = p;
-                break;
-            }
-        }
+        //PERSISTENCIA
+        Proponente prop = cp.buscarProponente(nick);
         
-        DefaultMutableTreeNode newCat = arbolCategorias.buscar(tipo);
+        Categoria c  = cp.findCategoria(tipo);
         
-        if (newCat == null) {
-            // NO SE ENCONTRO LA CATEGORIA o PUSO "CATEGORIA"
-            return 0;
-        }
-        
-        if(tipo.equals("Categoria")){
-            return -1;
-        }
-        
-        Categoria c = (Categoria) newCat.getUserObject();
-        
-        if (encontrado) {
-            
-            Propuesta nuevaProp = new Propuesta(c, prop, titulo, descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada), Double.parseDouble(montoNecesario), posibleRetorno, fechaActual, imagen);
-            misPropuestas.add(nuevaProp);
-            
-            return 1;
-        } else {
-            return 0;
-        }
+        Propuesta nuevaProp = new Propuesta(c, prop, titulo, descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada), Double.parseDouble(montoNecesario), posibleRetorno, fechaActual, imagen);
+//        misPropuestas.add(nuevaProp);
+          cp.añadirEstado(nuevaProp.getEstadoActual());
+          cp.añadirPropuesta(nuevaProp);
+            //Agregar propuesta a esa categoria directamente lo hare con persistencia antes seria c.agregarPropuesta(nuevaProp);
+        return 1;
     }
    
     
@@ -423,9 +532,13 @@ public class Controlador implements IControlador{
         
         for(Propuesta p : this.misPropuestas){
             if(p.getTitulo().equals(titulo)){
-                DefaultMutableTreeNode newCat = this.arbolCategorias.buscar(categoria);
-                Categoria c = (Categoria) newCat.getUserObject();
+                Categoria c = cp.findCategoria(categoria);
+                //Ya se busca directamente en la BD el arbol categoria no tendra los
+                 //datos
+                
+                //Quitar esta propuesta de la categoria que la apuntaba (por el caso de cambio de categoria) hacerlo directo con persistencia
                 p.modificarPropuesta(descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada),Double.parseDouble(montoNecesario), posibleRetorno, estado, imagen, c);
+                //Agregar propuesta a esa categoria directamente lo hare con persistencia antes seria c.agregarPropuesta(nuevaProp);
                 return 0;
             }
         }
@@ -433,53 +546,75 @@ public class Controlador implements IControlador{
     }
 
     
-    @Override
-    public DefaultMutableTreeNode getRaizArbolCat(){ //Con esto accedo a la raiz del arbol de categorias
-        //para poder crear el JTree
-        return this.arbolCategorias.getRaiz();
-    }
-    
+   
     @Override
     public List<String> getPropuestas() {
-        List<String> listaPropuestas = new ArrayList<>();
-        String aux;
-        for(Propuesta p : misPropuestas){
-            aux = p.getTitulo();
-            listaPropuestas.add(aux);
-        }
-        return listaPropuestas;
+//        List<String> listaPropuestas = new ArrayList<>();
+//        String aux;
+//        for(Propuesta p : misPropuestas){
+//            aux = p.getTitulo();
+//            listaPropuestas.add(aux);
+//        }
+//        return listaPropuestas;
+          
+
+          //PERSISTENCIA
+          List<String> listaPropuestas = new ArrayList<>();
+          String aux;
+          for (Propuesta p : cp.getListaPropuestas()) {
+              aux = p.getTitulo();
+              listaPropuestas.add(aux); 
+            }
+          return listaPropuestas;
     }
     
     @Override
     public DataPropuesta consultaDePropuesta(String titulo){
         
+//        DataPropuesta DP = null;
+//        
+//        for (Propuesta p : misPropuestas) {
+//            if (p.getTitulo().equalsIgnoreCase(titulo)) {
+//                DP = new DataPropuesta(titulo, p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getAlcanzada() , p.getFechaARealizar(), p.getRetorno(), p.getCategoria());
+//                return DP;
+//            }
+//        }
+//        return DP;
+        
+        //PERSISTENCIA
+        
+        Propuesta p = cp.buscarPropuesta(titulo);
+        
         DataPropuesta DP = null;
         
-        boolean encontrado = false;
-        for (Propuesta p : misPropuestas) {
-            if (p.getTitulo().equalsIgnoreCase(titulo)) {
-                encontrado = true;
-                DP = new DataPropuesta(titulo, p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getAlcanzada() , p.getFechaARealizar(), p.getRetorno(), p.getCategoria());
-                return DP;
-            }
-        }
+        DP = new DataPropuesta(p.getTitulo(), p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getAlcanzada() , p.getFechaARealizar(), p.getRetorno(), p.getCategoria());
         
         return DP;
+        
     }
     
     @Override
     public DataPropuesta getDataPropuesta(String titulo_nick){
+        //CON MEMORIA LOCAL
+//        DataPropuesta DP = null;
+//        for (Propuesta p : misPropuestas) {
+//            if (p.getTitulo_Nickname().equalsIgnoreCase(titulo_nick)) {
+//                DP = new DataPropuesta(p.getTitulo(), p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getmontoAlcanzada(), p.getFechaARealizar(), p.getRetorno(), p.getCategoria());
+//                return DP;
+//            }
+//        }
+//        return DP;
         
+        //CON PERSISTENCIA
         DataPropuesta DP = null;
-        
-       
-        for (Propuesta p : misPropuestas) {
+        for (Propuesta p : cp.getListaPropuestas()) {
             if (p.getTitulo_Nickname().equalsIgnoreCase(titulo_nick)) {
                 DP = new DataPropuesta(p.getTitulo(), p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getmontoAlcanzada(), p.getFechaARealizar(), p.getRetorno(), p.getCategoria());
                 return DP;
             }
         }
         return DP;
+        
     }
     
     @Override
@@ -487,11 +622,15 @@ public class Controlador implements IControlador{
         
         DataProponente DProp = null;
         
-        boolean encontrado = false;
         for (Proponente p : misProponentes) {
             if (p.getNickname().equals(NickName)) {
-                encontrado = true;
-                DProp = new DataProponente(NickName, p.getNombre(),p.getApellido(),p.getEmail(),p.getFecNac(),p.getImagen(),p.getDireccion(),p.getBiografia(),p.getSitioWeb());
+                List<DataPropuesta> propuestasDe = new ArrayList<>();
+                DataPropuesta dataProp;
+                for(Propuesta prop : p.getPropuestas()){
+                    dataProp = new DataPropuesta(prop.getAlcanzada(),prop.getTitulo(),prop.getEstadoActual(),prop.getLugar());
+                    propuestasDe.add(dataProp);
+                }
+                DProp = new DataProponente(NickName, p.getNombre(),p.getApellido(),p.getEmail(),p.getFecNac(),p.getImagen(),p.getDireccion(),p.getBiografia(),p.getSitioWeb(),propuestasDe);
                 return DProp;
             }
         }
@@ -504,11 +643,9 @@ public class Controlador implements IControlador{
         
         DataColaborador DCola = null;
         
-        boolean encontrado = false;
         for (Colaborador c : misColaboradores) {
             if (c.getNickname().equals(NickName)) {
-                encontrado = true;
-                DCola = new DataColaborador(NickName, c.getNombre(),c.getApellido(),c.getEmail(),c.getFecNac(),c.getImagen());
+                DCola = new DataColaborador(NickName, c.getNombre(),c.getApellido(),c.getEmail(),c.getFecNac(),c.getImagen(),c.getPropuestas());
                 return DCola;
             }
         }
@@ -527,9 +664,21 @@ public class Controlador implements IControlador{
     
     @Override
     public List<String> getPropXEstado(String estado){
+//        List<String> listaPropuestas = new ArrayList<>();
+//        String aux;
+//        for(Propuesta p : misPropuestas){
+//            aux = p.getTitulo();
+//            if(p.getEstadoActual().getEstado().toString().equalsIgnoreCase(estado)){
+//                listaPropuestas.add(aux);
+//            }
+//        }
+//        return listaPropuestas;
+        
+        //PERSISTENCIA
+        
         List<String> listaPropuestas = new ArrayList<>();
         String aux;
-        for(Propuesta p : misPropuestas){
+        for(Propuesta p : cp.getListaPropuestas()){
             aux = p.getTitulo();
             if(p.getEstadoActual().getEstado().toString().equalsIgnoreCase(estado)){
                 listaPropuestas.add(aux);
@@ -540,8 +689,16 @@ public class Controlador implements IControlador{
     
     @Override
     public List<String> getPropuestasXColaborador(String colab){
+        //CON MEMEORIA LOCAL
+//        for(Colaborador c : this.misColaboradores){
+//            if(colab.equals(c.getNickname())){
+//                return c.getTituloPropuestas();
+//            }
+//        }   
+//        return null;
         
-        for(Colaborador c : this.misColaboradores){
+        //CON PERSISTENCIA
+        for(Colaborador c : cp.getColaboradores()){
             if(colab.equals(c.getNickname())){
                 return c.getTituloPropuestas();
             }
@@ -551,7 +708,16 @@ public class Controlador implements IControlador{
     
     @Override
     public DataAporte getDataAporte(String tituloNick, String nick){
-        for(Colaborador c : misColaboradores){
+        //CON MEMEORIA LOCAL
+//        for(Colaborador c : misColaboradores){
+//            if(nick.equals(c.getNickname())){
+//                return c.getDataAporte(tituloNick);
+//            }
+//        }
+//        return null;
+        
+        //CON PERSISTENCIA
+        for(Colaborador c : cp.getColaboradores()){
             if(nick.equals(c.getNickname())){
                 return c.getDataAporte(tituloNick);
             }
@@ -561,7 +727,16 @@ public class Controlador implements IControlador{
     
     @Override
     public void borrarAporte(String tituloNick, String nick){
-        for(Colaborador c : misColaboradores){
+        //CON MEMEORIA LOCAL
+//        for(Colaborador c : misColaboradores){
+//            if(nick.equals(c.getNickname())){
+//                c.borrarAporte(tituloNick);
+//                break;
+//            }
+//        }
+        
+        //CON PERSISTENCIA
+        for(Colaborador c : cp.getColaboradores()){
             if(nick.equals(c.getNickname())){
                 c.borrarAporte(tituloNick);
                 break;
@@ -573,7 +748,7 @@ public class Controlador implements IControlador{
     public boolean existeTitulo(String titulo){
         
         boolean encontrado = false;
-        for (Propuesta p : misPropuestas) {
+        for (Propuesta p : cp.getListaPropuestas()) {
             if (p.getTitulo().equalsIgnoreCase(titulo)) {
                 encontrado = true;
             }
@@ -584,21 +759,39 @@ public class Controlador implements IControlador{
     
     @Override
     public List<String> getColabsProp(String titulo){
+//        List<String> listaColabProp = new ArrayList<>();
+//        Propuesta prop = null;
+//        double aporte$;
+//        Colaborador c = null;
+//        String aporteColab;
+//        
+//        for (Propuesta p : misPropuestas) {
+//            if (p.getTitulo().equalsIgnoreCase(titulo)) {
+//                prop = p;
+//            }
+//        } // pa encontrar la propuesta
+//        
+//        if (prop == null) {
+//            return listaColabProp;
+//        }
+//        
+//        for (Aporte a : prop.getAportes()) {
+//            aporte$ = a.get$aporte();
+//            c = a.getColaborador();
+//            
+//            aporteColab = c.getNickname() + "\t" + aporte$;
+//            listaColabProp.add(aporteColab);
+//        }
+//        
+//        return listaColabProp;
+        
+        //PERSISTENCIA
+        
         List<String> listaColabProp = new ArrayList<>();
-        Propuesta prop = null;
+        Propuesta prop = cp.buscarPropuesta(titulo);
         double aporte$;
         Colaborador c = null;
         String aporteColab;
-        
-        for (Propuesta p : misPropuestas) {
-            if (p.getTitulo().equalsIgnoreCase(titulo)) {
-                prop = p;
-            }
-        } // pa encontrar la propuesta
-        
-        if (prop == null) {
-            return listaColabProp;
-        }
         
         for (Aporte a : prop.getAportes()) {
             aporte$ = a.get$aporte();
@@ -609,5 +802,17 @@ public class Controlador implements IControlador{
         }
         
         return listaColabProp;
+    }
+    
+    public boolean seleccionaCategoria(String categoria){
+        boolean encontrado = false;
+        
+        for (Propuesta p : cp.getListaPropuestas()) {
+            if (p.getCategoria().equalsIgnoreCase(categoria)) {
+                encontrado = true;
+            }
+        }
+        
+        return encontrado;
     }
 }
