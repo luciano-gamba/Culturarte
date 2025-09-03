@@ -1,34 +1,58 @@
 package Logica;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-public class Propuesta {
-    private final String titulo;
-    private String desc;
-    private String imagen;
+
+@Entity
+@Table(name="Propuesta")
+public class Propuesta implements Serializable {
+    @Id
+    private String titulo;
+    private String descrip;
+    private String imagen = "";
     private String lugar;
     private LocalDate fecha;
-    private double $entrada;
-    private double $necesaria;
-    private double $alcanzada = 0;
+    private double montoEntrada;
+    private double montoNecesaria;
+    private double montoAlcanzada = 0;
     private LocalDate fechaPubli;
     private EnumRetorno posibleRetorno;
+    @OneToOne
+    //@JoinColumn(name = "ESTADOACTUAL_NUMERACION")
     private Estado estadoActual;
+    //@ManyToOne
+    @OneToMany(mappedBy = "miPropuesta")
     private List<Aporte> misAportes = new ArrayList<>();
+    @OneToMany//(mappedBy = "propuesta")
+    @JoinColumn(name = "idEstado")
     public List<Estado> misEstados = new ArrayList<>();//A CAMBIAR
-    private final Proponente miProponente;
-    private Categoria c;
+    @ManyToOne
+    private Proponente miProponente;
+    @ManyToOne
+    @JoinColumn(name = "nombre_Categoria")
+    private Categoria categoria;
+    
+    public Propuesta(){
+    }
     
     public Propuesta(Proponente prop, String titulo, String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual) {
         this.miProponente = prop;
         this.titulo = titulo;
-        this.desc = descripcion;
+        this.descrip = descripcion;
         this.lugar = lugar;
         this.fechaPubli = fechaPrev;
-        this.$entrada = montoXentrada;
-        this.$necesaria = montoNecesario;
+        this.montoEntrada = montoXentrada;
+        this.montoNecesaria = montoNecesario;
         this.posibleRetorno = posibleRetorno;
         this.fecha = fechaActual;
         
@@ -43,11 +67,11 @@ public class Propuesta {
     public Propuesta(Categoria c,Proponente prop, String titulo, String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual) {
         this.miProponente = prop;
         this.titulo = titulo;
-        this.desc = descripcion;
+        this.descrip = descripcion;
         this.lugar = lugar;
         this.fechaPubli = fechaPrev;
-        this.$entrada = montoXentrada;
-        this.$necesaria = montoNecesario;
+        this.montoEntrada = montoXentrada;
+        this.montoNecesaria = montoNecesario;
         this.posibleRetorno = posibleRetorno;
         this.fecha = fechaActual;
         
@@ -55,18 +79,18 @@ public class Propuesta {
         
         this.estadoActual = estado;
         this.misEstados.add(estado);
-        this.c = c;
+        this.categoria = c;
 
     }
     
     public Propuesta(Categoria c, Proponente prop, String titulo, String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual, String imagen) {
         this.miProponente = prop;
         this.titulo = titulo;
-        this.desc = descripcion;
+        this.descrip = descripcion;
         this.lugar = lugar;
         this.fechaPubli = fechaPrev;
-        this.$entrada = montoXentrada;
-        this.$necesaria = montoNecesario;
+        this.montoEntrada = montoXentrada;
+        this.montoNecesaria = montoNecesario;
         this.posibleRetorno = posibleRetorno;
         this.fecha = fechaActual;
         
@@ -74,18 +98,18 @@ public class Propuesta {
         
         this.estadoActual = estado;
         this.misEstados.add(estado);
-        this.c = c;
+        this.categoria = c;
         
         this.imagen = imagen;
 
     }
     
     public void modificarPropuesta(String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, String posibleRetorno, String estado, String imagen, Categoria c){
-        this.desc = descripcion;
+        this.descrip = descripcion;
         this.lugar = lugar;
         this.fechaPubli = fechaPrev;
-        this.$entrada = montoXentrada;
-        this.$necesaria = montoNecesario;
+        this.montoEntrada = montoXentrada;
+        this.montoNecesaria = montoNecesario;
         
         EnumRetorno retorno;
         switch(posibleRetorno){
@@ -102,19 +126,19 @@ public class Propuesta {
         
         this.imagen = imagen;
         
-        this.c = c;
+        this.categoria = c;
     }
     
      public String getTitulo_Nickname(){
         return this.titulo+" by "+this.miProponente.getNickname();
     }
 
-    public double get$necesaria() {
-        return $necesaria;
+    public double getmontoNecesaria() {
+        return montoNecesaria;
     }
 
-    public double get$alcanzada() {
-        return $alcanzada;
+    public double getmontoAlcanzada() {
+        return montoAlcanzada;
     }
 
     public String getTitulo() {
@@ -128,11 +152,11 @@ public class Propuesta {
     public void addAporte(Aporte a){
         misAportes.add(a);
         a.setMiPropuesta(this);
-        $alcanzada+=a.get$aporte();
+        montoAlcanzada+=a.get$aporte();
     }
     
     public void desvincularAporte(Aporte a){
-        this.$alcanzada-=a.get$aporte();
+        this.montoAlcanzada-=a.get$aporte();
         this.misAportes.remove(a);
     }
     
@@ -153,7 +177,7 @@ public class Propuesta {
     }
     
     public String getDescripcion(){
-        return this.desc;
+        return this.descrip;
     }
     
     public String getLugar(){
@@ -161,11 +185,11 @@ public class Propuesta {
     }
     
     public Double getEntrada(){
-        return this.$entrada;
+        return this.montoEntrada;
     }
     
     public Double getNecesaria(){
-        return this.$necesaria;
+        return this.montoNecesaria;
     }
     
     public EnumRetorno getRetorno(){
@@ -185,11 +209,13 @@ public class Propuesta {
     }
     
     public String getCategoria(){
-        return this.c.getNombreCat();
+        return this.categoria.getNombre();
     }
-    
+    public Categoria getCategoriaClase(){
+        return this.categoria;
+    }
     public Double getAlcanzada(){
-        return this.$alcanzada;
+        return this.montoAlcanzada;
     }
     
 }

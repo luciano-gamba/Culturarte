@@ -21,7 +21,7 @@ public class InterModificarPropuestaCategoria extends javax.swing.JInternalFrame
     public InterModificarPropuestaCategoria(IControlador ic, InterModificarPropuesta intFrame) {
         initComponents();
         this.intFrame = intFrame;
-        DefaultMutableTreeNode nodoRaiz = ic.getRaizArbolCat();
+        DefaultMutableTreeNode nodoRaiz = ic.cargarNodoRaizCategorias();
         DefaultTreeModel modeloArbol = new DefaultTreeModel(UtilArbol.construirArbolConPropuestas(nodoRaiz));
         
         this.jTreeCategoria.setModel(modeloArbol);

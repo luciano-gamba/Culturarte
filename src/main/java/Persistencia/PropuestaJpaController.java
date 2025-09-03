@@ -1,6 +1,10 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package Persistencia;
 
-import Logica.Colaborador;
+import Logica.Propuesta;
 import Persistencia.exceptions.NonexistentEntityException;
 import Persistencia.exceptions.PreexistingEntityException;
 import java.io.Serializable;
@@ -15,15 +19,15 @@ import javax.persistence.criteria.Root;
 
 /**
  *
- * @author mafiu
+ * @author nahud
  */
-public class ColaboradorJpaController implements Serializable {
+public class PropuestaJpaController implements Serializable {
 
-    public ColaboradorJpaController(EntityManagerFactory emf) {
+    public PropuestaJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     
-    public ColaboradorJpaController(){
+    public PropuestaJpaController(){
         this.emf = Persistence.createEntityManagerFactory("CulturartePU");
     }
     
@@ -33,16 +37,16 @@ public class ColaboradorJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Colaborador colaborador) throws PreexistingEntityException, Exception {
+    public void create(Propuesta propuesta) throws PreexistingEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(colaborador);
+            em.persist(propuesta);
             em.getTransaction().commit();
         } catch (Exception ex) {
-            if (findColaborador(colaborador.getNickname()) != null) {
-                throw new PreexistingEntityException("Colaborador " + colaborador + " already exists.", ex);
+            if (findPropuesta(propuesta.getTitulo()) != null) {
+                throw new PreexistingEntityException("Propuesta " + propuesta + " already exists.", ex);
             }
             throw ex;
         } finally {
@@ -52,19 +56,19 @@ public class ColaboradorJpaController implements Serializable {
         }
     }
 
-    public void edit(Colaborador colaborador) throws NonexistentEntityException, Exception {
+    public void edit(Propuesta propuesta) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            colaborador = em.merge(colaborador);
+            propuesta = em.merge(propuesta);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                String id = colaborador.getNickname();
-                if (findColaborador(id) == null) {
-                    throw new NonexistentEntityException("The colaborador with id " + id + " no longer exists.");
+                String id = propuesta.getTitulo();
+                if (findPropuesta(id) == null) {
+                    throw new NonexistentEntityException("The propuesta with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -80,14 +84,14 @@ public class ColaboradorJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Colaborador colaborador;
+            Propuesta propuesta;
             try {
-                colaborador = em.getReference(Colaborador.class, id);
-                colaborador.getNickname();
+                propuesta = em.getReference(Propuesta.class, id);
+                propuesta.getTitulo();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The colaborador with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The propuesta with id " + id + " no longer exists.", enfe);
             }
-            em.remove(colaborador);
+            em.remove(propuesta);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -96,19 +100,19 @@ public class ColaboradorJpaController implements Serializable {
         }
     }
 
-    public List<Colaborador> findColaboradorEntities() {
-        return findColaboradorEntities(true, -1, -1);
+    public List<Propuesta> findPropuestaEntities() {
+        return findPropuestaEntities(true, -1, -1);
     }
 
-    public List<Colaborador> findColaboradorEntities(int maxResults, int firstResult) {
-        return findColaboradorEntities(false, maxResults, firstResult);
+    public List<Propuesta> findPropuestaEntities(int maxResults, int firstResult) {
+        return findPropuestaEntities(false, maxResults, firstResult);
     }
 
-    private List<Colaborador> findColaboradorEntities(boolean all, int maxResults, int firstResult) {
+    private List<Propuesta> findPropuestaEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Colaborador.class));
+            cq.select(cq.from(Propuesta.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -120,32 +124,33 @@ public class ColaboradorJpaController implements Serializable {
         }
     }
 
-    public Colaborador findColaborador(String id) {
+    public Propuesta findPropuesta(String id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Colaborador.class, id);
+            return em.find(Propuesta.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getColaboradorCount() {
+    public int getPropuestaCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Colaborador> rt = cq.from(Colaborador.class);
+            Root<Propuesta> rt = cq.from(Propuesta.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
         } finally {
             em.close();
         }
-    }
-    
-    public List<String> getListaNick(){
+    }    
+    public List<String> getPropuestaByProponente(){
+        
+        //INUTIL E IMPOSIBLE
+        
         EntityManager em = getEntityManager();
-        Query query = em.createQuery("SELECT c.nickname FROM Colaborador c");
+        Query query = em.createQuery("SELECT CONCAT(p.titulo , ' by ' ,p.miProponente) AS lista from Propuesta p");
         return query.getResultList();               
     }
-    
 }

@@ -59,7 +59,7 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
         
         this.setTitle("Alta Propuesta");
         
-        DefaultTreeModel modeloArbol = new DefaultTreeModel(UtilArbol.construirArbolConPropuestas(ic.getRaizArbolCat()));
+        DefaultTreeModel modeloArbol = new DefaultTreeModel(UtilArbol.construirArbolConPropuestas(ic.cargarNodoRaizCategorias()));
         
         this.ArbolDeCategorias.setModel(modeloArbol);
         this.ArbolDeCategorias.expandRow(0);
@@ -350,19 +350,19 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Faltan campos por llenar!", "Error", HEIGHT);
         }else{
             
-            if (txtImagen == null || !this.txtImagen.isEmpty()) {
-                if(ic.altaPropuesta(nick, tipo, titulo, descripcion, lugar, fechaPrev, entrada, monto, retorno, fechaActual, this.txtImagen) == 1){
-                    JOptionPane.showMessageDialog(this, "La propuesta ha sido ingresada!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
-                    this.dispose();
-                }else if(ic.altaPropuesta(nick, tipo, titulo, descripcion, lugar, fechaPrev, entrada, monto, retorno, fechaActual, this.txtImagen) == 0){
-                    //ERROR CON LA CATEGORIA!
-                    JOptionPane.showMessageDialog(this, "NO SE ENCONTRO LA CATEGORIA", "Error", HEIGHT);
-                }else{
-                    JOptionPane.showMessageDialog(this, "No se permite usar \"Categoria\" como tipo de espectaculo!", "Error", HEIGHT);
-                }
+//            if (txtImagen == null || !this.txtImagen.isEmpty()) {
+//                if(ic.altaPropuesta(nick, tipo, titulo, descripcion, lugar, fechaPrev, entrada, monto, retorno, fechaActual, this.txtImagen) == 1){
+//                    JOptionPane.showMessageDialog(this, "La propuesta ha sido ingresada!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
+//                    this.dispose();
+//                }else if(ic.altaPropuesta(nick, tipo, titulo, descripcion, lugar, fechaPrev, entrada, monto, retorno, fechaActual, this.txtImagen) == 0){
+//                    //ERROR CON LA CATEGORIA!
+//                    JOptionPane.showMessageDialog(this, "NO SE ENCONTRO LA CATEGORIA", "Error", HEIGHT);
+//                }else{
+//                    JOptionPane.showMessageDialog(this, "No se permite usar \"Categoria\" como tipo de espectaculo!", "Error", HEIGHT);
+//                }
                 //quiere decir que quiere insertar imagen
                 //cerrar la ventana
-            }else{
+//            }else{
                 if(ic.altaPropuesta(nick, tipo, titulo, descripcion, lugar, fechaPrev, entrada, monto, retorno, fechaActual) == 1){
                     JOptionPane.showMessageDialog(this, "La propuesta ha sido ingresada!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
                     this.dispose();
@@ -373,7 +373,7 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(this, "No se permite usar \"Categoria\" como tipo de espectaculo!", "Error", HEIGHT);
                 }
                 //no quiere insertar imagen
-            }
+//            }
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
 

@@ -2,7 +2,6 @@ package Presentacion;
 
 import Logica.Fabrica;
 import Logica.IControlador;
-import Persistencia.ControladoraPersistencia;
 
 public class Culturarte {
 
