@@ -135,9 +135,9 @@ public class InterModificarPropuestaCategoria extends javax.swing.JInternalFrame
             // TODO add your handling code here:
         this.dispose();
         
-        int x = (getParent().getParent().getWidth() - this.intFrame.getWidth())/2;
-        int y = (getParent().getParent().getHeight() - this.intFrame.getHeight())/2;
-        this.intFrame.setLocation(x, y-30);
+        int x = (intFrame.getParent().getWidth() - this.intFrame.getWidth())/2;
+        int y = (intFrame.getParent().getHeight() - this.intFrame.getHeight())/2;
+        this.intFrame.setLocation(x, y);
     }//GEN-LAST:event_botonCancelarActionPerformed
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
@@ -145,9 +145,9 @@ public class InterModificarPropuestaCategoria extends javax.swing.JInternalFrame
         this.intFrame.cambiarTxtCategoria(this.textoCat.getText());
         this.dispose();
         
-        int x = (getParent().getParent().getWidth() - this.intFrame.getWidth())/2;
-        int y = (getParent().getParent().getHeight() - this.intFrame.getHeight())/2;
-        this.intFrame.setLocation(x, y-25);
+        int x = (intFrame.getParent().getWidth() - this.intFrame.getWidth())/2;
+        int y = (intFrame.getParent().getHeight() - this.intFrame.getHeight())/2;
+        this.intFrame.setLocation(x, y);
     }//GEN-LAST:event_botonAceptarActionPerformed
 
 
