@@ -23,7 +23,7 @@ public class InterAltaCategoria extends javax.swing.JInternalFrame {
         this.ic = ic;
         this.setTitle("Alta de Categoria");
         initComponents();
-        DefaultTreeModel modeloArbol = new DefaultTreeModel(UtilArbol.construirArbolCategorias(ic.getRaizArbolCat()));
+        DefaultTreeModel modeloArbol = new DefaultTreeModel(UtilArbol.construirArbolCategorias(ic.cargarNodoRaizCategorias()));
         
         this.ArbolDeCategorias.setModel(modeloArbol);
         this.ArbolDeCategorias.expandRow(0);
@@ -172,7 +172,7 @@ public class InterAltaCategoria extends javax.swing.JInternalFrame {
        
        if(error==0){
         JOptionPane.showMessageDialog(this, "Categoria ingresada con exito!", "Alta Categoria",JOptionPane.INFORMATION_MESSAGE);
-        DefaultMutableTreeNode raiz = ic.getRaizArbolCat();
+        DefaultMutableTreeNode raiz = ic.cargarNodoRaizCategorias();
         ArbolDeCategorias.setModel(new DefaultTreeModel(raiz)); //Recargo el JTree siempre que se 
         //ingresa una Categoria
         this.dispose();

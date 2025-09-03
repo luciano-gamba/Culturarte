@@ -1,6 +1,7 @@
 package Persistencia;
 
 import Logica.Aporte;
+import Logica.Categoria;
 import Logica.Colaborador;
 import Logica.Estado;
 import Logica.Proponente;
@@ -12,8 +13,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ControladoraPersistencia {
-    
+
     UsuarioJpaController usuJPA = new UsuarioJpaController();
+    private CategoriaJpaController catJPA = new CategoriaJpaController();
 
     public Usuario buscarUsuario(String nick) {
         return usuJPA.findUsuario(nick);
@@ -76,6 +78,12 @@ public class ControladoraPersistencia {
     public void añadirPropuesta(Propuesta p) {
         try {
             propJPA.create(p);
+
+            Categoria cat = p.getCategoriaClase();
+            if (!cat.getPropuestas().contains(p)) {
+                cat.agregarPropuesta(p);
+                catJPA.edit(cat);
+            }
         } catch (Exception ex) {
             Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -95,16 +103,32 @@ public class ControladoraPersistencia {
         }
     }
 
+    public void createCategoria(Categoria cat) {
+        try {
+            this.catJPA.create(cat);
+        } catch (Exception ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public Categoria findCategoria(String nombreCat) {
+        return this.catJPA.findCategoria(nombreCat);
+    }
+
+    public List<Categoria> listarCategorias() {
+        return this.catJPA.findCategoriaEntities();
+    }
+
     ColaboradorJpaController colaJPA = new ColaboradorJpaController();
 
     public List<String> getNickColaboradores() {
         return colaJPA.getListaNick();
     }
-   
+
     AporteJpaController aporteJPA = new AporteJpaController();
-    
-    public void añadirAporte(Aporte a){
-         try {
+
+    public void añadirAporte(Aporte a) {
+        try {
             aporteJPA.create(a);
         } catch (Exception ex) {
             Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);

@@ -17,7 +17,7 @@ public class UtilArbol {
     public static DefaultMutableTreeNode construirArbolConPropuestas(DefaultMutableTreeNode raizCategorias){
         //Variante para altaPropuesta y para modificarPropuesta
         Categoria cat = (Categoria) raizCategorias.getUserObject();
-        DefaultMutableTreeNode nodoCategoria = new DefaultMutableTreeNode(cat.getNombreCat());
+        DefaultMutableTreeNode nodoCategoria = new DefaultMutableTreeNode(cat.getNombre());
         
         for(Propuesta prop : cat.getPropuestas()){
             nodoCategoria.add(new DefaultMutableTreeNode(prop.getTitulo()));
@@ -32,7 +32,7 @@ public class UtilArbol {
     }
     public static DefaultMutableTreeNode construirArbolCategorias(DefaultMutableTreeNode raizCategorias){ //Para altaCategoria solamente
         Categoria cat = (Categoria) raizCategorias.getUserObject();
-        DefaultMutableTreeNode nodoCategoria = new DefaultMutableTreeNode(cat.getNombreCat());
+        DefaultMutableTreeNode nodoCategoria = new DefaultMutableTreeNode(cat.getNombre());
         
         Enumeration<?> hijos = raizCategorias.children();
         while(hijos.hasMoreElements()){

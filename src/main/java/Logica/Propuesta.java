@@ -39,7 +39,8 @@ public class Propuesta implements Serializable {
     @ManyToOne
     private Proponente miProponente;
     @ManyToOne
-    private Categoria c;
+    @JoinColumn(name = "nombre_Categoria")
+    private Categoria categoria;
     
     public Propuesta(){
     }
@@ -78,7 +79,7 @@ public class Propuesta implements Serializable {
         
         this.estadoActual = estado;
         this.misEstados.add(estado);
-        this.c = c;
+        this.categoria = c;
 
     }
     
@@ -97,7 +98,7 @@ public class Propuesta implements Serializable {
         
         this.estadoActual = estado;
         this.misEstados.add(estado);
-        this.c = c;
+        this.categoria = c;
         
         this.imagen = imagen;
 
@@ -125,7 +126,7 @@ public class Propuesta implements Serializable {
         
         this.imagen = imagen;
         
-        this.c = c;
+        this.categoria = c;
     }
     
      public String getTitulo_Nickname(){
@@ -208,9 +209,11 @@ public class Propuesta implements Serializable {
     }
     
     public String getCategoria(){
-        return this.c.getNombreCat();
+        return this.categoria.getNombre();
     }
-    
+    public Categoria getCategoriaClase(){
+        return this.categoria;
+    }
     public Double getAlcanzada(){
         return this.montoAlcanzada;
     }
