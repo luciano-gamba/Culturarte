@@ -15,6 +15,9 @@ public class Colaborador extends Usuario {
         super(nickname, email, nombre, apellido, fecNac, imagen);
     }
     
+    public Colaborador(){
+    }
+    
     public Aporte createAporte(String titulo, double $aporte, int cantidad, EnumRetorno retorno){
         
         if (!misAportes.isEmpty()) {

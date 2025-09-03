@@ -1,9 +1,10 @@
 package Logica;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Categoria {
+public class Categoria implements Serializable {
     private final String nombre;
     private List<Propuesta> misPropuestas = new ArrayList();
     
