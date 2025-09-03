@@ -5,9 +5,9 @@
     <class>Logica.Usuario</class>
     <class>Logica.Proponente</class>
     <class>Logica.Colaborador</class>
-    <class>Logica.Aporte</class>
     <class>Logica.Propuesta</class>
     <class>Logica.Estado</class>
+    <class>Logica.Aporte</class>
     <class>Logica.Categoria</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mariadb://localhost:3306/culturarte?serverTimezone=UTC"/>

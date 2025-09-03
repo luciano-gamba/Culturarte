@@ -484,39 +484,51 @@ public class Controlador implements IControlador{
     @Override //recomiendo eliminar esto y pasarle string imagen al otro altaPropuesta
     public int altaPropuesta(String nick, String tipo, String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual, String imagen){
         
-        Proponente prop = null;
+//        Proponente prop = null;
+//        
+//        boolean encontrado = false;
+//        for (Proponente p : misProponentes) {
+//            if (p.getNickname().equalsIgnoreCase(nick)) {
+//                encontrado = true;
+//                prop = p;
+//                break;
+//            }
+//        }
+//        
+//        Categoria c = cp.findCategoria(tipo); ESTO NO TENDRIA PORQUE ESTAR ACA xd
+//        //Ya se busca directamente en la BD el arbol categoria no tendra los
+//        //datos
+//        if (c == null) {
+//            // NO SE ENCONTRO LA CATEGORIA o PUSO "CATEGORIA"
+//            return 0;
+//        }
+//        
+//        if(tipo.equals("Categoria")){
+//            return -1;
+//        }
+//        
+//        
+//        if (encontrado) {
+//            
+//            Propuesta nuevaProp = new Propuesta(c, prop, titulo, descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada), Double.parseDouble(montoNecesario), posibleRetorno, fechaActual, imagen);
+//            misPropuestas.add(nuevaProp);
+//            //Agregar propuesta a esa categoria directamente lo hare con persistencia antes seria c.agregarPropuesta(nuevaProp);
+//            return 1;
+//        } else {
+//            return 0;
+//        }
         
-        boolean encontrado = false;
-        for (Proponente p : misProponentes) {
-            if (p.getNickname().equalsIgnoreCase(nick)) {
-                encontrado = true;
-                prop = p;
-                break;
-            }
-        }
+        //PERSISTENCIA
+        Proponente prop = cp.buscarProponente(nick);
         
-        Categoria c = cp.findCategoria(tipo);
-        //Ya se busca directamente en la BD el arbol categoria no tendra los
-        //datos
-        if (c == null) {
-            // NO SE ENCONTRO LA CATEGORIA o PUSO "CATEGORIA"
-            return 0;
-        }
+        Categoria c  = cp.findCategoria(tipo);
         
-        if(tipo.equals("Categoria")){
-            return -1;
-        }
-        
-        
-        if (encontrado) {
-            
-            Propuesta nuevaProp = new Propuesta(c, prop, titulo, descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada), Double.parseDouble(montoNecesario), posibleRetorno, fechaActual, imagen);
-            misPropuestas.add(nuevaProp);
+        Propuesta nuevaProp = new Propuesta(c, prop, titulo, descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada), Double.parseDouble(montoNecesario), posibleRetorno, fechaActual, imagen);
+//        misPropuestas.add(nuevaProp);
+          cp.añadirEstado(nuevaProp.getEstadoActual());
+          cp.añadirPropuesta(nuevaProp);
             //Agregar propuesta a esa categoria directamente lo hare con persistencia antes seria c.agregarPropuesta(nuevaProp);
-            return 1;
-        } else {
-            return 0;
-        }
+        return 1;
     }
    
     
@@ -566,16 +578,17 @@ public class Controlador implements IControlador{
 //            aux = p.getTitulo();
 //            listaPropuestas.add(aux);
 //        }
-        
-//persistencia
-        List<String> listaPropuestas = new ArrayList<>();
-        String aux;
-        for(Propuesta p : cp.getListaPropuestas()){
-            aux = p.getTitulo();
-            listaPropuestas.add(aux);
-        }
-        
-        return listaPropuestas;
+//        return listaPropuestas;
+          
+
+          //PERSISTENCIA
+          List<String> listaPropuestas = new ArrayList<>();
+          String aux;
+          for (Propuesta p : cp.getListaPropuestas()) {
+              aux = p.getTitulo();
+              listaPropuestas.add(aux); 
+            }
+          return listaPropuestas;
     }
     
     @Override
@@ -669,9 +682,21 @@ public class Controlador implements IControlador{
     
     @Override
     public List<String> getPropXEstado(String estado){
+//        List<String> listaPropuestas = new ArrayList<>();
+//        String aux;
+//        for(Propuesta p : misPropuestas){
+//            aux = p.getTitulo();
+//            if(p.getEstadoActual().getEstado().toString().equalsIgnoreCase(estado)){
+//                listaPropuestas.add(aux);
+//            }
+//        }
+//        return listaPropuestas;
+        
+        //PERSISTENCIA
+        
         List<String> listaPropuestas = new ArrayList<>();
         String aux;
-        for(Propuesta p : misPropuestas){
+        for(Propuesta p : cp.getListaPropuestas()){
             aux = p.getTitulo();
             if(p.getEstadoActual().getEstado().toString().equalsIgnoreCase(estado)){
                 listaPropuestas.add(aux);
@@ -741,7 +766,7 @@ public class Controlador implements IControlador{
     public boolean existeTitulo(String titulo){
         
         boolean encontrado = false;
-        for (Propuesta p : misPropuestas) {
+        for (Propuesta p : cp.getListaPropuestas()) {
             if (p.getTitulo().equalsIgnoreCase(titulo)) {
                 encontrado = true;
             }
@@ -752,21 +777,39 @@ public class Controlador implements IControlador{
     
     @Override
     public List<String> getColabsProp(String titulo){
+//        List<String> listaColabProp = new ArrayList<>();
+//        Propuesta prop = null;
+//        double aporte$;
+//        Colaborador c = null;
+//        String aporteColab;
+//        
+//        for (Propuesta p : misPropuestas) {
+//            if (p.getTitulo().equalsIgnoreCase(titulo)) {
+//                prop = p;
+//            }
+//        } // pa encontrar la propuesta
+//        
+//        if (prop == null) {
+//            return listaColabProp;
+//        }
+//        
+//        for (Aporte a : prop.getAportes()) {
+//            aporte$ = a.get$aporte();
+//            c = a.getColaborador();
+//            
+//            aporteColab = c.getNickname() + "\t" + aporte$;
+//            listaColabProp.add(aporteColab);
+//        }
+//        
+//        return listaColabProp;
+        
+        //PERSISTENCIA
+        
         List<String> listaColabProp = new ArrayList<>();
-        Propuesta prop = null;
+        Propuesta prop = cp.getPropuesta(titulo);
         double aporte$;
         Colaborador c = null;
         String aporteColab;
-        
-        for (Propuesta p : misPropuestas) {
-            if (p.getTitulo().equalsIgnoreCase(titulo)) {
-                prop = p;
-            }
-        } // pa encontrar la propuesta
-        
-        if (prop == null) {
-            return listaColabProp;
-        }
         
         for (Aporte a : prop.getAportes()) {
             aporte$ = a.get$aporte();
@@ -777,5 +820,17 @@ public class Controlador implements IControlador{
         }
         
         return listaColabProp;
+    }
+    
+    public boolean seleccionaCategoria(String categoria){
+        boolean encontrado = false;
+        
+        for (Propuesta p : cp.getListaPropuestas()) {
+            if (p.getCategoria().equalsIgnoreCase(categoria)) {
+                encontrado = true;
+            }
+        }
+        
+        return encontrado;
     }
 }

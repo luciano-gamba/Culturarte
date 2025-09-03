@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -34,7 +35,7 @@ public class Propuesta implements Serializable {
     @OneToMany(mappedBy = "miPropuesta")
     private List<Aporte> misAportes = new ArrayList<>();
     @OneToMany//(mappedBy = "propuesta")
-    @JoinColumn(name = "idEstado")
+    @JoinTable(name = "ListaEstados", joinColumns = @JoinColumn(name = "tituloPropuesta"), inverseJoinColumns = @JoinColumn(name = "numeracionEstado"))
     public List<Estado> misEstados = new ArrayList<>();//A CAMBIAR
     @ManyToOne
     private Proponente miProponente;

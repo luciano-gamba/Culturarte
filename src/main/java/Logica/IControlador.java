@@ -64,4 +64,6 @@ public interface IControlador {
     boolean existeTitulo(String titulo);
     
     List<String> getColabsProp(String titulo);
+    
+    boolean seleccionaCategoria(String categoria);
 }

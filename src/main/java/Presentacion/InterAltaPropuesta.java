@@ -45,7 +45,7 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
         LocalDate fechaMax = LocalDate.of(2099, 1, 1);
         Date maxDate = Date.from(fechaMax.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-        LocalDate fechaInicial = LocalDate.now().plusDays(1); //EL PLUS DAY ANDA PERO NO SE MUESTRA
+        LocalDate fechaInicial = LocalDate.now();//.plusDays(1); //EL PLUS DAY ANDA PERO NO SE MUESTRA
         Date initialDate = Date.from(fechaInicial.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
         SpinnerDateModel model = new SpinnerDateModel(initialDate, minDate, maxDate, Calendar.DAY_OF_MONTH);
@@ -350,19 +350,19 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Faltan campos por llenar!", "Error", HEIGHT);
         }else{
             
-//            if (txtImagen == null || !this.txtImagen.isEmpty()) {
-//                if(ic.altaPropuesta(nick, tipo, titulo, descripcion, lugar, fechaPrev, entrada, monto, retorno, fechaActual, this.txtImagen) == 1){
-//                    JOptionPane.showMessageDialog(this, "La propuesta ha sido ingresada!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
-//                    this.dispose();
-//                }else if(ic.altaPropuesta(nick, tipo, titulo, descripcion, lugar, fechaPrev, entrada, monto, retorno, fechaActual, this.txtImagen) == 0){
-//                    //ERROR CON LA CATEGORIA!
-//                    JOptionPane.showMessageDialog(this, "NO SE ENCONTRO LA CATEGORIA", "Error", HEIGHT);
-//                }else{
-//                    JOptionPane.showMessageDialog(this, "No se permite usar \"Categoria\" como tipo de espectaculo!", "Error", HEIGHT);
-//                }
+            if (txtImagen == null || !this.txtImagen.isEmpty()) {
+                if(ic.altaPropuesta(nick, tipo, titulo, descripcion, lugar, fechaPrev, entrada, monto, retorno, fechaActual, this.txtImagen) == 1){
+                    JOptionPane.showMessageDialog(this, "La propuesta ha sido ingresada!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
+                }else if(ic.altaPropuesta(nick, tipo, titulo, descripcion, lugar, fechaPrev, entrada, monto, retorno, fechaActual, this.txtImagen) == 0){
+                    //ERROR CON LA CATEGORIA!
+                    JOptionPane.showMessageDialog(this, "NO SE ENCONTRO LA CATEGORIA", "Error", HEIGHT);
+                }else{
+                    JOptionPane.showMessageDialog(this, "No se permite usar \"Categoria\" como tipo de espectaculo!", "Error", HEIGHT);
+                }
                 //quiere decir que quiere insertar imagen
                 //cerrar la ventana
-//            }else{
+            }else{
                 if(ic.altaPropuesta(nick, tipo, titulo, descripcion, lugar, fechaPrev, entrada, monto, retorno, fechaActual) == 1){
                     JOptionPane.showMessageDialog(this, "La propuesta ha sido ingresada!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
                     this.dispose();
@@ -374,6 +374,7 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
                 }
                 //no quiere insertar imagen
 //            }
+            }
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
 
@@ -414,6 +415,13 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
     private void ArbolDeCategoriasValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_ArbolDeCategoriasValueChanged
         // TODO add your handling code here:
         DefaultMutableTreeNode nodoSeleccionado = (DefaultMutableTreeNode) ArbolDeCategorias.getLastSelectedPathComponent();
+        if (ArbolDeCategorias.getLastSelectedPathComponent() == null) {
+            return;
+        }
+        if (!ic.seleccionaCategoria(nodoSeleccionado.getUserObject().toString())) {
+            JOptionPane.showMessageDialog(this, "No se permite seleccionar una propuesta como tipo de espectaculo!", "Error", HEIGHT);
+            return;   
+        }
         if (!nodoSeleccionado.getUserObject().toString().equals("Categoria")) {
             txtTipo.setText(nodoSeleccionado.getUserObject().toString());
         }else{

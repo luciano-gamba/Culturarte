@@ -320,6 +320,7 @@ public class InterConsultaPropuesta extends javax.swing.JInternalFrame {
         if(!titulo.equals("--Seleccionar--")){
             listaAportesColab = ic.getColabsProp(titulo);
             
+            this.modelo.setRowCount(0);
             this.tablaColab.setModel(modelo);
             
             for (String s : listaAportesColab) {
