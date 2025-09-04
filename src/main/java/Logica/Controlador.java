@@ -553,9 +553,10 @@ public class Controlador implements IControlador{
         boolean seCambioCat = false;
         //Quitar esta propuesta de la categoria que la apuntaba (por el caso de cambio de categoria) hacerlo directo con persistencia
         if(!p.getCategoria().equals(c.getNombre())){ //p.getCategoria no anda
-//            //Quitar esta propuesta de la categoria que la apuntaba(?)
-              c.sacarPropuesta(p);
-              cp.editarCategoria(c);
+//            //Quitar esta propuesta de la categoria que la apuntaba
+              Categoria viejaCat = p.getCategoriaClase(); //Aca saco la categoria que tenia antes ya que aun no se modifico
+              viejaCat.sacarPropuesta(p); //La saco de su lista de propuestas
+              cp.editarCategoria(viejaCat); //mando el edit para reflejar cambios en BD
               seCambioCat = true;
         }
         p.modificarPropuesta(descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada), Double.parseDouble(montoNecesario), posibleRetorno, estado, imagen, c);
@@ -563,8 +564,8 @@ public class Controlador implements IControlador{
         
         //Agregar propuesta a esa categoria directamente lo hare con persistencia antes seria c.agregarPropuesta(nuevaProp);
         if(seCambioCat){
-            c.agregarPropuesta(p); 
-            cp.editarCategoria(c);
+            c.agregarPropuesta(p); //Si se cambio entonces la nuevaCat o bueno "c" debe agregar esta propuesta a su lista
+            cp.editarCategoria(c); //Y reflejarlo en la BD
         }
         return 0;
     }
