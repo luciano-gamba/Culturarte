@@ -60,6 +60,9 @@ public class ControladoraPersistencia {
         return listaUsuarios;
     }
 
+    public List<String> getNickProponente(){
+        return usuPropJPA.getListaNick();
+    }
     
     ColaboradorJpaController usuColaJPA = new ColaboradorJpaController();
 
@@ -81,10 +84,15 @@ public class ControladoraPersistencia {
     public void añadirPropuesta(Propuesta p) {
         try {
             propJPA.create(p);
-
+            
+            Proponente prop = p.getProponente();
+            if(!prop.getPropuestas().contains(p)){
+                prop.agregarPropuesta(p); //Sin esto no se guarda en PROPONENTE_Propuesta aunque claro
+                usuPropJPA.edit(prop);  //no hay que olvidarte el .edit para que se persista
+            }
             Categoria cat = p.getCategoriaClase();
-            if (!cat.getPropuestas().contains(p)) {
-                cat.agregarPropuesta(p);
+            if (!cat.getPropuestas().contains(p)) { 
+                cat.agregarPropuesta(p); //Lo mismo con esto pero aca se agrega la FK en Propuesta
                 catJPA.edit(cat);
             }
         } catch (Exception ex) {
@@ -99,8 +107,15 @@ public class ControladoraPersistencia {
     public Propuesta getPropuesta(String titulo){
         return propJPA.findPropuesta(titulo);
     }
-
-    public void modificarPropuesta(Propuesta p){
+    public void editarPropuesta(Propuesta prop){
+        try {
+            propJPA.edit(prop);
+        } catch (Exception ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void modificarPropuesta(Propuesta p){ //Tal vez me serviria que me pases la categoria tambien asi la edito aca
         try {
             propJPA.edit(p);
         } catch (Exception ex) {
@@ -134,14 +149,31 @@ public class ControladoraPersistencia {
     public List<Categoria> listarCategorias() {
         return this.catJPA.findCategoriaEntities();
     }
-
+    public void editarCategoria(Categoria cat){
+        try {
+            catJPA.edit(cat);
+        } catch (Exception ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     ColaboradorJpaController colaJPA = new ColaboradorJpaController();
 
     public List<String> getNickColaboradores() {
         return colaJPA.getListaNick();
     }
-
+    
+    public Colaborador buscarColaborador(String NickName){
+        return colaJPA.findColaborador(NickName);
+    }
+    
+    public void editarColaborador(Colaborador cola){
+        try {
+            colaJPA.edit(cola);
+        } catch (Exception ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     AporteJpaController aporteJPA = new AporteJpaController();
 
