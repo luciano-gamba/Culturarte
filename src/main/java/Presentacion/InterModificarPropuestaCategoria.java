@@ -14,6 +14,7 @@ import javax.swing.tree.DefaultTreeModel;
  */
 public class InterModificarPropuestaCategoria extends javax.swing.JInternalFrame {
     private final InterModificarPropuesta intFrame;
+    private final IControlador ic;
     
     /**
      * Creates new form InterModificarPropuestaCategoria
@@ -21,6 +22,7 @@ public class InterModificarPropuestaCategoria extends javax.swing.JInternalFrame
     public InterModificarPropuestaCategoria(IControlador ic, InterModificarPropuesta intFrame) {
         initComponents();
         this.intFrame = intFrame;
+        this.ic = ic;
         DefaultMutableTreeNode nodoRaiz = ic.cargarNodoRaizCategorias();
         DefaultTreeModel modeloArbol = new DefaultTreeModel(UtilArbol.construirArbolConPropuestas(nodoRaiz));
         
@@ -123,7 +125,7 @@ public class InterModificarPropuestaCategoria extends javax.swing.JInternalFrame
         // TODO add your handling code here:
         DefaultMutableTreeNode nodoSeleccionado = (DefaultMutableTreeNode) jTreeCategoria.getLastSelectedPathComponent();
         textoCat.setText(nodoSeleccionado.getUserObject().toString());
-        if(textoCat.getText().equals("Categoria")){
+        if(textoCat.getText().equals("Categoria") || !ic.seleccionaCategoria(nodoSeleccionado.getUserObject().toString())){
             botonAceptar.setEnabled(false);
         }else{
             botonAceptar.setEnabled(true);

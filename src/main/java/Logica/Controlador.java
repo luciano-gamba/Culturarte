@@ -808,7 +808,7 @@ public class Controlador implements IControlador{
         List<String> listaColabProp = new ArrayList<>();
         Propuesta prop = cp.getPropuesta(titulo);
         double aporte$;
-        Colaborador c = null;
+        Colaborador c;
         String aporteColab;
         
         for (Aporte a : prop.getAportes()) {
@@ -822,11 +822,12 @@ public class Controlador implements IControlador{
         return listaColabProp;
     }
     
+    @Override
     public boolean seleccionaCategoria(String categoria){
         boolean encontrado = false;
         
-        for (Propuesta p : cp.getListaPropuestas()) {
-            if (p.getCategoria().equalsIgnoreCase(categoria)) {
+        for (Categoria c : cp.listarCategorias()) {
+            if (c.getNombre().equalsIgnoreCase(categoria)) {
                 encontrado = true;
             }
         }
