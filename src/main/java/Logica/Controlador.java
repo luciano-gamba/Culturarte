@@ -807,8 +807,8 @@ public class Controlador implements IControlador{
     public boolean seleccionaCategoria(String categoria){
         boolean encontrado = false;
         
-        for (Propuesta p : cp.getListaPropuestas()) {
-            if (p.getCategoria().equalsIgnoreCase(categoria)) {
+        for (Categoria c : cp.listarCategorias()) {
+            if (c.getNombre().equalsIgnoreCase(categoria)) {
                 encontrado = true;
             }
         }
