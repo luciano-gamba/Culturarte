@@ -1,6 +1,7 @@
 package Logica;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
@@ -36,6 +37,19 @@ public class Colaborador extends Usuario {
         return a;
     }
     
+    public Aporte createAporte(String titulo, double $aporte, int cantidad, EnumRetorno retorno,LocalDateTime fecAp){
+        
+        if (!misAportes.isEmpty()) {
+            for (Aporte mio : misAportes) {
+                if (titulo.equals(mio.getTituloMiPropuesta())) {
+                    return null;
+                }
+            }
+        }
+        Aporte a = new Aporte(this , $aporte, cantidad, retorno,fecAp);
+        misAportes.add(a);
+        return a;
+    }
     
     
     public List<DataPropuesta> getPropuestas(){
@@ -59,20 +73,21 @@ public class Colaborador extends Usuario {
     public DataAporte getDataAporte(String tituloNick){
         for(Aporte a: misAportes){
             if(tituloNick.equals(a.getTituloNickMiPropuesta())){
-                return new DataAporte(a.get$aporte(),a.getFechaHora(),a.getCantidad(),a.getRetorno(),a.getNicknameMiColaborador(),a.getTituloMiPropuesta());
+                return new DataAporte(a.get$aporte(),a.getFechaHora(),a.getCantidad(),a.getRetorno(),a.getNicknameMiColaborador(),a.getTituloMiPropuesta(),a.getImagenMiPropuesta(),a.getNecesaria());
             }
         }
         return null;
     }
     
-    public void borrarAporte(String tituloNick){
+    public Aporte borrarAporte(String tituloNick){
         for(Aporte a: misAportes){
             if(tituloNick.equals(a.getTituloNickMiPropuesta())){
                 a.desvincular();
                 misAportes.remove(a);
-                break;
+                return a;
             }
         }
+        return null;
     }
     
 }

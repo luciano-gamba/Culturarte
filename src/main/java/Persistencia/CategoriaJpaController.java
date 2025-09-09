@@ -38,6 +38,7 @@ public class CategoriaJpaController implements Serializable{
             em = getEntityManager();
             em.getTransaction().begin();
             em.persist(cat);
+            em.flush();
             em.getTransaction().commit();
         } catch (Exception ex) {
             if (findCategoria(cat.getNombre()) != null) {

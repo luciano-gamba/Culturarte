@@ -2,6 +2,7 @@ package Logica;
 
 import Persistencia.ControladoraPersistencia;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -281,6 +282,38 @@ public class Controlador implements IControlador{
         cp.añadirAporte(a);
         return 0; //PROPUESTA AGREGADA CORRECTAMENTE  
     }
+    
+    @Override
+    public int altaAporte(String strmiColaborador, String strmiPropuesta,  double $aporte, int cantidad, EnumRetorno retorno, LocalDateTime fecAp){
+        Propuesta miPropuesta = null;
+        Colaborador miColaborador = null;                
+        for (Colaborador c : cp.getColaboradores()){
+            if(c.getNickname().equals(strmiColaborador)){
+                miColaborador = c;
+                break;
+            }
+        }        
+        for (Propuesta p : cp.getListaPropuestas()) {
+            if (p.getTitulo_Nickname().equals(strmiPropuesta)) {
+                miPropuesta = p;
+                break;        
+            }
+        }                
+        if($aporte > miPropuesta.getmontoNecesaria() || $aporte > miPropuesta.getmontoNecesaria()-miPropuesta.getmontoAlcanzada()){
+            return -2;//ERROR: Aporte superior a lo permitido
+        }        
+        if (miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno) == null) {
+            return -3;  //Error: El usuario ya colabora con la Propuesta
+        }         
+        if (miPropuesta.getPosibleRetorno()!=EnumRetorno.AMBOS && miPropuesta.getPosibleRetorno()!=retorno){
+            return -4; //Error: Retorno no valido en esta Propuesta
+        }        
+        Aporte a = miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno,fecAp);
+        miPropuesta.addAporte(a);
+        cp.añadirAporte(a);
+        return 0; //PROPUESTA AGREGADA CORRECTAMENTE  
+    }
+    
     
     @Override
     public List<String> getUsuarios() {
@@ -747,7 +780,8 @@ public class Controlador implements IControlador{
         //CON PERSISTENCIA
         for(Colaborador c : cp.getColaboradores()){
             if(nick.equals(c.getNickname())){
-                c.borrarAporte(tituloNick);
+                Aporte a = c.borrarAporte(tituloNick);
+                cp.borrarAporte(a);
                 break;
             }
         }
@@ -822,6 +856,7 @@ public class Controlador implements IControlador{
                 encontrado = true;
             }
         }
+        
         
         return encontrado;
     }

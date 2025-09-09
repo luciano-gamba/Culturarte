@@ -1,6 +1,7 @@
 package Logica;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -16,6 +17,8 @@ public interface IControlador {
     
     int altaAporte(String miColaborador, String miPropuesta, double $aporte, int cantidad, EnumRetorno retorno);
     
+    int altaAporte(String miColaborador, String miPropuesta, double $aporte, int cantidad, EnumRetorno retorno,LocalDateTime fecAp);
+        
     List<String> getUsuarios(); 
     
     List<String> getUsuariosProponentes();
@@ -41,8 +44,7 @@ public interface IControlador {
     int modificarPropuesta(String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, String posibleRetorno, String estado, String imagen, String categoria);
     
     DefaultMutableTreeNode cargarNodoRaizCategorias();
-    
-    
+        
     List<String> getPropuestas();
     
     DataPropuesta consultaDePropuesta(String titulo);
