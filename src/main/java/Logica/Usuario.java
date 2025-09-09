@@ -92,7 +92,6 @@ public class Usuario implements Serializable {
     
     public int seguirUsuario(Usuario nick){
         for(Usuario u : this.misSeguidos){
-            System.out.println(u.getNickname());
             if(u.getNickname().equals(nick.getNickname())){
                 return 0; //error: ya sigue al usuario nick
             }
