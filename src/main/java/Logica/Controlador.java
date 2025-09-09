@@ -294,7 +294,7 @@ public class Controlador implements IControlador{
             }
         }        
         for (Propuesta p : cp.getListaPropuestas()) {
-            if (p.getTitulo_Nickname().equals(strmiPropuesta)) {
+            if (p.getTitulo().equals(strmiPropuesta)) {
                 miPropuesta = p;
                 break;        
             }
@@ -485,6 +485,9 @@ public class Controlador implements IControlador{
 //        }
 //        
         //persistencia
+        if (existeTitulo(titulo)) {
+            return -1;
+        }
         
         Proponente prop = cp.buscarProponente(nick);
         
@@ -547,6 +550,11 @@ public class Controlador implements IControlador{
 //        }
         
         //PERSISTENCIA
+        
+        if (existeTitulo(titulo)) {
+            return -1;
+        }
+        
         Proponente prop = cp.buscarProponente(nick);
         
         Categoria c  = cp.findCategoria(tipo);

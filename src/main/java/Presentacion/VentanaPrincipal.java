@@ -484,7 +484,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         
 
         //PROPUESTA
-        /*ic.altaPropuesta("diegop", "Cine al Aire Libre", "Cine en el Botánico",
+        ic.altaPropuesta("diegop", "Cine al Aire Libre", "Cine en el Botánico",
                 "El 16 de Diciembre a la hora 20 se proyectará la película \"Clever\", en el Jardín Botánico (Av. 19 de Abril 1181) en el marco de las actividades realizadas por el ciclo Cultura al Aire Libre. El largometraje uruguayo de ficción Clever es dirigido por Federico Borgia y Guillermo Madeiro. Es apto para mayores de 15 años.",
                 "Jardín Botánico", LocalDate.of(2017, 12, 16), "200", "150000", EnumRetorno.PORCENTAJE_VENTAS, LocalDate.of(2017, 9, 16), "");
 
@@ -515,7 +515,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ic.altaPropuesta("losBardo", "Stand-up", "Bardo en la FING",
                 "El 10 de Diciembre se presentará Bardo Científico en la FING. El humor puede ser usado como una herramienta importante para el aprendizaje y la democratización de la ciencia, los monólogos científicos son una forma didáctica de apropiación del conocimiento científico y contribuyen a que el público aprenda ciencia de forma amena. Los invitamos a pasar un rato divertido, en un espacio en el cual aprenderán cosas de la ciencia que los sorprenderán. ¡Los esperamos!",
                 "Anfiteatro Edificio \"José Luis Massera\"", LocalDate.of(2017, 12, 10), "200", "100000", EnumRetorno.ENTRADAS_GRATIS, LocalDate.of(2017, 8, 23));
-
+        
         //COLABORACIONES/APORTES
         ic.altaAporte("novick","Cine en el Botánico",50000, 0, EnumRetorno.PORCENTAJE_VENTAS , LocalDateTime.of(2017, 5, 20, 14, 30));
         ic.altaAporte("robinh","Cine en el Botánico",50000, 0, EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2017, 5, 24, 17, 25));
@@ -534,7 +534,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ic.altaAporte("marcelot","Romeo y Julieta",200000, 0,EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2017, 8, 14, 11, 25));
         ic.altaAporte("tonyp","Un día de Julio",30000, 0,EnumRetorno.ENTRADAS_GRATIS, LocalDateTime.of(2017, 8, 15, 4, 48));
         ic.altaAporte("marcelot","Un día de Julio",150000, 0,EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2017, 8, 17, 15, 30));
-*/
+
         javax.swing.JOptionPane.showMessageDialog(this, "Datos de pruba cargados correctamente", "Atención", javax.swing.JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 

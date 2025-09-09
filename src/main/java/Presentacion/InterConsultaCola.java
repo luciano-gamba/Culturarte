@@ -199,7 +199,7 @@ public class InterConsultaCola extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_ColaboradoresActionPerformed
 
     private void PropuestasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PropuestasActionPerformed
-        if (this.Propuestas.getSelectedIndex()!=0) {
+        if (this.Propuestas.getSelectedItem() != null && this.Colaboradores.getSelectedItem() != null && this.Propuestas.getSelectedIndex()!=0) {
             DataAporte DA = ic.getDataAporte(this.Propuestas.getSelectedItem().toString(),this.Colaboradores.getSelectedItem().toString());
             this.txtAporte.setText(DA.get$aporte().toString());
             this.txtCantidad.setText(DA.getCantidad()+"");
