@@ -7,6 +7,7 @@ import Logica.Estado;
 import Logica.Proponente;
 import Logica.Propuesta;
 import Logica.Usuario;
+import Persistencia.exceptions.NonexistentEntityException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -149,6 +150,14 @@ public class ControladoraPersistencia {
         try {
             aporteJPA.create(a);
         } catch (Exception ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void borrarAporte(Aporte a) {
+        try {
+            aporteJPA.destroy(a.getId());
+        } catch (NonexistentEntityException ex) {
             Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
