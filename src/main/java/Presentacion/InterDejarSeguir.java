@@ -5,7 +5,6 @@
 package Presentacion;
 
 import Logica.IControlador;
-import static java.awt.image.ImageObserver.HEIGHT;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -29,6 +28,8 @@ public class InterDejarSeguir extends javax.swing.JInternalFrame {
             comboSeguidor.addItem(s);
         }
         this.setTitle("Dejar de Seguir Usuario");
+        this.comboDejarSeguir.setEnabled(false);
+        this.botonAceptar.setEnabled(false);
     }
 
     /**
@@ -44,10 +45,9 @@ public class InterDejarSeguir extends javax.swing.JInternalFrame {
         labelSeguidor = new javax.swing.JLabel();
         comboSeguidor = new javax.swing.JComboBox<>();
         labelDejarSeguir = new javax.swing.JLabel();
-        botonElegir = new javax.swing.JButton();
         botonCancelar = new javax.swing.JButton();
         botonAceptar = new javax.swing.JButton();
-        textDejarSeguir = new javax.swing.JLabel();
+        comboDejarSeguir = new javax.swing.JComboBox<>();
 
         labelTitulo.setText("Elegir usuario seguidor y usuario a dejar de seguir");
 
@@ -61,14 +61,6 @@ public class InterDejarSeguir extends javax.swing.JInternalFrame {
         });
 
         labelDejarSeguir.setText("Dejar de Seguir");
-
-        botonElegir.setText("Elegir");
-        botonElegir.setEnabled(false);
-        botonElegir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonElegirActionPerformed(evt);
-            }
-        });
 
         botonCancelar.setText("Cancelar");
         botonCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -84,7 +76,12 @@ public class InterDejarSeguir extends javax.swing.JInternalFrame {
             }
         });
 
-        textDejarSeguir.setText("---");
+        comboDejarSeguir.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
+        comboDejarSeguir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboDejarSeguirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -105,11 +102,8 @@ public class InterDejarSeguir extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(33, 33, 33)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelDejarSeguir)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(botonElegir)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(textDejarSeguir)))))
+                                    .addComponent(comboDejarSeguir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(labelDejarSeguir))))
                         .addGap(0, 55, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -130,10 +124,8 @@ public class InterDejarSeguir extends javax.swing.JInternalFrame {
                 .addGap(12, 12, 12)
                 .addComponent(labelDejarSeguir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonElegir)
-                    .addComponent(textDejarSeguir))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addComponent(comboDejarSeguir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonCancelar)
                     .addComponent(botonAceptar))
@@ -143,28 +135,21 @@ public class InterDejarSeguir extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botonElegirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonElegirActionPerformed
-        // TODO add your handling code here:
-        int indice = comboSeguidor.getSelectedIndex();
-        String seguidor = comboSeguidor.getItemAt(indice);
-        InterDejarSeguirElegir IDSE = new InterDejarSeguirElegir(this.ic, seguidor, this);
-        
-        int x = (getParent().getWidth() - IDSE.getWidth())/2;
-        int y = (getParent().getHeight() - IDSE.getHeight())/2;
-        IDSE.setLocation(x, y+200);
-        
-        getParent().add(IDSE);
-        IDSE.show();
-    }//GEN-LAST:event_botonElegirActionPerformed
-
-    
     private void comboSeguidorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSeguidorActionPerformed
         // TODO add your handling code here:
         int seleccion = comboSeguidor.getSelectedIndex();
+        comboDejarSeguir.removeAllItems();
+        comboDejarSeguir.addItem("---");
         if(seleccion != 0){
-            botonElegir.setEnabled(true);
+            String seguidor = comboSeguidor.getSelectedItem().toString();
+            List<String> listaSeguidos = ic.getSeguidos(seguidor);
+            for(String s : listaSeguidos){
+                comboDejarSeguir.addItem(s);
+            }
+            comboDejarSeguir.setEnabled(true);
         }else{
-            botonElegir.setEnabled(false);
+            comboDejarSeguir.setEnabled(false);
+            botonAceptar.setEnabled(false);
         }
     }//GEN-LAST:event_comboSeguidorActionPerformed
 
@@ -175,35 +160,32 @@ public class InterDejarSeguir extends javax.swing.JInternalFrame {
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         // TODO add your handling code here:
-        int seleccion = comboSeguidor.getSelectedIndex();
-        if(seleccion == 0){
-            JOptionPane.showMessageDialog(this, "Seleccione un usuario!", "Error", HEIGHT);
-        }else{
-            String nick2 = textDejarSeguir.getText();
-            if(nick2.equals("---")){
-                JOptionPane.showMessageDialog(this, "Elija a quien dejar de seguir!", "Error", HEIGHT);
-            }else{
-                String nick1 = comboSeguidor.getItemAt(seleccion);
-                ic.dejarSeguirUsuario(nick1, nick2);
-                JOptionPane.showMessageDialog(this, "Usuario ha dejado de seguir a " + nick2 + "!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
-                this.dispose();
-            }
-        }
+        String nick1 = comboSeguidor.getSelectedItem().toString();
+        String nick2 = comboDejarSeguir.getSelectedItem().toString();
+        ic.dejarSeguirUsuario(nick1, nick2);
+        JOptionPane.showMessageDialog(this, nick1 + " ha dejado de seguir a " + nick2 + "!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
+        this.dispose();
     }//GEN-LAST:event_botonAceptarActionPerformed
+
+    private void comboDejarSeguirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboDejarSeguirActionPerformed
+        // TODO add your handling code here:
+        int seleccion = comboDejarSeguir.getSelectedIndex();
+        if(seleccion != 0){
+            botonAceptar.setEnabled(true);
+        }else{
+            botonAceptar.setEnabled(false);
+        }
+    }//GEN-LAST:event_comboDejarSeguirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAceptar;
     private javax.swing.JButton botonCancelar;
-    private javax.swing.JButton botonElegir;
+    private javax.swing.JComboBox<String> comboDejarSeguir;
     private javax.swing.JComboBox<String> comboSeguidor;
     private javax.swing.JLabel labelDejarSeguir;
     private javax.swing.JLabel labelSeguidor;
     private javax.swing.JLabel labelTitulo;
-    private javax.swing.JLabel textDejarSeguir;
     // End of variables declaration//GEN-END:variables
 
-    public void cambiarTxtDejarSeguir(String txt) {
-        textDejarSeguir.setText(txt);
-    }
 }

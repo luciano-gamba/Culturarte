@@ -1,12 +1,15 @@
-
 package Presentacion;
 
+import Logica.EnumRetorno;
 import Logica.IControlador;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
 
 public class VentanaPrincipal extends javax.swing.JFrame {
 
     protected final IControlador ic;
-    
+
     public VentanaPrincipal(IControlador ic) {
         this.ic = ic;
         initComponents();
@@ -25,6 +28,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         Desktop = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuPerfil = new javax.swing.JMenu();
@@ -44,6 +49,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menuRegistrarCola = new javax.swing.JMenuItem();
         menuConsultarCola = new javax.swing.JMenuItem();
         menuCancelarCola = new javax.swing.JMenuItem();
+        menuDatos = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+
+        jMenuItem1.setText("jMenuItem1");
+
+        jMenuItem3.setText("jMenuItem3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Culturarte");
@@ -181,6 +192,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
+        menuDatos.setText("Datos");
+
+        jMenuItem2.setText("Cargar datos");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        menuDatos.add(jMenuItem2);
+
+        jMenuBar1.add(menuDatos);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -202,33 +225,33 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuConsultaProponenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsultaProponenteActionPerformed
-        if(this.ICPP == null || ICPP.isClosed()){
+        if (this.ICPP == null || ICPP.isClosed()) {
             ICPP = new InterConsultaPerfilProponente(this.ic);
             this.Desktop.add(ICPP);
             ICPP.show();
-        
+
         }
     }//GEN-LAST:event_menuConsultaProponenteActionPerformed
 
     private void menuAltaUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAltaUsuarioActionPerformed
         // TODO add your handling code here:
-        if(this.IAU == null || IAU.isClosed()){
+        if (this.IAU == null || IAU.isClosed()) {
             IAU = new InterAltaUsuario(this.ic);
             this.Desktop.add(IAU);
             IAU.show();
-            int x = (this.getWidth() - IAU.getWidth())/2;
-            int y = (this.getHeight() - IAU.getHeight())/2;
-            IAU.setLocation(x, y-50);
+            int x = (this.getWidth() - IAU.getWidth()) / 2;
+            int y = (this.getHeight() - IAU.getHeight()) / 2;
+            IAU.setLocation(x, y - 50);
         }
     }//GEN-LAST:event_menuAltaUsuarioActionPerformed
 
     private void menuConsultaPropuEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsultaPropuEstActionPerformed
         // TODO add your handling code here:
-        if(this.ICE == null){
+        if (this.ICE == null) {
             ICE = new InterConsultaXEstado(ic);
             this.Desktop.add(ICE);
             ICE.show();
-        }else if(!this.ICE.abierto()){
+        } else if (!this.ICE.abierto()) {
             ICE = new InterConsultaXEstado(ic);
             this.Desktop.add(ICE);
             ICE.show();
@@ -236,16 +259,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuConsultaPropuEstActionPerformed
 
     private void menuRegistrarColaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRegistrarColaActionPerformed
-       
-            if ((this.IRC == null || this.IRC.isClosed()) && !ic.getColaboradores().isEmpty() && !ic.getPropuestas_Proponentes().isEmpty()) {
-                IRC = new InterRegistrarCola(ic);
-                this.Desktop.add(IRC);
-                IRC.setLocation(30, 50);
-                IRC.setVisible(true);
-            }else{
-                javax.swing.JOptionPane.showMessageDialog(this, "Se requieren Colaboradores y Propuestas ingresadas para acceder", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
-            }
-        
+
+        if ((this.IRC == null || this.IRC.isClosed()) && !ic.getColaboradores().isEmpty() && !ic.getPropuestas_Proponentes().isEmpty()) {
+            IRC = new InterRegistrarCola(ic);
+            this.Desktop.add(IRC);
+            IRC.setLocation(30, 50);
+            IRC.setVisible(true);
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "Se requieren Colaboradores y Propuestas ingresadas para acceder", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+
     }//GEN-LAST:event_menuRegistrarColaActionPerformed
 
     private void menuConsultarColaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsultarColaActionPerformed
@@ -254,47 +277,47 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             this.Desktop.add(ICC);
             ICC.setLocation(50, 50);
             ICC.show();
-        }else{
+        } else {
             javax.swing.JOptionPane.showMessageDialog(this, "Se requieren Colaboradores y Propuestas para acceder", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_menuConsultarColaActionPerformed
     private void menuAltaCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAltaCategoriaActionPerformed
         // TODO add your handling code here:
-        if(this.IAC == null || IAC.isClosed()){
+        if (this.IAC == null || IAC.isClosed()) {
             IAC = new InterAltaCategoria(this.ic);
             this.Desktop.add(IAC);
             IAC.show();
         }
-       
+
     }//GEN-LAST:event_menuAltaCategoriaActionPerformed
     private void menuAltaPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAltaPropActionPerformed
         // TODO add your handling code here:
-        if(this.IAP == null || this.IAP.isClosed() ){
+        if (this.IAP == null || this.IAP.isClosed()) {
             IAP = new InterAltaPropuesta(ic);
             this.Desktop.add(IAP);
             IAP.show();
-        
+
         }
     }//GEN-LAST:event_menuAltaPropActionPerformed
 
     private void menuSeguirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSeguirActionPerformed
         // TODO add your handling code here:
-        if(this.ISU == null || ISU.isClosed()){
+        if (this.ISU == null || ISU.isClosed()) {
             ISU = new InterSeguirUsuario(this.ic);
             this.Desktop.add(ISU);
             ISU.show();
-            int x = (this.getWidth() - ISU.getWidth())/2;
-            int y = (this.getHeight() - ISU.getHeight())/2;
-            ISU.setLocation(x, y-50);
+            int x = (this.getWidth() - ISU.getWidth()) / 2;
+            int y = (this.getHeight() - ISU.getHeight()) / 2;
+            ISU.setLocation(x, y - 50);
         }
     }//GEN-LAST:event_menuSeguirActionPerformed
     private void menuConsultaPropuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsultaPropuActionPerformed
         // TODO add your handling code here:
-        if(this.ICP == null){
+        if (this.ICP == null) {
             ICP = new InterConsultaPropuesta(ic);
             this.Desktop.add(ICP);
             ICP.show();
-        }else if(!this.ICP.abierto()){
+        } else if (!this.ICP.abierto()) {
             ICP = new InterConsultaPropuesta(ic);
             this.Desktop.add(ICP);
             ICP.show();
@@ -303,46 +326,217 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void menuDejarSeguirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDejarSeguirActionPerformed
         // TODO add your handling code here:
-        if(this.IDS == null || IDS.isClosed()){
+        if (this.IDS == null || IDS.isClosed()) {
             IDS = new InterDejarSeguir(this.ic);
             this.Desktop.add(IDS);
             IDS.show();
-            int x = (this.getWidth() - IDS.getWidth())/2;
-            int y = (this.getHeight() - IDS.getHeight())/2;
-            IDS.setLocation(x, y-75);
+            int x = (this.getWidth() - IDS.getWidth()) / 2;
+            int y = (this.getHeight() - IDS.getHeight()) / 2;
+            IDS.setLocation(x, y - 75);
         }
     }//GEN-LAST:event_menuDejarSeguirActionPerformed
 
     private void menuModificarPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuModificarPropActionPerformed
         // TODO add your handling code here:
-        if(this.IMP == null || IMP.isClosed()){
+        if (this.IMP == null || IMP.isClosed()) {
             InterModificarPropuesta IMP = new InterModificarPropuesta(this.ic);
             this.Desktop.add(IMP);
             IMP.show();
             //consigue largo y ancho de ventana principal
-            int x = (this.getWidth() - IMP.getWidth())/2;
-            int y = (this.getHeight() - IMP.getHeight())/2;
-            IMP.setLocation(x, y-30);
+            int x = (this.getWidth() - IMP.getWidth()) / 2;
+            int y = (this.getHeight() - IMP.getHeight()) / 2;
+            IMP.setLocation(x, y - 30);
         }
     }//GEN-LAST:event_menuModificarPropActionPerformed
 
     private void menuCancelarColaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCancelarColaActionPerformed
-        if ((this.ICrC == null || this.ICrC.isClosed()) && !ic.getColaboradores().isEmpty() && !ic.getPropuestas_Proponentes().isEmpty()){
-                ICrC = new InterCancelarCola(ic);
-                this.Desktop.add(ICrC);
-                ICrC.setLocation(30, 50);
-                ICrC.setVisible(true);
-            }else{
-                javax.swing.JOptionPane.showMessageDialog(this, "Se requieren Colaboradores y Propuestas ingresadas para acceder", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
-            }
+        if ((this.ICrC == null || this.ICrC.isClosed()) && !ic.getColaboradores().isEmpty() && !ic.getPropuestas_Proponentes().isEmpty()) {
+            ICrC = new InterCancelarCola(ic);
+            this.Desktop.add(ICrC);
+            ICrC.setLocation(30, 50);
+            ICrC.setVisible(true);
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "Se requieren Colaboradores y Propuestas ingresadas para acceder", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_menuCancelarColaActionPerformed
     private void menuConsultaColaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsultaColaActionPerformed
-        if(this.ICPC == null || ICPC.isClosed()){
+        if (this.ICPC == null || ICPC.isClosed()) {
             ICPC = new InterConsultaPerfilColaborador(this.ic);
             this.Desktop.add(ICPC);
-            ICPC.show();    
+            ICPC.show();
         }
     }//GEN-LAST:event_menuConsultaColaActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+
+        //PROPONENTES
+        ic.añadirUsuario("hrubino", "Horacio", "Rubino", "horacio.rubino@guambia.com.uy", LocalDate.of(1962, 2, 25), "home/tecnologo/Desktop/Culturarte/fotos/HR.jpeg", "18 de Julio 1234", "Horacio Rubino Torres nace el 25 de febrero de 1962, es conductor, actor y libretista. Debuta en 1982 en carnaval en Los \"Klaper´s\", donde estuvo cuatro años, actuando y libretando. Luego para \"Gaby´s\" (6 años), escribió en categoría revistas y humoristas y desde el comienzo y hasta el presente en su propio conjunto Momosapiens.", "https://twitter.com/horaciorubino");
+        ic.añadirUsuario("mbusca", "Martín", "Buscaglia", "Martin.bus@agadu.org.uy", LocalDate.of(1972, 6, 14), "home/tecnologo/Desktop/Culturarte/fotos/MB.jpeg", "Colonia 4321", "Martín Buscaglia (Montevideo, 1972) es un artista, músico, compositor y productor uruguayo. Tanto con su banda (“Los Bochamakers”) como en su formato “Hombre orquesta”, o solo con su guitarra, ha recorrido el mundo tocando entre otros países en España, Estados Unidos, Inglaterra, Francia, Australia, Brasil, Colombia, Argentina, Chile, Paraguay, México y Uruguay. (Actualmente los Bochamakers son Matías Rada, Martín Ibarburu, Mateo Moreno, Herman Klang) Paralelamente, tiene proyectos a dúo con el español Kiko Veneno, la cubana Yusa, el argentino Lisandro Aristimuño, su compatriota Antolín, y a trío junto a los brasileros Os Mulheres Negras", "http://www.martinbuscaglia.com/");
+        ic.añadirUsuario("tabarec", "Tabaré", "Cardozo", "tabare.car@agadu.org.uy", LocalDate.of(1971, 7, 24), "home/tecnologo/Desktop/Culturarte/fotos/TC.jpeg", "Santiago Rivas 1212", "Tabaré Cardozo (Montevideo, 24 de julio de 1971) es un cantante, compositor y murguista uruguayo; conocido por su participación en la murga Agarrate Catalina, conjunto que fundó junto a su hermano Yamandú y Carlos Tanco en el año 2001.", "https://www.facebook.com/Tabar%C3%A9-Cardozo-55179094281/?ref=br_rs");
+        ic.añadirUsuario("cachilas", "Waldemar \"Cachila\"", "Silva", "Cachila.sil@c1080.org.uy", LocalDate.of(1947, 1, 1), "home/tecnologo/Desktop/Culturarte/fotos/CS.jpeg", "Br. Artigas 4567", "Nace en el año 1947 en el conventillo \"Medio Mundo\" ubicado en pleno Barrio Sur. Es heredero parcialmentejunto al resto de sus hermanos- de la Comparsa \"Morenada\" (inactiva desde el fallecimiento de Juan Ángel Silva), en 1999 forma su propia Comparsa de negros y lubolos \"Cuareim 1080\". Director responsable, compositor y cantante de la misma.", "https://www.facebook.com/C1080?ref=br_rs");
+        ic.añadirUsuario("hectorg", "Héctor", "Guido", "hector.gui@elgalpon.org.uy", LocalDate.of(1954, 1, 7), "home/tecnologo/Desktop/Culturarte/fotos/HG.jpeg", "Gral. Flores 5645", "En 1972 ingresó a la Escuela de Arte Dramático del teatro El Galpón. Participó en más de treinta obras teatrales y varios largometrajes. Integró el elenco estable de Radioteatro del Sodre, y en 2006 fue asesor de su Consejo Directivo. Como actor recibió múltiples reconocimientos: cuatro premios Florencio, premio al mejor actor extranjero del Festival de Miami y premio Mejor Actor de Cine 2008. Durante varios períodos fue directivo del teatro El Galpón y dirigente de la Sociedad Uruguaya de Actores (SUA); integró también la Federación Uruguaya de Teatros Independientes (FUTI). Formó parte del equipo de gestión de la refacción de los teatros La Máscara, Astral y El Galpón, y del equipo de gestión en la construcción del teatro De la Candela y de la sala Atahualpa de El Galpón", "");
+        ic.añadirUsuario("juliob", "Julio", "Bocca", "juliobocca@sodre.com.uy", LocalDate.of(1967, 3, 16), "", "Benito Blanco 4321", "", "");
+        ic.añadirUsuario("diegop", "Diego", "Parodi", "diego@efectocine.com", LocalDate.of(1975, 1, 1), "", "Emilio Frugoni 1138 Ap. 02", "", "http://www.efectocine.com");
+        ic.añadirUsuario("kairoh", "Kairo", "Herrera", "kairoher@pilsenrock.com.uy", LocalDate.of(1970, 4, 25), "home/tecnologo/Desktop/Culturarte/fotos/KH.jpeg", "Paraguay 1423", "", "");
+        ic.añadirUsuario("losBardo", "Los", "Bardo", "losbardo@bardocientifico.com", LocalDate.of(1980, 10, 31), "home/tecnologo/Desktop/Culturarte/fotos/LB.jpeg", "8 de Octubre 1429", "Queremos ser vistos y reconocidos como una organización: referente en divulgación científica con un fuerte espíritu didáctico y divertido, a través de acciones coordinadas con otros divulgadores científicos, que permitan establecer puentes de comunicación. Impulsora en la generación de espacios de democratización y apropiación social del conocimiento científico.", "https://bardocientifico.com/");
+
+        //COLABORADORES
+        ic.añadirUsuario("robinh", "Robin", "Henderson", "Robin.h@tinglesa.com.uy", LocalDate.of(1940, 8, 3), "");
+        ic.añadirUsuario("marcelot", "Marcelo", "Tinelli", "marcelot@ideasdelsur.com.ar", LocalDate.of(1960, 4, 1), "home/tecnologo/Desktop/Culturarte/fotos/MT.jpeg");
+        ic.añadirUsuario("novick", "Edgardo", "Novick", "edgardo@novick.com.uy", LocalDate.of(1952, 7, 17), "home/tecnologo/Desktop/Culturarte/fotos/EN.jpeg");
+        ic.añadirUsuario("sergiop", "Sergio", "Puglia", "puglia@alpanpan.com.uy", LocalDate.of(1950, 1, 28), "home/tecnologo/Desktop/Culturarte/fotos/SP.jpeg");
+        ic.añadirUsuario("chino", "Alvaro", "Recoba", "chino@trico.org.uy", LocalDate.of(1976, 3, 17), "home/tecnologo/Desktop/Culturarte/fotos/AR.jpeg");
+        ic.añadirUsuario("tonyp", "Antonio", "Pacheco", "eltony@manya.org.uy", LocalDate.of(1955, 2, 14), "");
+        ic.añadirUsuario("nicoJ", "Nicolás", "Jodal", "jodal@artech.com.uy", LocalDate.of(1960, 8, 9), "home/tecnologo/Desktop/Culturarte/fotos/NJ.jpeg");
+        ic.añadirUsuario("juanP", "Juan", "Perez", "juanp@elpueblo.com", LocalDate.of(1970, 1, 1), "");
+        ic.añadirUsuario("Mengano", "Mengano", "Gómez", "menganog@elpueblo.com", LocalDate.of(1982, 2, 2), "");
+        ic.añadirUsuario("Perengano", "Perengano", "López", "pere@elpueblo.com", LocalDate.of(1985, 3, 3), "");
+        ic.añadirUsuario("Tiajaci", "Tía", "Jacinta", "jacinta@elpueblo.com", LocalDate.of(1990, 4, 4), "");
+
+        //HR
+        ic.seguirUsuario("hrubino", "hectorg");
+        ic.seguirUsuario("hrubino", "diegop");
+        ic.seguirUsuario("hrubino", "losBardo");
+        //MB
+        ic.seguirUsuario("mbusca", "tabarec");
+        ic.seguirUsuario("mbusca", "cachilas");
+        ic.seguirUsuario("mbusca", "kairoh");
+        //HG
+        ic.seguirUsuario("hectorg", "mbusca");
+        ic.seguirUsuario("hectorg", "juliob");
+        //TC
+        ic.seguirUsuario("tabarec", "hrubino");
+        ic.seguirUsuario("tabarec", "cachilas");
+        //CS
+        ic.seguirUsuario("cachilas", "hrubino");
+        //JB
+        ic.seguirUsuario("juliob", "mbusca");
+        ic.seguirUsuario("juliob", "diegop");
+        //DP
+        ic.seguirUsuario("diegop", "hectorg");
+        ic.seguirUsuario("diegop", "losBardo");
+        //KH
+        ic.seguirUsuario("kairoh", "sergiop");
+        //LB
+        ic.seguirUsuario("losBardo", "hrubino");
+        ic.seguirUsuario("losBardo", "nicoJ");
+        //RH
+        ic.seguirUsuario("robinh", "hectorg");
+        ic.seguirUsuario("robinh", "juliob");
+        ic.seguirUsuario("robinh", "diegop");
+        //MT
+        ic.seguirUsuario("marcelot", "cachilas");
+        ic.seguirUsuario("marcelot", "juliob");
+        ic.seguirUsuario("marcelot", "kairoh");
+        //EN
+        ic.seguirUsuario("novick", "hrubino");
+        ic.seguirUsuario("novick", "tabarec");
+        ic.seguirUsuario("novick", "cachilas");
+        //SP                
+        ic.seguirUsuario("sergiop", "mbusca");
+        ic.seguirUsuario("sergiop", "juliob");
+        ic.seguirUsuario("sergiop", "diegop");
+        //AR                        
+        ic.seguirUsuario("chino", "tonyp");
+        //AP                                
+        ic.seguirUsuario("tonyp", "chino");
+        //NJ                                        
+        ic.seguirUsuario("nicoJ", "diegop");
+        ic.seguirUsuario("nicoJ", "losBardo");
+        //JP                                                       
+        ic.seguirUsuario("juanP", "tabarec");
+        ic.seguirUsuario("juanP", "cachilas");
+        ic.seguirUsuario("juanP", "kairoh");
+        //MG                                                               
+        ic.seguirUsuario("Mengano", "hectorg");
+        ic.seguirUsuario("Mengano", "juliob");
+        ic.seguirUsuario("Mengano", "chino");
+        //PL                                                                       
+        ic.seguirUsuario("Perengano", "diegop");
+        ic.seguirUsuario("Perengano", "tonyp");
+        //TJ                                                                           
+        ic.seguirUsuario("Tiajaci", "juliob");
+        ic.seguirUsuario("Tiajaci", "kairoh");
+        ic.seguirUsuario("Tiajaci", "novick");
+
+        //CATEGORIA
+        ic.altaCategoria("Carnaval");
+        ic.altaCategoria("Murga", "Carnaval");
+        ic.altaCategoria("Humoristas", "Carnaval");
+        ic.altaCategoria("Parodistas", "Carnaval");
+        ic.altaCategoria("Lumbolos", "Carnaval");
+        ic.altaCategoria("Revista", "Carnaval");
+        ic.altaCategoria("Teatro");
+        ic.altaCategoria("Teatro Dramático", "Teatro");
+        ic.altaCategoria("Teatro Musical", "Teatro");
+        ic.altaCategoria("Comedia", "Teatro");
+        ic.altaCategoria("Stand-up", "Comedia");
+        ic.altaCategoria("Literatura");
+        ic.altaCategoria("Musica");
+        ic.altaCategoria("Festival","Musica");
+        ic.altaCategoria("Concierto","Musica");
+        ic.altaCategoria("Cine");
+        ic.altaCategoria("Cine al Aire Libre", "Cine");
+        ic.altaCategoria("Cine a Pedal", "Cine");
+        ic.altaCategoria("Danza");
+        ic.altaCategoria("Ballet", "Danza");
+        ic.altaCategoria("Flamenco", "Danza");
+        
+
+        //PROPUESTA
+        /*ic.altaPropuesta("diegop", "Cine al Aire Libre", "Cine en el Botánico",
+                "El 16 de Diciembre a la hora 20 se proyectará la película \"Clever\", en el Jardín Botánico (Av. 19 de Abril 1181) en el marco de las actividades realizadas por el ciclo Cultura al Aire Libre. El largometraje uruguayo de ficción Clever es dirigido por Federico Borgia y Guillermo Madeiro. Es apto para mayores de 15 años.",
+                "Jardín Botánico", LocalDate.of(2017, 12, 16), "200", "150000", EnumRetorno.PORCENTAJE_VENTAS, LocalDate.of(2017, 9, 16), "");
+
+        ic.altaPropuesta("hrubino", "Parodistas", "Religiosamente",
+                "MOMOSAPIENS presenta \"Religiosamente\". Mediante dos parodias y un hilo conductor que aborda la temática de la religión Momosapiens, mediante el humor y la reflexión, hilvana una historia que muestra al hombre inmerso en el tema religioso. El libreto está escrito utilizando diferentes lenguajes de humor, dando una visión satírica y reflexiva desde distintos puntos de vista, logrando mediante situaciones paródicas armar una propuesta plena de arte carnavalero.",
+                "Teatro de Verano", LocalDate.of(2017, 10, 7), "300", "300000", EnumRetorno.AMBOS, LocalDate.of(2017, 6, 18));
+
+        ic.altaPropuesta("mbusca", "Concierto", "El Pimiento Indomable",
+                "El Pimiento Indomable, formación compuesta por Kiko Veneno y el uruguayo Martín Buscaglia, presentará este 19 de Octubre, su primer trabajo. Bajo un título homónimo al del grupo, es un disco que según los propios protagonistas “no se parece al de ninguno de los dos por separado. Entre los títulos que se podrán escuchar se encuentran “Nadador salvador”, “América es más grande”, “Pescaito Enroscado” o “La reina del placer”.",
+                "Teatro Solís", LocalDate.of(2017, 10, 19), "400", "400000", EnumRetorno.PORCENTAJE_VENTAS, LocalDate.of(2017, 7, 26), "");
+
+        ic.altaPropuesta("kairoh", "Festival", "Pilsen Rock",
+                "La edición 2017 del Pilsen Rock se celebrará el 21 de Octubre en la Rural del Prado y contará con la participación de más de 15 bandas nacionales. Quienes no puedan trasladarse al lugar, tendrán la posibilidad de disfrutar los shows a través de Internet, así como entrevistas en vivo a los músicos una vez finalizados los conciertos.",
+                "Rural de Prado", LocalDate.of(2017, 10, 21), "1000", "900000", EnumRetorno.AMBOS, LocalDate.of(2017, 7, 30), "");
+
+        ic.altaPropuesta("juliob", "Ballet", "Romeo y Julieta",
+                "Romeo y Julieta de Kenneth MacMillan, uno de los ballets favoritos del director artístico Julio Bocca, se presentará nuevamente el 5 de Noviembre en el Auditorio Nacional del Sodre. Basada en la obra homónima de William Shakespeare, Romeo y Julieta es considerada la coreografía maestra del MacMillan. La producción de vestuario y escenografía se realizó en los Talleres del Auditorio Adela Reta, sobre los diseños originales.",
+                "Auditorio Nacional del Sodre", LocalDate.of(2017, 11, 5), "800", "750000", EnumRetorno.PORCENTAJE_VENTAS, LocalDate.of(2017, 8, 4), "");
+
+        ic.altaPropuesta("tabarec", "Murga", "Un día de Julio",
+                "La Catalina presenta el espectáculo \"Un Día de Julio\" en Landia. Un hombre misterioso y solitario vive encerrado entre las cuatro paredes de su casa. Intenta, con sus teorías extravagantes, cambiar el mundo exterior que le resulta inhabitable. Un día de Julio sucederá algo que cambiará su vida y la de su entorno para siempre.",
+                "Landia", LocalDate.of(2017, 11, 16), "650", "300000", EnumRetorno.AMBOS, LocalDate.of(2017, 8, 6), "");
+
+        ic.altaPropuesta("hectorg", "Teatro Dramático", "El Lazarillo de Tormes",
+                "Vuelve unas de las producciones de El Galpón más aclamadas de los últimos tiempos. Esta obra se ha presentado en Miami, Nueva York, Washington, México, Guadalajara, Río de Janeiro y La Habana. En nuestro país, El Lazarillo de Tormes fue nominado en los rubros mejor espectáculo y mejor dirección a los Premios Florencio 1995, obteniendo su protagonista Héctor Guido el Florencio a Mejor actor de ese año.",
+                "Teatro el Galpón", LocalDate.of(2017, 12, 3), "350", "175000", EnumRetorno.ENTRADAS_GRATIS, LocalDate.of(2017, 8, 18));
+
+        ic.altaPropuesta("losBardo", "Stand-up", "Bardo en la FING",
+                "El 10 de Diciembre se presentará Bardo Científico en la FING. El humor puede ser usado como una herramienta importante para el aprendizaje y la democratización de la ciencia, los monólogos científicos son una forma didáctica de apropiación del conocimiento científico y contribuyen a que el público aprenda ciencia de forma amena. Los invitamos a pasar un rato divertido, en un espacio en el cual aprenderán cosas de la ciencia que los sorprenderán. ¡Los esperamos!",
+                "Anfiteatro Edificio \"José Luis Massera\"", LocalDate.of(2017, 12, 10), "200", "100000", EnumRetorno.ENTRADAS_GRATIS, LocalDate.of(2017, 8, 23));
+
+        //COLABORACIONES/APORTES
+        ic.altaAporte("novick","Cine en el Botánico",50000, 0, EnumRetorno.PORCENTAJE_VENTAS , LocalDateTime.of(2017, 5, 20, 14, 30));
+        ic.altaAporte("robinh","Cine en el Botánico",50000, 0, EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2017, 5, 24, 17, 25));
+        ic.altaAporte("nicoJ","Cine en el Botánico",50000, 0, EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2017, 5, 30, 18, 30));
+        ic.altaAporte("marcelot","Religiosamente",200000, 0, EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2017, 6, 30, 14, 25));
+        ic.altaAporte("Tiajaci","Religiosamente",500, 0, EnumRetorno.ENTRADAS_GRATIS,LocalDateTime.of(2017, 7, 1, 18, 5));
+        ic.altaAporte("Mengano","Religiosamente",600, 0,EnumRetorno.ENTRADAS_GRATIS, LocalDateTime.of(2017, 7, 7, 17, 45));
+        ic.altaAporte("novick","Religiosamente",50000, 0,EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2017, 7, 10, 14, 35));
+        ic.altaAporte("sergiop","Religiosamente",50000, 0, EnumRetorno.PORCENTAJE_VENTAS,LocalDateTime.of(2017, 7, 15, 9, 45));
+        ic.altaAporte("marcelot","El Pimiento Indomable",200000, 0,EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2017, 8, 1, 7, 40));
+        ic.altaAporte("sergiop","El Pimiento Indomable",80000, 0,EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2017, 8, 3, 9, 25));
+        ic.altaAporte("chino","Pilsen Rock",50000, 0,EnumRetorno.ENTRADAS_GRATIS, LocalDateTime.of(2017, 8, 5, 16, 50));
+        ic.altaAporte("novick","Pilsen Rock",120000, 0, EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2017, 8, 10, 15, 50));
+        ic.altaAporte("tonyp","Pilsen Rock",120000, 0,EnumRetorno.ENTRADAS_GRATIS, LocalDateTime.of(2017, 8, 15, 19, 30));
+        ic.altaAporte("sergiop","Romeo y Julieta", 100000, 0,EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2017, 8, 13, 4, 58));
+        ic.altaAporte("marcelot","Romeo y Julieta",200000, 0,EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2017, 8, 14, 11, 25));
+        ic.altaAporte("tonyp","Un día de Julio",30000, 0,EnumRetorno.ENTRADAS_GRATIS, LocalDateTime.of(2017, 8, 15, 4, 48));
+        ic.altaAporte("marcelot","Un día de Julio",150000, 0,EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2017, 8, 17, 15, 30));
+*/
+        javax.swing.JOptionPane.showMessageDialog(this, "Datos de pruba cargados correctamente", "Atención", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -376,7 +570,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             new VentanaPrincipal().setVisible(true);
         });
     }
-    
+
     private InterConsultaPerfilProponente ICPP;
     private InterConsultaPropuesta ICP;
     private InterAltaPropuesta IAP;
@@ -390,11 +584,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private InterSeguirUsuario ISU;
     private InterDejarSeguir IDS;
     private InterModificarPropuesta IMP;
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane Desktop;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem menuAltaCategoria;
     private javax.swing.JMenuItem menuAltaProp;
     private javax.swing.JMenuItem menuAltaUsuario;
@@ -404,6 +601,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuConsultaPropu;
     private javax.swing.JMenuItem menuConsultaPropuEst;
     private javax.swing.JMenuItem menuConsultarCola;
+    private javax.swing.JMenu menuDatos;
     private javax.swing.JMenuItem menuDejarSeguir;
     private javax.swing.JMenuItem menuModificarProp;
     private javax.swing.JMenu menuPerfil;

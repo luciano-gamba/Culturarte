@@ -11,8 +11,10 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -27,6 +29,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class InterAltaUsuario extends javax.swing.JInternalFrame {
 
     String txtImagen = "";
+    List <String> nicksProhibidos = new ArrayList<>(List.of("--Seleccionar--", "---"));
     private final IControlador ic;
     /**
      * Creates new form InterAltaUsuario
@@ -386,42 +389,43 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
         LocalDate fecNac = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         
         
-        if(nickname.isBlank() || nombre.isBlank() || apellido.isBlank() || email.isBlank() || !email.contains("@")){
+        if(nickname.isBlank() || nombre.isBlank() || this.nicksProhibidos.contains(nickname) || apellido.isBlank()){
             JOptionPane.showMessageDialog(this, "Opciones vacias o invalidas!", "Error", HEIGHT);
-            
         }else{
-            if(rbProponente.isSelected()){
-                String direccion = textoDireccion.getText().trim();
-                String biografia = textoBiografia.getText();
-                String sitioWeb = textoSitioWeb.getText().trim();
-                
-                if(direccion.isBlank() || (!sitioWeb.isBlank() && !sitioWeb.contains("."))){
-                    JOptionPane.showMessageDialog(this, "Opciones vacias o invalidas!", "Error", HEIGHT);
-                }else{
-                    int resultado = this.ic.añadirUsuario(nickname, nombre, apellido, email, fecNac, this.txtImagen, direccion,biografia , sitioWeb);
-                    
-                    if(resultado == 1){
-                        JOptionPane.showMessageDialog(this, "Usuario ha sido ingresado!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
-                        this.dispose();
-                    }else{
-                        JOptionPane.showMessageDialog(this, "Nickname o Email ya existen!", "Error", HEIGHT);
-                    }
-                }
-            }else if(rbColaborador.isSelected()){
-                int resultado = this.ic.añadirUsuario(nickname, nombre, apellido, email, fecNac, this.txtImagen);
-                    
-                    if(resultado == 1){
-                        JOptionPane.showMessageDialog(this, "Usuario ha sido ingresado!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
-                        this.dispose();
-                    }else{
-                        JOptionPane.showMessageDialog(this, "Nickname o Email ya existen!", "Error", HEIGHT);
-                    }
+            if(email.isBlank() || !email.contains("@") || email.contains(" ") || !email.contains(".")){
+                JOptionPane.showMessageDialog(this, "Email no válido!", "Error", HEIGHT);
             }else{
-                JOptionPane.showMessageDialog(this, "Debe elegir tipo de usuario!", "Error", HEIGHT);
+                if(rbProponente.isSelected()){
+                    String direccion = textoDireccion.getText().trim();
+                    String biografia = textoBiografia.getText();
+                    String sitioWeb = textoSitioWeb.getText().trim();
+
+                    if(direccion.isBlank() || (!sitioWeb.isBlank() && !sitioWeb.contains("."))){
+                        JOptionPane.showMessageDialog(this, "Opciones vacias o invalidas!", "Error", HEIGHT);
+                    }else{
+                        int resultado = this.ic.añadirUsuario(nickname, nombre, apellido, email, fecNac, this.txtImagen, direccion,biografia , sitioWeb);
+
+                        if(resultado == 1){
+                            JOptionPane.showMessageDialog(this, "Usuario ha sido ingresado!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
+                            this.dispose();
+                        }else{
+                            JOptionPane.showMessageDialog(this, "Nickname o Email ya existen!", "Error", HEIGHT);
+                        }
+                    }
+                }else if(rbColaborador.isSelected()){
+                    int resultado = this.ic.añadirUsuario(nickname, nombre, apellido, email, fecNac, this.txtImagen);
+
+                        if(resultado == 1){
+                            JOptionPane.showMessageDialog(this, "Usuario ha sido ingresado!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
+                            this.dispose();
+                        }else{
+                            JOptionPane.showMessageDialog(this, "Nickname o Email ya existen!", "Error", HEIGHT);
+                        }
+                }else{
+                    JOptionPane.showMessageDialog(this, "Debe elegir tipo de usuario!", "Error", HEIGHT);
+                }
             }
         }
-        
-        
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void textoSitioWebActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoSitioWebActionPerformed

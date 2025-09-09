@@ -28,8 +28,6 @@ public class Categoria implements Serializable{
     
     @OneToMany(mappedBy = "categoria")
     private List<Propuesta> misPropuestas = new ArrayList();
-    @OneToOne(mappedBy = "categoria")
-    private Propuesta propuesta;
 
     public Categoria() {
         

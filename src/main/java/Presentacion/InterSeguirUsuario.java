@@ -27,8 +27,9 @@ public class InterSeguirUsuario extends javax.swing.JInternalFrame {
         initComponents();
         for(String s : listaUsuarios){
             comboSeguidor.addItem(s);
-            comboSeguir.addItem(s);
         }
+        botonAceptar.setEnabled(false);
+        comboSeguir.setEnabled(false);
         this.setTitle("Seguir Usuario");
     }
 
@@ -62,7 +63,7 @@ public class InterSeguirUsuario extends javax.swing.JInternalFrame {
             }
         });
 
-        comboSeguir.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccionar--" }));
+        comboSeguir.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
         comboSeguir.setEnabled(false);
         comboSeguir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,7 +94,7 @@ public class InterSeguirUsuario extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(comboSeguidor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
                         .addComponent(comboSeguir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelSeguidor)
@@ -136,48 +137,50 @@ public class InterSeguirUsuario extends javax.swing.JInternalFrame {
 
     private void comboSeguidorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSeguidorActionPerformed
         // TODO add your handling code here:
-        int selectedItem = comboSeguidor.getSelectedIndex();
-        if(selectedItem != 0){
+        int seleccion = comboSeguidor.getSelectedIndex();
+        comboSeguir.removeAllItems();
+        comboSeguir.addItem("---");
+        if(seleccion != 0){
+            String seguidor = comboSeguidor.getSelectedItem().toString();
+            List<String> listaSeguidos = ic.getSeguidos(seguidor);
+            for(String s : this.listaUsuarios){
+                if(!listaSeguidos.contains(s)){
+                    comboSeguir.addItem(s);
+                }
+            }
+            comboSeguir.removeItem(seguidor);
             comboSeguir.setEnabled(true);
         }else{
             comboSeguir.setEnabled(false);
+            botonAceptar.setEnabled(false);
         }
     }//GEN-LAST:event_comboSeguidorActionPerformed
 
     private void comboSeguirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSeguirActionPerformed
         // TODO add your handling code here:
-        
-        
+        int seleccion = comboSeguir.getSelectedIndex();
+        if(seleccion != 0){
+            botonAceptar.setEnabled(true);
+        }else{
+            botonAceptar.setEnabled(false);
+        }
     }//GEN-LAST:event_comboSeguirActionPerformed
 
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
         // TODO add your handling code here:
-        
         this.dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         // TODO add your handling code here:
-        if(comboSeguir.isEnabled() == false || comboSeguir.getSelectedIndex() == 0){
-            JOptionPane.showMessageDialog(this, "Elija opciones!", "Error", HEIGHT);
+        String nick1 = comboSeguidor.getSelectedItem().toString();
+        String nick2 = comboSeguir.getSelectedItem().toString();
+        int resultado = ic.seguirUsuario(nick1, nick2);
+        if(resultado == 0){
+            JOptionPane.showMessageDialog(this, nick1 + " ya sigue a " + nick2 + "!", "Error", HEIGHT); //no deberia llegar nunca aqui
         }else{
-            int opcion1 = comboSeguidor.getSelectedIndex();
-            int opcion2 = comboSeguir.getSelectedIndex();
-            if(opcion1 == opcion2){
-                JOptionPane.showMessageDialog(this, "No se puede seguir a si mismo!", "Error", HEIGHT);
-            }else{
-                int op1 = comboSeguidor.getSelectedIndex();
-                String nick1 = comboSeguidor.getItemAt(op1);
-                int op2 = comboSeguir.getSelectedIndex();
-                String nick2 = comboSeguir.getItemAt(op2);
-                int resultado = ic.seguirUsuario(nick1, nick2);
-                if(resultado == 0){
-                    JOptionPane.showMessageDialog(this, "Usuario ya lo está siguiendo!", "Error", HEIGHT);
-                }else{
-                    JOptionPane.showMessageDialog(this, "Usuario ha empezado a seguir a " + nick2 + "!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
-                    this.dispose();
-                }
-            }
+            JOptionPane.showMessageDialog(this, nick1 + " ha empezado a seguir a " + nick2 + "!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
         }
     }//GEN-LAST:event_botonAceptarActionPerformed
 

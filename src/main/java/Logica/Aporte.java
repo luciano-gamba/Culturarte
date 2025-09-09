@@ -31,13 +31,20 @@ public class Aporte implements Serializable {
     public Aporte() {
     }
     
-    
-  
     public Aporte(Colaborador miColaborador, double $aporte, int cantidad, EnumRetorno retorno) {
             
         this.miColaborador = miColaborador;
         this.$aporte = $aporte;
         this.fechaHora = LocalDateTime.now();
+        this.cantidad = cantidad;
+        this.retorno = retorno;
+    }
+    
+    public Aporte(Colaborador miColaborador, double $aporte, int cantidad, EnumRetorno retorno, LocalDateTime fecAp) {
+            
+        this.miColaborador = miColaborador;
+        this.$aporte = $aporte;
+        this.fechaHora = fecAp;
         this.cantidad = cantidad;
         this.retorno = retorno;
     }
@@ -110,6 +117,11 @@ public class Aporte implements Serializable {
         this.id = id;
     }
     
+    public String getImagenMiPropuesta(){
+        return this.miPropuesta.getImagen();
+    }
     
-    
+    public double getNecesaria(){
+        return this.miPropuesta.getNecesaria();
+    }
 }

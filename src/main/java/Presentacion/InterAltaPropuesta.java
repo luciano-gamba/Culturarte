@@ -183,6 +183,11 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(ArbolDeCategorias);
 
         comboNick.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccionar--" }));
+        comboNick.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboNickActionPerformed(evt);
+            }
+        });
 
         spinnerFec.setModel(new javax.swing.SpinnerDateModel());
         spinnerFec.setEditor(new javax.swing.JSpinner.DateEditor(spinnerFec, "d/M/yyyy"));
@@ -233,7 +238,7 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2)
                         .addGap(25, 25, 25))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -431,6 +436,10 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
             txtTipo.setText(nodoSeleccionado.getUserObject().toString());
         }
     }//GEN-LAST:event_ArbolDeCategoriasValueChanged
+
+    private void comboNickActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboNickActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboNickActionPerformed
 
     //private boolean open;
     private String txtImagen;

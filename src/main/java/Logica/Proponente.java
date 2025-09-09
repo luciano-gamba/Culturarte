@@ -3,6 +3,7 @@ package Logica;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 
@@ -12,6 +13,7 @@ public class Proponente extends Usuario {
 
     
     String direccion;
+    @Column(name="descripcion",length=1000)
     String biografia = "";
     String sitioWeb = "";
     List<Propuesta> misPropuestas;
