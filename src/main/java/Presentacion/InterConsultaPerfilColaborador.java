@@ -26,7 +26,7 @@ public class InterConsultaPerfilColaborador extends javax.swing.JInternalFrame {
     public InterConsultaPerfilColaborador(IControlador ic) {
         this.setTitle("Consulta Perfil Colaborador");
         this.ic = ic;
-        listaColaboradores = ic.getUsuariosColaboradores();
+        listaColaboradores = ic.getColaboradores();
         initComponents();
         for(String s : listaColaboradores){
             ColaboradorCombo.addItem(s);

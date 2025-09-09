@@ -418,11 +418,12 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
         if (ArbolDeCategorias.getLastSelectedPathComponent() == null) {
             return;
         }
-        if (nodoSeleccionado.getUserObject().toString().equals("Categoria")) {
+         if (nodoSeleccionado.getUserObject().toString().equals("Categoria")) {
             JOptionPane.showMessageDialog(this, "No se permite usar \"Categoria\" como tipo de espectaculo!", "Error", HEIGHT);
             return;
         }
         if (!ic.seleccionaCategoria(nodoSeleccionado.getUserObject().toString())) {
+            System.out.println(nodoSeleccionado.getUserObject().toString());
             JOptionPane.showMessageDialog(this, "No se permite seleccionar una propuesta como tipo de espectaculo!", "Error", HEIGHT);
             return;   
         }

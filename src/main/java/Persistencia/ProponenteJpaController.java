@@ -145,5 +145,9 @@ public class ProponenteJpaController implements Serializable {
             em.close();
         }
     }
-    
+    public List<String> getListaNick(){
+        EntityManager em = getEntityManager();
+        Query query = em.createQuery("SELECT p.nickname FROM Proponente p");
+        return query.getResultList();               
+    }
 }

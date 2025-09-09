@@ -177,6 +177,7 @@ public class Controlador implements IControlador{
         return 0;
     }
  
+    @Override
     public DefaultMutableTreeNode cargarNodoRaizCategorias(){
         List<Categoria> todas = cp.listarCategorias();
         
@@ -264,7 +265,7 @@ public class Controlador implements IControlador{
             }
         }                
         if($aporte > miPropuesta.getmontoNecesaria() || $aporte > miPropuesta.getmontoNecesaria()-miPropuesta.getmontoAlcanzada()){
-            return -2;//ERROR: Aporte superior a lo permitido
+            return -2;//ERROR: Aporte superior a lo permitido - ESTO HAY QUE SACARLO el monto puede ser infinito, esto no es error
         }        
         if (miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno) == null) {
             return -3;  //Error: El usuario ya colabora con la Propuesta
@@ -274,6 +275,9 @@ public class Controlador implements IControlador{
         }        
         Aporte a = miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno);
         miPropuesta.addAporte(a);
+        //Tenes que usar el edit de persistencia de propuesta porque si no no se guarda este aporte en esa Propuesta
+        cp.editarPropuesta(miPropuesta);
+        cp.editarColaborador(miColaborador);
         cp.añadirAporte(a);
         return 0; //PROPUESTA AGREGADA CORRECTAMENTE  
     }
@@ -281,19 +285,20 @@ public class Controlador implements IControlador{
     @Override
     public List<String> getUsuarios() {
         List<String> listaNombres = new ArrayList<>();
-        String aux;
-        for(Usuario u : misUsuarios){
-            aux = u.getNickname();
-            listaNombres.add(aux);
-        }
         
-//        si fuera con persistencia
-//        ArrayList<Usuario> listaUsuarios = cp.getListaUsuarios();
 //        String aux;
-//        for(Usuario u : listaUsuarios){
+//        for(Usuario u : misUsuarios){
 //            aux = u.getNickname();
 //            listaNombres.add(aux);
 //        }
+        
+//        si fuera con persistencia
+        ArrayList<Usuario> listaUsuarios = cp.getListaUsuarios();
+        String aux;
+        for(Usuario u : listaUsuarios){
+            aux = u.getNickname();
+            listaNombres.add(aux);
+        }
         
         return listaNombres;
     }
@@ -345,94 +350,89 @@ public class Controlador implements IControlador{
             aux = p.getNickname();
             listaNombres.add(aux);
         }
-        
-        return listaNombres;
-    }
-    @Override
-    public List<String> getUsuariosColaboradores() {
-        List<String> listaNombres = new ArrayList<>();
-        String aux;
-        for(Colaborador c : misColaboradores){
-            aux = c.getNickname();
-            listaNombres.add(aux);
-        }
+        //Lo podemos dejar como prefieran pero yo siento que queda mejor si directamente le pedimos los name al controlador  de 
+        //persistencia y funcionaria igual sin tener que hacer que el controlador reciba en este punto los Proponentes
+        //return cp.getNickProponente();
         return listaNombres;
     }
     
     @Override
     public List<String> getSeguidos(String seguidor) {
-        List<String> listaNombres = new ArrayList<>();
-        for(Usuario u : this.misUsuarios){
-            if(u.getNickname().equals(seguidor)){
-                listaNombres = u.getSeguidos();
-                break;
-            }
-        }
+//        List<String> listaNombres = new ArrayList<>();
+//        for(Usuario u : this.misUsuarios){
+//            if(u.getNickname().equals(seguidor)){
+//                listaNombres = u.getSeguidos();
+//                break;
+//            }
+//        }
 
 //        persistencia
-//        Usuario usu = cp.buscarUsuario(seguidor);
-//        listaNombres = usu.getSeguidos();
+        List<String> listaNombres;
+        Usuario usu = cp.buscarUsuario(seguidor);
+        listaNombres = usu.getSeguidos();
         
         return listaNombres;
     }
 
     @Override
     public int seguirUsuario(String nick1, String nick2) {
-        Usuario seguidor = null;
-        Usuario seguir = null;
-        for(Usuario u : this.misUsuarios){
-            if(u.getNickname().equals(nick1)){
-                seguidor = u;
-                break;
-            }
-        }
-        
-        for(Usuario u : this.misUsuarios){
-            if(u.getNickname().equals(nick2)){
-                seguir = u;
-                break;
-            }
-        }
+//        Usuario seguidor = null;
+//        Usuario seguir = null;
+//        for(Usuario u : this.misUsuarios){
+//            if(u.getNickname().equals(nick1)){
+//                seguidor = u;
+//                break;
+//            }
+//        }
+//        
+//        for(Usuario u : this.misUsuarios){
+//            if(u.getNickname().equals(nick2)){
+//                seguir = u;
+//                break;
+//            }
+//        }
 //        persistencia
-//        seguidor = cp.buscarUsuario(nick1);
-//        seguir = cp.buscarUsuario(nick2);
+        Usuario seguidor, seguir;
+        seguidor = cp.buscarUsuario(nick1);
+        seguir = cp.buscarUsuario(nick2);
 
         int resultado = seguidor.seguirUsuario(seguir);
         if (resultado == 0) {
             return 0; //error 0: ya sigue al usuario nick2
         }else{
             //persistencia
-//            cp.editarUsuario(seguidor);
+            cp.editarUsuario(seguidor);
             return 1;
         }
     }
     
     @Override
     public int dejarSeguirUsuario(String nick1, String nick2){
-        Usuario seguidor = null;
-        Usuario seguir = null;
-        for(Usuario u : this.misUsuarios){
-            if(u.getNickname().equals(nick1)){
-                seguidor = u;
-                break;
-            }
-        }
-        
-        for(Usuario u : this.misUsuarios){
-            if(u.getNickname().equals(nick2)){
-                seguir = u;
-                break;
-            }
-        }
+//        Usuario seguidor = null;
+//        Usuario seguir = null;
+//        for(Usuario u : this.misUsuarios){
+//            if(u.getNickname().equals(nick1)){
+//                seguidor = u;
+//                break;
+//            }
+//        }
+//        
+//        for(Usuario u : this.misUsuarios){
+//            if(u.getNickname().equals(nick2)){
+//                seguir = u;
+//                break;
+//            }
+//        }
         
         //persistencia
-//        seguidor = cp.buscarUsuario(nick1);
-//        seguir = cp.buscarUsuario(nick2);
+        Usuario seguidor, seguir;
+        seguidor = cp.buscarUsuario(nick1);
+        seguir = cp.buscarUsuario(nick2);
         
         int res = seguidor.dejarDeSeguir(seguir);
         if(res == 1){
             //persistencia
-//            cp.editarUsuario(seguidor);
+            cp.editarUsuario(seguidor);
             return 1;
         }else{
             return 0; //error: no lo encontró
@@ -476,7 +476,7 @@ public class Controlador implements IControlador{
         
     }
     
-    @Override
+    @Override //recomiendo eliminar esto y pasarle string imagen al otro altaPropuesta
     public int altaPropuesta(String nick, String tipo, String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual, String imagen){
         
 //        Proponente prop = null;
@@ -530,19 +530,44 @@ public class Controlador implements IControlador{
     @Override
     public int modificarPropuesta(String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, String posibleRetorno, String estado, String imagen, String categoria){
         
-        for(Propuesta p : this.misPropuestas){
-            if(p.getTitulo().equals(titulo)){
-                Categoria c = cp.findCategoria(categoria);
-                //Ya se busca directamente en la BD el arbol categoria no tendra los
-                 //datos
-                
-                //Quitar esta propuesta de la categoria que la apuntaba (por el caso de cambio de categoria) hacerlo directo con persistencia
-                p.modificarPropuesta(descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada),Double.parseDouble(montoNecesario), posibleRetorno, estado, imagen, c);
-                //Agregar propuesta a esa categoria directamente lo hare con persistencia antes seria c.agregarPropuesta(nuevaProp);
-                return 0;
-            }
+//        for(Propuesta p : this.misPropuestas){
+//            if(p.getTitulo().equals(titulo)){
+//                Categoria c = cp.findCategoria(categoria);
+//                //Ya se busca directamente en la BD el arbol categoria no tendra los
+//                 //datos
+//                
+//                //Quitar esta propuesta de la categoria que la apuntaba (por el caso de cambio de categoria) hacerlo directo con persistencia
+//                p.modificarPropuesta(descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada),Double.parseDouble(montoNecesario), posibleRetorno, estado, imagen, c);
+//                //Agregar propuesta a esa categoria directamente lo hare con persistencia antes seria c.agregarPropuesta(nuevaProp);
+//                return 0;
+//            }
+//        }
+//        return 1; //error 1: no deberia llegar acá
+
+///////////////persistencia/////////////////
+        
+        Propuesta p = cp.getPropuesta(titulo);
+        Categoria c = cp.findCategoria(categoria);
+        //Ya se busca directamente en la BD el arbol categoria no tendra los
+        //datos
+        boolean seCambioCat = false;
+        //Quitar esta propuesta de la categoria que la apuntaba (por el caso de cambio de categoria) hacerlo directo con persistencia
+        if(!p.getCategoria().equals(c.getNombre())){ //p.getCategoria no anda
+//            //Quitar esta propuesta de la categoria que la apuntaba
+              Categoria viejaCat = p.getCategoriaClase(); //Aca saco la categoria que tenia antes ya que aun no se modifico
+              viejaCat.sacarPropuesta(p); //La saco de su lista de propuestas
+              cp.editarCategoria(viejaCat); //mando el edit para reflejar cambios en BD
+              seCambioCat = true;
         }
-        return 1; //error 1: no deberia llegar acá
+        p.modificarPropuesta(descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada), Double.parseDouble(montoNecesario), posibleRetorno, estado, imagen, c);
+        cp.modificarPropuesta(p);
+        
+        //Agregar propuesta a esa categoria directamente lo hare con persistencia antes seria c.agregarPropuesta(nuevaProp);
+        if(seCambioCat){
+            c.agregarPropuesta(p); //Si se cambio entonces la nuevaCat o bueno "c" debe agregar esta propuesta a su lista
+            cp.editarCategoria(c); //Y reflejarlo en la BD
+        }
+        return 0;
     }
 
     
@@ -572,25 +597,20 @@ public class Controlador implements IControlador{
     public DataPropuesta consultaDePropuesta(String titulo){
         
 //        DataPropuesta DP = null;
-//        
+        
+//        boolean encontrado = false;
 //        for (Propuesta p : misPropuestas) {
 //            if (p.getTitulo().equalsIgnoreCase(titulo)) {
+//                encontrado = true;
 //                DP = new DataPropuesta(titulo, p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getAlcanzada() , p.getFechaARealizar(), p.getRetorno(), p.getCategoria());
 //                return DP;
 //            }
 //        }
-//        return DP;
-        
-        //PERSISTENCIA
-        
-        Propuesta p = cp.buscarPropuesta(titulo);
-        
-        DataPropuesta DP = null;
-        
-        DP = new DataPropuesta(p.getTitulo(), p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getAlcanzada() , p.getFechaARealizar(), p.getRetorno(), p.getCategoria());
-        
-        return DP;
-        
+//       return DP;
+
+        //persistencia
+        Propuesta p = cp.getPropuesta(titulo);
+        return new DataPropuesta(titulo, p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getAlcanzada() , p.getFechaARealizar(), p.getRetorno(), p.getCategoria()/*"SIN FUNCIONAR"*/);
     }
     
     @Override
@@ -621,9 +641,7 @@ public class Controlador implements IControlador{
     public DataProponente consultaDeProponente(String NickName){
         
         DataProponente DProp = null;
-        
-        for (Proponente p : misProponentes) {
-            if (p.getNickname().equals(NickName)) {
+        Proponente p = cp.buscarProponente(NickName);
                 List<DataPropuesta> propuestasDe = new ArrayList<>();
                 DataPropuesta dataProp;
                 for(Propuesta prop : p.getPropuestas()){
@@ -632,25 +650,16 @@ public class Controlador implements IControlador{
                 }
                 DProp = new DataProponente(NickName, p.getNombre(),p.getApellido(),p.getEmail(),p.getFecNac(),p.getImagen(),p.getDireccion(),p.getBiografia(),p.getSitioWeb(),propuestasDe);
                 return DProp;
-            }
-        }
-        
-        return DProp;
     }
     
     @Override
     public DataColaborador consultaDeColaborador(String NickName){
         
         DataColaborador DCola = null;
-        
-        for (Colaborador c : misColaboradores) {
-            if (c.getNickname().equals(NickName)) {
-                DCola = new DataColaborador(NickName, c.getNombre(),c.getApellido(),c.getEmail(),c.getFecNac(),c.getImagen(),c.getPropuestas());
-                return DCola;
-            }
-        }
-        
+        Colaborador c = cp.buscarColaborador(NickName);
+        DCola = new DataColaborador(NickName, c.getNombre(),c.getApellido(),c.getEmail(),c.getFecNac(),c.getImagen(),c.getPropuestas());
         return DCola;
+        
     }
     
     @Override
@@ -788,9 +797,9 @@ public class Controlador implements IControlador{
         //PERSISTENCIA
         
         List<String> listaColabProp = new ArrayList<>();
-        Propuesta prop = cp.buscarPropuesta(titulo);
+        Propuesta prop = cp.getPropuesta(titulo);
         double aporte$;
-        Colaborador c = null;
+        Colaborador c;
         String aporteColab;
         
         for (Aporte a : prop.getAportes()) {
@@ -804,6 +813,7 @@ public class Controlador implements IControlador{
         return listaColabProp;
     }
     
+    @Override
     public boolean seleccionaCategoria(String categoria){
         boolean encontrado = false;
         

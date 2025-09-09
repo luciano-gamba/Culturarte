@@ -55,6 +55,11 @@ public class InterAltaCategoria extends javax.swing.JInternalFrame {
 
         labelTituloAltCat.setText("Ingrese una Nueva Categoria de Espectaculo:");
 
+        ArbolDeCategorias.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
+            public void valueChanged(javax.swing.event.TreeSelectionEvent evt) {
+                ArbolDeCategoriasValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(ArbolDeCategorias);
 
         LabelNombreCat.setText("Nombre Categoria");
@@ -197,6 +202,17 @@ public class InterAltaCategoria extends javax.swing.JInternalFrame {
     private void textoPadreCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoPadreCatActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textoPadreCatActionPerformed
+
+    private void ArbolDeCategoriasValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_ArbolDeCategoriasValueChanged
+        // TODO add your handling code here:
+        DefaultMutableTreeNode nodoSeleccionado = (DefaultMutableTreeNode) ArbolDeCategorias.getLastSelectedPathComponent();
+        if (ArbolDeCategorias.getLastSelectedPathComponent() == null) {
+            return;
+        }
+         
+        textoPadreCat.setText(nodoSeleccionado.getUserObject().toString());
+        
+    }//GEN-LAST:event_ArbolDeCategoriasValueChanged
     private void limpiarFormulario() {
         textoNombreCat.setText("");
         textoPadreCat.setText("");
