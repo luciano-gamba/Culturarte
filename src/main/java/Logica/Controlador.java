@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -190,6 +191,8 @@ public class Controlador implements IControlador{
         
         DefaultMutableTreeNode nodoRaiz = new DefaultMutableTreeNode(raizCat);
         
+        List<DefaultMutableTreeNode> pendientes = new ArrayList<>();
+        
         for(Categoria cat : todas){
             if(!cat.getNombre().equalsIgnoreCase("Categoria")){
                 DefaultMutableTreeNode nodo = new DefaultMutableTreeNode(cat);
@@ -201,12 +204,30 @@ public class Controlador implements IControlador{
                     if(nodoPadre != null){
                         nodoPadre.add(nodo);
                     }else{
-                        nodoRaiz.add(nodo);
+                       pendientes.add(nodo);
                     }
                 }
                         
             }
         }
+        
+        //Reintento para huerfanos (cuando se intento ingresar no tenia el padre en el DefaultMutableTree
+        boolean agregado;
+        do{
+            agregado = false;
+            Iterator<DefaultMutableTreeNode> it = pendientes.iterator();
+            while(it.hasNext()){
+                DefaultMutableTreeNode nodoPendiente = it.next();
+                Categoria catPend = (Categoria) nodoPendiente.getUserObject();
+                DefaultMutableTreeNode nodoPadre = buscarNodo(nodoRaiz , catPend.getPadre().getNombre());
+                if(nodoPadre != null){
+                    nodoPadre.add(nodoPendiente);
+                    it.remove();
+                    agregado = true;
+                }
+            }
+        } while(agregado && !pendientes.isEmpty());
+        
         return nodoRaiz;
     }
     private DefaultMutableTreeNode buscarNodo(DefaultMutableTreeNode raiz, String nombre){
