@@ -43,7 +43,7 @@ public class InterConsultaCola extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
 
         setClosable(true);
-        setTitle("Cancelar Colaboración a Propuesta");
+        setTitle("Consulta Colaboración a Propuesta");
         setPreferredSize(new java.awt.Dimension(500, 400));
 
         jLabel2.setText("Seleccione una Propuesta : ");
