@@ -297,10 +297,12 @@ public class Controlador implements IControlador{
         }        
         Aporte a = miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno);
         miPropuesta.addAporte(a);
+        miColaborador.añadirAporte(a);
         //Tenes que usar el edit de persistencia de propuesta porque si no no se guarda este aporte en esa Propuesta
-        cp.editarPropuesta(miPropuesta);
-        cp.editarColaborador(miColaborador);
-        cp.añadirAporte(a);
+        
+        cp.añadirAporte(a, miPropuesta, miColaborador);
+//        cp.editarPropuesta(miPropuesta);
+//        cp.editarColaborador(miColaborador);
         return 0; //PROPUESTA AGREGADA CORRECTAMENTE  
     }
     
@@ -331,7 +333,11 @@ public class Controlador implements IControlador{
         }        
         Aporte a = miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno,fecAp);
         miPropuesta.addAporte(a);
-        cp.añadirAporte(a);
+        miColaborador.añadirAporte(a);
+        cp.añadirAporte(a, miPropuesta, miColaborador);
+//        cp.editarPropuesta(miPropuesta);
+//        cp.editarColaborador(miColaborador);
+        
         return 0; //PROPUESTA AGREGADA CORRECTAMENTE  
     }
     

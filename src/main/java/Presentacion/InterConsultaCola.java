@@ -186,6 +186,8 @@ public class InterConsultaCola extends javax.swing.JInternalFrame {
     private void ColaboradoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ColaboradoresActionPerformed
       
         this.Propuestas.removeAllItems();
+        
+        //ic.actualizarColab
 
         if (this.Colaboradores.getSelectedIndex()!=0) {
             this.Propuestas.addItem("--Seleccionar--");
