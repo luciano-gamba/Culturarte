@@ -484,7 +484,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         
 
         //PROPUESTA
-        /*ic.altaPropuesta("diegop", "Cine al Aire Libre", "Cine en el Botánico",
+        ic.altaPropuesta("diegop", "Cine al Aire Libre", "Cine en el Botánico",
                 "El 16 de Diciembre a la hora 20 se proyectará la película \"Clever\", en el Jardín Botánico (Av. 19 de Abril 1181) en el marco de las actividades realizadas por el ciclo Cultura al Aire Libre. El largometraje uruguayo de ficción Clever es dirigido por Federico Borgia y Guillermo Madeiro. Es apto para mayores de 15 años.",
                 "Jardín Botánico", LocalDate.of(2017, 12, 16), "200", "150000", EnumRetorno.PORCENTAJE_VENTAS, LocalDate.of(2017, 9, 16), "");
 
@@ -534,7 +534,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ic.altaAporte("marcelot","Romeo y Julieta",200000, 0,EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2017, 8, 14, 11, 25));
         ic.altaAporte("tonyp","Un día de Julio",30000, 0,EnumRetorno.ENTRADAS_GRATIS, LocalDateTime.of(2017, 8, 15, 4, 48));
         ic.altaAporte("marcelot","Un día de Julio",150000, 0,EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2017, 8, 17, 15, 30));
-*/
+
         javax.swing.JOptionPane.showMessageDialog(this, "Datos de pruba cargados correctamente", "Atención", javax.swing.JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
