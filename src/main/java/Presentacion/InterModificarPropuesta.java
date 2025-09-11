@@ -398,7 +398,7 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
             this.spinnerFecha.setValue(initialDate);
             
             //fecha minima de propuesta (hoy)
-            LocalDate fechaMin = LocalDate.now();
+            LocalDate fechaMin = LocalDate.of(2017, 1, 1);
             Date minDate = Date.from(fechaMin.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
             //fecha maxima (jeje)

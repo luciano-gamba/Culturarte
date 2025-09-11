@@ -490,7 +490,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         ic.altaPropuesta("hrubino", "Parodistas", "Religiosamente",
                 "MOMOSAPIENS presenta \"Religiosamente\". Mediante dos parodias y un hilo conductor que aborda la temática de la religión Momosapiens, mediante el humor y la reflexión, hilvana una historia que muestra al hombre inmerso en el tema religioso. El libreto está escrito utilizando diferentes lenguajes de humor, dando una visión satírica y reflexiva desde distintos puntos de vista, logrando mediante situaciones paródicas armar una propuesta plena de arte carnavalero.",
-                "Teatro de Verano", LocalDate.of(2017, 10, 7), "300", "300000", EnumRetorno.AMBOS, LocalDate.of(2017, 6, 18));
+                "Teatro de Verano", LocalDate.of(2017, 10, 7), "300", "300000", EnumRetorno.AMBOS, LocalDate.of(2017, 6, 18), "");
 
         ic.altaPropuesta("mbusca", "Concierto", "El Pimiento Indomable",
                 "El Pimiento Indomable, formación compuesta por Kiko Veneno y el uruguayo Martín Buscaglia, presentará este 19 de Octubre, su primer trabajo. Bajo un título homónimo al del grupo, es un disco que según los propios protagonistas “no se parece al de ninguno de los dos por separado. Entre los títulos que se podrán escuchar se encuentran “Nadador salvador”, “América es más grande”, “Pescaito Enroscado” o “La reina del placer”.",
@@ -510,12 +510,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         ic.altaPropuesta("hectorg", "Teatro Dramático", "El Lazarillo de Tormes",
                 "Vuelve unas de las producciones de El Galpón más aclamadas de los últimos tiempos. Esta obra se ha presentado en Miami, Nueva York, Washington, México, Guadalajara, Río de Janeiro y La Habana. En nuestro país, El Lazarillo de Tormes fue nominado en los rubros mejor espectáculo y mejor dirección a los Premios Florencio 1995, obteniendo su protagonista Héctor Guido el Florencio a Mejor actor de ese año.",
-                "Teatro el Galpón", LocalDate.of(2017, 12, 3), "350", "175000", EnumRetorno.ENTRADAS_GRATIS, LocalDate.of(2017, 8, 18));
+                "Teatro el Galpón", LocalDate.of(2017, 12, 3), "350", "175000", EnumRetorno.ENTRADAS_GRATIS, LocalDate.of(2017, 8, 18), "");
 
         ic.altaPropuesta("losBardo", "Stand-up", "Bardo en la FING",
                 "El 10 de Diciembre se presentará Bardo Científico en la FING. El humor puede ser usado como una herramienta importante para el aprendizaje y la democratización de la ciencia, los monólogos científicos son una forma didáctica de apropiación del conocimiento científico y contribuyen a que el público aprenda ciencia de forma amena. Los invitamos a pasar un rato divertido, en un espacio en el cual aprenderán cosas de la ciencia que los sorprenderán. ¡Los esperamos!",
-                "Anfiteatro Edificio \"José Luis Massera\"", LocalDate.of(2017, 12, 10), "200", "100000", EnumRetorno.ENTRADAS_GRATIS, LocalDate.of(2017, 8, 23));
-
+                "Anfiteatro Edificio \"José Luis Massera\"", LocalDate.of(2017, 12, 10), "200", "100000", EnumRetorno.ENTRADAS_GRATIS, LocalDate.of(2017, 8, 23), "");
+        
         //COLABORACIONES/APORTES
         ic.altaAporte("novick","Cine en el Botánico",50000, 0, EnumRetorno.PORCENTAJE_VENTAS , LocalDateTime.of(2017, 5, 20, 14, 30));
         ic.altaAporte("robinh","Cine en el Botánico",50000, 0, EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2017, 5, 24, 17, 25));

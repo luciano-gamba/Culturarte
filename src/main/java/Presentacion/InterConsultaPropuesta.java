@@ -20,7 +20,7 @@ public class InterConsultaPropuesta extends javax.swing.JInternalFrame {
     private final IControlador ic;
     private final List<String> listaPropuestas;
     private final String[] columnas = {"Colaborador", "Aporte"};
-    private final DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
+    private DefaultTableModel modelo;
     /**
      * Creates new form InterConsultaPropuesta
      * @param ic
@@ -142,6 +142,11 @@ public class InterConsultaPropuesta extends javax.swing.JInternalFrame {
         jLabel8.setText("$Necesario :");
 
         txt$Necesario.setEditable(false);
+        txt$Necesario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt$NecesarioActionPerformed(evt);
+            }
+        });
 
         jLabel9.setText("Retorno x colab :");
 
@@ -153,12 +158,20 @@ public class InterConsultaPropuesta extends javax.swing.JInternalFrame {
 
         tablaColab.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+
             },
             new String [] {
                 "Colaborador", "Aporte"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane4.setViewportView(tablaColab);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -212,7 +225,7 @@ public class InterConsultaPropuesta extends javax.swing.JInternalFrame {
                                     .addComponent(jScrollPane1)
                                     .addComponent(txtLugar)
                                     .addComponent(txtEntrada)
-                                    .addComponent(txt$Necesario, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
+                                    .addComponent(txt$Necesario)
                                     .addComponent(txtRecaudado)
                                     .addComponent(txtCategoria)
                                     .addComponent(txtTitulo)
@@ -317,12 +330,18 @@ public class InterConsultaPropuesta extends javax.swing.JInternalFrame {
         
         DataPropuesta DP;
         
+        this.modelo = new DefaultTableModel(columnas, 0){
+            @Override
+            public boolean isCellEditable(int row,int column){
+                return false; //Evito que las celdas se puedan editar
+            }
+        };
+            
+        tablaColab.setModel(modelo);
+        
         if(!titulo.equals("--Seleccionar--")){
             listaAportesColab = ic.getColabsProp(titulo);
-            
-            this.modelo.setRowCount(0);
-            this.tablaColab.setModel(modelo);
-            
+             
             for (String s : listaAportesColab) {
                 String[] partes = s.split("\t"); 
                 modelo.addRow(new Object[]{partes[0], partes[1]});
@@ -372,6 +391,10 @@ public class InterConsultaPropuesta extends javax.swing.JInternalFrame {
         }
         
     }//GEN-LAST:event_comboPropuestasActionPerformed
+
+    private void txt$NecesarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt$NecesarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt$NecesarioActionPerformed
 
     private boolean open;
     

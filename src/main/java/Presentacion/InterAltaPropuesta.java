@@ -319,19 +319,23 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtTituloActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:        
         String nick,titulo, descripcion, entrada, lugar, monto, tipo, tipoRet;
         LocalDate fechaActual = LocalDate.now();
         int op = comboNick.getSelectedIndex();
         nick = comboNick.getItemAt(op);
-        titulo = txtTitulo.getText();
-        descripcion = txtDescripcion.getText();
+        titulo = txtTitulo.getText().trim();
+        descripcion = txtDescripcion.getText().trim();
         entrada = txtEntrada.getText();
         Date fecha = (Date) spinnerFec.getValue();
         LocalDate fechaPrev = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        lugar = txtLugar.getText();
-        monto = txtMonto.getText();
-        tipo = txtTipo.getText();
+//        if (fechaPrev.equals(LocalDate.now())) {
+//            fechaPrev = LocalDate.now().plusDays(1);
+//        } Esto es para controlar que si ponen la fecha prevista como la fecha actual te sume un dia
+//          no encuentro donde dice la letra que esto es nescesario pero creo recordar que lo era, por las dudas aca esta
+        lugar = txtLugar.getText().trim();
+        monto = txtMonto.getText().trim();
+        tipo = txtTipo.getText().trim();
         
         EnumRetorno retorno = null;
         int seleccionado = listaRetorno.getSelectedIndex();
@@ -355,31 +359,45 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Faltan campos por llenar!", "Error", HEIGHT);
         }else{
             
-            if (txtImagen == null || !this.txtImagen.isEmpty()) {
-                if(ic.altaPropuesta(nick, tipo, titulo, descripcion, lugar, fechaPrev, entrada, monto, retorno, fechaActual, this.txtImagen) == 1){
-                    JOptionPane.showMessageDialog(this, "La propuesta ha sido ingresada!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
-                    this.dispose();
-                }else if(ic.altaPropuesta(nick, tipo, titulo, descripcion, lugar, fechaPrev, entrada, monto, retorno, fechaActual, this.txtImagen) == 0){
-                    //ERROR CON LA CATEGORIA!
-                    JOptionPane.showMessageDialog(this, "NO SE ENCONTRO LA CATEGORIA", "Error", HEIGHT);
-                }else{
-                    JOptionPane.showMessageDialog(this, "No se permite usar \"Categoria\" como tipo de espectaculo!", "Error", HEIGHT);
-                }
-                //quiere decir que quiere insertar imagen
-                //cerrar la ventana
-            }else{
-                if(ic.altaPropuesta(nick, tipo, titulo, descripcion, lugar, fechaPrev, entrada, monto, retorno, fechaActual) == 1){
-                    JOptionPane.showMessageDialog(this, "La propuesta ha sido ingresada!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
-                    this.dispose();
-                }else if(ic.altaPropuesta(nick, tipo, titulo, descripcion, lugar, fechaPrev, entrada, monto, retorno, fechaActual, this.txtImagen) == 0){
-                    //ERROR CON LA CATEGORIA!
-                    JOptionPane.showMessageDialog(this, "NO SE ENCONTRO LA CATEGORIA", "Error", HEIGHT);
-                }else{
-                    JOptionPane.showMessageDialog(this, "No se permite usar \"Categoria\" como tipo de espectaculo!", "Error", HEIGHT);
-                }
-                //no quiere insertar imagen
-//            }
+            try {
+                Double.valueOf(txtEntrada.getText());
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "El Monto X Entrada tiene que ser un numero!", "Error", HEIGHT);
+                return;
             }
+            
+            try {
+                Double.valueOf(txtMonto.getText());
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "El Monto Necesario tiene que ser un numero!", "Error", HEIGHT);
+                return;
+            }
+            
+            if (Double.valueOf(txtEntrada.getText()) <= 0) {
+                JOptionPane.showMessageDialog(this, "Monto X Entrada no puede ser menor a 0!", "Error", HEIGHT);
+                return;
+            }
+            
+            if (Double.valueOf(txtMonto.getText()) <= 0) {
+                JOptionPane.showMessageDialog(this, "Monto Necesario no puede ser menor a 0!", "Error", HEIGHT);
+                return;
+            }
+            
+            if (this.txtImagen == null || this.txtImagen.isEmpty()) {
+                this.txtImagen = "";
+            }
+           
+            if(ic.altaPropuesta(nick, tipo, titulo, descripcion, lugar, fechaPrev, entrada, monto, retorno, fechaActual, this.txtImagen) == 1){
+                JOptionPane.showMessageDialog(this, "La propuesta ha sido ingresada!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+            }else if(ic.altaPropuesta(nick, tipo, titulo, descripcion, lugar, fechaPrev, entrada, monto, retorno, fechaActual, this.txtImagen) == 0){
+                //ERROR CON LA CATEGORIA!
+                JOptionPane.showMessageDialog(this, "NO SE ENCONTRO LA CATEGORIA", "Error", HEIGHT);
+            }else{
+                JOptionPane.showMessageDialog(this, "No se permite usar \"Categoria\" como tipo de espectaculo!", "Error", HEIGHT);
+            }
+            //quiere decir que quiere insertar imagen
+            //cerrar la ventana
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
 
@@ -428,7 +446,6 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
             return;
         }
         if (!ic.seleccionaCategoria(nodoSeleccionado.getUserObject().toString())) {
-            System.out.println(nodoSeleccionado.getUserObject().toString());
             JOptionPane.showMessageDialog(this, "No se permite seleccionar una propuesta como tipo de espectaculo!", "Error", HEIGHT);
             return;   
         }

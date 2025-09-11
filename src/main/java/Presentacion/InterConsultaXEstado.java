@@ -22,7 +22,7 @@ public class InterConsultaXEstado extends javax.swing.JInternalFrame {
     private List<String> listaPropuestas = null;
     private List<String> listaEstados;
     private final String[] columnas = {"Colaborador", "Aporte"};
-    private final DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
+    private DefaultTableModel modelo;
     /**
      * Creates new form InterConsultaXEstado
      */
@@ -157,12 +157,20 @@ public class InterConsultaXEstado extends javax.swing.JInternalFrame {
 
         tablaColabx.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+
             },
             new String [] {
                 "Colaborador", "Aporte"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane9.setViewportView(tablaColabx);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -280,12 +288,13 @@ public class InterConsultaXEstado extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7))))
+                .addGap(0, 6, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txt$Necesario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel11)
                             .addComponent(txtRecaudado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -297,9 +306,7 @@ public class InterConsultaXEstado extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtFechaR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15))
         );
 
@@ -308,18 +315,48 @@ public class InterConsultaXEstado extends javax.swing.JInternalFrame {
 
     private void comboEstadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEstadosActionPerformed
         // TODO add your handling code here:
-       DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
-       modelo.addElement("--Seleccionar--");
-       comboPropuestas.setModel(modelo);
-       
-       int op = comboEstados.getSelectedIndex();
-       String estado = comboEstados.getItemAt(op);
-       
-       listaPropuestas = ic.getPropXEstado(estado);
         
-       for(String s : listaPropuestas){
-           comboPropuestas.addItem(s);
-       }
+            DefaultComboBoxModel<String> modeloB = new DefaultComboBoxModel<>();
+            modeloB.addElement("--Seleccionar--");
+            comboPropuestas.setModel(modeloB);
+            
+            this.modelo = new DefaultTableModel(columnas, 0){
+            @Override
+            public boolean isCellEditable(int row,int column){
+                return false; //Evito que las celdas se puedan editar
+            }
+        };
+            
+        tablaColabx.setModel(modelo);
+        
+        if (comboEstados.getSelectedIndex() != 0) {
+
+            int op = comboEstados.getSelectedIndex();
+            String estado = comboEstados.getItemAt(op);
+
+            listaPropuestas = ic.getPropXEstado(estado);
+
+            for(String s : listaPropuestas){
+                comboPropuestas.addItem(s);
+            }
+        }else{
+            this.lblFoto.setIcon(null);
+            this.txtNickname.setText("");
+            this.txtTitulo.setText("");
+            this.txtEstado.setText("");
+            this.txtDescrip.setText("");
+            this.txtLugar.setText("");
+            this.txtEntrada.setText("");
+            this.txt$Necesario.setText("");
+            this.txtRetorno.setText("");
+            this.txtFechaR.setText("");
+            this.txtRecaudado.setText("");
+            this.txtCategoria.setText("");
+            this.modelo.setRowCount(0);
+        }
+        
+        
+       
     }//GEN-LAST:event_comboEstadosActionPerformed
 
     public boolean abierto(){
@@ -343,12 +380,18 @@ public class InterConsultaXEstado extends javax.swing.JInternalFrame {
         List<String> listaAportesColab;
 
         DataPropuesta DP = null;
+        
+        this.modelo = new DefaultTableModel(columnas, 0){
+            @Override
+            public boolean isCellEditable(int row,int column){
+                return false; //Evito que las celdas se puedan editar
+            }
+        };
+            
+        tablaColabx.setModel(modelo);
 
         if(!titulo.equals("--Seleccionar--")){
             listaAportesColab = ic.getColabsProp(titulo);
-            
-            this.modelo.setRowCount(0);
-            this.tablaColabx.setModel(modelo);
             
             for (String s : listaAportesColab) {
                 String[] partes = s.split("\t"); 

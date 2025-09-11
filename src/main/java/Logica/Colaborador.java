@@ -15,7 +15,7 @@ public class Colaborador extends Usuario {
     private List<Aporte> misAportes;
 
     public Colaborador() {
-        this.misAportes = new ArrayList<>();
+        //this.misAportes = new ArrayList<>();
     }
     
     public Colaborador(String nickname, String email, String nombre, String apellido, LocalDate fecNac, String imagen) {
@@ -33,7 +33,7 @@ public class Colaborador extends Usuario {
             }
         }
         Aporte a = new Aporte(this , $aporte, cantidad, retorno);
-        misAportes.add(a);
+        //misAportes.add(a);
         return a;
     }
     
@@ -47,8 +47,12 @@ public class Colaborador extends Usuario {
             }
         }
         Aporte a = new Aporte(this , $aporte, cantidad, retorno,fecAp);
-        misAportes.add(a);
+        //misAportes.add(a);
         return a;
+    }
+    
+    public void añadirAporte(Aporte a){
+       misAportes.add(a);
     }
     
     

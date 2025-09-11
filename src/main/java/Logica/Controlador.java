@@ -297,10 +297,12 @@ public class Controlador implements IControlador{
         }        
         Aporte a = miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno);
         miPropuesta.addAporte(a);
+        miColaborador.añadirAporte(a);
         //Tenes que usar el edit de persistencia de propuesta porque si no no se guarda este aporte en esa Propuesta
-        cp.editarPropuesta(miPropuesta);
-        cp.editarColaborador(miColaborador);
-        cp.añadirAporte(a);
+        
+        cp.añadirAporte(a, miPropuesta, miColaborador);
+//        cp.editarPropuesta(miPropuesta);
+//        cp.editarColaborador(miColaborador);
         return 0; //PROPUESTA AGREGADA CORRECTAMENTE  
     }
     
@@ -315,7 +317,7 @@ public class Controlador implements IControlador{
             }
         }        
         for (Propuesta p : cp.getListaPropuestas()) {
-            if (p.getTitulo_Nickname().equals(strmiPropuesta)) {
+            if (p.getTitulo().equals(strmiPropuesta)) {
                 miPropuesta = p;
                 break;        
             }
@@ -331,7 +333,11 @@ public class Controlador implements IControlador{
         }        
         Aporte a = miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno,fecAp);
         miPropuesta.addAporte(a);
-        cp.añadirAporte(a);
+        miColaborador.añadirAporte(a);
+        cp.añadirAporte(a, miPropuesta, miColaborador);
+//        cp.editarPropuesta(miPropuesta);
+//        cp.editarColaborador(miColaborador);
+        
         return 0; //PROPUESTA AGREGADA CORRECTAMENTE  
     }
     
@@ -494,43 +500,6 @@ public class Controlador implements IControlador{
     }
     
     @Override
-    public int altaPropuesta(String nick, String tipo, String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual){
-        
-//        Proponente prop = null;
-//        
-//        for (Proponente p : misProponentes) {
-//            if (p.getNickname().equalsIgnoreCase(nick)) {
-//                prop = p;
-//                break;
-//            }
-//        }
-//        
-        //persistencia
-        
-        Proponente prop = cp.buscarProponente(nick);
-        
-        Categoria c  = cp.findCategoria(tipo);
-//        Se buscan las categorias directamente en la BD ahora
-//        if (c  == null) {
-//            // NO SE ENCONTRO LA CATEGORIA o PUSO "CATEGORIA"
-//            return 0;
-//        }
-        
-//        if(tipo.equals("Categoria")){
-//            return -1;
-//        }
-        
-            
-        Propuesta nuevaProp = new Propuesta(c, prop, titulo, descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada), Double.parseDouble(montoNecesario), posibleRetorno, fechaActual);
-//        misPropuestas.add(nuevaProp);
-          cp.añadirEstado(nuevaProp.getEstadoActual());
-          cp.añadirPropuesta(nuevaProp);
-            //Agregar propuesta a esa categoria directamente lo hare con persistencia antes seria c.agregarPropuesta(nuevaProp);
-        return 1;
-        
-    }
-    
-    @Override //recomiendo eliminar esto y pasarle string imagen al otro altaPropuesta
     public int altaPropuesta(String nick, String tipo, String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual, String imagen){
         
 //        Proponente prop = null;
@@ -568,6 +537,11 @@ public class Controlador implements IControlador{
 //        }
         
         //PERSISTENCIA
+        
+        if (existeTitulo(titulo)) {
+            return -1;
+        }
+        
         Proponente prop = cp.buscarProponente(nick);
         
         Categoria c  = cp.findCategoria(tipo);
