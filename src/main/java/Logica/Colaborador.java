@@ -60,9 +60,9 @@ public class Colaborador extends Usuario {
         List<DataPropuesta> listaPropuestasColas = new ArrayList<>();
         DataPropuesta DP;
         for(Aporte a: misAportes){
-            DP = a.getPropuesta();
+            DP = a.getDataPropuesta();
             if(DP != null)
-                listaPropuestasColas.add(a.getPropuesta());
+                listaPropuestasColas.add(a.getDataPropuesta());
         }
         return listaPropuestasColas;
     }
@@ -78,6 +78,15 @@ public class Colaborador extends Usuario {
         for(Aporte a: misAportes){
             if(tituloNick.equals(a.getTituloNickMiPropuesta())){
                 return new DataAporte(a.get$aporte(),a.getFechaHora(),a.getCantidad(),a.getRetorno(),a.getNicknameMiColaborador(),a.getTituloMiPropuesta(),a.getImagenMiPropuesta(),a.getNecesaria());
+            }
+        }
+        return null;
+    }
+    
+    public Aporte getAporte(String tituloNick){
+        for(Aporte a: misAportes){
+            if(tituloNick.equals(a.getTituloNickMiPropuesta())){
+                return a;
             }
         }
         return null;

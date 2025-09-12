@@ -75,8 +75,8 @@ public class Aporte implements Serializable {
     
     public void desvincular(){
         this.miPropuesta.desvincularAporte(this);
-        miColaborador=null;
-        miPropuesta=null;
+        //miColaborador=null;
+        //miPropuesta=null;
     }
     
     public double get$aporte() {
@@ -102,7 +102,10 @@ public class Aporte implements Serializable {
     public Colaborador getColaborador(){
         return miColaborador;
     }
-    public DataPropuesta getPropuesta(){
+    public Propuesta getPropuesta(){
+        return this.miPropuesta;
+    }
+    public DataPropuesta getDataPropuesta(){
         if(miPropuesta!=null){
             return new DataPropuesta(miPropuesta.getAlcanzada() ,miPropuesta.getTitulo(), miPropuesta.getEstadoActual(),miPropuesta.getLugar(),miPropuesta.getProponente().getNickname());
         }

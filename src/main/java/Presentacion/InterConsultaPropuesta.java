@@ -91,6 +91,7 @@ public class InterConsultaPropuesta extends javax.swing.JInternalFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
         setIconifiable(true);
         setMaximizable(true);
+        setPreferredSize(new java.awt.Dimension(712, 560));
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentHidden(java.awt.event.ComponentEvent evt) {
                 formComponentHidden(evt);
@@ -100,7 +101,7 @@ public class InterConsultaPropuesta extends javax.swing.JInternalFrame {
             }
         });
 
-        lblFoto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblFoto.setBorder(javax.swing.BorderFactory.createLineBorder(null));
         lblFoto.setPreferredSize(new java.awt.Dimension(200, 200));
 
         comboPropuestas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccionar--" }));

@@ -1,10 +1,10 @@
 package Presentacion;
 
+import Logica.EnumEstado;
 import Logica.EnumRetorno;
 import Logica.IControlador;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Month;
 
 public class VentanaPrincipal extends javax.swing.JFrame {
 
@@ -59,6 +59,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Culturarte");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setPreferredSize(new java.awt.Dimension(900, 700));
         setResizable(false);
 
         javax.swing.GroupLayout DesktopLayout = new javax.swing.GroupLayout(Desktop);
@@ -370,24 +371,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
 
         //PROPONENTES
-        ic.añadirUsuario("hrubino", "Horacio", "Rubino", "horacio.rubino@guambia.com.uy", LocalDate.of(1962, 2, 25), "home/tecnologo/Desktop/Culturarte/fotos/HR.jpeg", "18 de Julio 1234", "Horacio Rubino Torres nace el 25 de febrero de 1962, es conductor, actor y libretista. Debuta en 1982 en carnaval en Los \"Klaper´s\", donde estuvo cuatro años, actuando y libretando. Luego para \"Gaby´s\" (6 años), escribió en categoría revistas y humoristas y desde el comienzo y hasta el presente en su propio conjunto Momosapiens.", "https://twitter.com/horaciorubino");
-        ic.añadirUsuario("mbusca", "Martín", "Buscaglia", "Martin.bus@agadu.org.uy", LocalDate.of(1972, 6, 14), "home/tecnologo/Desktop/Culturarte/fotos/MB.jpeg", "Colonia 4321", "Martín Buscaglia (Montevideo, 1972) es un artista, músico, compositor y productor uruguayo. Tanto con su banda (“Los Bochamakers”) como en su formato “Hombre orquesta”, o solo con su guitarra, ha recorrido el mundo tocando entre otros países en España, Estados Unidos, Inglaterra, Francia, Australia, Brasil, Colombia, Argentina, Chile, Paraguay, México y Uruguay. (Actualmente los Bochamakers son Matías Rada, Martín Ibarburu, Mateo Moreno, Herman Klang) Paralelamente, tiene proyectos a dúo con el español Kiko Veneno, la cubana Yusa, el argentino Lisandro Aristimuño, su compatriota Antolín, y a trío junto a los brasileros Os Mulheres Negras", "http://www.martinbuscaglia.com/");
-        ic.añadirUsuario("tabarec", "Tabaré", "Cardozo", "tabare.car@agadu.org.uy", LocalDate.of(1971, 7, 24), "home/tecnologo/Desktop/Culturarte/fotos/TC.jpeg", "Santiago Rivas 1212", "Tabaré Cardozo (Montevideo, 24 de julio de 1971) es un cantante, compositor y murguista uruguayo; conocido por su participación en la murga Agarrate Catalina, conjunto que fundó junto a su hermano Yamandú y Carlos Tanco en el año 2001.", "https://www.facebook.com/Tabar%C3%A9-Cardozo-55179094281/?ref=br_rs");
-        ic.añadirUsuario("cachilas", "Waldemar \"Cachila\"", "Silva", "Cachila.sil@c1080.org.uy", LocalDate.of(1947, 1, 1), "home/tecnologo/Desktop/Culturarte/fotos/CS.jpeg", "Br. Artigas 4567", "Nace en el año 1947 en el conventillo \"Medio Mundo\" ubicado en pleno Barrio Sur. Es heredero parcialmentejunto al resto de sus hermanos- de la Comparsa \"Morenada\" (inactiva desde el fallecimiento de Juan Ángel Silva), en 1999 forma su propia Comparsa de negros y lubolos \"Cuareim 1080\". Director responsable, compositor y cantante de la misma.", "https://www.facebook.com/C1080?ref=br_rs");
-        ic.añadirUsuario("hectorg", "Héctor", "Guido", "hector.gui@elgalpon.org.uy", LocalDate.of(1954, 1, 7), "home/tecnologo/Desktop/Culturarte/fotos/HG.jpeg", "Gral. Flores 5645", "En 1972 ingresó a la Escuela de Arte Dramático del teatro El Galpón. Participó en más de treinta obras teatrales y varios largometrajes. Integró el elenco estable de Radioteatro del Sodre, y en 2006 fue asesor de su Consejo Directivo. Como actor recibió múltiples reconocimientos: cuatro premios Florencio, premio al mejor actor extranjero del Festival de Miami y premio Mejor Actor de Cine 2008. Durante varios períodos fue directivo del teatro El Galpón y dirigente de la Sociedad Uruguaya de Actores (SUA); integró también la Federación Uruguaya de Teatros Independientes (FUTI). Formó parte del equipo de gestión de la refacción de los teatros La Máscara, Astral y El Galpón, y del equipo de gestión en la construcción del teatro De la Candela y de la sala Atahualpa de El Galpón", "");
+        ic.añadirUsuario("hrubino", "Horacio", "Rubino", "horacio.rubino@guambia.com.uy", LocalDate.of(1962, 2, 25), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/HR.jpg", "18 de Julio 1234", "Horacio Rubino Torres nace el 25 de febrero de 1962, es conductor, actor y libretista. Debuta en 1982 en carnaval en Los \"Klaper´s\", donde estuvo cuatro años, actuando y libretando. Luego para \"Gaby´s\" (6 años), escribió en categoría revistas y humoristas y desde el comienzo y hasta el presente en su propio conjunto Momosapiens.", "https://twitter.com/horaciorubino");
+        ic.añadirUsuario("mbusca", "Martín", "Buscaglia", "Martin.bus@agadu.org.uy", LocalDate.of(1972, 6, 14), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/MB.jpg", "Colonia 4321", "Martín Buscaglia (Montevideo, 1972) es un artista, músico, compositor y productor uruguayo. Tanto con su banda (“Los Bochamakers”) como en su formato “Hombre orquesta”, o solo con su guitarra, ha recorrido el mundo tocando entre otros países en España, Estados Unidos, Inglaterra, Francia, Australia, Brasil, Colombia, Argentina, Chile, Paraguay, México y Uruguay. (Actualmente los Bochamakers son Matías Rada, Martín Ibarburu, Mateo Moreno, Herman Klang) Paralelamente, tiene proyectos a dúo con el español Kiko Veneno, la cubana Yusa, el argentino Lisandro Aristimuño, su compatriota Antolín, y a trío junto a los brasileros Os Mulheres Negras", "http://www.martinbuscaglia.com/");
+        ic.añadirUsuario("tabarec", "Tabaré", "Cardozo", "tabare.car@agadu.org.uy", LocalDate.of(1971, 7, 24), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/TC.jpg", "Santiago Rivas 1212", "Tabaré Cardozo (Montevideo, 24 de julio de 1971) es un cantante, compositor y murguista uruguayo; conocido por su participación en la murga Agarrate Catalina, conjunto que fundó junto a su hermano Yamandú y Carlos Tanco en el año 2001.", "https://www.facebook.com/Tabar%C3%A9-Cardozo-55179094281/?ref=br_rs");
+        ic.añadirUsuario("cachilas", "Waldemar \"Cachila\"", "Silva", "Cachila.sil@c1080.org.uy", LocalDate.of(1947, 1, 1), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/CS.jpg", "Br. Artigas 4567", "Nace en el año 1947 en el conventillo \"Medio Mundo\" ubicado en pleno Barrio Sur. Es heredero parcialmentejunto al resto de sus hermanos- de la Comparsa \"Morenada\" (inactiva desde el fallecimiento de Juan Ángel Silva), en 1999 forma su propia Comparsa de negros y lubolos \"Cuareim 1080\". Director responsable, compositor y cantante de la misma.", "https://www.facebook.com/C1080?ref=br_rs");
+        ic.añadirUsuario("hectorg", "Héctor", "Guido", "hector.gui@elgalpon.org.uy", LocalDate.of(1954, 1, 7), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/HG.jpg", "Gral. Flores 5645", "En 1972 ingresó a la Escuela de Arte Dramático del teatro El Galpón. Participó en más de treinta obras teatrales y varios largometrajes. Integró el elenco estable de Radioteatro del Sodre, y en 2006 fue asesor de su Consejo Directivo. Como actor recibió múltiples reconocimientos: cuatro premios Florencio, premio al mejor actor extranjero del Festival de Miami y premio Mejor Actor de Cine 2008. Durante varios períodos fue directivo del teatro El Galpón y dirigente de la Sociedad Uruguaya de Actores (SUA); integró también la Federación Uruguaya de Teatros Independientes (FUTI). Formó parte del equipo de gestión de la refacción de los teatros La Máscara, Astral y El Galpón, y del equipo de gestión en la construcción del teatro De la Candela y de la sala Atahualpa de El Galpón", "");
         ic.añadirUsuario("juliob", "Julio", "Bocca", "juliobocca@sodre.com.uy", LocalDate.of(1967, 3, 16), "", "Benito Blanco 4321", "", "");
         ic.añadirUsuario("diegop", "Diego", "Parodi", "diego@efectocine.com", LocalDate.of(1975, 1, 1), "", "Emilio Frugoni 1138 Ap. 02", "", "http://www.efectocine.com");
-        ic.añadirUsuario("kairoh", "Kairo", "Herrera", "kairoher@pilsenrock.com.uy", LocalDate.of(1970, 4, 25), "home/tecnologo/Desktop/Culturarte/fotos/KH.jpeg", "Paraguay 1423", "", "");
-        ic.añadirUsuario("losBardo", "Los", "Bardo", "losbardo@bardocientifico.com", LocalDate.of(1980, 10, 31), "home/tecnologo/Desktop/Culturarte/fotos/LB.jpeg", "8 de Octubre 1429", "Queremos ser vistos y reconocidos como una organización: referente en divulgación científica con un fuerte espíritu didáctico y divertido, a través de acciones coordinadas con otros divulgadores científicos, que permitan establecer puentes de comunicación. Impulsora en la generación de espacios de democratización y apropiación social del conocimiento científico.", "https://bardocientifico.com/");
+        ic.añadirUsuario("kairoh", "Kairo", "Herrera", "kairoher@pilsenrock.com.uy", LocalDate.of(1970, 4, 25), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/KH.jpg", "Paraguay 1423", "", "");
+        ic.añadirUsuario("losBardo", "Los", "Bardo", "losbardo@bardocientifico.com", LocalDate.of(1980, 10, 31), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/LB.jpg", "8 de Octubre 1429", "Queremos ser vistos y reconocidos como una organización: referente en divulgación científica con un fuerte espíritu didáctico y divertido, a través de acciones coordinadas con otros divulgadores científicos, que permitan establecer puentes de comunicación. Impulsora en la generación de espacios de democratización y apropiación social del conocimiento científico.", "https://bardocientifico.com/");
 
         //COLABORADORES
         ic.añadirUsuario("robinh", "Robin", "Henderson", "Robin.h@tinglesa.com.uy", LocalDate.of(1940, 8, 3), "");
-        ic.añadirUsuario("marcelot", "Marcelo", "Tinelli", "marcelot@ideasdelsur.com.ar", LocalDate.of(1960, 4, 1), "home/tecnologo/Desktop/Culturarte/fotos/MT.jpeg");
-        ic.añadirUsuario("novick", "Edgardo", "Novick", "edgardo@novick.com.uy", LocalDate.of(1952, 7, 17), "home/tecnologo/Desktop/Culturarte/fotos/EN.jpeg");
-        ic.añadirUsuario("sergiop", "Sergio", "Puglia", "puglia@alpanpan.com.uy", LocalDate.of(1950, 1, 28), "home/tecnologo/Desktop/Culturarte/fotos/SP.jpeg");
-        ic.añadirUsuario("chino", "Alvaro", "Recoba", "chino@trico.org.uy", LocalDate.of(1976, 3, 17), "home/tecnologo/Desktop/Culturarte/fotos/AR.jpeg");
+        ic.añadirUsuario("marcelot", "Marcelo", "Tinelli", "marcelot@ideasdelsur.com.ar", LocalDate.of(1960, 4, 1), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/MT.jpg");
+        ic.añadirUsuario("novick", "Edgardo", "Novick", "edgardo@novick.com.uy", LocalDate.of(1952, 7, 17), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/EN.jpg");
+        ic.añadirUsuario("sergiop", "Sergio", "Puglia", "puglia@alpanpan.com.uy", LocalDate.of(1950, 1, 28), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/SP.jpg");
+        ic.añadirUsuario("chino", "Alvaro", "Recoba", "chino@trico.org.uy", LocalDate.of(1976, 3, 17), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/AR.jpg");
         ic.añadirUsuario("tonyp", "Antonio", "Pacheco", "eltony@manya.org.uy", LocalDate.of(1955, 2, 14), "");
-        ic.añadirUsuario("nicoJ", "Nicolás", "Jodal", "jodal@artech.com.uy", LocalDate.of(1960, 8, 9), "home/tecnologo/Desktop/Culturarte/fotos/NJ.jpeg");
+        ic.añadirUsuario("nicoJ", "Nicolás", "Jodal", "jodal@artech.com.uy", LocalDate.of(1960, 8, 9), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/NJ.jpg");
         ic.añadirUsuario("juanP", "Juan", "Perez", "juanp@elpueblo.com", LocalDate.of(1970, 1, 1), "");
         ic.añadirUsuario("Mengano", "Mengano", "Gómez", "menganog@elpueblo.com", LocalDate.of(1982, 2, 2), "");
         ic.añadirUsuario("Perengano", "Perengano", "López", "pere@elpueblo.com", LocalDate.of(1985, 3, 3), "");
@@ -490,23 +491,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         ic.altaPropuesta("hrubino", "Parodistas", "Religiosamente",
                 "MOMOSAPIENS presenta \"Religiosamente\". Mediante dos parodias y un hilo conductor que aborda la temática de la religión Momosapiens, mediante el humor y la reflexión, hilvana una historia que muestra al hombre inmerso en el tema religioso. El libreto está escrito utilizando diferentes lenguajes de humor, dando una visión satírica y reflexiva desde distintos puntos de vista, logrando mediante situaciones paródicas armar una propuesta plena de arte carnavalero.",
-                "Teatro de Verano", LocalDate.of(2017, 10, 7), "300", "300000", EnumRetorno.AMBOS, LocalDate.of(2017, 6, 18), "");
+                "Teatro de Verano", LocalDate.of(2017, 10, 7), "300", "300000", EnumRetorno.AMBOS, LocalDate.of(2017, 6, 18), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/MOM.jpg");
 
         ic.altaPropuesta("mbusca", "Concierto", "El Pimiento Indomable",
                 "El Pimiento Indomable, formación compuesta por Kiko Veneno y el uruguayo Martín Buscaglia, presentará este 19 de Octubre, su primer trabajo. Bajo un título homónimo al del grupo, es un disco que según los propios protagonistas “no se parece al de ninguno de los dos por separado. Entre los títulos que se podrán escuchar se encuentran “Nadador salvador”, “América es más grande”, “Pescaito Enroscado” o “La reina del placer”.",
-                "Teatro Solís", LocalDate.of(2017, 10, 19), "400", "400000", EnumRetorno.PORCENTAJE_VENTAS, LocalDate.of(2017, 7, 26), "");
+                "Teatro Solís", LocalDate.of(2017, 10, 19), "400", "400000", EnumRetorno.PORCENTAJE_VENTAS, LocalDate.of(2017, 7, 26), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/PIM.jpg");
 
         ic.altaPropuesta("kairoh", "Festival", "Pilsen Rock",
                 "La edición 2017 del Pilsen Rock se celebrará el 21 de Octubre en la Rural del Prado y contará con la participación de más de 15 bandas nacionales. Quienes no puedan trasladarse al lugar, tendrán la posibilidad de disfrutar los shows a través de Internet, así como entrevistas en vivo a los músicos una vez finalizados los conciertos.",
-                "Rural de Prado", LocalDate.of(2017, 10, 21), "1000", "900000", EnumRetorno.AMBOS, LocalDate.of(2017, 7, 30), "");
+                "Rural de Prado", LocalDate.of(2017, 10, 21), "1000", "900000", EnumRetorno.AMBOS, LocalDate.of(2017, 7, 30), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/PIL.jpg");
 
         ic.altaPropuesta("juliob", "Ballet", "Romeo y Julieta",
                 "Romeo y Julieta de Kenneth MacMillan, uno de los ballets favoritos del director artístico Julio Bocca, se presentará nuevamente el 5 de Noviembre en el Auditorio Nacional del Sodre. Basada en la obra homónima de William Shakespeare, Romeo y Julieta es considerada la coreografía maestra del MacMillan. La producción de vestuario y escenografía se realizó en los Talleres del Auditorio Adela Reta, sobre los diseños originales.",
-                "Auditorio Nacional del Sodre", LocalDate.of(2017, 11, 5), "800", "750000", EnumRetorno.PORCENTAJE_VENTAS, LocalDate.of(2017, 8, 4), "");
+                "Auditorio Nacional del Sodre", LocalDate.of(2017, 11, 5), "800", "750000", EnumRetorno.PORCENTAJE_VENTAS, LocalDate.of(2017, 8, 4), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/RYJ.jpg");
 
         ic.altaPropuesta("tabarec", "Murga", "Un día de Julio",
                 "La Catalina presenta el espectáculo \"Un Día de Julio\" en Landia. Un hombre misterioso y solitario vive encerrado entre las cuatro paredes de su casa. Intenta, con sus teorías extravagantes, cambiar el mundo exterior que le resulta inhabitable. Un día de Julio sucederá algo que cambiará su vida y la de su entorno para siempre.",
-                "Landia", LocalDate.of(2017, 11, 16), "650", "300000", EnumRetorno.AMBOS, LocalDate.of(2017, 8, 6), "");
+                "Landia", LocalDate.of(2017, 11, 16), "650", "300000", EnumRetorno.AMBOS, LocalDate.of(2017, 8, 6), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/UDJ.jpg");
 
         ic.altaPropuesta("hectorg", "Teatro Dramático", "El Lazarillo de Tormes",
                 "Vuelve unas de las producciones de El Galpón más aclamadas de los últimos tiempos. Esta obra se ha presentado en Miami, Nueva York, Washington, México, Guadalajara, Río de Janeiro y La Habana. En nuestro país, El Lazarillo de Tormes fue nominado en los rubros mejor espectáculo y mejor dirección a los Premios Florencio 1995, obteniendo su protagonista Héctor Guido el Florencio a Mejor actor de ese año.",
@@ -515,6 +516,26 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ic.altaPropuesta("losBardo", "Stand-up", "Bardo en la FING",
                 "El 10 de Diciembre se presentará Bardo Científico en la FING. El humor puede ser usado como una herramienta importante para el aprendizaje y la democratización de la ciencia, los monólogos científicos son una forma didáctica de apropiación del conocimiento científico y contribuyen a que el público aprenda ciencia de forma amena. Los invitamos a pasar un rato divertido, en un espacio en el cual aprenderán cosas de la ciencia que los sorprenderán. ¡Los esperamos!",
                 "Anfiteatro Edificio \"José Luis Massera\"", LocalDate.of(2017, 12, 10), "200", "100000", EnumRetorno.ENTRADAS_GRATIS, LocalDate.of(2017, 8, 23), "");
+        
+        ic.cambiarEstadoPropuesta("Cine en el Botánico", EnumEstado.PUBLICADA.toString());
+        ic.cambiarEstadoPropuesta("Cine en el Botánico", EnumEstado.EN_FINANCIACION.toString());
+        ic.cambiarEstadoPropuesta("Cine en el Botánico", EnumEstado.FINANCIADA.toString());
+        ic.cambiarEstadoPropuesta("Cine en el Botánico", EnumEstado.CANCELADA.toString());
+        
+        ic.cambiarEstadoPropuesta("Religiosamente", EnumEstado.PUBLICADA.toString());
+        ic.cambiarEstadoPropuesta("Religiosamente", EnumEstado.EN_FINANCIACION.toString());
+        ic.cambiarEstadoPropuesta("Religiosamente", EnumEstado.FINANCIADA.toString());
+        
+        ic.cambiarEstadoPropuesta("El Pimiento Indomable", EnumEstado.PUBLICADA.toString());
+        ic.cambiarEstadoPropuesta("El Pimiento Indomable", EnumEstado.EN_FINANCIACION.toString());
+        
+        ic.cambiarEstadoPropuesta("Pilsen Rock", EnumEstado.PUBLICADA.toString());
+        ic.cambiarEstadoPropuesta("Pilsen Rock", EnumEstado.EN_FINANCIACION.toString());
+        
+        ic.cambiarEstadoPropuesta("Un día de Julio", EnumEstado.PUBLICADA.toString());
+        ic.cambiarEstadoPropuesta("Un día de Julio", EnumEstado.EN_FINANCIACION.toString());
+        
+        ic.cambiarEstadoPropuesta("El Lazarillo de Tormes", EnumEstado.PUBLICADA.toString());
         
         //COLABORACIONES/APORTES
         ic.altaAporte("novick","Cine en el Botánico",50000, 0, EnumRetorno.PORCENTAJE_VENTAS , LocalDateTime.of(2017, 5, 20, 14, 30));
@@ -535,7 +556,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ic.altaAporte("tonyp","Un día de Julio",30000, 0,EnumRetorno.ENTRADAS_GRATIS, LocalDateTime.of(2017, 8, 15, 4, 48));
         ic.altaAporte("marcelot","Un día de Julio",150000, 0,EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2017, 8, 17, 15, 30));
 
-        javax.swing.JOptionPane.showMessageDialog(this, "Datos de pruba cargados correctamente", "Atención", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        javax.swing.JOptionPane.showMessageDialog(this, "Datos de prueba cargados correctamente", "Atención", javax.swing.JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**

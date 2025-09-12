@@ -63,7 +63,7 @@ public class Controlador implements IControlador{
         }
         
         if(nickExiste == true || correoExiste == true){
-            System.out.println("ERROR: Nickname o Correo existen en el sistema!");
+            //System.out.println("ERROR: Nickname o Correo existen en el sistema!");
             return 0;
         }else{
             Colaborador colaNuevo = new Colaborador(nick, correo, nombre, apellido, fecNac, imagen);
@@ -116,7 +116,7 @@ public class Controlador implements IControlador{
         }
         
         if(nickExiste == true || correoExiste == true){
-            System.out.println("ERROR: Nickname o Correo existen en el sistema!");
+            //System.out.println("ERROR: Nickname o Correo existen en el sistema!");
             return 0;
         }else{
             Proponente propNuevo = new Proponente(direccion, bio, sitioWeb, nick, correo, nombre, apellido, fecNac, imagen);
@@ -286,9 +286,9 @@ public class Controlador implements IControlador{
                 break;        
             }
         }                
-        if($aporte > miPropuesta.getmontoNecesaria() || $aporte > miPropuesta.getmontoNecesaria()-miPropuesta.getmontoAlcanzada()){
-            return -2;//ERROR: Aporte superior a lo permitido - ESTO HAY QUE SACARLO el monto puede ser infinito, esto no es error
-        }        
+        //if($aporte > miPropuesta.getmontoNecesaria() || $aporte > miPropuesta.getmontoNecesaria()-miPropuesta.getmontoAlcanzada()){
+        //    return -2;//ERROR: Aporte superior a lo permitido - ESTO HAY QUE SACARLO el monto puede ser infinito, esto no es error
+        //}        
         if (miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno) == null) {
             return -3;  //Error: El usuario ya colabora con la Propuesta
         }         
@@ -298,11 +298,7 @@ public class Controlador implements IControlador{
         Aporte a = miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno);
         miPropuesta.addAporte(a);
         miColaborador.añadirAporte(a);
-        //Tenes que usar el edit de persistencia de propuesta porque si no no se guarda este aporte en esa Propuesta
-        
         cp.añadirAporte(a, miPropuesta, miColaborador);
-//        cp.editarPropuesta(miPropuesta);
-//        cp.editarColaborador(miColaborador);
         return 0; //PROPUESTA AGREGADA CORRECTAMENTE  
     }
     
@@ -553,7 +549,17 @@ public class Controlador implements IControlador{
             //Agregar propuesta a esa categoria directamente lo hare con persistencia antes seria c.agregarPropuesta(nuevaProp);
         return 1;
     }
-   
+    
+    @Override 
+    public int cambiarEstadoPropuesta(String titulo, String estado){
+        Propuesta p = cp.getPropuesta(titulo);
+        
+        p.modificarPropuesta(p.getDescripcion(), p.getLugar(), p.getFechaARealizar(), p.getEntrada(), p.getNecesaria(), p.getPosibleRetorno().toString(), estado, p.getImagen(), p.getCategoriaClase());
+        cp.modificarPropuesta(p);
+        
+        
+        return 0;
+    }
     
     @Override
     public int modificarPropuesta(String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, String posibleRetorno, String estado, String imagen, String categoria){
@@ -776,7 +782,12 @@ public class Controlador implements IControlador{
         for(Colaborador c : cp.getColaboradores()){
             if(nick.equals(c.getNickname())){
                 Aporte a = c.borrarAporte(tituloNick);
-                cp.borrarAporte(a);
+                try {
+                    cp.borrarAporte(a,a.getPropuesta(),c);
+                    
+                } catch (Exception ex) {
+                    System.getLogger(Controlador.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                }
                 break;
             }
         }
