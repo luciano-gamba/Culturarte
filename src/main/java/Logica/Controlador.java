@@ -836,6 +836,7 @@ public class Controlador implements IControlador{
         
         Estado estadoActual = new Estado(est, fec);
         prop.setEstadoActual(estadoActual);
+        prop.misEstados.add(estadoActual);
         cp.editarPropuesta(prop);
     }
         
