@@ -45,6 +45,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menuConsultaPropu = new javax.swing.JMenuItem();
         menuConsultaPropuEst = new javax.swing.JMenuItem();
         menuAltaCategoria = new javax.swing.JMenuItem();
+        menuEvaluarPropuesta = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         menuRegistrarCola = new javax.swing.JMenuItem();
         menuConsultarCola = new javax.swing.JMenuItem();
@@ -59,7 +60,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Culturarte");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setPreferredSize(new java.awt.Dimension(900, 700));
         setResizable(false);
 
         javax.swing.GroupLayout DesktopLayout = new javax.swing.GroupLayout(Desktop);
@@ -162,6 +162,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         menuPropuestas.add(menuAltaCategoria);
+
+        menuEvaluarPropuesta.setText("Evaluar Propuesta");
+        menuEvaluarPropuesta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuEvaluarPropuestaActionPerformed(evt);
+            }
+        });
+        menuPropuestas.add(menuEvaluarPropuesta);
 
         jMenuBar1.add(menuPropuestas);
 
@@ -559,6 +567,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         javax.swing.JOptionPane.showMessageDialog(this, "Datos de prueba cargados correctamente", "Atención", javax.swing.JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void menuEvaluarPropuestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEvaluarPropuestaActionPerformed
+        // TODO add your handling code here:
+         if (this.IEP == null || this.IEP.isClosed()) {
+            IEP = new InterEvaluarPropuesta(ic);
+            this.Desktop.add(IEP);
+            IEP.show();
+        }
+    }//GEN-LAST:event_menuEvaluarPropuestaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -605,6 +622,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private InterSeguirUsuario ISU;
     private InterDejarSeguir IDS;
     private InterModificarPropuesta IMP;
+    private InterEvaluarPropuesta IEP;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane Desktop;
@@ -624,6 +642,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuConsultarCola;
     private javax.swing.JMenu menuDatos;
     private javax.swing.JMenuItem menuDejarSeguir;
+    private javax.swing.JMenuItem menuEvaluarPropuesta;
     private javax.swing.JMenuItem menuModificarProp;
     private javax.swing.JMenu menuPerfil;
     private javax.swing.JMenu menuPropuestas;

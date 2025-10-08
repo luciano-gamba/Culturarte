@@ -47,6 +47,8 @@ public interface IControlador {
         
     List<String> getPropuestas();
     
+    List<String> getPropuestasI();
+    
     DataPropuesta consultaDePropuesta(String titulo);
     
     DataPropuesta getDataPropuesta(String titulo_nick);
@@ -66,4 +68,6 @@ public interface IControlador {
     List<String> getColabsProp(String titulo);
     
     boolean seleccionaCategoria(String categoria);
+    
+    void cambiarEstado(String titulo, int n);
 }

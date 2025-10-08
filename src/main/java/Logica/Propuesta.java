@@ -47,7 +47,7 @@ public class Propuesta implements Serializable {
     
     public Propuesta(){
     }
-    
+
     public Propuesta(Proponente prop, String titulo, String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual) {
         this.miProponente = prop;
         this.titulo = titulo;
@@ -221,6 +221,9 @@ public class Propuesta implements Serializable {
         return this.montoAlcanzada;
     }
     
+    public void setEstadoActual(Estado estadoActual) {
+        this.estadoActual = estadoActual;
+    }
 }
 
 

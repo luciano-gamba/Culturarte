@@ -572,6 +572,18 @@ public class Controlador implements IControlador{
           return listaPropuestas;
     }
     
+    public List<String> getPropuestasI(){
+        List<String> listaPropuestas = new ArrayList<>();
+          String aux;
+          for (Propuesta p : cp.getListaPropuestas()) {
+              if (p.getEstadoActual().getEstado().toString().equals("INGRESADA")) {
+                  aux = p.getTitulo();
+                  listaPropuestas.add(aux); 
+              }
+            }
+          return listaPropuestas;
+    }
+    
     @Override
     public DataPropuesta consultaDePropuesta(String titulo){
         
@@ -810,5 +822,21 @@ public class Controlador implements IControlador{
         
         
         return encontrado;
+    }
+    
+    public void cambiarEstado(String titulo, int n){
+        Propuesta prop = cp.getPropuesta(titulo);
+        LocalDate fec = LocalDate.now();
+        EnumEstado est;
+        if (n == 0) {
+            est = EnumEstado.valueOf("PUBLICADA");
+        }else{
+            est = EnumEstado.valueOf("CANCELADA");
+        }
+        
+        Estado estadoActual = new Estado(est, fec);
+        prop.setEstadoActual(estadoActual);
+        cp.editarPropuesta(prop);
+        
     }
 }
