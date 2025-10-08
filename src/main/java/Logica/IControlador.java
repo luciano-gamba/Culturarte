@@ -66,4 +66,6 @@ public interface IControlador {
     List<String> getColabsProp(String titulo);
     
     boolean seleccionaCategoria(String categoria);
+    
+    void eliminarUsuario(String usu);
 }

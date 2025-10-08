@@ -21,6 +21,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerDateModel;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
@@ -463,7 +464,8 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
                 return;
             }
             
-            int resultado = this.ic.añadirUsuario(nickname, nombre, apellido, email, fecNac, this.txtImagen, pass, direccion,biografia , sitioWeb);
+            String passHash = BCrypt.hashpw(pass, BCrypt.gensalt());
+            int resultado = this.ic.añadirUsuario(nickname, nombre, apellido, email, fecNac, this.txtImagen, passHash, direccion,biografia , sitioWeb);
 
             switch(resultado){
                 case 0 -> JOptionPane.showMessageDialog(this, "Nickname ya existe!", "Error", HEIGHT);
@@ -474,7 +476,8 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
                 case 2 -> JOptionPane.showMessageDialog(this, "Email ya existe!", "Error", HEIGHT);
             }
         }else if(rbColaborador.isSelected()){
-            int resultado = this.ic.añadirUsuario(nickname, nombre, apellido, email, fecNac, this.txtImagen, pass);
+            String passHash = BCrypt.hashpw(pass, BCrypt.gensalt());
+            int resultado = this.ic.añadirUsuario(nickname, nombre, apellido, email, fecNac, this.txtImagen, passHash);
 
             switch(resultado){
             case 0 -> JOptionPane.showMessageDialog(this, "Nickname ya existe!", "Error", HEIGHT);

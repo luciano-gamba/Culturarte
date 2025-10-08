@@ -811,4 +811,9 @@ public class Controlador implements IControlador{
         
         return encontrado;
     }
+    
+    @Override
+    public void eliminarUsuario(String usu){
+        cp.eliminarUsuario(usu);
+    }
 }
