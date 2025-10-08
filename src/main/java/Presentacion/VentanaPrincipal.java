@@ -5,6 +5,7 @@ import Logica.EnumRetorno;
 import Logica.IControlador;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class VentanaPrincipal extends javax.swing.JFrame {
 
@@ -39,6 +40,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         subMenuConsultaPerfil = new javax.swing.JMenu();
         menuConsultaProponente = new javax.swing.JMenuItem();
         menuConsultaCola = new javax.swing.JMenuItem();
+        menuBajaUsuario = new javax.swing.JMenuItem();
         menuPropuestas = new javax.swing.JMenu();
         menuAltaProp = new javax.swing.JMenuItem();
         menuModificarProp = new javax.swing.JMenuItem();
@@ -118,6 +120,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         subMenuConsultaPerfil.add(menuConsultaCola);
 
         menuPerfil.add(subMenuConsultaPerfil);
+
+        menuBajaUsuario.setText("Baja de Usuario");
+        menuBajaUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuBajaUsuarioActionPerformed(evt);
+            }
+        });
+        menuPerfil.add(menuBajaUsuario);
 
         jMenuBar1.add(menuPerfil);
 
@@ -379,28 +389,28 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
 
         //PROPONENTES
-        ic.añadirUsuario("hrubino", "Horacio", "Rubino", "horacio.rubino@guambia.com.uy", LocalDate.of(1962, 2, 25), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/HR.jpg", "1234", "18 de Julio 1234", "Horacio Rubino Torres nace el 25 de febrero de 1962, es conductor, actor y libretista. Debuta en 1982 en carnaval en Los \"Klaper´s\", donde estuvo cuatro años, actuando y libretando. Luego para \"Gaby´s\" (6 años), escribió en categoría revistas y humoristas y desde el comienzo y hasta el presente en su propio conjunto Momosapiens.", "https://twitter.com/horaciorubino");
-        ic.añadirUsuario("mbusca", "Martín", "Buscaglia", "Martin.bus@agadu.org.uy", LocalDate.of(1972, 6, 14), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/MB.jpg", "1234", "Colonia 4321", "Martín Buscaglia (Montevideo, 1972) es un artista, músico, compositor y productor uruguayo. Tanto con su banda (“Los Bochamakers”) como en su formato “Hombre orquesta”, o solo con su guitarra, ha recorrido el mundo tocando entre otros países en España, Estados Unidos, Inglaterra, Francia, Australia, Brasil, Colombia, Argentina, Chile, Paraguay, México y Uruguay. (Actualmente los Bochamakers son Matías Rada, Martín Ibarburu, Mateo Moreno, Herman Klang) Paralelamente, tiene proyectos a dúo con el español Kiko Veneno, la cubana Yusa, el argentino Lisandro Aristimuño, su compatriota Antolín, y a trío junto a los brasileros Os Mulheres Negras", "http://www.martinbuscaglia.com/");
-        ic.añadirUsuario("tabarec", "Tabaré", "Cardozo", "tabare.car@agadu.org.uy", LocalDate.of(1971, 7, 24), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/TC.jpg", "1234", "Santiago Rivas 1212", "Tabaré Cardozo (Montevideo, 24 de julio de 1971) es un cantante, compositor y murguista uruguayo; conocido por su participación en la murga Agarrate Catalina, conjunto que fundó junto a su hermano Yamandú y Carlos Tanco en el año 2001.", "https://www.facebook.com/Tabar%C3%A9-Cardozo-55179094281/?ref=br_rs");
-        ic.añadirUsuario("cachilas", "Waldemar \"Cachila\"", "Silva", "Cachila.sil@c1080.org.uy", LocalDate.of(1947, 1, 1), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/CS.jpg", "1234", "Br. Artigas 4567", "Nace en el año 1947 en el conventillo \"Medio Mundo\" ubicado en pleno Barrio Sur. Es heredero parcialmentejunto al resto de sus hermanos- de la Comparsa \"Morenada\" (inactiva desde el fallecimiento de Juan Ángel Silva), en 1999 forma su propia Comparsa de negros y lubolos \"Cuareim 1080\". Director responsable, compositor y cantante de la misma.", "https://www.facebook.com/C1080?ref=br_rs");
-        ic.añadirUsuario("hectorg", "Héctor", "Guido", "hector.gui@elgalpon.org.uy", LocalDate.of(1954, 1, 7), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/HG.jpg", "1234", "Gral. Flores 5645", "En 1972 ingresó a la Escuela de Arte Dramático del teatro El Galpón. Participó en más de treinta obras teatrales y varios largometrajes. Integró el elenco estable de Radioteatro del Sodre, y en 2006 fue asesor de su Consejo Directivo. Como actor recibió múltiples reconocimientos: cuatro premios Florencio, premio al mejor actor extranjero del Festival de Miami y premio Mejor Actor de Cine 2008. Durante varios períodos fue directivo del teatro El Galpón y dirigente de la Sociedad Uruguaya de Actores (SUA); integró también la Federación Uruguaya de Teatros Independientes (FUTI). Formó parte del equipo de gestión de la refacción de los teatros La Máscara, Astral y El Galpón, y del equipo de gestión en la construcción del teatro De la Candela y de la sala Atahualpa de El Galpón", "");
-        ic.añadirUsuario("juliob", "Julio", "Bocca", "juliobocca@sodre.com.uy", LocalDate.of(1967, 3, 16), "", "1234", "Benito Blanco 4321", "", "");
-        ic.añadirUsuario("diegop", "Diego", "Parodi", "diego@efectocine.com", LocalDate.of(1975, 1, 1), "", "1234", "Emilio Frugoni 1138 Ap. 02", "", "http://www.efectocine.com");
-        ic.añadirUsuario("kairoh", "Kairo", "Herrera", "kairoher@pilsenrock.com.uy", LocalDate.of(1970, 4, 25), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/KH.jpg", "1234", "Paraguay 1423", "", "");
-        ic.añadirUsuario("losBardo", "Los", "Bardo", "losbardo@bardocientifico.com", LocalDate.of(1980, 10, 31), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/LB.jpg", "1234", "8 de Octubre 1429", "Queremos ser vistos y reconocidos como una organización: referente en divulgación científica con un fuerte espíritu didáctico y divertido, a través de acciones coordinadas con otros divulgadores científicos, que permitan establecer puentes de comunicación. Impulsora en la generación de espacios de democratización y apropiación social del conocimiento científico.", "https://bardocientifico.com/");
+        ic.añadirUsuario("hrubino", "Horacio", "Rubino", "horacio.rubino@guambia.com.uy", LocalDate.of(1962, 2, 25), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/HR.jpg", BCrypt.hashpw("1234", BCrypt.gensalt()), "18 de Julio 1234", "Horacio Rubino Torres nace el 25 de febrero de 1962, es conductor, actor y libretista. Debuta en 1982 en carnaval en Los \"Klaper´s\", donde estuvo cuatro años, actuando y libretando. Luego para \"Gaby´s\" (6 años), escribió en categoría revistas y humoristas y desde el comienzo y hasta el presente en su propio conjunto Momosapiens.", "https://twitter.com/horaciorubino");
+        ic.añadirUsuario("mbusca", "Martín", "Buscaglia", "Martin.bus@agadu.org.uy", LocalDate.of(1972, 6, 14), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/MB.jpg", BCrypt.hashpw("1234", BCrypt.gensalt()), "Colonia 4321", "Martín Buscaglia (Montevideo, 1972) es un artista, músico, compositor y productor uruguayo. Tanto con su banda (“Los Bochamakers”) como en su formato “Hombre orquesta”, o solo con su guitarra, ha recorrido el mundo tocando entre otros países en España, Estados Unidos, Inglaterra, Francia, Australia, Brasil, Colombia, Argentina, Chile, Paraguay, México y Uruguay. (Actualmente los Bochamakers son Matías Rada, Martín Ibarburu, Mateo Moreno, Herman Klang) Paralelamente, tiene proyectos a dúo con el español Kiko Veneno, la cubana Yusa, el argentino Lisandro Aristimuño, su compatriota Antolín, y a trío junto a los brasileros Os Mulheres Negras", "http://www.martinbuscaglia.com/");
+        ic.añadirUsuario("tabarec", "Tabaré", "Cardozo", "tabare.car@agadu.org.uy", LocalDate.of(1971, 7, 24), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/TC.jpg", BCrypt.hashpw("1234", BCrypt.gensalt()), "Santiago Rivas 1212", "Tabaré Cardozo (Montevideo, 24 de julio de 1971) es un cantante, compositor y murguista uruguayo; conocido por su participación en la murga Agarrate Catalina, conjunto que fundó junto a su hermano Yamandú y Carlos Tanco en el año 2001.", "https://www.facebook.com/Tabar%C3%A9-Cardozo-55179094281/?ref=br_rs");
+        ic.añadirUsuario("cachilas", "Waldemar \"Cachila\"", "Silva", "Cachila.sil@c1080.org.uy", LocalDate.of(1947, 1, 1), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/CS.jpg", BCrypt.hashpw("1234", BCrypt.gensalt()), "Br. Artigas 4567", "Nace en el año 1947 en el conventillo \"Medio Mundo\" ubicado en pleno Barrio Sur. Es heredero parcialmentejunto al resto de sus hermanos- de la Comparsa \"Morenada\" (inactiva desde el fallecimiento de Juan Ángel Silva), en 1999 forma su propia Comparsa de negros y lubolos \"Cuareim 1080\". Director responsable, compositor y cantante de la misma.", "https://www.facebook.com/C1080?ref=br_rs");
+        ic.añadirUsuario("hectorg", "Héctor", "Guido", "hector.gui@elgalpon.org.uy", LocalDate.of(1954, 1, 7), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/HG.jpg", BCrypt.hashpw("1234", BCrypt.gensalt()), "Gral. Flores 5645", "En 1972 ingresó a la Escuela de Arte Dramático del teatro El Galpón. Participó en más de treinta obras teatrales y varios largometrajes. Integró el elenco estable de Radioteatro del Sodre, y en 2006 fue asesor de su Consejo Directivo. Como actor recibió múltiples reconocimientos: cuatro premios Florencio, premio al mejor actor extranjero del Festival de Miami y premio Mejor Actor de Cine 2008. Durante varios períodos fue directivo del teatro El Galpón y dirigente de la Sociedad Uruguaya de Actores (SUA); integró también la Federación Uruguaya de Teatros Independientes (FUTI). Formó parte del equipo de gestión de la refacción de los teatros La Máscara, Astral y El Galpón, y del equipo de gestión en la construcción del teatro De la Candela y de la sala Atahualpa de El Galpón", "");
+        ic.añadirUsuario("juliob", "Julio", "Bocca", "juliobocca@sodre.com.uy", LocalDate.of(1967, 3, 16), "", BCrypt.hashpw("1234", BCrypt.gensalt()), "Benito Blanco 4321", "", "");
+        ic.añadirUsuario("diegop", "Diego", "Parodi", "diego@efectocine.com", LocalDate.of(1975, 1, 1), "", BCrypt.hashpw("1234", BCrypt.gensalt()), "Emilio Frugoni 1138 Ap. 02", "", "http://www.efectocine.com");
+        ic.añadirUsuario("kairoh", "Kairo", "Herrera", "kairoher@pilsenrock.com.uy", LocalDate.of(1970, 4, 25), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/KH.jpg", BCrypt.hashpw("1234", BCrypt.gensalt()), "Paraguay 1423", "", "");
+        ic.añadirUsuario("losBardo", "Los", "Bardo", "losbardo@bardocientifico.com", LocalDate.of(1980, 10, 31), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/LB.jpg", BCrypt.hashpw("1234", BCrypt.gensalt()), "8 de Octubre 1429", "Queremos ser vistos y reconocidos como una organización: referente en divulgación científica con un fuerte espíritu didáctico y divertido, a través de acciones coordinadas con otros divulgadores científicos, que permitan establecer puentes de comunicación. Impulsora en la generación de espacios de democratización y apropiación social del conocimiento científico.", "https://bardocientifico.com/");
 
         //COLABORADORES
-        ic.añadirUsuario("robinh", "Robin", "Henderson", "Robin.h@tinglesa.com.uy", LocalDate.of(1940, 8, 3), "", "1234");
-        ic.añadirUsuario("marcelot", "Marcelo", "Tinelli", "marcelot@ideasdelsur.com.ar", LocalDate.of(1960, 4, 1), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/MT.jpg", "1234");
-        ic.añadirUsuario("novick", "Edgardo", "Novick", "edgardo@novick.com.uy", LocalDate.of(1952, 7, 17), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/EN.jpg", "1234");
-        ic.añadirUsuario("sergiop", "Sergio", "Puglia", "puglia@alpanpan.com.uy", LocalDate.of(1950, 1, 28), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/SP.jpg", "1234");
-        ic.añadirUsuario("chino", "Alvaro", "Recoba", "chino@trico.org.uy", LocalDate.of(1976, 3, 17), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/AR.jpg", "1234");
-        ic.añadirUsuario("tonyp", "Antonio", "Pacheco", "eltony@manya.org.uy", LocalDate.of(1955, 2, 14), "", "1234");
-        ic.añadirUsuario("nicoJ", "Nicolás", "Jodal", "jodal@artech.com.uy", LocalDate.of(1960, 8, 9), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/NJ.jpg", "1234");
-        ic.añadirUsuario("juanP", "Juan", "Perez", "juanp@elpueblo.com", LocalDate.of(1970, 1, 1), "", "1234");
-        ic.añadirUsuario("Mengano", "Mengano", "Gómez", "menganog@elpueblo.com", LocalDate.of(1982, 2, 2), "", "1234");
-        ic.añadirUsuario("Perengano", "Perengano", "López", "pere@elpueblo.com", LocalDate.of(1985, 3, 3), "", "1234");
-        ic.añadirUsuario("Tiajaci", "Tía", "Jacinta", "jacinta@elpueblo.com", LocalDate.of(1990, 4, 4), "", "1234");
+        ic.añadirUsuario("robinh", "Robin", "Henderson", "Robin.h@tinglesa.com.uy", LocalDate.of(1940, 8, 3), "", BCrypt.hashpw("1234", BCrypt.gensalt()));
+        ic.añadirUsuario("marcelot", "Marcelo", "Tinelli", "marcelot@ideasdelsur.com.ar", LocalDate.of(1960, 4, 1), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/MT.jpg", BCrypt.hashpw("1234", BCrypt.gensalt()));
+        ic.añadirUsuario("novick", "Edgardo", "Novick", "edgardo@novick.com.uy", LocalDate.of(1952, 7, 17), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/EN.jpg", BCrypt.hashpw("1234", BCrypt.gensalt()));
+        ic.añadirUsuario("sergiop", "Sergio", "Puglia", "puglia@alpanpan.com.uy", LocalDate.of(1950, 1, 28), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/SP.jpg", BCrypt.hashpw("1234", BCrypt.gensalt()));
+        ic.añadirUsuario("chino", "Alvaro", "Recoba", "chino@trico.org.uy", LocalDate.of(1976, 3, 17), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/AR.jpg", BCrypt.hashpw("1234", BCrypt.gensalt()));
+        ic.añadirUsuario("tonyp", "Antonio", "Pacheco", "eltony@manya.org.uy", LocalDate.of(1955, 2, 14), "", BCrypt.hashpw("1234", BCrypt.gensalt()));
+        ic.añadirUsuario("nicoJ", "Nicolás", "Jodal", "jodal@artech.com.uy", LocalDate.of(1960, 8, 9), "/home/tecnologo/projects/Culturarte-grupo-1/fotos/NJ.jpg", BCrypt.hashpw("1234", BCrypt.gensalt()));
+        ic.añadirUsuario("juanP", "Juan", "Perez", "juanp@elpueblo.com", LocalDate.of(1970, 1, 1), "", BCrypt.hashpw("1234", BCrypt.gensalt()));
+        ic.añadirUsuario("Mengano", "Mengano", "Gómez", "menganog@elpueblo.com", LocalDate.of(1982, 2, 2), "", BCrypt.hashpw("1234", BCrypt.gensalt()));
+        ic.añadirUsuario("Perengano", "Perengano", "López", "pere@elpueblo.com", LocalDate.of(1985, 3, 3), "", BCrypt.hashpw("1234", BCrypt.gensalt()));
+        ic.añadirUsuario("Tiajaci", "Tía", "Jacinta", "jacinta@elpueblo.com", LocalDate.of(1990, 4, 4), "", BCrypt.hashpw("1234", BCrypt.gensalt()));
 
         //HR
         ic.seguirUsuario("hrubino", "hectorg");
@@ -575,6 +585,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             IEP.show();
         }
     }//GEN-LAST:event_menuEvaluarPropuestaActionPerformed
+    private void menuBajaUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBajaUsuarioActionPerformed
+        // TODO add your handling code here:
+        if (this.IBU == null || IBU.isClosed()) {
+            IBU = new InterBajaUsuario(this.ic);
+            this.Desktop.add(IBU);
+            IBU.show();
+            int x = (this.getWidth() - IBU.getWidth()) / 2;
+            int y = (this.getHeight() - IBU.getHeight()) / 2;
+            IBU.setLocation(x, y - 50);
+        }
+    }//GEN-LAST:event_menuBajaUsuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -623,6 +644,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private InterDejarSeguir IDS;
     private InterModificarPropuesta IMP;
     private InterEvaluarPropuesta IEP;
+    private InterBajaUsuario IBU;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane Desktop;
@@ -634,6 +656,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuAltaCategoria;
     private javax.swing.JMenuItem menuAltaProp;
     private javax.swing.JMenuItem menuAltaUsuario;
+    private javax.swing.JMenuItem menuBajaUsuario;
     private javax.swing.JMenuItem menuCancelarCola;
     private javax.swing.JMenuItem menuConsultaCola;
     private javax.swing.JMenuItem menuConsultaProponente;

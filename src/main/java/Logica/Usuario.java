@@ -30,6 +30,7 @@ public class Usuario implements Serializable {
     String apellido;
     LocalDate fecNac;
     String imagen = "";
+    String imagenWeb = "";
     @OneToMany
     @JoinTable(name = "UsuarioSeguidos", joinColumns = @JoinColumn(name = "nickSeguidor"), inverseJoinColumns = @JoinColumn(name = "nickSeguido"))
     List<Usuario> misSeguidos = new ArrayList<>();
@@ -38,7 +39,7 @@ public class Usuario implements Serializable {
     }
 
     
-    public Usuario(String nickname, String email, String nombre, String apellido, LocalDate fecNac, String imagen, String contraseña) {
+    public Usuario(String nickname, String email, String nombre, String apellido, LocalDate fecNac, String imagen, String contraseña, String imagenWeb) {
         this.nickname = nickname;
         this.email = email;
         this.nombre = nombre;
@@ -46,6 +47,7 @@ public class Usuario implements Serializable {
         this.fecNac = fecNac;
         this.imagen = imagen;
         this.contraseña = contraseña;
+        this.imagenWeb = imagenWeb;
     }
 
     public String getNickname() {

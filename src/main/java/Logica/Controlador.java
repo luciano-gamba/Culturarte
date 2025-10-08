@@ -42,7 +42,7 @@ public class Controlador implements IControlador{
             }
         }
         
-        Colaborador colaNuevo = new Colaborador(nick, correo, nombre, apellido, fecNac, imagen, contraseña);
+        Colaborador colaNuevo = new Colaborador(nick, correo, nombre, apellido, fecNac, imagen, contraseña, "");
         misUsuarios.add(colaNuevo);
         cp.añadirUsuario(colaNuevo);
         return 1;
@@ -67,7 +67,7 @@ public class Controlador implements IControlador{
             }
         }
         
-        Proponente propNuevo = new Proponente(direccion, bio, sitioWeb, nick, correo, nombre, apellido, fecNac, imagen, contraseña);
+        Proponente propNuevo = new Proponente(direccion, bio, sitioWeb, nick, correo, nombre, apellido, fecNac, imagen, contraseña, "");
         cp.añadirUsuario(propNuevo);
         return 1;
     }
@@ -837,6 +837,10 @@ public class Controlador implements IControlador{
         Estado estadoActual = new Estado(est, fec);
         prop.setEstadoActual(estadoActual);
         cp.editarPropuesta(prop);
+    }
         
+    @Override
+    public void eliminarUsuario(String usu){
+        cp.eliminarUsuario(usu);
     }
 }

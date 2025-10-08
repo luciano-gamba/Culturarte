@@ -70,4 +70,5 @@ public interface IControlador {
     boolean seleccionaCategoria(String categoria);
     
     void cambiarEstado(String titulo, int n);
+    void eliminarUsuario(String usu);
 }
