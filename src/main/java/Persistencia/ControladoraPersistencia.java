@@ -16,7 +16,6 @@ import java.util.logging.Logger;
 public class ControladoraPersistencia {
 
     UsuarioJpaController usuJPA = new UsuarioJpaController();
-    private CategoriaJpaController catJPA = new CategoriaJpaController();
 
     public Usuario buscarUsuario(String nick) {
         return usuJPA.findUsuario(nick);
@@ -134,6 +133,8 @@ public class ControladoraPersistencia {
             Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    private CategoriaJpaController catJPA = new CategoriaJpaController();
 
     public void createCategoria(Categoria cat) {
         try {

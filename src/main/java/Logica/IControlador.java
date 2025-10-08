@@ -7,9 +7,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 public interface IControlador {
     
-    int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen, String direccion, String bio, String sitioWeb);
+    int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen, String contraseña, String direccion, String bio, String sitioWeb);
     
-    int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen);
+    int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen, String contraseña);
     
     int altaCategoria(String nombreCat);
     

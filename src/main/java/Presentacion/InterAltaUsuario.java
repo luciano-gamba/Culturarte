@@ -39,6 +39,7 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
         this.ic = ic;
         initComponents();
         this.textImagenLista.setVisible(false);
+        this.panelProp.setVisible(false);
         this.setTitle("Alta Usuario");
         
       //forma manual de cambiar modelo fecha spinner
@@ -89,16 +90,21 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
         rbProponente = new javax.swing.JRadioButton();
         rbColaborador = new javax.swing.JRadioButton();
         spinnerFecNac = new javax.swing.JSpinner();
+        botonImagen = new javax.swing.JButton();
+        labelImagen = new javax.swing.JLabel();
+        textImagenLista = new javax.swing.JLabel();
+        textoContra = new javax.swing.JTextField();
+        textoConfirmacion = new javax.swing.JTextField();
+        labelContraseña = new javax.swing.JLabel();
+        labelConfirmacion = new javax.swing.JLabel();
+        panelProp = new javax.swing.JPanel();
+        textoSitioWeb = new javax.swing.JTextField();
+        labelBiografia = new javax.swing.JLabel();
+        labelSitioWeb = new javax.swing.JLabel();
         labelDireccion = new javax.swing.JLabel();
         textoDireccion = new javax.swing.JTextField();
         jScrollPaneBio = new javax.swing.JScrollPane();
         textoBiografia = new javax.swing.JTextArea();
-        textoSitioWeb = new javax.swing.JTextField();
-        labelBiografia = new javax.swing.JLabel();
-        labelSitioWeb = new javax.swing.JLabel();
-        botonImagen = new javax.swing.JButton();
-        labelImagen = new javax.swing.JLabel();
-        textImagenLista = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -185,6 +191,40 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
         spinnerFecNac.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(1104544800000L), null, null, java.util.Calendar.DAY_OF_MONTH));
         spinnerFecNac.setEditor(new javax.swing.JSpinner.DateEditor(spinnerFecNac, "d/M/yyyy"));
 
+        botonImagen.setText("Seleccionar");
+        botonImagen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonImagenActionPerformed(evt);
+            }
+        });
+
+        labelImagen.setText("Foto de perfil (opcional)");
+
+        textImagenLista.setText("Imagen seleccionada!");
+
+        textoContra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textoContraActionPerformed(evt);
+            }
+        });
+
+        labelContraseña.setText("Contraseña");
+
+        labelConfirmacion.setText("Confirmación");
+
+        panelProp.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        textoSitioWeb.setEnabled(false);
+        textoSitioWeb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textoSitioWebActionPerformed(evt);
+            }
+        });
+
+        labelBiografia.setText("Biografia (opcional)");
+
+        labelSitioWeb.setText("Sitio Web (opcional)");
+
         labelDireccion.setText("Direccion");
 
         textoDireccion.setEnabled(false);
@@ -199,88 +239,94 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
         textoBiografia.setEnabled(false);
         jScrollPaneBio.setViewportView(textoBiografia);
 
-        textoSitioWeb.setEnabled(false);
-        textoSitioWeb.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textoSitioWebActionPerformed(evt);
-            }
-        });
-
-        labelBiografia.setText("Biografia (opcional)");
-
-        labelSitioWeb.setText("Sitio Web (opcional)");
-
-        botonImagen.setText("Seleccionar");
-        botonImagen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonImagenActionPerformed(evt);
-            }
-        });
-
-        labelImagen.setText("Foto de perfil (opcional)");
-
-        textImagenLista.setText("Imagen seleccionada!");
+        javax.swing.GroupLayout panelPropLayout = new javax.swing.GroupLayout(panelProp);
+        panelProp.setLayout(panelPropLayout);
+        panelPropLayout.setHorizontalGroup(
+            panelPropLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPropLayout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addGroup(panelPropLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelPropLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(labelBiografia)
+                        .addComponent(labelDireccion))
+                    .addComponent(labelSitioWeb))
+                .addGap(18, 18, 18)
+                .addGroup(panelPropLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textoDireccion)
+                    .addComponent(textoSitioWeb, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPaneBio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+        panelPropLayout.setVerticalGroup(
+            panelPropLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPropLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelPropLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelDireccion)
+                    .addComponent(textoDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelPropLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPaneBio, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelBiografia))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelPropLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textoSitioWeb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelSitioWeb))
+                .addContainerGap(8, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(49, 49, 49)
+                .addContainerGap(70, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(panelProp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(botonAceptar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonCancelar)
+                        .addGap(6, 6, 6))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(labelImagen)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(botonImagen)
+                                .addGap(30, 30, 30)
+                                .addComponent(textImagenLista))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(labelFecNac)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(spinnerFecNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(labelTitulo)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(42, 42, 42)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(labelNombre)
                                     .addComponent(labelNickname)
                                     .addComponent(labelApellido)
                                     .addComponent(labelEmail)
-                                    .addComponent(labelFecNac))
+                                    .addComponent(labelContraseña)
+                                    .addComponent(labelConfirmacion))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(textoNickname, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                        .addComponent(textoNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                        .addComponent(textoApellido)
-                                        .addComponent(textoEmail))
-                                    .addComponent(spinnerFecNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(labelDireccion)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(textoConfirmacion)
+                                    .addComponent(textoNickname)
+                                    .addComponent(textoNombre)
+                                    .addComponent(textoApellido)
+                                    .addComponent(textoEmail)
+                                    .addComponent(textoContra, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(17, 17, 17)
                                 .addComponent(rbProponente)
-                                .addComponent(labelBiografia))
-                            .addComponent(labelSitioWeb)
-                            .addComponent(labelImagen, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(textoSitioWeb, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(rbColaborador)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(textoDireccion)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(botonImagen)
-                                        .addGap(30, 30, 30)
-                                        .addComponent(textImagenLista))
-                                    .addComponent(jScrollPaneBio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(75, Short.MAX_VALUE))))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botonAceptar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botonCancelar)
-                .addContainerGap())
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(rbColaborador)))
+                        .addContainerGap(70, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -303,7 +349,15 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelEmail))
+                .addGap(13, 13, 13)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textoContra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelContraseña))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textoConfirmacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelConfirmacion))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelFecNac)
                     .addComponent(spinnerFecNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -311,24 +365,14 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbProponente)
                     .addComponent(rbColaborador))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelDireccion)
-                    .addComponent(textoDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPaneBio, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelBiografia))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoSitioWeb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelSitioWeb))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelProp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonImagen)
                     .addComponent(labelImagen)
                     .addComponent(textImagenLista))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonCancelar)
                     .addComponent(botonAceptar))
@@ -366,6 +410,7 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
             textoBiografia.setEnabled(false);
             jScrollPaneBio.setEnabled(false);
             textoSitioWeb.setEnabled(false);
+            panelProp.setVisible(false);
         }
     }//GEN-LAST:event_rbColaboradorActionPerformed
 
@@ -376,6 +421,7 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
             textoBiografia.setEnabled(true);
             jScrollPaneBio.setEnabled(true);
             textoSitioWeb.setEnabled(true);
+            panelProp.setVisible(true);
         }
     }//GEN-LAST:event_rbProponenteActionPerformed
 
@@ -385,46 +431,61 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
         String nombre = textoNombre.getText().trim();
         String apellido = textoApellido.getText().trim();
         String email = textoEmail.getText().trim();
+        String pass = textoContra.getText().trim();
+        String confirmar = textoConfirmacion.getText().trim();
         Date fecha = (Date) spinnerFecNac.getValue();
         LocalDate fecNac = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         
         
         if(nickname.isBlank() || nombre.isBlank() || this.nicksProhibidos.contains(nickname) || apellido.isBlank()){
             JOptionPane.showMessageDialog(this, "Opciones vacias o invalidas!", "Error", HEIGHT);
-        }else{
-            if(email.isBlank() || !email.contains("@") || email.contains(" ") || !email.contains(".")){
-                JOptionPane.showMessageDialog(this, "Email no válido!", "Error", HEIGHT);
-            }else{
-                if(rbProponente.isSelected()){
-                    String direccion = textoDireccion.getText().trim();
-                    String biografia = textoBiografia.getText();
-                    String sitioWeb = textoSitioWeb.getText().trim();
+            return;
+        }
+        if(email.isBlank() || !email.contains("@") || email.contains(" ") || !email.contains(".")){
+            JOptionPane.showMessageDialog(this, "Email no válido!", "Error", HEIGHT);
+            return;
+        }
+        if(pass.isBlank()){
+            JOptionPane.showMessageDialog(this, "Debe ingresar una contraseña!", "Error", HEIGHT);
+            return;
+        }
+        if(confirmar.isBlank() || !confirmar.equals(pass)){
+            JOptionPane.showMessageDialog(this, "Debe confirmar su contraseña!", "Error", HEIGHT);
+            return;
+        }
+        if(rbProponente.isSelected()){
+            String direccion = textoDireccion.getText().trim();
+            String biografia = textoBiografia.getText();
+            String sitioWeb = textoSitioWeb.getText().trim();
 
-                    if(direccion.isBlank() || (!sitioWeb.isBlank() && !sitioWeb.contains("."))){
-                        JOptionPane.showMessageDialog(this, "Opciones vacias o invalidas!", "Error", HEIGHT);
-                    }else{
-                        int resultado = this.ic.añadirUsuario(nickname, nombre, apellido, email, fecNac, this.txtImagen, direccion,biografia , sitioWeb);
-
-                        if(resultado == 1){
-                            JOptionPane.showMessageDialog(this, "Usuario ha sido ingresado!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
-                            this.dispose();
-                        }else{
-                            JOptionPane.showMessageDialog(this, "Nickname o Email ya existen!", "Error", HEIGHT);
-                        }
-                    }
-                }else if(rbColaborador.isSelected()){
-                    int resultado = this.ic.añadirUsuario(nickname, nombre, apellido, email, fecNac, this.txtImagen);
-
-                        if(resultado == 1){
-                            JOptionPane.showMessageDialog(this, "Usuario ha sido ingresado!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
-                            this.dispose();
-                        }else{
-                            JOptionPane.showMessageDialog(this, "Nickname o Email ya existen!", "Error", HEIGHT);
-                        }
-                }else{
-                    JOptionPane.showMessageDialog(this, "Debe elegir tipo de usuario!", "Error", HEIGHT);
-                }
+            if(direccion.isBlank() || (!sitioWeb.isBlank() && !sitioWeb.contains("."))){
+                JOptionPane.showMessageDialog(this, "Opciones vacias o invalidas!", "Error", HEIGHT);
+                return;
             }
+            
+            int resultado = this.ic.añadirUsuario(nickname, nombre, apellido, email, fecNac, this.txtImagen, pass, direccion,biografia , sitioWeb);
+
+            switch(resultado){
+                case 0 -> JOptionPane.showMessageDialog(this, "Nickname ya existe!", "Error", HEIGHT);
+                case 1 -> {
+                    JOptionPane.showMessageDialog(this, "Usuario ha sido ingresado!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
+                }
+                case 2 -> JOptionPane.showMessageDialog(this, "Email ya existe!", "Error", HEIGHT);
+            }
+        }else if(rbColaborador.isSelected()){
+            int resultado = this.ic.añadirUsuario(nickname, nombre, apellido, email, fecNac, this.txtImagen, pass);
+
+            switch(resultado){
+            case 0 -> JOptionPane.showMessageDialog(this, "Nickname ya existe!", "Error", HEIGHT);
+            case 1 -> {
+                JOptionPane.showMessageDialog(this, "Usuario ha sido ingresado!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+            }
+            case 2 -> JOptionPane.showMessageDialog(this, "Email ya existe!", "Error", HEIGHT);
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "Debe elegir tipo de usuario!", "Error", HEIGHT);
         }
     }//GEN-LAST:event_botonAceptarActionPerformed
 
@@ -468,6 +529,10 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_botonImagenActionPerformed
 
+    private void textoContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoContraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textoContraActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgTipoUsuario;
@@ -478,6 +543,8 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPaneBio;
     private javax.swing.JLabel labelApellido;
     private javax.swing.JLabel labelBiografia;
+    private javax.swing.JLabel labelConfirmacion;
+    private javax.swing.JLabel labelContraseña;
     private javax.swing.JLabel labelDireccion;
     private javax.swing.JLabel labelEmail;
     private javax.swing.JLabel labelFecNac;
@@ -486,12 +553,15 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel labelNombre;
     private javax.swing.JLabel labelSitioWeb;
     private javax.swing.JLabel labelTitulo;
+    private javax.swing.JPanel panelProp;
     private javax.swing.JRadioButton rbColaborador;
     private javax.swing.JRadioButton rbProponente;
     private javax.swing.JSpinner spinnerFecNac;
     private javax.swing.JLabel textImagenLista;
     private javax.swing.JTextField textoApellido;
     private javax.swing.JTextArea textoBiografia;
+    private javax.swing.JTextField textoConfirmacion;
+    private javax.swing.JTextField textoContra;
     private javax.swing.JTextField textoDireccion;
     private javax.swing.JTextField textoEmail;
     private javax.swing.JTextField textoNickname;
