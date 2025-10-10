@@ -454,6 +454,14 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Debe confirmar su contraseña!", "Error", HEIGHT);
             return;
         }
+        
+        String imagenWeb;
+        if(!this.txtImagen.isBlank()){
+            imagenWeb = "fotos" + File.separator + this.txtImagen.substring(this.txtImagen.lastIndexOf(File.separator), this.txtImagen.length());
+        }else{
+            imagenWeb = "";
+        }
+        
         if(rbProponente.isSelected()){
             String direccion = textoDireccion.getText().trim();
             String biografia = textoBiografia.getText();
@@ -462,10 +470,10 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
             if(direccion.isBlank() || (!sitioWeb.isBlank() && !sitioWeb.contains("."))){
                 JOptionPane.showMessageDialog(this, "Opciones vacias o invalidas!", "Error", HEIGHT);
                 return;
-            }
+            }            
             
             String passHash = BCrypt.hashpw(pass, BCrypt.gensalt());
-            int resultado = this.ic.añadirUsuario(nickname, nombre, apellido, email, fecNac, this.txtImagen, passHash, direccion,biografia , sitioWeb);
+            int resultado = this.ic.añadirUsuario(nickname, nombre, apellido, email, fecNac, this.txtImagen, passHash, direccion, biografia , sitioWeb, imagenWeb);
 
             switch(resultado){
                 case 0 -> JOptionPane.showMessageDialog(this, "Nickname ya existe!", "Error", HEIGHT);
@@ -477,7 +485,7 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
             }
         }else if(rbColaborador.isSelected()){
             String passHash = BCrypt.hashpw(pass, BCrypt.gensalt());
-            int resultado = this.ic.añadirUsuario(nickname, nombre, apellido, email, fecNac, this.txtImagen, passHash);
+            int resultado = this.ic.añadirUsuario(nickname, nombre, apellido, email, fecNac, this.txtImagen, passHash, imagenWeb);
 
             switch(resultado){
             case 0 -> JOptionPane.showMessageDialog(this, "Nickname ya existe!", "Error", HEIGHT);
