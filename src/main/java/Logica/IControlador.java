@@ -71,4 +71,8 @@ public interface IControlador {
     
     void cambiarEstado(String titulo, int n);
     void eliminarUsuario(String usu);
+                
+    boolean esFavorita(String titulo, String nick);
+    
+    int cambiarFavorita(String titulo, String nick);
 }
