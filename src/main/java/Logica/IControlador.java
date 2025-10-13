@@ -75,4 +75,8 @@ public interface IControlador {
     boolean esFavorita(String titulo, String nick);
     
     int cambiarFavorita(String titulo, String nick);
+    
+    void addComentario(String titulo, String nick, String comentario);
+    
+    public DataComentario getDataComentario(String titulo, String nick);
 }

@@ -824,6 +824,7 @@ public class Controlador implements IControlador{
         return encontrado;
     }
     
+    @Override
     public void cambiarEstado(String titulo, int n){
         Propuesta prop = cp.getPropuesta(titulo);
         LocalDate fec = LocalDate.now();
@@ -867,5 +868,23 @@ public class Controlador implements IControlador{
             cp.editarUsuario(u);
             return 0;
         }
-    }  
+    }    
+    
+    @Override
+    public void addComentario(String titulo, String nick, String comentario){
+        Colaborador c = cp.buscarColaborador(nick);
+        Aporte a = c.getAporte(titulo);
+        a.setComentario(comentario);
+        a.setFecComentario(LocalDateTime.now());
+        cp.editarAporte(a);
+    }
+    
+    
+    @Override
+    public DataComentario getDataComentario(String titulo, String nick){
+        Colaborador c = cp.buscarColaborador(nick);
+        Aporte a = c.getAporte(titulo);
+                    
+        return new DataComentario(a.getComentario(),a.getFecComentario(),nick,titulo);               
+    }   
 }
