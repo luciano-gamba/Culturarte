@@ -824,6 +824,7 @@ public class Controlador implements IControlador{
         return encontrado;
     }
     
+    @Override
     public void cambiarEstado(String titulo, int n){
         Propuesta prop = cp.getPropuesta(titulo);
         LocalDate fec = LocalDate.now();
