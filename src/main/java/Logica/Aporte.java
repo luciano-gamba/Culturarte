@@ -27,6 +27,8 @@ public class Aporte implements Serializable {
     private LocalDateTime fechaHora;
     private int cantidad;
     private EnumRetorno retorno;
+    private String comentario;
+    private LocalDateTime fecComentario;
 
     public Aporte() {
     }
@@ -127,4 +129,23 @@ public class Aporte implements Serializable {
     public double getNecesaria(){
         return this.miPropuesta.getNecesaria();
     }
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+
+    public LocalDateTime getFecComentario() {
+        return fecComentario;
+    }
+
+    public void setFecComentario(LocalDateTime fecComentario) {
+        this.fecComentario = fecComentario;
+    }
+    
+    
+
 }
