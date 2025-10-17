@@ -501,7 +501,7 @@ public class Controlador implements IControlador{
         
         p.modificarPropuesta(p.getDescripcion(), p.getLugar(), p.getFechaARealizar(), p.getEntrada(), p.getNecesaria(), p.getPosibleRetorno().toString(), estado, p.getImagen(), p.getCategoriaClase());
         cp.modificarPropuesta(p);
-        
+        cp.editarPropuesta(p);
         
         return 0;
     }
