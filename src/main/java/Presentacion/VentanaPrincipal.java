@@ -509,35 +509,35 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         //PROPUESTA
         ic.altaPropuesta("diegop", "Cine al Aire Libre", "Cine en el Botánico",
                 "El 16 de Diciembre a la hora 20 se proyectará la película \"Clever\", en el Jardín Botánico (Av. 19 de Abril 1181) en el marco de las actividades realizadas por el ciclo Cultura al Aire Libre. El largometraje uruguayo de ficción Clever es dirigido por Federico Borgia y Guillermo Madeiro. Es apto para mayores de 15 años.",
-                "Jardín Botánico", LocalDate.of(2025, 12, 16), "200", "150000", EnumRetorno.PORCENTAJE_VENTAS, LocalDate.of(2017, 9, 16), "");
+                "Jardín Botánico", LocalDate.of(2025, 12, 16), "200", "150000", EnumRetorno.PORCENTAJE_VENTAS, LocalDate.of(2025, 9, 16), "");
 
         ic.altaPropuesta("hrubino", "Parodistas", "Religiosamente",
                 "MOMOSAPIENS presenta \"Religiosamente\". Mediante dos parodias y un hilo conductor que aborda la temática de la religión Momosapiens, mediante el humor y la reflexión, hilvana una historia que muestra al hombre inmerso en el tema religioso. El libreto está escrito utilizando diferentes lenguajes de humor, dando una visión satírica y reflexiva desde distintos puntos de vista, logrando mediante situaciones paródicas armar una propuesta plena de arte carnavalero.",
-                "Teatro de Verano", LocalDate.of(2025, 10, 7), "300", "300000", EnumRetorno.AMBOS, LocalDate.of(2017, 6, 18), "fotos/MOM.jpg");
+                "Teatro de Verano", LocalDate.of(2025, 10, 7), "300", "300000", EnumRetorno.AMBOS, LocalDate.of(2025, 6, 18), "fotos/MOM.jpg");
 
         ic.altaPropuesta("mbusca", "Concierto", "El Pimiento Indomable",
                 "El Pimiento Indomable, formación compuesta por Kiko Veneno y el uruguayo Martín Buscaglia, presentará este 19 de Octubre, su primer trabajo. Bajo un título homónimo al del grupo, es un disco que según los propios protagonistas “no se parece al de ninguno de los dos por separado. Entre los títulos que se podrán escuchar se encuentran “Nadador salvador”, “América es más grande”, “Pescaito Enroscado” o “La reina del placer”.",
-                "Teatro Solís", LocalDate.of(2025, 10, 19), "400", "400000", EnumRetorno.PORCENTAJE_VENTAS, LocalDate.of(2017, 7, 26), "fotos/PIM.jpg");
+                "Teatro Solís", LocalDate.of(2025, 10, 19), "400", "400000", EnumRetorno.PORCENTAJE_VENTAS, LocalDate.of(2025, 7, 26), "fotos/PIM.jpg");
 
         ic.altaPropuesta("kairoh", "Festival", "Pilsen Rock",
                 "La edición 2017 del Pilsen Rock se celebrará el 21 de Octubre en la Rural del Prado y contará con la participación de más de 15 bandas nacionales. Quienes no puedan trasladarse al lugar, tendrán la posibilidad de disfrutar los shows a través de Internet, así como entrevistas en vivo a los músicos una vez finalizados los conciertos.",
-                "Rural de Prado", LocalDate.of(2025, 10, 21), "1000", "900000", EnumRetorno.AMBOS, LocalDate.of(2017, 7, 30), "fotos/PIL.jpg");
+                "Rural de Prado", LocalDate.of(2025, 10, 21), "1000", "900000", EnumRetorno.AMBOS, LocalDate.of(2025, 7, 30), "fotos/PIL.jpg");
 
         ic.altaPropuesta("juliob", "Ballet", "Romeo y Julieta",
                 "Romeo y Julieta de Kenneth MacMillan, uno de los ballets favoritos del director artístico Julio Bocca, se presentará nuevamente el 5 de Noviembre en el Auditorio Nacional del Sodre. Basada en la obra homónima de William Shakespeare, Romeo y Julieta es considerada la coreografía maestra del MacMillan. La producción de vestuario y escenografía se realizó en los Talleres del Auditorio Adela Reta, sobre los diseños originales.",
-                "Auditorio Nacional del Sodre", LocalDate.of(2025, 11, 5), "800", "750000", EnumRetorno.PORCENTAJE_VENTAS, LocalDate.of(2017, 8, 4), "fotos/RYJ.jpg");
+                "Auditorio Nacional del Sodre", LocalDate.of(2025, 11, 5), "800", "750000", EnumRetorno.PORCENTAJE_VENTAS, LocalDate.of(2025, 8, 4), "fotos/RYJ.jpg");
 
         ic.altaPropuesta("tabarec", "Murga", "Un día de Julio",
                 "La Catalina presenta el espectáculo \"Un Día de Julio\" en Landia. Un hombre misterioso y solitario vive encerrado entre las cuatro paredes de su casa. Intenta, con sus teorías extravagantes, cambiar el mundo exterior que le resulta inhabitable. Un día de Julio sucederá algo que cambiará su vida y la de su entorno para siempre.",
-                "Landia", LocalDate.of(2025, 11, 16), "650", "300000", EnumRetorno.AMBOS, LocalDate.of(2017, 8, 6), "fotos/UDJ.jpg");
+                "Landia", LocalDate.of(2025, 11, 16), "650", "300000", EnumRetorno.AMBOS, LocalDate.of(2025, 8, 6), "fotos/UDJ.jpg");
 
         ic.altaPropuesta("hectorg", "Teatro Dramático", "El Lazarillo de Tormes",
                 "Vuelve unas de las producciones de El Galpón más aclamadas de los últimos tiempos. Esta obra se ha presentado en Miami, Nueva York, Washington, México, Guadalajara, Río de Janeiro y La Habana. En nuestro país, El Lazarillo de Tormes fue nominado en los rubros mejor espectáculo y mejor dirección a los Premios Florencio 1995, obteniendo su protagonista Héctor Guido el Florencio a Mejor actor de ese año.",
-                "Teatro el Galpón", LocalDate.of(2025, 12, 3), "350", "175000", EnumRetorno.ENTRADAS_GRATIS, LocalDate.of(2017, 8, 18), "");
+                "Teatro el Galpón", LocalDate.of(2025, 12, 3), "350", "175000", EnumRetorno.ENTRADAS_GRATIS, LocalDate.of(2025, 8, 18), "");
 
         ic.altaPropuesta("losBardo", "Stand-up", "Bardo en la FING",
                 "El 10 de Diciembre se presentará Bardo Científico en la FING. El humor puede ser usado como una herramienta importante para el aprendizaje y la democratización de la ciencia, los monólogos científicos son una forma didáctica de apropiación del conocimiento científico y contribuyen a que el público aprenda ciencia de forma amena. Los invitamos a pasar un rato divertido, en un espacio en el cual aprenderán cosas de la ciencia que los sorprenderán. ¡Los esperamos!",
-                "Anfiteatro Edificio \"José Luis Massera\"", LocalDate.of(2025, 12, 10), "200", "100000", EnumRetorno.ENTRADAS_GRATIS, LocalDate.of(2017, 8, 23), "");
+                "Anfiteatro Edificio \"José Luis Massera\"", LocalDate.of(2025, 12, 10), "200", "100000", EnumRetorno.ENTRADAS_GRATIS, LocalDate.of(2025, 8, 23), "");
         
         ic.cambiarEstadoPropuesta("Cine en el Botánico", EnumEstado.PUBLICADA.toString());
         ic.cambiarEstadoPropuesta("Cine en el Botánico", EnumEstado.EN_FINANCIACION.toString());
