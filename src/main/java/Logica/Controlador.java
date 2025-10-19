@@ -230,10 +230,7 @@ public class Controlador implements IControlador{
                 miPropuesta = p;
                 break;        
             }
-        }                
-        //if($aporte > miPropuesta.getmontoNecesaria() || $aporte > miPropuesta.getmontoNecesaria()-miPropuesta.getmontoAlcanzada()){
-        //    return -2;//ERROR: Aporte superior a lo permitido - ESTO HAY QUE SACARLO el monto puede ser infinito, esto no es error
-        //}        
+        }                     
         if (miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno) == null) {
             return -3;  //Error: El usuario ya colabora con la Propuesta
         }         
@@ -262,10 +259,7 @@ public class Controlador implements IControlador{
                 miPropuesta = p;
                 break;        
             }
-        }                
-        if($aporte > miPropuesta.getmontoNecesaria() || $aporte > miPropuesta.getmontoNecesaria()-miPropuesta.getmontoAlcanzada()){
-            return -2;//ERROR: Aporte superior a lo permitido
-        }        
+        }                      
         if (miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno) == null) {
             return -3;  //Error: El usuario ya colabora con la Propuesta
         }         

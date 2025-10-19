@@ -554,6 +554,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ic.cambiarEstadoPropuesta("Pilsen Rock", EnumEstado.PUBLICADA.toString());
         ic.cambiarEstadoPropuesta("Pilsen Rock", EnumEstado.EN_FINANCIACION.toString());
         
+        ic.cambiarEstadoPropuesta("Romeo y Julieta", EnumEstado.PUBLICADA.toString());
+        ic.cambiarEstadoPropuesta("Romeo y Julieta", EnumEstado.EN_FINANCIACION.toString());         
+        
         ic.cambiarEstadoPropuesta("Un día de Julio", EnumEstado.PUBLICADA.toString());
         ic.cambiarEstadoPropuesta("Un día de Julio", EnumEstado.EN_FINANCIACION.toString());
         
