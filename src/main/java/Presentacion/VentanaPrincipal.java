@@ -398,23 +398,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ic.añadirUsuario("tabarec", "Tabaré", "Cardozo", "tabare.car@agadu.org.uy", LocalDate.of(1971, 7, 24), rutaEstacion + "TC.jpg", BCrypt.hashpw("1234", BCrypt.gensalt()), "Santiago Rivas 1212", "Tabaré Cardozo (Montevideo, 24 de julio de 1971) es un cantante, compositor y murguista uruguayo; conocido por su participación en la murga Agarrate Catalina, conjunto que fundó junto a su hermano Yamandú y Carlos Tanco en el año 2001.", "https://www.facebook.com/Tabar%C3%A9-Cardozo-55179094281/?ref=br_rs", rutaWeb + "TC.jpg");
         ic.añadirUsuario("cachilas", "Waldemar \"Cachila\"", "Silva", "Cachila.sil@c1080.org.uy", LocalDate.of(1947, 1, 1), rutaEstacion + "CS.jpg", BCrypt.hashpw("1234", BCrypt.gensalt()), "Br. Artigas 4567", "Nace en el año 1947 en el conventillo \"Medio Mundo\" ubicado en pleno Barrio Sur. Es heredero parcialmentejunto al resto de sus hermanos- de la Comparsa \"Morenada\" (inactiva desde el fallecimiento de Juan Ángel Silva), en 1999 forma su propia Comparsa de negros y lubolos \"Cuareim 1080\". Director responsable, compositor y cantante de la misma.", "https://www.facebook.com/C1080?ref=br_rs", rutaWeb + "CS.jpg");
         ic.añadirUsuario("hectorg", "Héctor", "Guido", "hector.gui@elgalpon.org.uy", LocalDate.of(1954, 1, 7), rutaEstacion + "HG.jpg", BCrypt.hashpw("1234", BCrypt.gensalt()), "Gral. Flores 5645", "En 1972 ingresó a la Escuela de Arte Dramático del teatro El Galpón. Participó en más de treinta obras teatrales y varios largometrajes. Integró el elenco estable de Radioteatro del Sodre, y en 2006 fue asesor de su Consejo Directivo. Como actor recibió múltiples reconocimientos: cuatro premios Florencio, premio al mejor actor extranjero del Festival de Miami y premio Mejor Actor de Cine 2008. Durante varios períodos fue directivo del teatro El Galpón y dirigente de la Sociedad Uruguaya de Actores (SUA); integró también la Federación Uruguaya de Teatros Independientes (FUTI). Formó parte del equipo de gestión de la refacción de los teatros La Máscara, Astral y El Galpón, y del equipo de gestión en la construcción del teatro De la Candela y de la sala Atahualpa de El Galpón", "", rutaWeb + "HG.jpg");
-        ic.añadirUsuario("juliob", "Julio", "Bocca", "juliobocca@sodre.com.uy", LocalDate.of(1967, 3, 16), "", BCrypt.hashpw("1234", BCrypt.gensalt()), "Benito Blanco 4321", "", "", "");
-        ic.añadirUsuario("diegop", "Diego", "Parodi", "diego@efectocine.com", LocalDate.of(1975, 1, 1), "", BCrypt.hashpw("1234", BCrypt.gensalt()), "Emilio Frugoni 1138 Ap. 02", "", "http://www.efectocine.com", "");
+        ic.añadirUsuario("juliob", "Julio", "Bocca", "juliobocca@sodre.com.uy", LocalDate.of(1967, 3, 16), "", BCrypt.hashpw("1234", BCrypt.gensalt()), "Benito Blanco 4321", "", "", rutaWeb + "default.jpg");
+        ic.añadirUsuario("diegop", "Diego", "Parodi", "diego@efectocine.com", LocalDate.of(1975, 1, 1), "", BCrypt.hashpw("1234", BCrypt.gensalt()), "Emilio Frugoni 1138 Ap. 02", "", "http://www.efectocine.com", rutaWeb + "default.jpg");
         ic.añadirUsuario("kairoh", "Kairo", "Herrera", "kairoher@pilsenrock.com.uy", LocalDate.of(1970, 4, 25), rutaEstacion + "KH.jpg", BCrypt.hashpw("1234", BCrypt.gensalt()), "Paraguay 1423", "", "", rutaWeb + "KH.jpg");
         ic.añadirUsuario("losBardo", "Los", "Bardo", "losbardo@bardocientifico.com", LocalDate.of(1980, 10, 31), rutaEstacion + "LB.jpg", BCrypt.hashpw("1234", BCrypt.gensalt()), "8 de Octubre 1429", "Queremos ser vistos y reconocidos como una organización: referente en divulgación científica con un fuerte espíritu didáctico y divertido, a través de acciones coordinadas con otros divulgadores científicos, que permitan establecer puentes de comunicación. Impulsora en la generación de espacios de democratización y apropiación social del conocimiento científico.", "https://bardocientifico.com/", rutaWeb + "LB.jpg");
 
         //COLABORADORES
-        ic.añadirUsuario("robinh", "Robin", "Henderson", "Robin.h@tinglesa.com.uy", LocalDate.of(1940, 8, 3), "", BCrypt.hashpw("1234", BCrypt.gensalt()), "");
+        ic.añadirUsuario("robinh", "Robin", "Henderson", "Robin.h@tinglesa.com.uy", LocalDate.of(1940, 8, 3), "", BCrypt.hashpw("1234", BCrypt.gensalt()), rutaWeb + "default.jpg");
         ic.añadirUsuario("marcelot", "Marcelo", "Tinelli", "marcelot@ideasdelsur.com.ar", LocalDate.of(1960, 4, 1), rutaEstacion + "MT.jpg", BCrypt.hashpw("1234", BCrypt.gensalt()), rutaWeb + "MT.jpg");
         ic.añadirUsuario("novick", "Edgardo", "Novick", "edgardo@novick.com.uy", LocalDate.of(1952, 7, 17), rutaEstacion + "EN.jpg", BCrypt.hashpw("1234", BCrypt.gensalt()), rutaWeb + "EN.jpg");
         ic.añadirUsuario("sergiop", "Sergio", "Puglia", "puglia@alpanpan.com.uy", LocalDate.of(1950, 1, 28), rutaEstacion + "SP.jpg", BCrypt.hashpw("1234", BCrypt.gensalt()), rutaWeb + "SP.jpg");
         ic.añadirUsuario("chino", "Alvaro", "Recoba", "chino@trico.org.uy", LocalDate.of(1976, 3, 17), rutaEstacion + "AR.jpg", BCrypt.hashpw("1234", BCrypt.gensalt()), rutaWeb + "AR.jpg");
-        ic.añadirUsuario("tonyp", "Antonio", "Pacheco", "eltony@manya.org.uy", LocalDate.of(1955, 2, 14), "", BCrypt.hashpw("1234", BCrypt.gensalt()), "");
+        ic.añadirUsuario("tonyp", "Antonio", "Pacheco", "eltony@manya.org.uy", LocalDate.of(1955, 2, 14), "", BCrypt.hashpw("1234", BCrypt.gensalt()), rutaWeb + "default.jpg");
         ic.añadirUsuario("nicoJ", "Nicolás", "Jodal", "jodal@artech.com.uy", LocalDate.of(1960, 8, 9), rutaEstacion + "NJ.jpg", BCrypt.hashpw("1234", BCrypt.gensalt()), rutaWeb + "NJ.jpg");
-        ic.añadirUsuario("juanP", "Juan", "Perez", "juanp@elpueblo.com", LocalDate.of(1970, 1, 1), "", BCrypt.hashpw("1234", BCrypt.gensalt()), "");
-        ic.añadirUsuario("Mengano", "Mengano", "Gómez", "menganog@elpueblo.com", LocalDate.of(1982, 2, 2), "", BCrypt.hashpw("1234", BCrypt.gensalt()), "");
-        ic.añadirUsuario("Perengano", "Perengano", "López", "pere@elpueblo.com", LocalDate.of(1985, 3, 3), "", BCrypt.hashpw("1234", BCrypt.gensalt()), "");
-        ic.añadirUsuario("Tiajaci", "Tía", "Jacinta", "jacinta@elpueblo.com", LocalDate.of(1990, 4, 4), "", BCrypt.hashpw("1234", BCrypt.gensalt()), "");
+        ic.añadirUsuario("juanP", "Juan", "Perez", "juanp@elpueblo.com", LocalDate.of(1970, 1, 1), "", BCrypt.hashpw("1234", BCrypt.gensalt()), rutaWeb + "default.jpg");
+        ic.añadirUsuario("Mengano", "Mengano", "Gómez", "menganog@elpueblo.com", LocalDate.of(1982, 2, 2), "", BCrypt.hashpw("1234", BCrypt.gensalt()), rutaWeb + "default.jpg");
+        ic.añadirUsuario("Perengano", "Perengano", "López", "pere@elpueblo.com", LocalDate.of(1985, 3, 3), "", BCrypt.hashpw("1234", BCrypt.gensalt()), rutaWeb + "default.jpg");
+        ic.añadirUsuario("Tiajaci", "Tía", "Jacinta", "jacinta@elpueblo.com", LocalDate.of(1990, 4, 4), "", BCrypt.hashpw("1234", BCrypt.gensalt()), rutaWeb + "default.jpg");
 
         //HR
         ic.seguirUsuario("hrubino", "hectorg");
@@ -509,35 +509,35 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         //PROPUESTA
         ic.altaPropuesta("diegop", "Cine al Aire Libre", "Cine en el Botánico",
                 "El 16 de Diciembre a la hora 20 se proyectará la película \"Clever\", en el Jardín Botánico (Av. 19 de Abril 1181) en el marco de las actividades realizadas por el ciclo Cultura al Aire Libre. El largometraje uruguayo de ficción Clever es dirigido por Federico Borgia y Guillermo Madeiro. Es apto para mayores de 15 años.",
-                "Jardín Botánico", LocalDate.of(2017, 12, 16), "200", "150000", EnumRetorno.PORCENTAJE_VENTAS, LocalDate.of(2017, 9, 16), "");
+                "Jardín Botánico", LocalDate.of(2025, 12, 16), "200", "150000", EnumRetorno.PORCENTAJE_VENTAS, LocalDate.of(2025, 9, 16), "");
 
         ic.altaPropuesta("hrubino", "Parodistas", "Religiosamente",
                 "MOMOSAPIENS presenta \"Religiosamente\". Mediante dos parodias y un hilo conductor que aborda la temática de la religión Momosapiens, mediante el humor y la reflexión, hilvana una historia que muestra al hombre inmerso en el tema religioso. El libreto está escrito utilizando diferentes lenguajes de humor, dando una visión satírica y reflexiva desde distintos puntos de vista, logrando mediante situaciones paródicas armar una propuesta plena de arte carnavalero.",
-                "Teatro de Verano", LocalDate.of(2017, 10, 7), "300", "300000", EnumRetorno.AMBOS, LocalDate.of(2017, 6, 18), "fotos/MOM.jpg");
+                "Teatro de Verano", LocalDate.of(2025, 10, 7), "300", "300000", EnumRetorno.AMBOS, LocalDate.of(2025, 6, 18), "fotos/MOM.jpg");
 
         ic.altaPropuesta("mbusca", "Concierto", "El Pimiento Indomable",
                 "El Pimiento Indomable, formación compuesta por Kiko Veneno y el uruguayo Martín Buscaglia, presentará este 19 de Octubre, su primer trabajo. Bajo un título homónimo al del grupo, es un disco que según los propios protagonistas “no se parece al de ninguno de los dos por separado. Entre los títulos que se podrán escuchar se encuentran “Nadador salvador”, “América es más grande”, “Pescaito Enroscado” o “La reina del placer”.",
-                "Teatro Solís", LocalDate.of(2017, 10, 19), "400", "400000", EnumRetorno.PORCENTAJE_VENTAS, LocalDate.of(2017, 7, 26), "fotos/PIM.jpg");
+                "Teatro Solís", LocalDate.of(2025, 10, 19), "400", "400000", EnumRetorno.PORCENTAJE_VENTAS, LocalDate.of(2025, 7, 26), "fotos/PIM.jpg");
 
         ic.altaPropuesta("kairoh", "Festival", "Pilsen Rock",
                 "La edición 2017 del Pilsen Rock se celebrará el 21 de Octubre en la Rural del Prado y contará con la participación de más de 15 bandas nacionales. Quienes no puedan trasladarse al lugar, tendrán la posibilidad de disfrutar los shows a través de Internet, así como entrevistas en vivo a los músicos una vez finalizados los conciertos.",
-                "Rural de Prado", LocalDate.of(2017, 10, 21), "1000", "900000", EnumRetorno.AMBOS, LocalDate.of(2017, 7, 30), "fotos/PIL.jpg");
+                "Rural de Prado", LocalDate.of(2025, 10, 21), "1000", "900000", EnumRetorno.AMBOS, LocalDate.of(2025, 7, 30), "fotos/PIL.jpg");
 
         ic.altaPropuesta("juliob", "Ballet", "Romeo y Julieta",
                 "Romeo y Julieta de Kenneth MacMillan, uno de los ballets favoritos del director artístico Julio Bocca, se presentará nuevamente el 5 de Noviembre en el Auditorio Nacional del Sodre. Basada en la obra homónima de William Shakespeare, Romeo y Julieta es considerada la coreografía maestra del MacMillan. La producción de vestuario y escenografía se realizó en los Talleres del Auditorio Adela Reta, sobre los diseños originales.",
-                "Auditorio Nacional del Sodre", LocalDate.of(2017, 11, 5), "800", "750000", EnumRetorno.PORCENTAJE_VENTAS, LocalDate.of(2017, 8, 4), "fotos/RYJ.jpg");
+                "Auditorio Nacional del Sodre", LocalDate.of(2025, 11, 5), "800", "750000", EnumRetorno.PORCENTAJE_VENTAS, LocalDate.of(2025, 8, 4), "fotos/RYJ.jpg");
 
         ic.altaPropuesta("tabarec", "Murga", "Un día de Julio",
                 "La Catalina presenta el espectáculo \"Un Día de Julio\" en Landia. Un hombre misterioso y solitario vive encerrado entre las cuatro paredes de su casa. Intenta, con sus teorías extravagantes, cambiar el mundo exterior que le resulta inhabitable. Un día de Julio sucederá algo que cambiará su vida y la de su entorno para siempre.",
-                "Landia", LocalDate.of(2017, 11, 16), "650", "300000", EnumRetorno.AMBOS, LocalDate.of(2017, 8, 6), "fotos/UDJ.jpg");
+                "Landia", LocalDate.of(2025, 11, 16), "650", "300000", EnumRetorno.AMBOS, LocalDate.of(2025, 8, 6), "fotos/UDJ.jpg");
 
         ic.altaPropuesta("hectorg", "Teatro Dramático", "El Lazarillo de Tormes",
                 "Vuelve unas de las producciones de El Galpón más aclamadas de los últimos tiempos. Esta obra se ha presentado en Miami, Nueva York, Washington, México, Guadalajara, Río de Janeiro y La Habana. En nuestro país, El Lazarillo de Tormes fue nominado en los rubros mejor espectáculo y mejor dirección a los Premios Florencio 1995, obteniendo su protagonista Héctor Guido el Florencio a Mejor actor de ese año.",
-                "Teatro el Galpón", LocalDate.of(2017, 12, 3), "350", "175000", EnumRetorno.ENTRADAS_GRATIS, LocalDate.of(2017, 8, 18), "");
+                "Teatro el Galpón", LocalDate.of(2025, 12, 3), "350", "175000", EnumRetorno.ENTRADAS_GRATIS, LocalDate.of(2025, 8, 18), "");
 
         ic.altaPropuesta("losBardo", "Stand-up", "Bardo en la FING",
                 "El 10 de Diciembre se presentará Bardo Científico en la FING. El humor puede ser usado como una herramienta importante para el aprendizaje y la democratización de la ciencia, los monólogos científicos son una forma didáctica de apropiación del conocimiento científico y contribuyen a que el público aprenda ciencia de forma amena. Los invitamos a pasar un rato divertido, en un espacio en el cual aprenderán cosas de la ciencia que los sorprenderán. ¡Los esperamos!",
-                "Anfiteatro Edificio \"José Luis Massera\"", LocalDate.of(2017, 12, 10), "200", "100000", EnumRetorno.ENTRADAS_GRATIS, LocalDate.of(2017, 8, 23), "");
+                "Anfiteatro Edificio \"José Luis Massera\"", LocalDate.of(2025, 12, 10), "200", "100000", EnumRetorno.ENTRADAS_GRATIS, LocalDate.of(2025, 8, 23), "");
         
         ic.cambiarEstadoPropuesta("Cine en el Botánico", EnumEstado.PUBLICADA.toString());
         ic.cambiarEstadoPropuesta("Cine en el Botánico", EnumEstado.EN_FINANCIACION.toString());
@@ -554,29 +554,32 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ic.cambiarEstadoPropuesta("Pilsen Rock", EnumEstado.PUBLICADA.toString());
         ic.cambiarEstadoPropuesta("Pilsen Rock", EnumEstado.EN_FINANCIACION.toString());
         
+        ic.cambiarEstadoPropuesta("Romeo y Julieta", EnumEstado.PUBLICADA.toString());
+        ic.cambiarEstadoPropuesta("Romeo y Julieta", EnumEstado.EN_FINANCIACION.toString());         
+        
         ic.cambiarEstadoPropuesta("Un día de Julio", EnumEstado.PUBLICADA.toString());
         ic.cambiarEstadoPropuesta("Un día de Julio", EnumEstado.EN_FINANCIACION.toString());
         
         ic.cambiarEstadoPropuesta("El Lazarillo de Tormes", EnumEstado.PUBLICADA.toString());
         
         //COLABORACIONES/APORTES
-        ic.altaAporte("novick","Cine en el Botánico",50000, 0, EnumRetorno.PORCENTAJE_VENTAS , LocalDateTime.of(2017, 5, 20, 14, 30));
-        ic.altaAporte("robinh","Cine en el Botánico",50000, 0, EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2017, 5, 24, 17, 25));
-        ic.altaAporte("nicoJ","Cine en el Botánico",50000, 0, EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2017, 5, 30, 18, 30));
-        ic.altaAporte("marcelot","Religiosamente",200000, 0, EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2017, 6, 30, 14, 25));
-        ic.altaAporte("Tiajaci","Religiosamente",500, 0, EnumRetorno.ENTRADAS_GRATIS,LocalDateTime.of(2017, 7, 1, 18, 5));
-        ic.altaAporte("Mengano","Religiosamente",600, 0,EnumRetorno.ENTRADAS_GRATIS, LocalDateTime.of(2017, 7, 7, 17, 45));
-        ic.altaAporte("novick","Religiosamente",50000, 0,EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2017, 7, 10, 14, 35));
-        ic.altaAporte("sergiop","Religiosamente",50000, 0, EnumRetorno.PORCENTAJE_VENTAS,LocalDateTime.of(2017, 7, 15, 9, 45));
-        ic.altaAporte("marcelot","El Pimiento Indomable",200000, 0,EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2017, 8, 1, 7, 40));
-        ic.altaAporte("sergiop","El Pimiento Indomable",80000, 0,EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2017, 8, 3, 9, 25));
-        ic.altaAporte("chino","Pilsen Rock",50000, 0,EnumRetorno.ENTRADAS_GRATIS, LocalDateTime.of(2017, 8, 5, 16, 50));
-        ic.altaAporte("novick","Pilsen Rock",120000, 0, EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2017, 8, 10, 15, 50));
-        ic.altaAporte("tonyp","Pilsen Rock",120000, 0,EnumRetorno.ENTRADAS_GRATIS, LocalDateTime.of(2017, 8, 15, 19, 30));
-        ic.altaAporte("sergiop","Romeo y Julieta", 100000, 0,EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2017, 8, 13, 4, 58));
-        ic.altaAporte("marcelot","Romeo y Julieta",200000, 0,EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2017, 8, 14, 11, 25));
-        ic.altaAporte("tonyp","Un día de Julio",30000, 0,EnumRetorno.ENTRADAS_GRATIS, LocalDateTime.of(2017, 8, 15, 4, 48));
-        ic.altaAporte("marcelot","Un día de Julio",150000, 0,EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2017, 8, 17, 15, 30));
+        ic.altaAporte("novick","Cine en el Botánico",50000, 0, EnumRetorno.PORCENTAJE_VENTAS , LocalDateTime.of(2025, 5, 20, 14, 30));
+        ic.altaAporte("robinh","Cine en el Botánico",50000, 0, EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2025, 5, 24, 17, 25));
+        ic.altaAporte("nicoJ","Cine en el Botánico",50000, 0, EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2025, 5, 30, 18, 30));
+        ic.altaAporte("marcelot","Religiosamente",200000, 0, EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2025, 6, 30, 14, 25));
+        ic.altaAporte("Tiajaci","Religiosamente",500, 0, EnumRetorno.ENTRADAS_GRATIS,LocalDateTime.of(2025, 7, 1, 18, 5));
+        ic.altaAporte("Mengano","Religiosamente",600, 0,EnumRetorno.ENTRADAS_GRATIS, LocalDateTime.of(2025, 7, 7, 17, 45));
+        ic.altaAporte("novick","Religiosamente",50000, 0,EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2025, 7, 10, 14, 35));
+        ic.altaAporte("sergiop","Religiosamente",50000, 0, EnumRetorno.PORCENTAJE_VENTAS,LocalDateTime.of(2025, 7, 15, 9, 45));
+        ic.altaAporte("marcelot","El Pimiento Indomable",200000, 0,EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2025, 8, 1, 7, 40));
+        ic.altaAporte("sergiop","El Pimiento Indomable",80000, 0,EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2025, 8, 3, 9, 25));
+        ic.altaAporte("chino","Pilsen Rock",50000, 0,EnumRetorno.ENTRADAS_GRATIS, LocalDateTime.of(2025, 8, 5, 16, 50));
+        ic.altaAporte("novick","Pilsen Rock",120000, 0, EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2025, 8, 10, 15, 50));
+        ic.altaAporte("tonyp","Pilsen Rock",120000, 0,EnumRetorno.ENTRADAS_GRATIS, LocalDateTime.of(2025, 8, 15, 19, 30));
+        ic.altaAporte("sergiop","Romeo y Julieta", 100000, 0,EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2025, 8, 13, 4, 58));
+        ic.altaAporte("marcelot","Romeo y Julieta",200000, 0,EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2025, 8, 14, 11, 25));
+        ic.altaAporte("tonyp","Un día de Julio",30000, 0,EnumRetorno.ENTRADAS_GRATIS, LocalDateTime.of(2025, 8, 15, 4, 48));
+        ic.altaAporte("marcelot","Un día de Julio",150000, 0,EnumRetorno.PORCENTAJE_VENTAS, LocalDateTime.of(2025, 8, 17, 15, 30));
 
         javax.swing.JOptionPane.showMessageDialog(this, "Datos de prueba cargados correctamente", "Atención", javax.swing.JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jMenuItem2ActionPerformed

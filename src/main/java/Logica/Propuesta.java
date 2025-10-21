@@ -15,13 +15,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-
 @Entity
-@Table(name="Propuesta")
+@Table(name = "Propuesta")
 public class Propuesta implements Serializable {
+
     @Id
     private String titulo;
-    @Column(name="descripcion",length=1000)
+    @Column(name = "descripcion", length = 1000)
     private String descrip;
     private String imagen = "";
     private String lugar;
@@ -46,8 +46,8 @@ public class Propuesta implements Serializable {
     @ManyToOne
     @JoinColumn(name = "nombre_Categoria")
     private Categoria categoria;
-    
-    public Propuesta(){
+
+    public Propuesta() {
     }
 
     public Propuesta(Proponente prop, String titulo, String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual) {
@@ -60,16 +60,16 @@ public class Propuesta implements Serializable {
         this.montoNecesaria = montoNecesario;
         this.posibleRetorno = posibleRetorno;
         this.fecha = fechaActual;
-        this.fechaLimit = LocalDateTime.now().plusDays(30);
+        this.fechaLimit = fechaActual.atStartOfDay().plusDays(30);
         Estado estado = new Estado(EnumEstado.valueOf("INGRESADA"), fechaActual);
-        
+
         this.estadoActual = estado;
         this.misEstados.add(estado);
 
         //DIALOGAR PARA VER QUE HACEMOS CON ESTA EN ESPECIFICO!!!!!!!!!!!!!
     }
-    
-    public Propuesta(Categoria c,Proponente prop, String titulo, String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual) {
+
+    public Propuesta(Categoria c, Proponente prop, String titulo, String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual) {
         this.miProponente = prop;
         this.titulo = titulo;
         this.descrip = descripcion;
@@ -79,15 +79,15 @@ public class Propuesta implements Serializable {
         this.montoNecesaria = montoNecesario;
         this.posibleRetorno = posibleRetorno;
         this.fecha = fechaActual;
-        this.fechaLimit = LocalDateTime.now().plusDays(30);
+        this.fechaLimit = fechaActual.atStartOfDay().plusDays(30);
         Estado estado = new Estado(EnumEstado.valueOf("INGRESADA"), fechaActual);
-        
+
         this.estadoActual = estado;
         this.misEstados.add(estado);
         this.categoria = c;
 
     }
-    
+
     public Propuesta(Categoria c, Proponente prop, String titulo, String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual, String imagen) {
         this.miProponente = prop;
         this.titulo = titulo;
@@ -98,44 +98,49 @@ public class Propuesta implements Serializable {
         this.montoNecesaria = montoNecesario;
         this.posibleRetorno = posibleRetorno;
         this.fecha = fechaActual;
-        
+        this.fechaLimit = fechaActual.atStartOfDay().plusDays(30);
+
         Estado estado = new Estado(EnumEstado.valueOf("INGRESADA"), fechaActual);
-        
+
         this.estadoActual = estado;
         this.misEstados.add(estado);
         this.categoria = c;
-        
+
         this.imagen = imagen;
 
     }
-    
-    public void modificarPropuesta(String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, String posibleRetorno, String estado, String imagen, Categoria c){
+
+    public void modificarPropuesta(String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, String posibleRetorno, String estado, String imagen, Categoria c) {
         this.descrip = descripcion;
         this.lugar = lugar;
         this.fechaPubli = fechaPrev;
         this.montoEntrada = montoXentrada;
         this.montoNecesaria = montoNecesario;
-        
+
         EnumRetorno retorno;
-        switch(posibleRetorno){
-            case "ENTRADAS_GRATIS" -> retorno = EnumRetorno.valueOf("ENTRADAS_GRATIS");
-            case "PORCENTAJE_VENTAS" -> retorno = EnumRetorno.valueOf("PORCENTAJE_VENTAS");
-            case "AMBOS" -> retorno = EnumRetorno.valueOf("AMBOS");
-            default -> retorno = EnumRetorno.valueOf("ERROR");
+        switch (posibleRetorno) {
+            case "ENTRADAS_GRATIS" ->
+                retorno = EnumRetorno.valueOf("ENTRADAS_GRATIS");
+            case "PORCENTAJE_VENTAS" ->
+                retorno = EnumRetorno.valueOf("PORCENTAJE_VENTAS");
+            case "AMBOS" ->
+                retorno = EnumRetorno.valueOf("AMBOS");
+            default ->
+                retorno = EnumRetorno.valueOf("ERROR");
         }
         this.posibleRetorno = retorno;
-        
+
         Estado est = new Estado(EnumEstado.valueOf(estado), LocalDate.now());
         this.estadoActual = est;
         this.misEstados.add(est);
-        
+
         this.imagen = imagen;
-        
+
         this.categoria = c;
     }
-    
-     public String getTitulo_Nickname(){
-        return this.titulo+" by "+this.miProponente.getNickname();
+
+    public String getTitulo_Nickname() {
+        return this.titulo + " by " + this.miProponente.getNickname();
     }
 
     public double getmontoNecesaria() {
@@ -153,55 +158,55 @@ public class Propuesta implements Serializable {
     public EnumRetorno getPosibleRetorno() {
         return posibleRetorno;
     }
-        
-    public void addAporte(Aporte a){
+
+    public void addAporte(Aporte a) {
         misAportes.add(a);
         a.setMiPropuesta(this);
-        montoAlcanzada+=a.get$aporte();
+        montoAlcanzada += a.get$aporte();
     }
-    
-    public void desvincularAporte(Aporte a){
-        this.montoAlcanzada-=a.get$aporte();
+
+    public void desvincularAporte(Aporte a) {
+        this.montoAlcanzada -= a.get$aporte();
         this.misAportes.remove(a);
     }
-    
-    public List<Aporte> getAportes(){
-        return this.misAportes; 
+
+    public List<Aporte> getAportes() {
+        return this.misAportes;
     }
-    
-    public String getImagen(){
+
+    public String getImagen() {
         return this.imagen;
     }
-    
-    public Estado getEstadoActual(){
+
+    public Estado getEstadoActual() {
         return this.estadoActual;
     }
-    
-    public Proponente getProponente(){
+
+    public Proponente getProponente() {
         return this.miProponente;
     }
-    
-    public String getDescripcion(){
+
+    public String getDescripcion() {
         return this.descrip;
     }
-    
-    public String getLugar(){
+
+    public String getLugar() {
         return this.lugar;
     }
-    
-    public Double getEntrada(){
+
+    public Double getEntrada() {
         return this.montoEntrada;
     }
-    
-    public Double getNecesaria(){
+
+    public Double getNecesaria() {
         return this.montoNecesaria;
     }
-    
-    public EnumRetorno getRetorno(){
+
+    public EnumRetorno getRetorno() {
         return this.posibleRetorno;
     }
-    
-    public LocalDate getFechaARealizar(){
+
+    public LocalDate getFechaARealizar() {
         return this.fechaPubli;
     }
 
@@ -212,22 +217,24 @@ public class Propuesta implements Serializable {
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
-    
-    public String getCategoria(){
+
+    public String getCategoria() {
         return this.categoria.getNombre();
     }
-    public Categoria getCategoriaClase(){
+
+    public Categoria getCategoriaClase() {
         return this.categoria;
     }
-    public Double getAlcanzada(){
+
+    public Double getAlcanzada() {
         return this.montoAlcanzada;
     }
-    
+
     public void setEstadoActual(Estado estadoActual) {
         this.estadoActual = estadoActual;
     }
-    
-        public LocalDateTime getFechaLimit() {
+
+    public LocalDateTime getFechaLimit() {
         return fechaLimit;
     }
 
@@ -235,12 +242,10 @@ public class Propuesta implements Serializable {
         this.fechaLimit = fechaLimit;
     }
 
-    public void actualizarEstadoActual(EnumEstado estado){
-        Estado e = new Estado(estado,LocalDate.now());
+    public void actualizarEstadoActual(EnumEstado estado) {
+        Estado e = new Estado(estado, LocalDate.now());
         this.estadoActual = e;
         this.misEstados.add(e);
     }
-  
+
 }
-
-
